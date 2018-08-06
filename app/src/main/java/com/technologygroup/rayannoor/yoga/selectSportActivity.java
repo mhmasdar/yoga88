@@ -136,6 +136,7 @@ public class selectSportActivity extends AppCompatActivity {
                     prefs = getSharedPreferences("User", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("idCity", selectedCity);
+                    editor.putInt("idState", selectedState);
                     editor.putInt("idField", selectedField);
                     editor.putBoolean("isFirstRun", false);
                     editor.apply();
