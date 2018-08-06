@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="right"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="تعیین منطقه مکانی"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/use_province_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="برای استفاده هرچه بهتر از محتوای برنامه، لطفا شهر و استان محل زندگی خود را وارد کنید"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <Spinner
+        android:id="@+id/StateSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="gravity"
+        android:gravity="right|center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">انتخاب کنید</Spinner>
+
+    <Spinner
+        android:id="@+id/CitySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="gravity"
+        android:gravity="right|center_vertical"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:paddingTop="10dp">...</Spinner>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSendState_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/profile_border"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="تایید"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

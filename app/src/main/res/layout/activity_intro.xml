@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:id="@+id/imgIntroPage"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytImages"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/img"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:src="@drawable/logo"
+                android:layout_height="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="ورزشکار"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:orientation="vertical"
+       android:layout_height="match_parent">
+
+       <android.support.v4.view.ViewPager
+           android:layout_width="match_parent"
+           android:id="@+id/viewpager"
+           android:layout_marginBottom="20dp"
+           android:layout_weight="1"
+           android:visibility="gone"
+           android:layout_height="match_parent"/>
+
+       <com.viewpagerindicator.CirclePageIndicator
+           android:id="@+id/indicator"
+           android:layout_width="match_parent"
+           android:layout_height="35dp"
+           android:paddingTop="5dp"
+           app:fillColor="@color/black"
+           app:pageColor="@color/white"
+           app:snap="false" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:id="@+id/lytIntroBottom"
+           android:visibility="gone"
+           android:orientation="horizontal"
+           android:background="@color/white"
+           android:layout_alignParentBottom="true"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_weight="1"
+               android:text="ثبت نام"
+               android:paddingTop="15dp"
+               android:paddingBottom="15dp"
+               android:id="@+id/txtRegister"
+               android:background="?attr/selectableItemBackground"
+               android:textSize="16sp"
+               android:textStyle="bold"
+               android:textColor="@color/black"
+               android:gravity="center"
+               android:layout_height="wrap_content" />
+
+           <RelativeLayout
+               android:layout_width="0.5dp"
+               android:background="@color/gray"
+               android:layout_height="match_parent"></RelativeLayout>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_weight="1"
+               android:paddingTop="15dp"
+               android:paddingBottom="15dp"
+               android:text="ورود"
+               android:id="@+id/txtLogin"
+               android:background="?attr/selectableItemBackground"
+               android:textSize="16sp"
+               android:textStyle="bold"
+               android:textColor="@color/black"
+               android:gravity="center"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+
+</RelativeLayout>

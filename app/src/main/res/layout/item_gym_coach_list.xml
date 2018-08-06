@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:gravity="right|center_vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_list"
+                android:layout_height="20dp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="نام مربی"
+            android:layout_marginRight="8dp"
+            android:textSize="15sp"
+            android:id="@+id/txtCoachName"
+            android:layout_height="wrap_content" />
+
+        <com.technologygroup.rayannoor.yoga.RoundedImageView
+            android:layout_width="35dp"
+            android:id="@+id/imgCoach"
+            android:src="@mipmap/ic_man"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/lytEdit"
+        android:gravity="left|center_vertical"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtDelete"
+            android:layout_width="wrap_content"
+            android:text="حذف مربی"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:padding="9dp"
+            android:id="@+id/imgDelete"
+            android:src="@drawable/ic_delete"
+            android:layout_height="35dp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#dadada"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_height="0.5dp"/>
+
+</LinearLayout>

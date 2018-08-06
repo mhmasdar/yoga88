@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/drawer_layout"
+    tools:openDrawer="start"
+    tools:context="com.technologygroup.rayannoor.yoga.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:id="@+id/mainAppBar"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.design.widget.CoordinatorLayout
+                        android:layout_width="wrap_content"
+                        android:id="@+id/relative_Msg"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/ic_notif" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/txt_newMessageCount"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/notif_back"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginLeft="18dp"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:text="3"
+                            android:visibility="invisible"/>
+
+                    </android.support.design.widget.CoordinatorLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="کمیته ورزشی x"
+                        android:id="@+id/txtTitle"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:id="@+id/lytMenu"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="21dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_menu"
+                            android:layout_height="21dp" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytTeachs"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.CoordinatorLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_home2" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/imgNewTeach"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_new"
+                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginLeft="35dp"
+                        android:visibility="gone"/>
+
+                </android.support.design.widget.CoordinatorLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="آموزش ها"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:background="#bfbfbf"
+                android:layout_height="match_parent"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytYogaIntroduce"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:src="@drawable/ic_home1"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="معرفی "
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:background="#bfbfbf"
+                android:layout_height="match_parent"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytCommingSoon"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:src="@drawable/ic_home5"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="بزودی..."
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.technologygroup.rayannoor.yoga.ViewPagerCustomDuration
+            android:layout_width="match_parent"
+            android:layout_weight="1.5"
+            android:id="@+id/pager"
+            android:layout_height="0dp"></com.technologygroup.rayannoor.yoga.ViewPagerCustomDuration>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytGyms"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:src="@drawable/ic_home4"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text=" باشگاه ها"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:background="#bfbfbf"
+                android:layout_height="match_parent"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytReferee"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:src="@drawable/ic_referee"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="داوران"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0.5dp"
+                android:background="#bfbfbf"
+                android:layout_height="match_parent"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/lytCoaches"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:src="@drawable/ic_home3"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text=" مربیان"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.rom4ek.arcnavigationview.ArcNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        app:itemBackground="@android:color/white"
+        app:headerLayout="@layout/nav_header_main"
+        app:arc_cropDirection="cropInside"
+        app:arc_width="95dp"/>
+
+</android.support.v4.widget.DrawerLayout>

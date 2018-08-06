@@ -1,0 +1,200 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.technologygroup.rayannoor.yoga.Gyms.AddCoachActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.15"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="wrap_content">
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/expandable_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            app:el_duration="1000"
+                            app:el_expanded="false"
+                            app:el_parallax="0.5"
+                            android:background="@drawable/search_back"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingRight="10dp"
+                                android:minHeight="?attr/actionBarSize">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:id="@+id/lytSearch"
+                                    android:gravity="center"
+                                    android:paddingLeft="15dp"
+                                    android:paddingRight="15dp"
+                                    android:background="@drawable/search_text_back"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:text="جستجو"
+                                        android:gravity="center"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/white"
+                                        android:layout_height="match_parent" />
+
+                                </LinearLayout>
+
+                                <EditText
+                                    android:id="@+id/edtSearch"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:hint="نام کامل مربی را وارد کنید"
+                                    android:singleLine="true"
+                                    android:textCursorDrawable="@drawable/cursor_color"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:layout_weight="0.7"/>
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:src="@drawable/ic_search_small"
+                                    />
+
+                            </LinearLayout>
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/lytBack"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="21dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_back"
+                            android:layout_height="21dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytMain"
+        android:layout_height="wrap_content">
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/Recycler"
+            android:layout_height="wrap_content"></com.cooltechworks.views.shimmer.ShimmerRecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytDisconnect"
+        android:visibility="gone"
+        android:gravity="center"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_disconnect"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="شما به اینترنت وصل نیستین !"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:text="تلاش مجدد"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_back_yellow"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytEmpty"
+        android:visibility="gone"
+        android:gravity="center"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_not_found"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="هیج موردی یافت نشد !"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

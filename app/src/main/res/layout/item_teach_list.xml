@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="عنوان حرکت "
+            android:layout_marginRight="10dp"
+            android:textColor="@color/lightBlack"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTitle"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:id="@+id/imgTeach"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_teacch"
+            android:layout_margin="10dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="0.5dp"></RelativeLayout>
+
+</LinearLayout>

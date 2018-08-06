@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yoga.iml" filepath="$PROJECT_DIR$/yoga.iml" />
+      <module fileurl="file://E:\Users\hesi100\AndroidStudioProjects\yoga\.idea\yoga.iml" filepath="E:\Users\hesi100\AndroidStudioProjects\yoga\.idea\yoga.iml" />
+    </modules>
+  </component>
+</project>

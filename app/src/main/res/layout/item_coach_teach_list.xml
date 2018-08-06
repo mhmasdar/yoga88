@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="right|center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:src="@drawable/ic_list"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="آموزش حرکت ماهی حرفه ای"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:id="@+id/txtitle"
+                    android:textSize="13sp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:padding="9dp"
+                    android:id="@+id/imgDelete"
+                    android:src="@drawable/ic_delete"
+                    android:layout_height="35dp" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="35dp"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/imgEdit"
+                    android:src="@drawable/ic_edit"
+                    android:layout_height="35dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:id="@+id/txtDate"
+                    android:text="1396/12/25"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:src="@drawable/img"
+            android:scaleType="fitXY"
+            android:id="@+id/imgTeach"
+            android:layout_height="80dp" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

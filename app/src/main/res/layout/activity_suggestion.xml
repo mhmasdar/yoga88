@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SuggestionActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="پشتیبانی"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back_white"
+                        android:layout_height="22dp" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:padding="15dp"
+                android:lineSpacingMultiplier="1.2"
+                android:layout_gravity="right"
+                android:text="@string/support"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/edtName"
+                    android:layout_weight="0.2"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:hint="نام و نام خانوادگی"
+                    android:textColorHint="@color/lightBlack"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_transparent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/edtEmail"
+                    android:layout_weight="0.2"
+                    android:padding="8dp"
+                    android:inputType="textWebEmailAddress"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:hint="آدرس ایمیل"
+                    android:textColorHint="@color/lightBlack"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_transparent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/edtTitle"
+                    android:layout_weight="0.2"
+                    android:padding="8dp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:hint="موضوع پیام"
+                    android:textColorHint="@color/lightBlack"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_transparent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="20dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/edtBody"
+                        android:padding="8dp"
+                        android:textCursorDrawable="@drawable/cursor_color"
+                        android:hint="متن پیام را وارد کنید"
+                        android:textColorHint="@color/lightBlack"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_transparent"
+                        android:layout_height="120dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btnSendSuggestion"
+                        android:layout_marginTop="20dp"
+                        android:text="ارسال پیام"
+                        android:textColor="@color/white"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:layout_gravity="left"
+                        android:background="@color/green"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"></LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

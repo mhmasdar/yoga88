@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.technologygroup.rayannoor.yoga.Coaches.CoachEditDetialsActivity">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <android.support.design.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:fitsSystemWindows="false"
+            tools:context=".ProfileActivity"
+            tools:ignore="MergeRootFrame">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/header"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:background="@color/colorPrimary"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/relative_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="10dp">
+
+
+                            <ImageView
+                                android:id="@+id/imgBack"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="8dp"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/ic_back"
+                                android:background="?attr/selectableItemBackground"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.1"
+                            android:layout_height="wrap_content"></RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:id="@+id/lytChangePassword"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:background="@drawable/profile_border"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="7dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="تغییر کلمه عبور"
+                                android:textSize="12sp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:layout_marginRight="5dp"
+                                android:textColor="@color/black" />
+
+                            <ImageView
+                                android:layout_width="19dp"
+                                android:layout_height="19dp"
+                                android:src="@drawable/ic_lock" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:id="@+id/lytLogOut"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/profile_border"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="7dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:textSize="12sp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:text="خروج از حساب کاربری"
+                                android:textColor="@color/black" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_exit" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.1"
+                            android:layout_height="match_parent"></RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtFName"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="نام"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:maxLines="1"
+                                android:textSize="15sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtLName"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="نام خانوادگی"
+
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="15sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtNatCode"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="کد ملی"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLength="10"/>
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/lytMobile"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtMobile"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="شماره همراه"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:maxLength="11"/>
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/lytTelegram"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtTelegram"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="آی دی تلگرام"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/lytInstagram"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtInstagram"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="آی دی اینستاگرام"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/lytEmail"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="0.2"
+                            android:theme="@style/TextLabel"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:id="@+id/edtEmail"
+                                android:textCursorDrawable="@drawable/cursor_color"
+                                android:hint="ایمیل"
+                                android:textColor="@color/black"
+                                android:background="@drawable/edit_text_back_login"
+                                android:padding="5dp"
+                                android:textColorHint="@color/colorPrimary"
+                                android:maxLines="1"
+                                android:textSize="14sp"
+                                android:gravity="right|center_vertical"
+                                android:layout_height="wrap_content" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"></LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <com.technologygroup.rayannoor.yoga.RoundedImageView
+                android:layout_width="100dp"
+                android:id="@+id/imgProfile"
+                android:layout_height="100dp"
+                android:layout_gravity="center|bottom"
+                android:src="@mipmap/ic_man"
+                app:layout_anchor="@id/header"
+                app:layout_anchorGravity="center" />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lytEditInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/green">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_height="wrap_content"
+                android:text="ویرایش اطلاعات"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:src="@drawable/ic_ok"
+                android:layout_marginLeft="10dp"
+                android:layout_height="25dp" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

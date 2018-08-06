@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="280dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="اضافه کردن دوره های قابل تدریس"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:id="@+id/imgClose"
+            android:src="@drawable/ic_close"
+            android:padding="10dp"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:background="@color/actionBarBack"
+            android:id="@+id/edtCourse"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:hint="نام دوره "
+            android:layout_marginTop="15dp"
+            android:textCursorDrawable="@color/colorPrimary"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:textSize="13sp"
+            android:layout_height="wrap_content" />
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:layout_width="match_parent"
+            android:id="@+id/btnOk"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:spinning_bar_color="@color/black"
+            android:textStyle="bold"
+            android:background="@drawable/button_back_login"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

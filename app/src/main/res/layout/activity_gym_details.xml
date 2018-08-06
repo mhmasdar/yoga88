@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/imgGym"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:id="@+id/imgEditGymDetails"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_edit_white"
+                    android:layout_height="40dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:id="@+id/imgBack"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_back_white"
+                    android:layout_height="45dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="باشگاه کیمیا تبریز"
+                    android:id="@+id/txtGymName"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    style="@style/AudioFileInfoOverlayText2"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="سطح سه ستاره"
+                    android:id="@+id/txtCoachLevel"
+                    android:textSize="14sp"
+                    android:layout_marginTop="15dp"
+                    style="@style/AudioFileInfoOverlayText2"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:background="#cd212121"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <RatingBar
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:numStars="5"
+                        android:theme="@style/RatingBar"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/txtCoachRate"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="#ffffff"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="0.5dp"
+                    android:background="#ffffff"
+                    android:layout_height="match_parent"></RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:src="@drawable/ic_like"
+                        android:layout_height="22dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/txtLikeCount"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="#ffffff"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="#f2f2f2"
+                android:paddingBottom="55dp"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockHonours"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:id="@+id/lytGymHonours"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_certificate"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="افتخارات"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockAbout"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/lytAbout"
+                            android:orientation="vertical"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_bio"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="درباره"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockClip"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/lytClip"
+                            android:orientation="vertical"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_clip"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="کلیپ و ویدئو"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockPhotos"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/lytPhotos"
+                            android:orientation="vertical"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_gallery"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="گالری عکس"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockCoaches"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytCoaches"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_contract_gyms"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text=" مربیان طرف قرارداد"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockCourse"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytCourses"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_certificate"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="دوره های آموزشی"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockWorkTime"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytWorkTime"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_schedule"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="ساعات کاری"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockNotifs"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytNotifs"
+                            android:alpha="0.3"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_notifs"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="اعلانات و اطلاعیه ها"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockComments"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytComments"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:alpha="0.3"
+                            android:layout_height="match_parent">
+
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_commet_yellow"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="نظرات کاربران"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green"
+        android:id="@+id/lytGymProfileUpgrade"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="ارتقا پروفایل"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:src="@drawable/ic_upgrade"
+                android:layout_height="17dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

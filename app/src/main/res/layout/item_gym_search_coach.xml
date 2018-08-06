@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/lytCoachSelect"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="تایید"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/coach_edit_profile_back"
+                android:layout_height="wrap_content">
+
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txtCoachName"
+                android:text="هادی قهرمانی"
+                android:textSize="15sp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/txtCoachAddress"
+                android:text="آذربایجان شرقی - تبریز"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <com.technologygroup.rayannoor.yoga.RoundedImageView
+            android:layout_width="40dp"
+            android:id="@+id/imgCoach"
+            android:src="@mipmap/ic_man"
+            android:layout_height="40dp" />
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/lytRegister"
+    tools:context="com.technologygroup.rayannoor.yoga.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtFName"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="نام"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtLName"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="نام خانوادگی"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtMobile"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="شماره همراه"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_transparent"
+            android:gravity="right|center_vertical"
+            android:hint="ایمیل"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/lightBlack"
+            android:textColorHint="@color/lightBlack"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="14sp"
+            android:inputType="textEmailAddress"/>
+
+        <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/edtUserName"-->
+        <!--android:textCursorDrawable="@drawable/cursor_color"-->
+        <!--android:hint="نام کاربری"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textColorHint="@color/lightBlack"-->
+        <!--android:textColor="@color/lightBlack"-->
+        <!--android:background="@drawable/edit_text_transparent"-->
+        <!--android:padding="10dp"-->
+        <!--android:singleLine="true"-->
+        <!--android:textSize="14sp"-->
+        <!--android:gravity="right|center_vertical"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtUserPass"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="کلمه عبور"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"/>
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back_white"
+            android:paddingLeft="25dp"
+            android:layout_marginTop="30dp"
+            android:paddingRight="25dp"
+            android:text="ثبت نام"
+            android:textStyle="bold"
+            android:textColor="@color/lightBlack"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/txtLogin"
+                android:text="قبلا ثبت نام کردی؟ وارد شو"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/lightBlack"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"></LinearLayout>
+
+</LinearLayout>

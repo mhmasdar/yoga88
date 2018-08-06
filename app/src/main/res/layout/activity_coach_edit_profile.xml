@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:id="@+id/imgEditCoachDetails"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_edit"
+                    android:layout_height="40dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:id="@+id/imgBack"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_height="45dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+                <com.technologygroup.rayannoor.yoga.RoundedImageView
+                    android:layout_width="70dp"
+                    android:id="@+id/imgCoach"
+                    android:layout_marginTop="25dp"
+                    android:src="@mipmap/ic_man"
+                    android:layout_height="70dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="نام مربی"
+                    android:id="@+id/txtCoachName"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="بسته فعال می باشد"
+                    android:id="@+id/txtCoachLevel"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:background="#cd212121"
+                    android:paddingTop="5dp"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="5dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <RatingBar
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:numStars="5"
+                            android:theme="@style/RatingBar"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/txtCoachRate"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="#ffffff"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0.5dp"
+                        android:background="#ffffff"
+                        android:layout_height="match_parent"></RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:src="@drawable/ic_like"
+                            android:layout_height="22dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/txtLikeCount"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="#ffffff"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="#f2f2f2"
+                android:paddingBottom="55dp"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockResume"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/lytResume"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_resume"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="رزومه کاری"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockBio"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/lytBio"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_bio"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="بیوگرافی"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockCertificates"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytCertificates"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_certificate"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="مدارک و گواهی نامه ها"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockEducation"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:id="@+id/lytEducation"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_education"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="سوابق تحصیلی"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockCourse"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytCourse"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_course"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="دوره های تدریس"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockGyms"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytGyms"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_contract_gyms"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="باشگاه های طرف قرارداد"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/lytCoachesOnly"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockTeach"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytTeach"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_home2"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="آموزش ها"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockJob"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:visibility="visible"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytJob"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:padding="20dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_job"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="کاریابی"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/imgLockComments"
+                            android:src="@drawable/ic_lock"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="right"
+                            android:layout_height="20dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/lytComments"
+                            android:gravity="center"
+                            android:padding="20dp"
+                            android:alpha="0.3"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:src="@drawable/ic_commet_yellow"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="نظرات کاربران"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green"
+        android:id="@+id/lytCoachProfileUpgrade"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="ارتقا پروفایل"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:src="@drawable/ic_upgrade"
+                android:layout_height="17dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

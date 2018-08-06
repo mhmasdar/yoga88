@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/lytLogin"
+    tools:context="com.technologygroup.rayannoor.yoga.LoginActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_weight="1"
+       android:layout_height="match_parent"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:layout_height="match_parent">
+        
+        <ImageView
+            android:layout_width="120dp"
+            android:src="@drawable/logo"
+            android:layout_height="120dp" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/lightBlack"
+            android:textStyle="bold"
+            style="@style/AudioFileInfoOverlayText2"
+            android:textSize="17sp"
+            android:text="ورزش کار"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/LoginSpinner"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAlignment="gravity"
+                android:gravity="right|center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نوع کاربری :"
+                android:textColor="@color/lightBlack" />
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtUserName"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="شماره تلفن"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content"
+            android:maxLength="11"
+            android:inputType="phone"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtPass"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:hint="کلمه عبور"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/lightBlack"
+            android:textColor="@color/lightBlack"
+            android:background="@drawable/edit_text_transparent"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:gravity="right|center_vertical"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"/>
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back_white"
+            android:paddingLeft="25dp"
+            android:layout_marginTop="30dp"
+            android:paddingRight="25dp"
+            android:text="ورود"
+            android:textStyle="bold"
+            android:textColor="@color/lightBlack"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txtForgetPass"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:textColor="@color/lightBlack"
+            android:text="رمز عبورم رو فراموش کردم"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/txtRegister"
+                android:text="حساب کاربری نداری؟ ثبت نام کن"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/lightBlack"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"></LinearLayout>
+
+</LinearLayout>

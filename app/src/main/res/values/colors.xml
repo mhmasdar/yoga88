@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FBC423</color>
+    <color name="colorPrimaryDark">#DAAB21</color>
+    <color name="colorAccent">#2abf19</color>
+    <color name="actionBarBack">#f5f5f5</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#212121</color>
+    <color name="lightBlack">#434343</color>
+    <color name="red">#e91c1c</color>
+    <color name="green">#298c1e</color>
+    <color name="gray">#d4d4d4</color>
+    <color name="imageBack">#3c404040</color>
+
+
+
+    //login page
+    <color name="color1">#FFF6F57B</color>
+    <color name="color2">#fffc00</color>
+    <color name="color3">#F3F9A7</color>
+    <color name="color4">#CAC531</color>
+    <color name="color5">#DCE35B</color>
+    <color name="color6">#45B649</color>
+    <color name="color7">#56ab2f</color>
+    <color name="color8">#a8e063</color>
+
+
+
+    //rate colors
+    <color name="c4_5">#298c1e</color>
+    <color name="c3_4">#6cdb5f</color>
+    <color name="c2_3">#e9c72f</color>
+    <color name="c1_2">#e28b1a</color>
+    <color name="c0_1">#e91c1c</color>
+
+
+</resources>

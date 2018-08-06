@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="bottom|center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="3.5"
+                android:id="@+id/txtGymRate"
+                android:layout_marginLeft="15dp"
+                android:layout_height="25dp" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:padding="3dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/ic_like"
+                android:layout_height="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="25"
+                android:id="@+id/txtGymLikeCount"
+                android:layout_marginLeft="8dp"
+                android:layout_height="25dp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="باشگاه کیمیا"
+            android:id="@+id/txtGymName"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:src="@drawable/img"
+            android:id="@+id/imgGym"
+            android:layout_height="70dp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_height="0.5dp"></RelativeLayout>
+
+
+</LinearLayout>

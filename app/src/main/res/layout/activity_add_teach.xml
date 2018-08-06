@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.technologygroup.rayannoor.yoga.Coaches.addTeachActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="اضافه کردن آموزش"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back_white"
+                        android:layout_height="22dp" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:orientation="horizontal"
+       android:layout_height="match_parent">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_weight="1"
+           android:layout_height="match_parent"></RelativeLayout>
+
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_weight="0.3"
+           android:fillViewport="true"
+           android:scrollbars="none"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:orientation="vertical"
+               android:gravity="center_horizontal"
+               android:layout_height="match_parent">
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:background="@color/actionBarBack"
+                   android:id="@+id/edtTitle"
+                   android:textColorHint="@color/lightBlack"
+                   android:textColor="@color/lightBlack"
+                   android:hint="عنوان آموزش"
+                   android:layout_marginTop="15dp"
+                   android:textCursorDrawable="@color/colorPrimary"
+                   android:padding="10dp"
+                   android:textSize="13sp"
+                   android:layout_height="wrap_content" />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:textSize="12sp"
+                   android:layout_margin="15dp"
+                   android:text="در این بخش، شما می توانید حرکات آموزشی مورد نظرتان را حداکثر تا 10 حرکت اضافه کرده و ارسال کنید. قالب آموزش ها به صورت عکس و متن توضیحی آن می باشد و شما می توانید برای هر حرکت یک عکس به همراه متنی کوتاه جهت توضیح آن اضافه کنید "
+                   android:layout_height="wrap_content" />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach1"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage1"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach1"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture1"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody1"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+               android:layout_width="match_parent"
+               android:orientation="vertical"
+               android:gravity="right"
+               android:layout_marginTop="10dp"
+               android:id="@+id/lytTeach2"
+               android:visibility="gone"
+               android:layout_height="wrap_content">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:gravity="right|center_vertical"
+                   android:orientation="horizontal"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:text="هیچ عکسی انتخاب نشده "
+                       android:id="@+id/txtNoImage2"
+                       android:gravity="center"
+                       android:textSize="13sp"
+                       android:visibility="visible"
+                       android:textColor="@color/lightBlack"
+                       android:layout_height="wrap_content" />
+
+                   <ImageView
+                       android:layout_width="140dp"
+                       android:visibility="gone"
+                       android:id="@+id/imgTeach2"
+                       android:layout_gravity="center_horizontal"
+                       android:src="@drawable/img2"
+                       android:layout_height="100dp"
+                       android:scaleType="fitXY"
+                       android:layout_marginRight="30dp"
+                       />
+
+                   <ImageView
+                       android:layout_width="50dp"
+                       android:padding="10dp"
+                       android:id="@+id/imgSelectPicture2"
+                       android:src="@drawable/ic_add_circle"
+                       android:layout_height="50dp" />
+
+
+               </LinearLayout>
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:background="@color/actionBarBack"
+                   android:id="@+id/edtBody2"
+                   android:textColorHint="@color/lightBlack"
+                   android:textColor="@color/lightBlack"
+                   android:hint="شرح حرکت"
+                   android:layout_marginTop="5dp"
+                   android:textCursorDrawable="@color/colorPrimary"
+                   android:padding="10dp"
+                   android:textSize="13sp"
+                   android:layout_height="80dp" />
+
+           </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach3"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage3"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach3"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture3"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody3"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach4"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage4"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach4"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPictur4"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody4"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach5"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage5"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach5"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture5"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody5"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach6"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage6"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach6"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture6"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody6"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach7"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage7"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach7"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture7"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody7"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach8"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage8"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach8"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture8"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody8"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach9"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage9"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach9"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture9"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody9"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:orientation="vertical"
+                   android:gravity="right"
+                   android:layout_marginTop="10dp"
+                   android:id="@+id/lytTeach10"
+                   android:visibility="gone"
+                   android:layout_height="wrap_content">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:gravity="right|center_vertical"
+                       android:orientation="horizontal"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:text="هیچ عکسی انتخاب نشده "
+                           android:id="@+id/txtNoImage10"
+                           android:gravity="center"
+                           android:textSize="13sp"
+                           android:visibility="visible"
+                           android:textColor="@color/lightBlack"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="140dp"
+                           android:visibility="gone"
+                           android:id="@+id/imgTeach10"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/img2"
+                           android:layout_height="100dp"
+                           android:scaleType="fitXY"
+                           android:layout_marginRight="30dp"
+                           />
+
+                       <ImageView
+                           android:layout_width="50dp"
+                           android:padding="10dp"
+                           android:id="@+id/imgSelectPicture10"
+                           android:src="@drawable/ic_add_circle"
+                           android:layout_height="50dp" />
+
+
+                   </LinearLayout>
+
+                   <EditText
+                       android:layout_width="match_parent"
+                       android:background="@color/actionBarBack"
+                       android:id="@+id/edtBody10"
+                       android:textColorHint="@color/lightBlack"
+                       android:textColor="@color/lightBlack"
+                       android:hint="شرح حرکت"
+                       android:layout_marginTop="5dp"
+                       android:textCursorDrawable="@color/colorPrimary"
+                       android:padding="10dp"
+                       android:textSize="13sp"
+                       android:layout_height="80dp" />
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center"
+                   android:paddingTop="20dp"
+                   android:paddingBottom="5dp">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:id="@+id/lytDeleteLesson"
+                   android:layout_alignParentLeft="true"
+                   android:layout_centerVertical="true"
+                   android:text="حذف حرکت"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
+                   android:paddingRight="15dp"
+                   android:paddingLeft="15dp"
+                   android:background="@drawable/notif_border"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="10dp"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:id="@+id/lytAddLesson"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:text="افزودن حرکت"
+                       android:paddingTop="5dp"
+                       android:paddingBottom="5dp"
+                       android:paddingRight="15dp"
+                       android:paddingLeft="15dp"
+                       android:background="@drawable/notif_border"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="10dp"/>
+
+               </LinearLayout>
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="40dp"
+                   android:background="@color/green"
+                   android:id="@+id/lytSend"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="30dp">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:background="?attr/selectableItemBackgroundBorderless"
+                       android:orientation="horizontal"
+                       android:gravity="center"
+                       android:layout_height="wrap_content">
+
+                       <TextView
+                           android:id="@+id/txtSend"
+                           android:layout_width="wrap_content"
+                           android:text="ارسال"
+                           android:gravity="center"
+                           android:textColor="@color/white"
+                           android:textSize="14sp"
+                           android:textStyle="bold"
+                           android:paddingTop="12dp"
+                           android:paddingBottom="12dp"
+                           android:layout_marginRight="10dp"
+                           android:layout_height="wrap_content" />
+
+                       <ImageView
+                           android:layout_width="17dp"
+                           android:src="@drawable/ic_send"
+                           android:layout_height="17dp" />
+
+                   </LinearLayout>
+
+               </RelativeLayout>
+
+           </LinearLayout>
+
+
+       </ScrollView>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_weight="1"
+           android:layout_height="match_parent"></RelativeLayout>
+
+
+   </LinearLayout>
+
+</LinearLayout>

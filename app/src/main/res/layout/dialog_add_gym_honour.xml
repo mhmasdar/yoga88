@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="280dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="اضافه کردن افتخارات باشگاه"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:id="@+id/imgClose"
+            android:src="@drawable/ic_close"
+            android:padding="10dp"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@color/actionBarBack"
+                android:id="@+id/edtTitle"
+                android:textColorHint="@color/lightBlack"
+                android:textColor="@color/lightBlack"
+                android:hint="عنوان "
+                android:layout_marginTop="15dp"
+                android:textCursorDrawable="@color/colorPrimary"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/edtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="انتخاب کنید"
+                    android:textColor="@color/lightBlack"
+                    android:textColorHint="@color/lightBlack"
+                    android:layout_marginRight="7dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="تاریخ اخذ : "
+                    android:textColor="@color/lightBlack"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="هیچ عکسی انتخاب نشده "
+                    android:layout_weight="1"
+                    android:id="@+id/txtNoImage"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:visibility="visible"
+                    android:textColor="@color/lightBlack"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:visibility="gone"
+                    android:id="@+id/imgHonour"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/img2"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="50dp"
+                    />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:padding="10dp"
+                    android:id="@+id/imgSelectPicture"
+                    android:src="@drawable/ic_add_circle"
+                    android:layout_height="50dp" />
+
+
+            </LinearLayout>
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:layout_width="match_parent"
+                android:id="@+id/btnOk"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:text="@string/send"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:spinning_bar_color="@color/black"
+                android:textStyle="bold"
+                android:background="@drawable/button_back_login"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

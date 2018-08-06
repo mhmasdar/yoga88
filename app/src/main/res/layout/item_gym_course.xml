@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="right"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:text="دوره مخصوص آموزش یوگا"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtEndDate"
+            android:layout_width="wrap_content"
+            android:text="تا ۱۳۹۶/۱۲/۲۶"
+            android:layout_marginRight="8dp"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:src="@drawable/ic_date1"
+            android:layout_marginRight="40dp"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/txtStartDate"
+        android:layout_width="wrap_content"
+        android:text="از ۱۳۹۶/۱۲/۱۸"
+        android:layout_marginRight="8dp"
+        android:textSize="12sp"
+        android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:src="@drawable/ic_date1"
+            android:layout_height="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/txtDateTime"
+            android:layout_width="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginRight="8dp"
+            android:text="شنبه، دوشنبه و چهارشنبه - ساعت 18 الی 19:30"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:src="@drawable/ic_time"
+            android:layout_height="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/txtCoachName"
+            android:layout_width="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginRight="8dp"
+            android:text="حسین شوقی فر"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:src="@drawable/ic_coach"
+            android:layout_height="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/lytEdit"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:padding="9dp"
+            android:id="@+id/imgDelete"
+            android:src="@drawable/ic_delete"
+            android:layout_height="35dp" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/imgEdit"
+            android:src="@drawable/ic_edit"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_height="0.5dp"></RelativeLayout>
+
+
+</LinearLayout>

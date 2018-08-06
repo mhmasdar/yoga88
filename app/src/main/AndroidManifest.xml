@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.technologygroup.rayannoor.yoga">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".Classes.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".Teaches.teachsActivity" />
+        <activity android:name=".YogaIntroduce.YogaIntroduceActivity" />
+        <activity android:name=".Gyms.GymsListActivity" />
+        <activity android:name=".YogaIntroduce.IntroduceDetailsActivity" />
+        <activity android:name=".Coaches.CoachListActivity" />
+        <activity
+            android:name=".Coaches.CoachDetailsActivity"
+            android:theme="@style/CoachProfile" />
+        <activity
+            android:name=".Gyms.GymProfileActivity"
+            android:theme="@style/CoachProfile" />
+        <activity android:name=".Teaches.TeachDetailsActivity" />
+        <activity android:name=".Coaches.CoachProfileActivity" />
+        <activity android:name=".Coaches.CoachEditDetialsActivity" />
+        <activity android:name=".Coaches.CoachServicesActivity" />
+        <activity
+            android:name=".imageActivity"
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".Teaches.CoachTeachsActivity" />
+        <activity android:name=".Teaches.teachsListActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".IntroPage.introActivity"
+            android:theme="@style/CoachProfile" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/blackStatusBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/blackStatusBar" />
+        <activity android:name=".Coaches.CoachPlanActivity" />
+        <activity android:name=".CommentsActivity" />
+        <activity android:name=".Gyms.GymServiceActivity" />
+        <activity android:name=".Notification.notificationActivity" />
+        <activity
+            android:name=".Gyms.GymDetailsActivity"
+            android:theme="@style/blackStatusBar" />
+        <activity android:name=".Gyms.GymEditProfileActivity" />
+        <activity android:name=".Notification.NotifDetailsActivity" />
+        <activity android:name=".Gyms.AddCoachActivity" />
+        <activity android:name=".Coaches.addTeachActivity" />
+        <activity android:name=".Teaches.CoachTeachDetailsActivity" />
+        <activity android:name=".YogaIntroduce.IntroDetailsActivity" />
+        <activity android:name=".ChartActivity" />
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".WebActivity" />
+        <activity android:name=".UserprofileActivity" />
+        <activity android:name=".referees.RefereeListActivity" />
+        <activity android:name=".referees.RefereeDetailsActivity" />
+        <activity
+            android:name=".Notification.NewsDetailsActivity"
+            android:theme="@style/CoachProfile" />
+        <activity android:name=".selectSportActivity" />
+        <activity android:name=".aboutAppActivity" />
+        <activity android:name=".commonQuestionActivity" />
+        <activity android:name=".rulesActivity" />
+        <activity android:name=".SuggestionActivity" />
+        <activity android:name=".hameganiActivity" />
+        <activity android:name=".referees.RefereeServicesActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="right"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="عنوان سوال"
+        android:id="@+id/txtTitle"
+        android:padding="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:layout_height="wrap_content" />
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:layout_width="match_parent"
+        android:id="@+id/expanableLayout1"
+        app:el_duration="1000"
+        app:el_expanded="false"
+        android:padding="15dp"
+        app:el_parallax="0.5"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txtQuestion"
+            android:text="@string/plansDescribe"
+            android:layout_height="wrap_content" />
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#9c9c9c"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="0.5dp">
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
