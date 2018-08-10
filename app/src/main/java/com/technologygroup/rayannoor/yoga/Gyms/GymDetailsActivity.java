@@ -64,28 +64,19 @@ public class GymDetailsActivity extends AppCompatActivity {
     private ImageView imgLockComments;
     private LinearLayout lytComments;
     private RelativeLayout lytGymProfileUpgrade;
+    int idsend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_details);
+
+        idsend = getIntent().getIntExtra("idgym", -1);
+        Toast.makeText(this, "hihi", Toast.LENGTH_SHORT).show();
         initView();
-
-        prefs = getSharedPreferences("MyPrefs", 0);
-        idGym = prefs.getInt("idUser", -1);
-
+        getInfo();
         //set image darker
         imgGym.setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY);
-
-        if (idGym > 0) {
-
-            webServiceCoachInfo = new WebServiceCoachInfo();
-            webServiceCoachInfo.execute();
-        } else {
-            Toast.makeText(this, "باشگاه مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
-            finish();
-        }
-
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +84,20 @@ public class GymDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+        public void getInfo() {
+
+        gymModel = new GymModel();
+
+
+        webServiceCoachInfo = new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
+
+    }
+    public void setbuttons()
+    {
         imgEditGymDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +119,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, CommentsActivity.class);
                     intent.putExtra("IdCoachOrGym", idGym);
                     intent.putExtra("IsGym", true);
@@ -128,7 +133,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytGymHonours.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 0);
@@ -143,7 +148,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytPhotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 1);
@@ -158,7 +163,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytCoaches.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 2);
@@ -173,7 +178,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytCourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 3);
@@ -188,7 +193,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 4);
@@ -203,7 +208,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytNotifs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 5);
@@ -308,7 +313,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 txtLikeCount.setText(gymModel.like + "");
                 rating.setRating((float) gymModel.Rate);
 
-                if (gymModel.idCurrentPlan == 1) {
+                if (gymModel.IsVerified) {
 
                     lytGymHonours.setAlpha(1);
                     imgLockHonours.setVisibility(View.GONE);
@@ -324,6 +329,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                     imgLockAbout.setVisibility(View.GONE);
                     lytNotifs.setAlpha(1);
                     imgLockNotifs.setVisibility(View.GONE);
+                    setbuttons();
 
                 }
 
@@ -333,6 +339,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 finish();
 
             }
+
 
         }
 

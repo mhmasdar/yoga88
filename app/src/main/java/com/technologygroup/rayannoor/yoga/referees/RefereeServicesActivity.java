@@ -46,10 +46,11 @@ public class RefereeServicesActivity extends AppCompatActivity {
         RefereeServicesPager adapter = new RefereeServicesPager(getSupportFragmentManager(),calledFromPanel, idCoach ,Bio);
         CoachServicesPager.setAdapter(adapter);
         CoachServicesPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        CoachServicesPager.setCurrentItem(selectedTabIndex);
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
+
             public void onTabSelected(TabLayout.Tab tab) {
                 CoachServicesPager.setCurrentItem(tab.getPosition());
             }

@@ -25,6 +25,7 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.RefereeCertificateAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -67,8 +68,9 @@ public class refCertificateFragment extends Fragment {
         floatAction = view.findViewById(R.id.floatAction);
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idCoach = getArguments().getInt("idCoach", -1);
-        setUpRecyclerView();
-
+        reffres=new ArrayList<>();
+        WebServiceCall webServiceCall=new WebServiceCall();
+        webServiceCall.execute();
         floatAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

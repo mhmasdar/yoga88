@@ -1303,7 +1303,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "gym/select/" + id, "GET");
+            String response = connectToServer("http://varzesh.buludweb.com/api/user/getuserbyid?uid="+id+"&role=gym", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1324,23 +1324,33 @@ public class WebService {
                     model.Img = Object.getString("Img");
                     model.id = Object.getInt("id");
                     model.idCity = Object.getInt("idCity");
-                    model.notifCount = Object.getInt("notifCount");
-                    model.idCurrentPlan = Object.getInt("idCurrentPlan");
-                    model.like = Object.getInt("like");
-                    model.lastUpdate = Object.getString("lastUpdate");
+                   // model.notifCount = Object.getInt("notifCount");
+                   // model.idCurrentPlan = Object.getInt("idCurrentPlan");
+                    model.like = Object.getInt("Likes");
+                   // model.lastUpdate = Object.getString("lastUpdate");
                     model.Tell = Object.getString("Tell");
-                    model.workTime = Object.getString("workTime");
+                    model.workTime = Object.getString("WorkingTime");
                     model.Rate = Object.getDouble("Rate");
-                    model.City = Object.getString("City");
-                    model.State = Object.getString("State");
+                  //  model.City = Object.getString("City");
+                 //   model.State = Object.getString("State");
                     model.Des = Object.getString("Des");
-                    model.idCurrentSMSPlan = Object.getInt("idCurrentSMSPlan");
-                    model.Lat = Object.getDouble("Lat");
-                    model.Lon = Object.getDouble("Lon");
+//                    model.idCurrentSMSPlan = Object.getInt("idCurrentSMSPlan");
+                    model.Lat = Object.getDouble("Latituide");
+                    model.Lon = Object.getDouble("Longtuide");
                     model.Name = Object.getString("Name");
                     model.Address = Object.getString("Address");
-
-
+                    model.About = Object.getString("About");
+                    model.Mobile= Object.getString("Mobile");
+                    model.IsVerified=Object.getBoolean("IsVerified");
+                    JSONObject cityj=Object.getJSONObject("City");
+                    model.City=cityj.getString("Name");
+                    model.idCity=cityj.getInt("ID");
+                    JSONObject Statej=Object.getJSONObject("State");
+                    model.State=Statej.getString("Name");
+                    model.idState=Statej.getInt("ID");
+                    JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
+                    model.Img=ProfileImagej.getString("Name");
+                    model.idImg=ProfileImagej.getInt("ID");
                     return model;
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1589,17 +1599,18 @@ public class WebService {
 
                     for (int i = 0; i < Array.length(); i++) {
 
-//                        JSONObject Object = Array.getJSONObject(i);
-//                        GymModel model = new GymModel();
+                       JSONObject Object = Array.getJSONObject(i);
+                        GymModel model = new GymModel();
 //                        model.Email = Object.getString("Email");
-//                        model.id = Object.getInt("ID");
-//                        model.fname = Object.getString("FirstName");
+                        model.id = Object.getInt("ID");
+                        model.fname = Object.getString("FirstName");
+                        model.lName = Object.getString("LastName");
 //                        model.RegisteredDate = Object.getString("RegisteredDate");
-////                        model.Instagram = Object.getString("Instagram");
-//                        model.IsVerified = Object.getBoolean("IsVerified");
+//                        model.Instagram = Object.getString("Instagram");
+                        model.IsVerified = Object.getBoolean("IsVerified");
 //                        // model.like = Object.getInt("like");
-//                        model.lName = Object.getString("LastName");
-//                        model.Mobile = Object.getString("Mobile");
+
+                        model.Mobile = Object.getString("Mobile");
 //                        // model.Rate = Object.getDouble("Rate");
 //                        // model.Telegram = Object.getString("Telegram");
 //                        //model.sorosh = Object.getString("sorosh");
@@ -1613,7 +1624,7 @@ public class WebService {
 //                        JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
 //                        model.IdImg=ProfileImagej.getInt("ID");
 //                        model.ImgName=ProfileImagej.getString("Name");
-//                        list.add(model);
+                        list.add(model);
                     }
 
                     return list;

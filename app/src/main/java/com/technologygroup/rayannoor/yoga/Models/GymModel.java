@@ -7,6 +7,8 @@ package com.technologygroup.rayannoor.yoga.Models;
 public class GymModel {
 
     public int idCity;
+    public int idState;
+    public int idImg;
     public String Des;
     public int idCurrentSMSPlan;
     public double Lat;
@@ -27,7 +29,11 @@ public class GymModel {
     public double Rate;
     public String Telegram;
     public String City;
+
     public String State;
     public String Img;
+    public boolean IsVerified;
+    public String Mobile;
+    public String About;
 
 }

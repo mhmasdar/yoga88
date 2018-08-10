@@ -68,9 +68,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         coachModel=new CoachModel();
         getInfo();
         initView();
-
-
-
         setDetail();
 
     }

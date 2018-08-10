@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
@@ -37,8 +38,8 @@ public class GymsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gyms_list);
         initView();
-
-        prefs = getSharedPreferences("MyPrefs", 0);
+        RecyclerGyms = findViewById(R.id.RecyclerGyms);
+        prefs = getSharedPreferences("User", 0);
         stateNumber = prefs.getInt("stateNumber", 1);
         cityNumber = prefs.getInt("cityNumber", 1);
 
@@ -67,7 +68,11 @@ public class GymsListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        Toast.makeText(this, ""+gymModel.size(), Toast.LENGTH_SHORT).show();
         GymListAdapter adapter = new GymListAdapter(GymsListActivity.this, gymModel);
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        RecyclerGyms.setLayoutManager(mLinearLayoutManagerVertical);
         RecyclerGyms.setAdapter(adapter);
     }
 
@@ -106,16 +111,13 @@ public class GymsListActivity extends AppCompatActivity {
             if (gymModel != null) {
 
                 if (gymModel.size() > 0) {
-                    RecyclerGyms = findViewById(R.id.RecyclerGyms);
-                    LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());
-                    mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-                    RecyclerGyms.setLayoutManager(mLinearLayoutManagerVertical);
 
-                    setUpRecyclerView();
+
 
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
+                    setUpRecyclerView();
 
 //                if (coachModel.Img != null)
 //                    if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))

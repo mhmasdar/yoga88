@@ -30,7 +30,7 @@ public class RefereeCertificateAdapter extends RecyclerView.Adapter<RefereeCerti
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-        activity = (CoachServicesActivity) context;
+//        activity = (CoachServicesActivity) context;
     }
 
     @Override
@@ -43,17 +43,17 @@ public class RefereeCertificateAdapter extends RecyclerView.Adapter<RefereeCerti
     @Override
     public void onBindViewHolder(final RefereeCertificateAdapter.myViewHolder holder, int position) {
 
-        final CoachHonorModel currentObj = list.get(position);
-        holder.setData(currentObj, position);
+      final CoachHonorModel currentObj = list.get(position);
+      holder.setData(currentObj, position);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+
+            return list.size();
+
+
     }
-
-
-
     class myViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtCertificateTitle;

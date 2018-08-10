@@ -48,7 +48,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
 
-        holder.txtGymName.setText(models.get(position).Name + "");
+        holder.txtGymName.setText(models.get(position).fname + " "+models.get(position).lName );
         holder.txtGymAddress.setText(models.get(position).Address);
 
 //        if (models.get(position).Img != null)
@@ -93,8 +93,8 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
             public void onClick(View view) {
                 GymsListActivity activity = (GymsListActivity) context;
                 Intent intent = new Intent(activity, GymProfileActivity.class);
-                //intent.putExtra("idCity", holder.idCity);
-                intent.putExtra("Des;", holder.Des);
+                intent.putExtra("idgym", holder.id);
+                intent.putExtra("Des", holder.Des);
                 //intent.putExtra("idCurrentSMSPlan", holder.idCurrentSMSPlan);
                 intent.putExtra("Lat", holder.Lat);
                 intent.putExtra("Lon", holder.Lon);
