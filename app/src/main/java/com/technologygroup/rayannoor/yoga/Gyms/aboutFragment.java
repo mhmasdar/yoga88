@@ -40,6 +40,8 @@ public class aboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gym_about, container, false);
         txtAbout = (TextView) view.findViewById(R.id.txtAbout);
+        String about = getArguments().getString("about", "");
+        txtAbout.setText(about);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
 
         floactAction.setOnClickListener(new View.OnClickListener() {

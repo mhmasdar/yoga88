@@ -141,7 +141,7 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:id="@+id/checkStudents"
+                    android:id="@+id/checkContinue"
                     android:layout_gravity="center_vertical"
                     android:buttonTint="@color/colorPrimary"
                     app:buttonTint="@color/colorPrimary"

@@ -60,6 +60,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     String idReffre;
     CoachModel coachModel;
     int idsend;
+    Boolean calledFromPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         coachModel = new CoachModel();
 
         idsend = getIntent().getIntExtra("idReffre", -1);
+        calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
         RefereeDetailsActivity.WebServiceCallgetDetail callCity = new RefereeDetailsActivity.WebServiceCallgetDetail();
         callCity.execute();
@@ -210,7 +212,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 0);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);

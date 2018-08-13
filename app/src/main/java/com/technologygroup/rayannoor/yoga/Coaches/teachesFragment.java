@@ -130,7 +130,7 @@ public class teachesFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getTeaches(App.isInternetOn(), 1, 13,"ersali");
+            list = webService.getTeachesByuser(App.isInternetOn(), 1, 13,"ersali");
 
             return null;
         }

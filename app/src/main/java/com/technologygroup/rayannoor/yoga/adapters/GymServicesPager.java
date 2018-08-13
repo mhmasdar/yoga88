@@ -5,15 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.technologygroup.rayannoor.yoga.Gyms.aboutFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.HonourFragment;
+import com.technologygroup.rayannoor.yoga.Gyms.aboutFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.clipFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.coachsFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.coursesFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.galleryFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.notifFragment;
 import com.technologygroup.rayannoor.yoga.Gyms.workTimeFragment;
-import com.technologygroup.rayannoor.yoga.Notification.notifsFragment;
 
 /**
  * Created by Mohamad Hasan on 3/5/2018.
@@ -21,19 +20,18 @@ import com.technologygroup.rayannoor.yoga.Notification.notifsFragment;
 
 public class GymServicesPager extends FragmentStatePagerAdapter {
 
-    private boolean calledFromPanel;
-    private int idGym;
+
     Bundle bundle;
 
-    public GymServicesPager(FragmentManager fm, boolean calledFromPanel, int idGym) {
+    public GymServicesPager(FragmentManager fm, boolean calledFromPanel, int idGym,String about1,String work) {
         super(fm);
-
-        this.calledFromPanel = calledFromPanel;
-        this.idGym = idGym;
 
         bundle = new Bundle();
         bundle.putBoolean("calledFromPanel", calledFromPanel);
         bundle.putInt("idGym", idGym);
+        bundle.putString("about", about1);
+        bundle.putString("work", work);
+
 
     }
 

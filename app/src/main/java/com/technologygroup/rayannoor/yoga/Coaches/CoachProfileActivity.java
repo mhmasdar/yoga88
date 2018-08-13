@@ -72,8 +72,7 @@ public class CoachProfileActivity extends AppCompatActivity {
 
         initView();
 
-        prefs = getSharedPreferences("MyPrefs", 0);
-        idCoach = prefs.getInt("idUser", -1);
+        idCoach = getIntent().getIntExtra("idUser", -1);
 
         if (idCoach > 0) {
 
@@ -92,6 +91,10 @@ public class CoachProfileActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+    private void others()
+    {
         imgEditCoachDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +147,8 @@ public class CoachProfileActivity extends AppCompatActivity {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 0);
+                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("idBio", coachModel.Bio);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
                 } else {
@@ -159,7 +163,8 @@ public class CoachProfileActivity extends AppCompatActivity {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 1);
+                    intent.putExtra("SelectedTabIndex", 0);
+                    intent.putExtra("idBio", coachModel.Bio);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
                 } else {
@@ -174,7 +179,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("SelectedTabIndex", 5);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
                 } else {
@@ -190,7 +195,8 @@ public class CoachProfileActivity extends AppCompatActivity {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("idBio", coachModel.Bio);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
                 } else {
@@ -205,6 +211,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("idBio", coachModel.Bio);
                     intent.putExtra("SelectedTabIndex", 4);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
@@ -215,7 +222,6 @@ public class CoachProfileActivity extends AppCompatActivity {
         });
 
     }
-
     private void initView() {
         imgCoach = (RoundedImageView) findViewById(R.id.imgCoach);
         txtCoachName = (TextView) findViewById(R.id.txtCoachName);
@@ -283,7 +289,7 @@ public class CoachProfileActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            coachModel = webService.getCoachInfo(App.isInternetOn(), idCoach);
+            coachModel = webService.getCoachDetail(App.isInternetOn(), idCoach);
 
             return null;
         }
@@ -300,7 +306,7 @@ public class CoachProfileActivity extends AppCompatActivity {
 //                if (coachModel.Img != null)
 //                    if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))
 //                        Glide.with(CoachProfileActivity.this).load(App.imgAddr + coachModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
-//                txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
+                txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
 //                ClassLevels classLevels = new ClassLevels();
 //                txtCoachLevel.setText(classLevels.getCoachLevelName(coachModel.idCurrentPlan));
                 String strRate = String.valueOf(coachModel.Rate);
@@ -325,7 +331,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                     imgLockCeomments.setVisibility(View.GONE);
                     lytTeachs.setAlpha(1);
                     imgLockTeachs.setVisibility(View.GONE);
-
+                    others();
                 }
 
             } else {

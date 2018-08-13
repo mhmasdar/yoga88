@@ -276,7 +276,7 @@ public class CoachCertificateAdapter extends RecyclerView.Adapter<CoachCertifica
 
         txtWindowTitle.setText("ویرایش سوابق تحصیلی");
         edtTitle.setText(current.Title);
-        edtBody.setText(current.Des);
+//        edtBody.setText(current.Des);
         edtDate.setText(current.Date);
 
 //        if (current.Img != null) {

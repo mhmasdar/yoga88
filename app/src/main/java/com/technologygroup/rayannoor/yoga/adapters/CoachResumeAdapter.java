@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +52,7 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
 
     // dialog add content
     EditText edtTitle, edtStartDate, edtEndDate;
+    CheckBox checkContinue;
     ImageView imgClose;
     CircularProgressButton btnOk;
     TextView txtWindowTitle;
@@ -214,6 +217,7 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
         edtStartDate = dialogEdit.findViewById(R.id.edtStartDate);
         edtEndDate = dialogEdit.findViewById(R.id.edtEndDate);
         btnOk = dialogEdit.findViewById(R.id.btnOk);
+        checkContinue = dialogEdit.findViewById(R.id.checkContinue);
         imgClose = dialogEdit.findViewById(R.id.imgClose);
         txtWindowTitle = dialogEdit.findViewById(R.id.txtWindowTitle);
 
@@ -247,7 +251,21 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
 
             }
         });
+        checkContinue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean ischecked) {
+                if(ischecked)
+                {
+                    edtEndDate.setEnabled(false);
+                    edtEndDate.setText("");
+                }
 
+                else
+                {
+                    edtEndDate.setEnabled(true);
+                }
+            }
+        });
         edtEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -425,9 +443,7 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
 
         @Override
         protected Void doInBackground(Object... params) {
-
             result = webService.editCoachResume(App.isInternetOn(), model);
-
             return null;
         }
 
@@ -436,7 +452,7 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
             super.onPostExecute(aVoid);
 
             if (result != null) {
-                if (result.equals("true")) {
+                if (result.equals("OK")) {
 
                     list.remove(pos);
                     list.add(pos, model);

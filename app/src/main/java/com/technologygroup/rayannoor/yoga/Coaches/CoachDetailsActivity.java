@@ -81,6 +81,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private ImageView imgLockCourse;
     private LinearLayout lytCourse;
     private ImageView imgSorush;
+    Boolean calledFromPanel;
     int idsend;
 
     @Override
@@ -89,9 +90,12 @@ public class CoachDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coach_profile);
         coachModel = new CoachModel();
         initView();
-
-        prefs = getSharedPreferences("User", 0);
-        idUser = prefs.getInt("idUser", -1);
+        idsend = getIntent().getIntExtra("idUser", -1);
+        calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
+        
+        
+       /// prefs = getSharedPreferences("User", 0);
+        //idUser = prefs.getInt("idUser", -1);
         getInfo();
     }
     private void others()
@@ -103,7 +107,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 0);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -117,7 +121,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 1);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -132,7 +136,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 2);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -146,7 +150,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 3);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -160,7 +164,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 4);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -174,7 +178,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 5);
                     intent.putExtra("idCoach", coachModel.id);
                     intent.putExtra("idBio", coachModel.Bio);
@@ -418,7 +422,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
         coachModel = new CoachModel();
 
-        idsend = getIntent().getIntExtra("id", -1);
+        idsend = getIntent().getIntExtra("idUser", -1);
         WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
         callCity.execute();
 

@@ -1,5 +1,7 @@
 package com.technologygroup.rayannoor.yoga.Gyms;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -31,6 +34,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Classes.ClassLevels;
 import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.LoginActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
@@ -75,6 +79,7 @@ public class GymProfileActivity extends AppCompatActivity {
     private ImageView imgLockGyms;
     private LinearLayout lytGyms;
     private LinearLayout lytGymAddress, lytParent;
+    Boolean calledFromPanel;
 
     // dialog rating
     Dialog dialogRating;
@@ -95,228 +100,45 @@ public class GymProfileActivity extends AppCompatActivity {
     private LinearLayout lytAbout;
     private ImageView imgLockClip;
     private LinearLayout lytClip;
-
+    private int idsend;
+    ImageView ic_lock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_profile);
 
         initView();
+        gymModel = new GymModel();
+        calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
+        idsend = getIntent().getIntExtra("idgym", -1);
+        Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
+        WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
         //set test image
         Glide.with(this).load(R.drawable.gym).into(gymImage);
         floatAction.hide();
         getWorkTime();
         setViews();
 
-        prefs = getSharedPreferences("MyPrefs", 0);
+        prefs = getSharedPreferences("User", 0);
         idUser = prefs.getInt("idUser", -1);
-        isLiked = prefs.getBoolean("isLiked_idCoachOrGym:" + gymModel.id, false);
-
-
+        calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         //set image dark
         gymImage.setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY);
-
-
-        lytGymHonours.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 0);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-
-        lytPhotos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 1);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        lytCoaches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        lytCourses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 3);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        lytWorkTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 4);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        lytNotifs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.idCurrentPlan > 0) {
-                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 5);
-                    intent.putExtra("idGym", gymModel.id);
-                    startActivity(intent);
-                }
-            }
-        });
-
-
         floatAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GymProfileActivity.this, CommentsActivity.class);
-                intent.putExtra("IdCoachOrGym", gymModel.id);
-                intent.putExtra("IsGym", true);
+                intent.putExtra("IdCoachOrGym",idsend);
+                intent.putExtra("IsGym", calledFromPanel);
                 startActivity(intent);
             }
         });
-
-
-        imgTelegram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gymModel.idCurrentPlan > 0) {
-                    if (gymModel.Telegram != null) {
-                        if (!gymModel.Telegram.equals("") && !gymModel.Telegram.equals("null")) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/" + gymModel.Telegram));
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(GymProfileActivity.this, "آی دی تلگرام موجود نیست", Toast.LENGTH_LONG).show();
-                        }
-                    } else
-                        Toast.makeText(GymProfileActivity.this, "آی دی تلگرام موجود نیست", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        imgCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gymModel.idCurrentPlan > 0) {
-                    if (gymModel.Tell != null) {
-                        if (!gymModel.Tell.equals("") && !gymModel.Tell.equals("null")) {
-                            Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                            intentCall.setData(Uri.fromParts("tel", "0" + gymModel.Tell, null));
-                            startActivity(intentCall);
-                        } else {
-                            Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
-                        }
-                    } else
-                        Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        imgEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gymModel.idCurrentPlan > 0) {
-                    if (gymModel.Email != null) {
-                        if (!gymModel.Email.equals("") && !gymModel.Email.equals("null")) {
-
-                            Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-                            intent.setType("text/plain");
-                            intent.putExtra(Intent.EXTRA_SUBJECT, "نرم افزار یوگا");
-//                        intent.putExtra(Intent.EXTRA_TEXT, txtEmailBody.getText().toString());
-                            intent.setData(Uri.parse("mailto:" + gymModel.Email)); // or just "mailto:" for blank
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
-                            try {
-                                startActivity(Intent.createChooser(intent, "ارسال ایمیل از طریق"));
-                            } catch (ActivityNotFoundException ex) {
-                                Toast.makeText(getApplicationContext(), "در دستگاه شما هیچ برنامه ای برای ارسال ایمیل وجود ندارد", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            Toast.makeText(GymProfileActivity.this, "ایمیل موجود نیست", Toast.LENGTH_LONG).show();
-                        }
-                    } else
-                        Toast.makeText(GymProfileActivity.this, "ایمیل موجود نیست", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        imgInstagram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gymModel.idCurrentPlan > 0) {
-                    if (gymModel.Instagram != null) {
-                        if (!gymModel.Instagram.equals("") && !gymModel.Instagram.equals("null")) {
-
-                            Uri uri = Uri.parse("http://instagram.com/_u/" + gymModel.Instagram);
-                            Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-                            likeIng.setPackage("com.instagram.android");
-
-                            try {
-                                startActivity(likeIng);
-                            } catch (ActivityNotFoundException e) {
-                                startActivity(new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse("http://instagram.com/" + gymModel.Instagram)));
-                            }
-
-                        } else {
-                            Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
-                        }
-                    } else
-                        Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        imgNavigate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String address = "http://maps.google.com/maps?daddr=" + gymModel.Lat + "," + gymModel.Lon;
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
-                startActivity(intent);
-            }
-        });
-
-
         btnLike.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
 
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
 
                     if (CanLike) {
 
@@ -354,7 +176,7 @@ public class GymProfileActivity extends AppCompatActivity {
             @Override
             public void unLiked(LikeButton likeButton) {
 
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     if (CanLike) {
 
                         if (idUser > 0) {
@@ -390,7 +212,7 @@ public class GymProfileActivity extends AppCompatActivity {
         lytGymRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gymModel.idCurrentPlan > 0) {
+                if (gymModel.IsVerified) {
                     showRatingDialog();
                 }
             }
@@ -407,6 +229,8 @@ public class GymProfileActivity extends AppCompatActivity {
 
     private void initView() {
         gymImage = (ImageView) findViewById(R.id.gymImage);
+
+        //ic_lock = (ImageView) findViewById(R.id.ic_lock);
         txtCoachName = (TextView) findViewById(R.id.txtCoachName);
         imgTelegram = (ImageView) findViewById(R.id.imgTelegram);
         imgInstagram = (ImageView) findViewById(R.id.imgInstagram);
@@ -479,7 +303,7 @@ public class GymProfileActivity extends AppCompatActivity {
 
     private void setViews() {
 
-        if (gymModel.idCurrentPlan > 0)
+        if (gymModel.IsVerified)
             if (gymModel.Img != null)
                 if (!gymModel.Img.equals("") && !gymModel.Img.equals("null"))
                     Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gymImage);
@@ -496,8 +320,9 @@ public class GymProfileActivity extends AppCompatActivity {
         RatingBarGym.setRating((float) gymModel.Rate);
 
 
-        if (gymModel.idCurrentPlan > 0) {
-
+        if (gymModel.IsVerified) {
+            ic_lock.setVisibility(View.GONE);
+            imgLockGyms.setVisibility(View.GONE);
             lytCoaches.setAlpha(1);
             imgLockCoaches.setVisibility(View.GONE);
             lytCourses.setAlpha(1);
@@ -596,7 +421,7 @@ public class GymProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), gymModel.id, idUser, "Gym");
+            result = webService.postLike(App.isInternetOn(), idsend, idUser, "Gym");
 
             return null;
         }
@@ -613,7 +438,7 @@ public class GymProfileActivity extends AppCompatActivity {
 
                     if (Integer.parseInt(result) == 1 || Integer.parseInt(result) == -3) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + gymModel.id, true);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, true);
                         editor.apply();
 
                     } else {
@@ -635,7 +460,7 @@ public class GymProfileActivity extends AppCompatActivity {
 
                     if (Integer.parseInt(result) == 1) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + gymModel.id, false);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
                         editor.apply();
 
                     } else {
@@ -678,7 +503,7 @@ public class GymProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postRate(App.isInternetOn(), gymModel.id, idUser, "Gym", (float) rate);
+            result = webService.postRate(App.isInternetOn(), idsend, idUser, "Gym", (float) rate);
 
             return null;
         }
@@ -722,7 +547,96 @@ public class GymProfileActivity extends AppCompatActivity {
         }
 
     }
+    private class WebServiceCoachInfo extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        Dialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            gymModel = new GymModel();
+
+
+            dialog = new Dialog(GymProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            gymModel = webService.getGymInfo(App.isInternetOn(), idsend);
+            return null;
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (gymModel != null) {
+
+//                if (gymModel.Img != null)
+//                    if (!gymModel.Img.equals("") && !gymModel.Img.equals("null"))
+//                        Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
+                txtGymName.setText(gymModel.Name);
+                ClassLevels classLevels = new ClassLevels();
+                //txtCoachLevel.setText(classLevels.getCoachLevelName(gymModel.idCurrentPlan));
+                String strRate = String.valueOf(gymModel.Rate);
+                if (strRate.length() > 3)
+                    strRate = strRate.substring(0, 3);
+//                txtCoachRate.setText(strRate);
+                txtLikeCount.setText(gymModel.like + "");
+               // rating.setRating((float) gymModel.Rate);
+
+                if (gymModel.IsVerified) {
+
+                    lytGymHonours.setAlpha(1);
+                    imgLockHonours.setVisibility(View.GONE);
+                    lytPhotos.setAlpha(1);
+                    imgLockPhotos.setVisibility(View.GONE);
+                    lytCoaches.setAlpha(1);
+                    imgLockCoaches.setVisibility(View.GONE);
+                    lytCourses.setAlpha(1);
+                    imgLockCourse.setVisibility(View.GONE);
+//                   lytComments.setAlpha(1);
+//                    imgLockComments.setVisibility(View.GONE);
+                    lytAbout.setAlpha(1);
+                    imgLockAbout.setVisibility(View.GONE);
+                    lytNotifs.setAlpha(1);
+                    imgLockNotifs.setVisibility(View.GONE);
+                    setbuttons();
+
+                }
+
+            } else {
+
+                Toast.makeText(GymProfileActivity.this, "ارتباط با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                finish();
+
+            }
+
+
+        }
+
+    }
     @Override
     public void onStop() {
         super.onStop();
@@ -736,6 +650,213 @@ public class GymProfileActivity extends AppCompatActivity {
         if (webServiceCallLike != null)
             if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallLike.cancel(true);
+    }
+    public void setbuttons()
+    {
+        lytGymHonours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 0);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+        lytPhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 1);
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lytCoaches.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lytCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 3);
+
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lytWorkTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 4);
+
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lytNotifs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 5);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lytAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
+
+                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("idGym", idsend);
+                    startActivity(intent);
+                }
+            }
+        });
+        imgTelegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gymModel.IsVerified) {
+                    if (gymModel.Telegram != null) {
+                        if (!gymModel.Telegram.equals("") && !gymModel.Telegram.equals("null")) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/" + gymModel.Telegram));
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(GymProfileActivity.this, "آی دی تلگرام موجود نیست", Toast.LENGTH_LONG).show();
+                        }
+                    } else
+                        Toast.makeText(GymProfileActivity.this, "آی دی تلگرام موجود نیست", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        imgCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gymModel.IsVerified) {
+                    if (gymModel.Tell != null) {
+                        if (!gymModel.Tell.equals("") && !gymModel.Tell.equals("null")) {
+                            Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                            intentCall.setData(Uri.fromParts("tel", "0" + gymModel.Tell, null));
+                            startActivity(intentCall);
+                        } else {
+                            Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                        }
+                    } else
+                        Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        imgEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gymModel.IsVerified) {
+                    if (gymModel.Email != null) {
+                        if (!gymModel.Email.equals("") && !gymModel.Email.equals("null")) {
+
+                            Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+                            intent.setType("text/plain");
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "نرم افزار یوگا");
+//                        intent.putExtra(Intent.EXTRA_TEXT, txtEmailBody.getText().toString());
+                            intent.setData(Uri.parse("mailto:" + gymModel.Email)); // or just "mailto:" for blank
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+                            try {
+                                startActivity(Intent.createChooser(intent, "ارسال ایمیل از طریق"));
+                            } catch (ActivityNotFoundException ex) {
+                                Toast.makeText(getApplicationContext(), "در دستگاه شما هیچ برنامه ای برای ارسال ایمیل وجود ندارد", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Toast.makeText(GymProfileActivity.this, "ایمیل موجود نیست", Toast.LENGTH_LONG).show();
+                        }
+                    } else
+                        Toast.makeText(GymProfileActivity.this, "ایمیل موجود نیست", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        imgInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gymModel.IsVerified) {
+                    if (gymModel.Instagram != null) {
+                        if (!gymModel.Instagram.equals("") && !gymModel.Instagram.equals("null")) {
+
+                            Uri uri = Uri.parse("http://instagram.com/_u/" + gymModel.Instagram);
+                            Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                            likeIng.setPackage("com.instagram.android");
+
+                            try {
+                                startActivity(likeIng);
+                            } catch (ActivityNotFoundException e) {
+                                startActivity(new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("http://instagram.com/" + gymModel.Instagram)));
+                            }
+
+                        } else {
+                            Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                        }
+                    } else
+                        Toast.makeText(GymProfileActivity.this, "شماره تلفن موجود نیست", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        imgNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String address = "http://maps.google.com/maps?daddr=" + gymModel.Lat + "," + gymModel.Lon;
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
+                startActivity(intent);
+            }
+        });
     }
 
 }

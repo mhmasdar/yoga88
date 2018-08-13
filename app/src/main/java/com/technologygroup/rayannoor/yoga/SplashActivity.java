@@ -2,11 +2,10 @@ package com.technologygroup.rayannoor.yoga;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.technologygroup.rayannoor.yoga.IntroPage.IntroFragment;
 import com.technologygroup.rayannoor.yoga.IntroPage.introActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -37,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
 
-                prefs = getApplicationContext().getSharedPreferences("MyPrefs", 0);
+                prefs = getApplicationContext().getSharedPreferences("User", 0);
                 boolean isFirstRun = prefs.getBoolean("isFirstRun", true);
 
                 if (isFirstRun)

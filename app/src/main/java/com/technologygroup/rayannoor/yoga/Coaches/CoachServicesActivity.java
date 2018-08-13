@@ -48,8 +48,10 @@ public class CoachServicesActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("تحصیلات"));
         tabLayout.addTab(tabLayout.newTab().setText("دوره ها"));
         tabLayout.addTab(tabLayout.newTab().setText("باشگاه ها"));
-        tabLayout.addTab(tabLayout.newTab().setText("آموزش ها"));
-        tabLayout.addTab(tabLayout.newTab().setText("کاریابی"));
+        if(calledFromPanel) {
+            tabLayout.addTab(tabLayout.newTab().setText("آموزش ها"));
+            tabLayout.addTab(tabLayout.newTab().setText("کاریابی"));
+        }
 
         CoachServicesPager adapter = new CoachServicesPager(getSupportFragmentManager(), calledFromPanel, idRefree,Bio);
         CoachPager.setAdapter(adapter);

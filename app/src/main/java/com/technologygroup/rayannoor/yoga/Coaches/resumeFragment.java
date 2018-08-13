@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +63,7 @@ public class resumeFragment extends Fragment implements
 
     // dialog add content
     EditText edtTitle, edtStartDate, edtEndDate;
+    CheckBox checkContinue;
     ImageView imgClose;
     CircularProgressButton btnOk;
 
@@ -153,6 +156,7 @@ public class resumeFragment extends Fragment implements
         edtStartDate = dialog.findViewById(R.id.edtStartDate);
         edtEndDate = dialog.findViewById(R.id.edtEndDate);
         btnOk = dialog.findViewById(R.id.btnOk);
+        checkContinue = dialog.findViewById(R.id.checkContinue);
         imgClose = dialog.findViewById(R.id.imgClose);
 
 
@@ -182,6 +186,24 @@ public class resumeFragment extends Fragment implements
             }
         });
 
+
+
+        checkContinue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean ischecked) {
+                if(ischecked)
+                {
+                    edtEndDate.setEnabled(false);
+                    edtEndDate.setText("");
+                }
+
+                else
+                {
+                    edtEndDate.setEnabled(true);
+                }
+            }
+        });
+
         edtEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,12 +216,17 @@ public class resumeFragment extends Fragment implements
                         now.getPersianDay()
                 );
                 finishDateFlag = true;
+                checkContinue.setChecked(false);
                 dpd.show(getActivity().getFragmentManager(), DATEPICKER);
                 dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
                         Log.d("TimePicker", "Dialog was cancelled");
                         finishDateFlag = false;
+                        if(!checkContinue.isChecked())
+                        {
+                            checkContinue.setChecked(true);
+                        }
                     }
                 });
 

@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.technologygroup.rayannoor.yoga.FadePageTransformer;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.adapters.GymServicesPager;
 
@@ -24,6 +24,8 @@ public class GymServiceActivity extends AppCompatActivity {
     private int selectedTabIndex;
     private boolean calledFromPanel = false;
     private int idGym;
+    private String about;
+    private String work;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class GymServiceActivity extends AppCompatActivity {
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         selectedTabIndex = getIntent().getIntExtra("SelectedTabIndex", 0);
         idGym = getIntent().getIntExtra("idGym", -1);
+        Toast.makeText(this, ""+idGym, Toast.LENGTH_SHORT).show();
+        about = getIntent().getStringExtra("about");
+        work = getIntent().getStringExtra("work");
 
 
         tabLayout.addTab(tabLayout.newTab().setText("افتخارات"));
@@ -48,7 +53,7 @@ public class GymServiceActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("اعلانات"));
 
 
-        GymServicesPager adapter = new GymServicesPager(getSupportFragmentManager(), calledFromPanel, idGym);
+        GymServicesPager adapter = new GymServicesPager(getSupportFragmentManager(), calledFromPanel, idGym, about,work);
         GymServicesPager.setAdapter(adapter);
         GymServicesPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -73,7 +78,7 @@ public class GymServiceActivity extends AppCompatActivity {
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 finish();
             }

@@ -40,19 +40,15 @@ public class workTimeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_work_time, container, false);
 
         txtWork = (TextView) view.findViewById(R.id.txtWork);
+        String work = getArguments().getString("work", "");
+        txtWork.setText(work);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
-
         floactAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
-
-
-
-
-
         return view;
     }
 

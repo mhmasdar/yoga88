@@ -94,6 +94,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
                 GymsListActivity activity = (GymsListActivity) context;
                 Intent intent = new Intent(activity, GymProfileActivity.class);
                 intent.putExtra("idgym", holder.id);
+
                 intent.putExtra("Des", holder.Des);
                 //intent.putExtra("idCurrentSMSPlan", holder.idCurrentSMSPlan);
                 intent.putExtra("Lat", holder.Lat);
@@ -104,7 +105,6 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
                 intent.putExtra("workTime", holder.workTime);
                 intent.putExtra("Email", holder.Email);
                 intent.putExtra("fname", holder.fname);
-                intent.putExtra("id", holder.id);
                 intent.putExtra("idCurrentPlan", holder.idCurrentPlan);
                 intent.putExtra("Instagram", holder.Instagram);
                 //intent.putExtra("lastUpdate", holder.lastUpdate);

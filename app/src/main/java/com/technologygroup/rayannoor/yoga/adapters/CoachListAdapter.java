@@ -97,7 +97,7 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
                 intent.putExtra("lName", holder.lName);
                 intent.putExtra("Telegram", holder.Telegram);
                 intent.putExtra("Img", holder.Img);
-                intent.putExtra("id", holder.id);
+                intent.putExtra("idUser", holder.id);
                 intent.putExtra("idCity", holder.idCity);
                 intent.putExtra("idCurrentPlan", holder.idCurrentPlan);
                 intent.putExtra("like", 27);

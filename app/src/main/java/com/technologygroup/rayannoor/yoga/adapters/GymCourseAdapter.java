@@ -8,13 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.CourseModel;
-import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 
 import java.util.List;
@@ -91,8 +87,8 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
 
             txtTitle.setText(current.Title);
             txtCoachName.setText(current.coachName);
-            txtStartDate.setText(classDate.changeDateToString(Integer.parseInt(current.startDate)));
-            txtEndDate.setText("تا " + classDate.changeDateToString(Integer.parseInt(current.startDate)));
+            txtStartDate.setText(current.startDate);
+            txtEndDate.setText("تا " + current.endDate);
             txtDateTime.setText(current.Days + " " + current.Times);
 
             this.position = position;

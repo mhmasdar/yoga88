@@ -166,7 +166,7 @@ public class refResumeFragment extends Fragment {
         edtTitle = (EditText) dialog.findViewById(R.id.edtTitle);
         edtStartDate = (EditText) dialog.findViewById(R.id.edtStartDate);
         edtEndDate = (EditText) dialog.findViewById(R.id.edtEndDate);
-        checkStudents = (CheckBox) dialog.findViewById(R.id.checkStudents);
+        checkStudents = (CheckBox) dialog.findViewById(R.id.checkContinue);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
 
         dialog.setCancelable(true);

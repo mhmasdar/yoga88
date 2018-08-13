@@ -16,10 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.rom4ek.arcnavigationview.ArcNavigationView;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachListActivity;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
-import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
+import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
 import com.technologygroup.rayannoor.yoga.Teaches.teachsActivity;
@@ -77,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
     public static Spinner CitySpinner;
     private static int currentPage = 0;
 
-    private int userType, idUser;
+    private int idUser;
+    private String userType;
     private DrawerLayout drawerLayout;
     private LinearLayout lytCommingSoon;
     private LinearLayout hamegani;
@@ -91,9 +88,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 
-        prefs = getSharedPreferences("MyPrefs", 0);
-
-        userType = prefs.getInt("userType", -1);
+        prefs = getSharedPreferences("User", 0);
+        userType = prefs.getString("userType","no");
         idUser = prefs.getInt("idUser", -1);
 
         if (idUser > 0) {
@@ -101,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (userType == 1) {
+        if (userType.equals("Gym")) {
             txtLogin.setText("پنل باشگاه");
-        } else if (userType == 2) {
+        } else if (userType.equals("Coach")) {
             txtLogin.setText("پنل مربی");
-        } else if (userType == 3) {
+        } else if (userType.equals("User")) {
             txtLogin.setText("حساب کاربری");
         } else {
             txtLogin.setText("ورود/ثبت نام");
@@ -198,20 +194,34 @@ public class MainActivity extends AppCompatActivity {
         lytLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userType == -1) {
+                if (userType.equals("no")) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+
                     startActivity(intent);
                 }
-                if (userType == 1 && idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
+                if (userType.equals("Gym") && idUser > 0) {
+                    Intent intent = new Intent(MainActivity.this, GymProfileActivity.class);
+                    intent.putExtra("idgym",idUser);
+                    intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType == 2 && idUser > 0) {
+                if (userType.equals("Coach")&& idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
+                    intent.putExtra("idUser",idUser);
+                    intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType == 3 && idUser > 0) {
+                if (userType.equals("Refree")&& idUser > 0) {
+                    Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
+                    intent.putExtra("idUser",idUser);
+                    intent.putExtra("calledFromPanel",true);
+                    startActivity(intent);
+                }
+                if (userType.equals("User")&& idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
+                    intent.putExtra("idUser",idUser);
+                    intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
                 drawer_layout.closeDrawer(GravityCompat.END);

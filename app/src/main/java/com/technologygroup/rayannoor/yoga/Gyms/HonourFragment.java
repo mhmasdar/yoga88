@@ -2,7 +2,6 @@ package com.technologygroup.rayannoor.yoga.Gyms;
 
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -159,7 +158,7 @@ public class HonourFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getGymHonor(App.isInternetOn(), idGym);
+            list = webService.getCoachHonor(App.isInternetOn(), idGym);
 
             return null;
         }

@@ -18,10 +18,8 @@ import android.widget.Toast;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.CourseModel;
-import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
-import com.technologygroup.rayannoor.yoga.adapters.GymCoachesAdapter;
 import com.technologygroup.rayannoor.yoga.adapters.GymCourseAdapter;
 
 import java.util.ArrayList;
@@ -59,8 +57,6 @@ public class coursesFragment extends Fragment {
 
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idGym = getArguments().getInt("idGym", -1);
-
-
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
