@@ -815,7 +815,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/training/getbyuserid?fid=1&uid=4&type=ersali", "GET");
+            String response = connectToServer("http://varzesh.buludweb.com/api/training/getbyuserid?fid="+fid+"&uid="+id+"&type="+type, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -851,7 +851,46 @@ public class WebService {
         } else
             return null;
     }
+    public List<TeachesModel> getTeachesOfown(boolean isInternetAvailable,int id,String type) {
 
+        if (isInternetAvailable) {
+
+            String response = connectToServer("http://varzesh.buludweb.com/api/training/getbyuserid?uid="+id+"&type="+type, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<TeachesModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        TeachesModel model = new TeachesModel();
+
+                        model.id = Object.getInt("ID");
+                        model.Date = Object.getString("PublishDate");
+                        model.IsVerified=Object.getBoolean("IsVerified");
+                        model.IsUpdated=Object.getBoolean("IsUpdated");
+                        model.user.getfromjson(Object.getJSONObject("User"));
+                        model.Title = Object.getString("Title");
+                        model.Body = Object.getString("Bodies");
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
     public List<CoachGymsModel> getCoachGyms(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
@@ -1029,7 +1068,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServerByJson(App.apiAddr + "EducationalRecord/delete", "POST", id + "");
+            String response = connectToServerByJson(App.apiAddr + "Evidence/Delete?eid="+id, "POST", id + "");
             Log.i("LOG", response + "");
 
             return response;

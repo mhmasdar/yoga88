@@ -88,13 +88,18 @@ public class courseFragment extends Fragment {
     }
 
     private void showDialog() {
-        Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_coach_course);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtCourse = (EditText) dialog.findViewById(R.id.edtCourse);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
-
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();

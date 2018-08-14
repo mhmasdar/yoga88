@@ -245,7 +245,6 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
     public void editItem(final int position, final CoachEduModel current) {
 
         showDialog(position, current);
-
         notifyDataSetChanged();
     }
 
@@ -490,7 +489,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
 
             if (result != null) {
 
-                if (result.equals("true")) {
+                if (result.equals("OK")) {
                     Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
                     list.remove(position);
                     notifyDataSetChanged();
