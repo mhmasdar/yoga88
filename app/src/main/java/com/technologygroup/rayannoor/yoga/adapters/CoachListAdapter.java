@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachListActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
@@ -53,10 +56,10 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
         //if (models.get(position).idState == stateNumber && models.get(position).idCity == cityNumber)
 
 
-//        if (models.get(position).Img != null)
-//            if (!models.get(position).Img.equals("") && !models.get(position).Img.equals("null"))
-//                Glide.with(context).load(App.imgAddr + models.get(position).Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgCoach);
-//        //glide code for load image by url. It supports offline and online offline: R.id.....
+        if (models.get(position).ImgName != null)
+            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null"))
+                Glide.with(context).load(App.imgAddr + models.get(position).ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgCoach);
+        //glide code for load image by url. It supports offline and online offline: R.id.....
 
 
         holder.lName = models.get(position).lName;

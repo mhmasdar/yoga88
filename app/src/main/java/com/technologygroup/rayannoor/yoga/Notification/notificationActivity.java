@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.technologygroup.rayannoor.yoga.FadePageTransformer;
 import com.technologygroup.rayannoor.yoga.R;
-import com.technologygroup.rayannoor.yoga.adapters.GymServicesPager;
 import com.technologygroup.rayannoor.yoga.adapters.NotifPager;
 
 public class notificationActivity extends AppCompatActivity {
@@ -22,6 +20,7 @@ public class notificationActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Typeface typeface;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +36,14 @@ public class notificationActivity extends AppCompatActivity {
             }
         });
 
+        userType = getIntent().getStringExtra("userType");
+
 
         tabLayout.addTab(tabLayout.newTab().setText("اخبار"));
         tabLayout.addTab(tabLayout.newTab().setText("اعلانات"));
-        tabLayout.addTab(tabLayout.newTab().setText("کاریابی"));
+
+        if (!userType.equals("no"))
+            tabLayout.addTab(tabLayout.newTab().setText("کاریابی"));
 
         NotifPager adapter = new NotifPager(getSupportFragmentManager());
         viewPager.setAdapter(adapter);

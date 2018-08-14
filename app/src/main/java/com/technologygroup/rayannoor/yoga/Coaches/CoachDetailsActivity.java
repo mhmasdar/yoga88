@@ -682,8 +682,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            webService = new WebService();
             dialog = new Dialog(CoachDetailsActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
@@ -698,6 +696,8 @@ public class CoachDetailsActivity extends AppCompatActivity {
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
+            webService = new WebService();
+
         }
 
         @Override
