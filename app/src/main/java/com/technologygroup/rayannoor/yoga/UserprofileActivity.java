@@ -51,7 +51,7 @@ public class UserprofileActivity extends AppCompatActivity {
 
         initView();
 
-        prefs = getSharedPreferences("MyPrefs", 0);
+        prefs = getSharedPreferences("User", 0);
         idUser = prefs.getInt("idUser", -1);
 
         edtFName.setText(prefs.getString("Name", ""));
