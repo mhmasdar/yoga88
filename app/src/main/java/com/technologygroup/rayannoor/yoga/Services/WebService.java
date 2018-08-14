@@ -602,7 +602,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServerByJson(App.apiAddr + "WorkResume/Delete", "POST", id + "");
+            String response = connectToServer(App.apiAddr + "Evidence/Delete?eid="+id, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1003,7 +1003,7 @@ public class WebService {
         if (isInternetAvailable) {
 
             String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + model.id + ",\"idRow\":" + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\"" + model.Name + "\"}";
-            String response = connectToServerByJson(App.apiAddr + "honor/update", "POST", req);
+            String response = connectToServerByJson(App.apiAddr + "Evidence/Edit?eid="+model.id+"&title="+model.Title, "POST", req);
             Log.i("LOG", response + "");
 
             return response;

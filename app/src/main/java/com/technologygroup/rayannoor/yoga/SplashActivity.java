@@ -1,20 +1,14 @@
 package com.technologygroup.rayannoor.yoga;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Matrix;
 import android.graphics.RectF;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
-import com.technologygroup.rayannoor.yoga.IntroPage.IntroFragment;
 import com.technologygroup.rayannoor.yoga.IntroPage.introActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -40,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        prefs = getApplicationContext().getSharedPreferences("MyPrefs", 0);
+        prefs = getApplicationContext().getSharedPreferences("User", 0);
 
 
 

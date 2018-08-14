@@ -133,7 +133,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 alert.setPositiveButton("بله", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        prefs = getSharedPreferences("MyPrefs", 0);
+                        prefs = getSharedPreferences("User", 0);
                         prefs.edit().clear().apply();
 
                         SharedPreferences.Editor editor = prefs.edit();

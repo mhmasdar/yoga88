@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("Mobile", userModel.Mobile);
                     editor.putString("Email", userModel.Email);
                     editor.putString("Password", userModel.Password);
+                    editor.putBoolean("isFirstRun", false);
                     editor.putString("idcity",String.valueOf(userModel.cityid));
                     editor.apply();
 

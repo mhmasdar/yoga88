@@ -248,7 +248,7 @@ public class resumeFragment extends Fragment implements
 
                 if (!edtTitle.getText().toString().equals("") && !edtStartDate.getText().toString().equals("")) {
 
-                         callBackFileDetails = new WebServiceAdd();
+                    callBackFileDetails = new WebServiceAdd();
                         callBackFileDetails.execute();
 
 

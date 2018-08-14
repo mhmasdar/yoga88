@@ -148,10 +148,6 @@ public class RegisterActivity extends AppCompatActivity {
             if (result != null) {
 
                 if (result.id > 0) {
-
-
-
-
                     prefs = getSharedPreferences("User", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("idUser", result.id);
@@ -160,6 +156,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("lName", result.lName);
                     editor.putString("Mobile", result.Mobile);
                     editor.putString("Email", result.Email);
+                    editor.putBoolean("isFirstRun", false);
                     editor.putString("Password", result.Password);
                     editor.apply();
 

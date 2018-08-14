@@ -39,7 +39,8 @@ public class RefereeResumeAdapter extends RecyclerView.Adapter<RefereeResumeAdap
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-        activity = (CoachServicesActivity) context;
+        this.list=list;
+//        activity = (CoachServicesActivity) context;
     }
 
     @Override

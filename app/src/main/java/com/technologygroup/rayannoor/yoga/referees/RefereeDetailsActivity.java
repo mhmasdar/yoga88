@@ -57,7 +57,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     String instagram;
     String mobile;
     String sorosh;
-    String idReffre;
+    int idReffre;
     CoachModel coachModel;
     int idsend;
     Boolean calledFromPanel;
@@ -122,7 +122,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     {
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
-        idReffre=b.getString("idReffre");
+        idReffre=b.getInt("idReffre");
         String name=  b.getString("name");
         Email=  b.getString("Email");
         Telegram=b.getString("Telegram");

@@ -340,7 +340,7 @@ public class CoachCertificateAdapter extends RecyclerView.Adapter<CoachCertifica
 //                        tmpModel.Img = selectedImgName;
                         tmpModel.Title = edtTitle.getText().toString();
                         tmpModel.Date = edtDate.getText().toString();
-                        tmpModel.Des = edtBody.getText().toString();
+//                        tmpModel.Des = edtBody.getText().toString();
 
                          callBackFileDetails = new WebServiceCallBackEdit(tmpModel, position);
                         callBackFileDetails.execute();
