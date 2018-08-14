@@ -111,7 +111,7 @@ public class refBioFragment extends Fragment {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.editCoachBio(App.isInternetOn(), edtBio.getText().toString().trim() ,idCoach,"Referee");
+            result = webService.editCoachBio(App.isInternetOn(), edtBio.getText().toString().trim() ,idCoach,"coach");
             return null;
         }
 

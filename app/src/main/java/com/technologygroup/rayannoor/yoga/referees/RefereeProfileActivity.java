@@ -1,10 +1,14 @@
 package com.technologygroup.rayannoor.yoga.referees;
 
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -43,6 +47,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
     private RelativeLayout lytRefereeProfileUpgrade;
     CoachModel coachModel;
     int idsend;
+    private Dialog dialog;
     Boolean calledFromPanel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +213,19 @@ public class RefereeProfileActivity extends AppCompatActivity {
             super.onPreExecute();
 
             webService = new WebService();
+            dialog = new Dialog(RefereeProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
 
         }
 
@@ -223,8 +241,14 @@ public class RefereeProfileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            dialog.dismiss();
             others();
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfo();
     }
 }

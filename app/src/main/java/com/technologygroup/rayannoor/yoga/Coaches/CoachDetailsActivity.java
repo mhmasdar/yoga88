@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Coaches;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -60,6 +62,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private ImageView imgLockCertificates;
     private LinearLayout lytCertificates, lytParent;
     private FloatingActionButton floatAction;
+    private Dialog dialog;
 
     // dialog rating
     Dialog dialogRating;
@@ -681,7 +684,20 @@ public class CoachDetailsActivity extends AppCompatActivity {
             super.onPreExecute();
 
             webService = new WebService();
+            dialog = new Dialog(CoachDetailsActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
 
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
         }
 
         @Override
@@ -696,7 +712,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            dialog.dismiss();
             others();
 
         }
@@ -716,6 +732,11 @@ public class CoachDetailsActivity extends AppCompatActivity {
         if (webServiceCallLike != null)
             if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallLike.cancel(true);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfo();
     }
 
 }

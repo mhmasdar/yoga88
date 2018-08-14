@@ -353,5 +353,9 @@ public class CoachProfileActivity extends AppCompatActivity {
             if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCoachInfo.cancel(true);
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+      //  getInfo();
+    }
 }
