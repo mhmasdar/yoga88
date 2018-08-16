@@ -1102,7 +1102,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "api/Course/EditCourse?id="+id, "GET");
+            String response = connectToServer(App.apiAddr + "Course/DeleteCourse?cid="+id, "GET");
             Log.i("LOG", response + "");
 
             return response;

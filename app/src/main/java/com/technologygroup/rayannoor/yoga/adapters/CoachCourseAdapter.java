@@ -255,7 +255,6 @@ public class CoachCourseAdapter extends RecyclerView.Adapter<CoachCourseAdapter.
         protected Void doInBackground(Object... params) {
 
             result = webService.deleteCoachCourse(App.isInternetOn(), id);
-
             return null;
         }
 
