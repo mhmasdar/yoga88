@@ -282,7 +282,7 @@ public class GymProfileActivity extends AppCompatActivity {
         gymModel.Instagram = getIntent().getStringExtra("Instagram");
         gymModel.lName = getIntent().getStringExtra("lName");
         gymModel.Telegram = getIntent().getStringExtra("Telegram");
-        gymModel.Img = getIntent().getStringExtra("Img");
+        //gymModel.Img = getIntent().getStringExtra("Img");
         gymModel.id = getIntent().getIntExtra("id", -1);
         gymModel.idCity = getIntent().getIntExtra("idCity", -1);
 //        getIntent().getIntExtra("idState", 1);
@@ -305,9 +305,9 @@ public class GymProfileActivity extends AppCompatActivity {
     private void setViews() {
 
         if (gymModel.IsVerified)
-            if (gymModel.Img != null)
-                if (!gymModel.Img.equals("") && !gymModel.Img.equals("null"))
-                    Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gymImage);
+            if (gymModel.ImgName != null)
+                if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
+                    Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gymImage);
 
 
         txtGymName.setText(gymModel.Name);

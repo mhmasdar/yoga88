@@ -625,7 +625,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "User/GetCourses/"+id, "GET");
+            String response = connectToServer(App.apiAddr + "Course/GetCoursesByUserID/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1036,13 +1036,36 @@ public class WebService {
         } else
             return null;
     }
+    public String editCoachCourse(boolean isInternetAvailable, CoachCourseModel model) {
 
+        if (isInternetAvailable) {
+
+            //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
+            String response = connectToServer(App.apiAddr + "Course/EditCourse?cid="+model.id+"&title="+model.title, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+    public String AddCoachCourse(boolean isInternetAvailable, String title,int id) {
+
+        if (isInternetAvailable) {
+
+            //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
+            String response = connectToServer(App.apiAddr + "Course/AddCourse?uid="+id+"&title="+title, "GET");
+            Log.i("LOG", response + " "+title);
+
+            return response;
+        } else
+            return null;
+    }
     public String editCoachHonor(boolean isInternetAvailable, CoachHonorModel model) {
 
         if (isInternetAvailable) {
 
-            String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + model.id + ",\"idRow\":" + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\"" + model.Name + "\"}";
-            String response = connectToServerByJson(App.apiAddr + "Evidence/Edit?eid="+model.id+"&title="+model.Title, "POST", req);
+            //String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + model.id + ",\"idRow\":" + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\"" + model.Name + "\"}";
+            String response = connectToServer(App.apiAddr + "Course/EditCourse?id="+model.id+"&title="+model.Title,"GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1068,7 +1091,18 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServerByJson(App.apiAddr + "Evidence/Delete?eid="+id, "POST", id + "");
+            String response = connectToServer(App.apiAddr + "Evidence/Delete?eid="+id, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+    public String deleteCoachCourse(boolean isInternetAvailable, int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "api/Course/EditCourse?id="+id, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1177,28 +1211,28 @@ public class WebService {
 
                         JSONObject Object = Array.getJSONObject(i);
                         CoachModel model = new CoachModel();
-                        model.Email = Object.getString("Email");
+//                        model.Email = Object.getString("Email");
                         model.id = Object.getInt("ID");
                         model.fName = Object.getString("FirstName");
-                        model.RegisteredDate = Object.getString("RegisteredDate");
+//                        model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
                        // model.like = Object.getInt("like");
                         model.lName = Object.getString("LastName");
-                        model.Mobile = Object.getString("Mobile");
+//                        model.Mobile = Object.getString("Mobile");
                        // model.Rate = Object.getDouble("Rate");
                        // model.Telegram = Object.getString("Telegram");
                         //model.sorosh = Object.getString("sorosh");
-                        JSONObject Rolej=Object.getJSONObject("Role");
-                        model.rolename=Rolej.getString("Name");
-                        model.roleid=Rolej.getInt("ID");
-                        JSONObject cityj=Object.getJSONObject("City");
-                        model.City = cityj.getString("Name");
-                        model.idCity = cityj.getInt("ID");
-                        model.State = cityj.getString("State");
+//                        JSONObject Rolej=Object.getJSONObject("Role");
+  //                      model.rolename=Rolej.getString("Name");
+    //                    model.roleid=Rolej.getInt("ID");
+      //                  JSONObject cityj=Object.getJSONObject("City");
+   ///                     model.City = cityj.getString("Name");
+      ///                  model.idCity = cityj.getInt("ID");
+         //               model.State = cityj.getString("State");
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.IdImg=ProfileImagej.getInt("ID");
-                        model.ImgName=ProfileImagej.getString("Name");
+                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
                         list.add(model);
                     }
 
@@ -1361,7 +1395,7 @@ public class WebService {
                         model.Telegram = Object.getString("Telegram");
                         model.City = Object.getString("City");
                         model.State = Object.getString("State");
-                        model.Img = Object.getString("Img");
+                        model.ImgName = Object.getString("Img");
 
                         list.add(model);
 
@@ -1428,7 +1462,7 @@ public class WebService {
                     model.State=Statej.getString("Name");
                     model.idState=Statej.getInt("ID");
                     JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
-                    model.Img=ProfileImagej.getString("Name");
+                    model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
                     model.idImg=ProfileImagej.getInt("ID");
                     return model;
                 } catch (JSONException e) {
@@ -1626,28 +1660,28 @@ public class WebService {
 
                         JSONObject Object = Array.getJSONObject(i);
                         CoachModel model = new CoachModel();
-                        model.Email = Object.getString("Email");
+//                        model.Email = Object.getString("Email");
                         model.id = Object.getInt("ID");
                         model.fName = Object.getString("FirstName");
-                        model.RegisteredDate = Object.getString("RegisteredDate");
+                        //model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
                         // model.like = Object.getInt("like");
                         model.lName = Object.getString("LastName");
-                        model.Mobile = Object.getString("Mobile");
+   //                     model.Mobile = Object.getString("Mobile");
                         // model.Rate = Object.getDouble("Rate");
                         // model.Telegram = Object.getString("Telegram");
                         //model.sorosh = Object.getString("sorosh");
-                        JSONObject Rolej=Object.getJSONObject("Role");
-                        model.rolename=Rolej.getString("Name");
-                        model.roleid=Rolej.getInt("ID");
-                        JSONObject cityj=Object.getJSONObject("City");
-                        model.City = cityj.getString("Name");
-                        model.idCity = cityj.getInt("ID");
-                        model.State = cityj.getString("State");
+                       // JSONObject Rolej=Object.getJSONObject("Role");
+                       // model.rolename=Rolej.getString("Name");
+                        //model.roleid=Rolej.getInt("ID");
+                       // JSONObject cityj=Object.getJSONObject("City");
+                       // model.City = cityj.getString("Name");
+                       // model.idCity = cityj.getInt("ID");
+                       // model.State = cityj.getString("State");
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.IdImg=ProfileImagej.getInt("ID");
-                        model.ImgName=ProfileImagej.getString("Name");
+                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
                         list.add(model);
                     }
                     return list;
@@ -1689,7 +1723,7 @@ public class WebService {
                         model.IsVerified = Object.getBoolean("IsVerified");
 //                        // model.like = Object.getInt("like");
 
-                        model.Mobile = Object.getString("Mobile");
+//                        model.Mobile = Object.getString("Mobile");
 //                        // model.Rate = Object.getDouble("Rate");
 //                        // model.Telegram = Object.getString("Telegram");
 //                        //model.sorosh = Object.getString("sorosh");
@@ -1700,9 +1734,9 @@ public class WebService {
 //                        model.City = cityj.getString("Name");
 //                        model.idCity = cityj.getInt("ID");
 //                        model.State = cityj.getString("State");
-//                        JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
-//                        model.IdImg=ProfileImagej.getInt("ID");
-//                        model.ImgName=ProfileImagej.getString("Name");
+                        JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
+                        model.ImgID=ProfileImagej.getInt("ID");
+                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
                         list.add(model);
                     }
 

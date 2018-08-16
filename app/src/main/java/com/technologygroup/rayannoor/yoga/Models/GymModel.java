@@ -31,7 +31,8 @@ public class GymModel {
     public String City;
 
     public String State;
-    public String Img;
+    public String ImgName;
+    public int ImgID;
     public boolean IsVerified;
     public String Mobile;
     public String About;

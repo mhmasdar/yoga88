@@ -300,9 +300,9 @@ public class GymDetailsActivity extends AppCompatActivity {
 
             if (gymModel != null) {
 
-                if (gymModel.Img != null)
-                    if (!gymModel.Img.equals("") && !gymModel.Img.equals("null"))
-                        Glide.with(GymDetailsActivity.this).load(App.imgAddr + gymModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
+                if (gymModel.ImgName != null)
+                    if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
+                        Glide.with(GymDetailsActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
                 txtGymName.setText(gymModel.Name);
                 ClassLevels classLevels = new ClassLevels();
                 txtCoachLevel.setText(classLevels.getCoachLevelName(gymModel.idCurrentPlan));
