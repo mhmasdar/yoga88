@@ -106,7 +106,7 @@ public class resumeFragment extends Fragment implements
 
              webServiceCoachInfo = new WebServiceList();
             webServiceCoachInfo.execute();
-            Toast.makeText(getContext(), "here", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(getContext(), "مربی مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
         }
@@ -385,9 +385,10 @@ public class resumeFragment extends Fragment implements
 
             if (resultAdd != null) {
 
-                if (Integer.parseInt(resultAdd) > 0) {
+                if (resultAdd.equals("OK")) {
 
-                    model.id = Integer.parseInt(resultAdd);
+                    WebServiceList webServiceList=new WebServiceList();
+                    webServiceList.execute();
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند (*)
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
@@ -405,10 +406,7 @@ public class resumeFragment extends Fragment implements
                     // بدکمه هایی که برای ارسال استفاده میشود باید ازان کد ها استفاده بشوند. تا کاربر بداند از سرور پاسخ گرفته با استفاده از کد *
 
 
-                    list.add(model);
-                    setUpRecyclerView(list);
-
-                } else if (Integer.parseInt(resultAdd) == 0) {
+                } else if (Integer.parseInt(resultAdd) == -1) {
 
                     btnOk.revertAnimation();
                     Toast.makeText(getContext(), "ارسال اطلاعات ناموفق است", Toast.LENGTH_LONG).show();

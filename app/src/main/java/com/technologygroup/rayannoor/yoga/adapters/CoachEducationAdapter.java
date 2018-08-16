@@ -77,7 +77,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-        activity = (CoachServicesActivity) context;
+       // activity = (CoachServicesActivity) context;
     }
     public CoachEducationAdapter(Context context){
         this.context = context;

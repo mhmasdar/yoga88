@@ -2,10 +2,15 @@ package com.technologygroup.rayannoor.yoga.referees;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +19,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +31,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Models.CoachEduModel;
 import com.technologygroup.rayannoor.yoga.R;
+import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.RefereeEducationAdapter;
 
@@ -38,25 +49,48 @@ import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class refEducationFragment extends Fragment {
+public class refEducationFragment extends Fragment implements
+        DatePickerDialog.OnDateSetListener {
 
-    private LinearLayout lytMain, lytDisconnect, lytEmpty;
+
+    LinearLayout lytMain, lytDisconnect, lytEmpty;
     private ShimmerRecyclerView Recycler;
     private FloatingActionButton floatAction;
     private Dialog dialog;
-    private EditText edtTitle, edtUniversity, edtDate;
-    private TextView txtNoImage;
-    private ImageView imgCertificate, imgSelectPicture, imgClose;
-    private String selectedFilePath, selectedImgName = "";
-    private CircularProgressButton btnOk;
-    String resultAdd;
-    private boolean calledFromPanel = false;
-    public boolean flagPermission = false;
-    int idCoach;
+
+    private SharedPreferences prefs;
+    private int idCoach;
     List<CoachEduModel> list;
+    public boolean flagPermission = false;
+    private static final int PICK_FILE_REQUEST = 1;
+    private String selectedFilePath, selectedImgName = "";
+
+
+    String resultAdd;
+
+    // dialog add content
+    EditText edtTitle, edtUniversity, edtDate;
+    TextView txtNoImage;
+    ImageView imgCertificate, imgSelectPicture, imgClose;
+    CircularProgressButton btnOk;
+
+
+    //relates to date and time picker
+    private static final String TIMEPICKER = "TimePickerDialog",
+            DATEPICKER = "DatePickerDialog", MULTIDATEPICKER = "MultiDatePickerDialog";
+    String date;
+
+    RefereeEducationAdapter adapter;
+
+    private boolean calledFromPanel = false;
+    WebServiceAdd callBackFileDetails;
+    WebServiceList webServiceCoachInfo;
+
 
     public refEducationFragment() {
         // Required empty public constructor
@@ -67,11 +101,13 @@ public class refEducationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ref_education, container, false);
-        initView(view);
-        list=new ArrayList<>();
-        idCoach = getArguments().getInt("idCoach", -1);
+        View view = inflater.inflate(R.layout.fragment_education, container, false);
+
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
+        idCoach = getArguments().getInt("idCoach", -1);
+
+        initView(view);
+
         if (!calledFromPanel) {
             floatAction.setVisibility(View.GONE);
         }
@@ -88,8 +124,8 @@ public class refEducationFragment extends Fragment {
 
         if (idCoach > 0) {
 
-            WebServiceList webServiceList= new WebServiceList();
-            webServiceList.execute();
+            webServiceCoachInfo = new WebServiceList();
+            webServiceCoachInfo.execute();
         } else {
             Toast.makeText(getContext(), "مربی مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
         }
@@ -108,8 +144,8 @@ public class refEducationFragment extends Fragment {
             public void onClick(View v) {
                 if (idCoach > 0) {
 
-                    WebServiceList webServiceList= new WebServiceList();
-                    webServiceList.execute();
+                    webServiceCoachInfo = new WebServiceList();
+                    webServiceCoachInfo.execute();
                 } else {
                     Toast.makeText(getContext(), "مربی مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
                     getActivity().finish();
@@ -119,7 +155,6 @@ public class refEducationFragment extends Fragment {
         return view;
     }
 
-
     public void initView(View view){
         lytEmpty = view.findViewById(R.id.lytEmpty);
         lytMain = view.findViewById(R.id.lytMain);
@@ -128,8 +163,8 @@ public class refEducationFragment extends Fragment {
         floatAction = view.findViewById(R.id.floatAction);
     }
 
-    private void setUpRecyclerView() {
-        RefereeEducationAdapter adapter = new RefereeEducationAdapter(getActivity());
+    private void setUpRecyclerView(List<CoachEduModel> list) {
+        adapter = new RefereeEducationAdapter(getActivity(), list, idCoach, calledFromPanel);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -155,7 +190,167 @@ public class refEducationFragment extends Fragment {
         imgClose = dialog.findViewById(R.id.imgClose);
 
 
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RefereeServicesActivity activity = (RefereeServicesActivity) getContext();
+
+                PersianCalendar now = new PersianCalendar();
+
+                DatePickerDialog dpd = DatePickerDialog.newInstance(refEducationFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
+                dpd.show(activity.getFragmentManager(), DATEPICKER);
+                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        Log.d("TimePicker", "Dialog was cancelled");
+                    }
+                });
+            }
+        });
+
+        imgSelectPicture.setOnClickListener(imgSelectPicture_click);
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!edtTitle.getText().toString().equals("") && !edtUniversity.getText().toString().equals("")&& !edtDate.getText().toString().equals("")) {
+
+                    if (!selectedImgName.equals("")) {
+                        callBackFileDetails = new WebServiceAdd();
+                        callBackFileDetails.execute();
+
+                    } else {
+                        Toast.makeText(getContext(), "لطفا تصویر مدرک را انتخاب کنید", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
     }
+
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        // Note: monthOfYear is 0-indexed
+        boolean flagMonth = false, flagDay = false;
+
+        if (dayOfMonth / 10 < 1)
+            flagDay = true;
+        if ((monthOfYear + 1) / 10 < 1)
+            flagMonth = true;
+
+        date = year + "";
+        if (flagMonth)
+            date += "/0" + (monthOfYear + 1);
+        else
+            date += "/" + (monthOfYear + 1);
+        if (flagDay)
+            date += "/0" + dayOfMonth;
+        else
+            date += "/" + dayOfMonth;
+
+
+        edtDate.setText(date);
+//        startDateInt = date.replace("/", "");
+
+
+    }
+
+    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (flagPermission) {
+
+                if (App.isInternetOn()) {
+
+                    if (idCoach > 0) {
+
+                        showFileChooser();
+
+                    }
+                } else {
+                    Toast.makeText(getContext(), "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    };
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        //sets the select file to all types of files
+        intent.setType("*/*");
+        //allows to select data and return it
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //starts new activity to select file and return data
+        startActivityForResult(Intent.createChooser(intent, "انتخاب فایل"), PICK_FILE_REQUEST);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == PICK_FILE_REQUEST) {
+                if (data == null) {
+                    //no data present
+                    return;
+                }
+
+
+                Uri selectedFileUri = data.getData();
+
+                imgCertificate.setVisibility(View.VISIBLE);
+                txtNoImage.setVisibility(View.GONE);
+
+                if (selectedFileUri != null)
+                    if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
+                        Glide.with(getContext()).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
+
+                selectedFilePath = FilePath.getPath(this.getActivity(), selectedFileUri);
+                Log.i(TAG, "Selected File Path:" + selectedFilePath);
+
+                if (selectedFilePath != null && !selectedFilePath.equals("")) {
+
+                    String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+                    ClassDate classDate = new ClassDate();
+                    selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
+
+                }
+            } else {
+                Toast.makeText(getContext(), "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+        } else
+            flagPermission = false;
+    }
+
+
     private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -190,7 +385,7 @@ public class refEducationFragment extends Fragment {
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
 
-                    setUpRecyclerView();
+                    setUpRecyclerView(list);
 
                 } else {
 
@@ -271,7 +466,7 @@ public class refEducationFragment extends Fragment {
 
 
                     list.add(model);
-                    setUpRecyclerView();
+                    setUpRecyclerView(list);
 
                 } else if (Integer.parseInt(resultAdd) == 0) {
 
@@ -376,4 +571,18 @@ public class refEducationFragment extends Fragment {
 
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceCoachInfo != null)
+            if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCoachInfo.cancel(true);
+
+        if (callBackFileDetails != null)
+            if (callBackFileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFileDetails.cancel(true);
+    }
+
 }

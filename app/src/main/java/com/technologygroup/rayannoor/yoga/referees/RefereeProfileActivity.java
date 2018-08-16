@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Coaches.CoachEditDetialsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
@@ -107,7 +108,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
         if (strRate.length() > 3)
             strRate = strRate.substring(0, 3);
         txtRefereeRate.setText(strRate);
-      //  RatingBarReferee.setRating((float) coachModel.Rate);
+        rating.setRating((float) coachModel.Rate);
 
 
         if (coachModel.IsVerified) {
@@ -122,6 +123,9 @@ public class RefereeProfileActivity extends AppCompatActivity {
             imgLockBio.setVisibility(View.GONE);
             lytCourse.setAlpha(1);
             imgLockCourse.setVisibility(View.GONE);
+            lytComments.setAlpha(1);
+
+            imgLockComments.setVisibility(View.GONE);
          //   floatAction.show();
            // btnLike.setEnabled(true);
         }
@@ -131,6 +135,25 @@ public class RefereeProfileActivity extends AppCompatActivity {
     private void others() {
         
         setViews();
+        imgEditRefereeDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(RefereeProfileActivity.this, CoachEditDetialsActivity.class);
+
+                intent.putExtra("CoachId", coachModel.id);
+                intent.putExtra("CoachFName", coachModel.fName);
+                intent.putExtra("CoachLName", coachModel.lName);
+//                intent.putExtra("CoachImg", coachModel.Img);
+                intent.putExtra("CoachNatCode", coachModel.natCode);
+                intent.putExtra("CoachEmail", coachModel.Email);
+                intent.putExtra("CoachMobile", coachModel.Mobile);
+                intent.putExtra("CoachIdTelegram", coachModel.Telegram);
+                intent.putExtra("CoachIdInstagram", coachModel.Instagram);
+
+                startActivity(intent);
+            }
+        });
         lytResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -172,6 +172,21 @@ public class CoachProfileActivity extends AppCompatActivity {
                 }
             }
         });
+        lytBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (coachModel.IsVerified) {
+                    Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
+                    intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("SelectedTabIndex", 1);
+                    intent.putExtra("idBio", coachModel.Bio);
+                    intent.putExtra("idCoach", idCoach);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         lytGyms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +227,37 @@ public class CoachProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("idBio", coachModel.Bio);
+                    intent.putExtra("SelectedTabIndex", 6);
+                    intent.putExtra("idCoach", idCoach);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        lytCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (coachModel.IsVerified) {
+                    Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
+                    intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("idBio", coachModel.Bio);
                     intent.putExtra("SelectedTabIndex", 4);
+                    intent.putExtra("idCoach", idCoach);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        lytJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (coachModel.IsVerified) {
+                    Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
+                    intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("idBio", coachModel.Bio);
+                    intent.putExtra("SelectedTabIndex", 7);
                     intent.putExtra("idCoach", idCoach);
                     startActivity(intent);
                 } else {
@@ -321,6 +366,9 @@ public class CoachProfileActivity extends AppCompatActivity {
 
                     lytEducation.setAlpha(1);
                     imgLockEducation.setVisibility(View.GONE);
+                    lytBio.setAlpha(1);
+                    imgLockBio.setVisibility(View.GONE);
+
                     lytResume.setAlpha(1);
                     imgLockResume.setVisibility(View.GONE);
                     lytGyms.setAlpha(1);
@@ -331,6 +379,10 @@ public class CoachProfileActivity extends AppCompatActivity {
                     imgLockCeomments.setVisibility(View.GONE);
                     lytTeachs.setAlpha(1);
                     imgLockTeachs.setVisibility(View.GONE);
+                    lytCourse.setAlpha(1);
+                    imgLockCourse.setVisibility(View.GONE);
+                    lytJob.setAlpha(1);
+                    imgLockJob.setVisibility(View.GONE);
                     others();
                 }
 

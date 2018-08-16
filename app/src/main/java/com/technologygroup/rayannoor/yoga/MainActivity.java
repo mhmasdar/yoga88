@@ -34,6 +34,7 @@ import com.technologygroup.rayannoor.yoga.Teaches.teachsActivity;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.YogaIntroduceActivity;
 import com.technologygroup.rayannoor.yoga.adapters.SlidingImage_Adapter;
 import com.technologygroup.rayannoor.yoga.referees.RefereeListActivity;
+import com.technologygroup.rayannoor.yoga.referees.RefereeProfileActivity;
 
 import java.util.TimerTask;
 
@@ -101,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
             txtLogin.setText("پنل باشگاه");
         } else if (userType.equals("Coach")) {
             txtLogin.setText("پنل مربی");
+        }
+            else if (userType.equals("Referee")) {
+            txtLogin.setText("پنل داور");
+        }    else if (userType.equals("Gym")) {
+            txtLogin.setText("پنل باشگاه");
         } else if (userType.equals("User")) {
             txtLogin.setText("حساب کاربری");
         } else {
@@ -196,8 +202,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (userType.equals("no")) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-
                     startActivity(intent);
                 }
                 if (userType.equals("Gym") && idUser > 0) {
@@ -212,15 +216,15 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType.equals("Refree")&& idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
-                    intent.putExtra("idUser",idUser);
+                if (userType.equals("Referee")&& idUser > 0) {
+                    Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
+                    intent.putExtra("idReffre",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
                 if (userType.equals("User")&& idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
-                    intent.putExtra("idUser",idUser);
+                    intent.putExtra("idgym",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }

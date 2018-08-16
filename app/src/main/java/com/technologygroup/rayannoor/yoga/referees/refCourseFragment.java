@@ -2,8 +2,11 @@ package com.technologygroup.rayannoor.yoga.referees;
 
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
@@ -47,6 +51,7 @@ public class refCourseFragment extends Fragment {
     private int idCoach;
     boolean calledFromPanel;
     List<CoachCourseModel> list;
+    Dialog dialog;
     public refCourseFragment() {
         // Required empty public constructor
     }
@@ -83,22 +88,33 @@ public class refCourseFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        RefereeCourseAdapter adapter = new RefereeCourseAdapter(getActivity());
+        RefereeCourseAdapter adapter = new RefereeCourseAdapter(getActivity(),list,calledFromPanel);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         Recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
-
     private void showDialog() {
-        Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_coach_course);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtCourse = (EditText) dialog.findViewById(R.id.edtCourse);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
-
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WebServiceADD callBack = new WebServiceADD(edtCourse.getText().toString());
+                callBack.execute();
+            }
+        });
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
@@ -156,6 +172,67 @@ public class refCourseFragment extends Fragment {
 
         }
 
+    }
+    private class WebServiceADD extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+        String result;
+        int pos;
+        String title;
+
+        public WebServiceADD(String t) {
+            title=t;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnOk.startAnimation();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.AddCoachCourse(App.isInternetOn(),title,idCoach);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+                if (result.equals("OK")) {
+
+
+                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.ic_ok);
+                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                    // بستن دیالوگ حتما با تاخیر انجام شود
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 1000);
+
+                    //Toast.makeText(context, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+                } else {
+                    btnOk.revertAnimation();
+                    Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+            WebServiceList webServiceList=new WebServiceList();
+            webServiceList.execute();
+        }
     }
 
 }

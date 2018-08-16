@@ -91,7 +91,6 @@ public class courseFragment extends Fragment {
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         Recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
-
     private void showDialog() {
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
