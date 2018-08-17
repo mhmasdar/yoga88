@@ -69,6 +69,7 @@ public class bioFragment extends Fragment {
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
 
         edtBio = (EditText) dialog.findViewById(R.id.edtBio);
+        edtBio.setText(Bio);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
