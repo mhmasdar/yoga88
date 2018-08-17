@@ -568,7 +568,9 @@ public class WebService {
 
 //            String req = "{\"id\":-1,\"idCoach\":" + model.idCoach + ",\"Title\":\"" + model.Title + "\",\"startDate\":" + model.startDate.substring(0, 4) + ",\"endDate\":" + endDate + ",\"lastUpdate\":0}";
 //            String response = connectToServerByJson(App.apiAddr + "Resume/add", "POST", req);
-            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + model.Title + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
+            String mytitle;
+            mytitle=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -579,20 +581,12 @@ public class WebService {
     public String editCoachResume(boolean isInternetAvailable, CoachResumeModel model) {
 
         if (isInternetAvailable) {
-
-            String endDate;
-
-            if (model.endDate.equals(""))
-                endDate = "";
-            else
-                endDate = model.endDate.substring(0, 4);
-
 //            String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Title\":\"" + model.Title + "\",\"startDate\":" + model.startDate.substring(0, 4) + ",\"endDate\":" + endDate + ",\"lastUpdate\":0}";
 //            String response = connectToServerByJson(App.apiAddr + "Resume/update", "POST", req);
-
-            String response = connectToServer(App.apiAddr + "WorkResume/Edit?rid=" + model.id + "&title=" + model.Title + "&startDate=" + model.startDate + "&endDate=" + model.endDate, "GET");
+            String mytitle;
+            mytitle=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "WorkResume/Edit?rid=" + model.id + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + model.endDate, "GET");
             Log.i("LOG", response + "");
-
             return response;
         } else
             return null;
@@ -613,8 +607,9 @@ public class WebService {
     public String editCoachBio(boolean isInternetAvailable, String bio, int id,String type) {
 
         if (isInternetAvailable) {
-
-            String response = connectToServer(App.apiAddr + "user/editbio?uid=" + id + "&bio=" +bio+"&role="+type, "GET");
+            String mytitle;
+            mytitle=bio.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "user/editbio?uid=" + id + "&bio=" +mytitle+"&role="+type, "GET");
             Log.i("LOG", response + "");
             return response;
         } else
@@ -1040,8 +1035,9 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
-            String response = connectToServer(App.apiAddr + "Course/EditCourse?cid="+model.id+"&title="+model.title, "GET");
+            String test;
+            test=model.title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Course/EditCourse?cid="+model.id+"&title="+test, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1053,8 +1049,10 @@ public class WebService {
         if (isInternetAvailable) {
 
             //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
-            String response = connectToServer(App.apiAddr + "Course/AddCourse?uid="+id+"&title="+title, "GET");
-            Log.i("LOG", response + " "+title);
+            String mytitle;
+            mytitle=title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Course/AddCourse?uid="+id+"&title="+mytitle, "GET");
+            Log.i("LOG", response + " ");
 
             return response;
         } else
@@ -1065,7 +1063,9 @@ public class WebService {
         if (isInternetAvailable) {
 
             //String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + model.id + ",\"idRow\":" + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\"" + model.Name + "\"}";
-            String response = connectToServer(App.apiAddr + "Course/EditCourse?id="+model.id+"&title="+model.Title,"GET");
+            String mytitle;
+            mytitle=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Course/EditCourse?id="+model.id+"&title="+mytitle,"GET");
             Log.i("LOG", response + "");
 
             return response;
