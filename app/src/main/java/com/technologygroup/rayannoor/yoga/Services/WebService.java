@@ -1217,6 +1217,7 @@ public class WebService {
 //                        model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
+                        model.like = Object.getInt("Likes");
                        // model.like = Object.getInt("like");
                         model.lName = Object.getString("LastName");
 //                        model.Mobile = Object.getString("Mobile");
@@ -1663,6 +1664,7 @@ public class WebService {
 //                        model.Email = Object.getString("Email");
                         model.id = Object.getInt("ID");
                         model.fName = Object.getString("FirstName");
+                        model.like = Object.getInt("Likes");
                         //model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
