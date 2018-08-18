@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
@@ -106,9 +109,9 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
                 imgDelete.setVisibility(View.INVISIBLE);
             }
 
-//            if (current.Img != null)
-//                if (!current.Img.equals("") && !current.Img.equals("null"))
-//                    Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
+            if (current.ImgName != null)
+                if (!current.ImgName.equals("") && !current.ImgName.equals("null"))
+                    Glide.with(context).load(App.imgAddr + current.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
 
             txtCertificateTitle.setText(current.Title);
             txtCertificateDate.setText(classDate.changeDateToString(Integer.parseInt(current.Date)));

@@ -54,7 +54,6 @@ public class coursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idGym = getArguments().getInt("idGym", -1);
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);

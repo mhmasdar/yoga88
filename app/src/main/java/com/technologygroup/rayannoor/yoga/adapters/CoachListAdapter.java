@@ -83,7 +83,7 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
 
 
         holder.txtCoachName.setText(models.get(position).fName + " " + models.get(position).lName);
-        holder.txtLikeCount.setText(models.get(position).like);
+        holder.txtLikeCount.setText(""+models.get(position).like);
         if(models.get(position).IsVerified)
         {
             holder.txtStatus.setText("فعال");

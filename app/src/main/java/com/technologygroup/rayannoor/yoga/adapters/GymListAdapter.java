@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
@@ -51,9 +54,9 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
         holder.txtGymName.setText(models.get(position).fname + " "+models.get(position).lName );
         holder.txtGymAddress.setText(models.get(position).Address);
 
-//        if (models.get(position).Img != null)
-//            if (!models.get(position).Img.equals("") && !models.get(position).Img.equals("null"))
-//                Glide.with(context).load(App.imgAddr + models.get(position).Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgGym);
+        if (models.get(position).ImgName != null)
+            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null"))
+                Glide.with(context).load(App.imgAddr + models.get(position).ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgGym);
 
 
 //        if (models.get(position).idCurrentPlan == 1){

@@ -173,10 +173,10 @@ public class CoachCertificateAdapter extends RecyclerView.Adapter<CoachCertifica
                 imgDelete.setVisibility(View.INVISIBLE);
             }
 
-//            if (current.Img != null)
-//                if (!current.Img.equals("") && !current.Img.equals("null"))
-//                    Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
-//
+            if (current.ImgName != null)
+                if (!current.ImgName.equals("") && !current.ImgName.equals("null"))
+                    Glide.with(context).load(App.imgAddr + current.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
+
             txtCertificateTitle.setText(current.Title);
 //            txtCertificateDate.setText(current.Date);
 //

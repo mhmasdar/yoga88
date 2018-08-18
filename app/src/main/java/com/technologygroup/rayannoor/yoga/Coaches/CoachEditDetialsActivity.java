@@ -240,13 +240,13 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
         current = new CoachModel();
 
-//        if (getIntent().getStringExtra("CoachImg") != null)
-//            if (!getIntent().getStringExtra("CoachImg").equals("") && !getIntent().getStringExtra("CoachImg").equals("null")) {
-//                Glide.with(CoachEditDetialsActivity.this).load(App.imgAddr + getIntent().getStringExtra("CoachImg")).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
-//                current.Img = getIntent().getStringExtra("CoachImg");
-//            } else
-//                current.Img = "";
-//        else current.Img = "";
+        if (getIntent().getStringExtra("CoachImg") != null)
+            if (!getIntent().getStringExtra("CoachImg").equals("") && !getIntent().getStringExtra("CoachImg").equals("null")) {
+                Glide.with(CoachEditDetialsActivity.this).load(App.imgAddr + getIntent().getStringExtra("CoachImg")).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+                current.ImgName = getIntent().getStringExtra("CoachImg");
+            } else
+                current.ImgName = "";
+        else current.ImgName = "";
 
         current.fName = getIntent().getStringExtra("CoachFName");
         current.lName = getIntent().getStringExtra("CoachLName");

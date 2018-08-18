@@ -1233,7 +1233,7 @@ public class WebService {
          //               model.State = cityj.getString("State");
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.IdImg=ProfileImagej.getInt("ID");
-                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
+                        model.ImgName=ProfileImagej.getString("Name");
                         list.add(model);
                     }
 
@@ -1460,7 +1460,7 @@ public class WebService {
                     model.State=Statej.getString("Name");
                     model.idState=Statej.getInt("ID");
                     JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
-                    model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
+                    model.ImgName=ProfileImagej.getString("Name");
                     model.idImg=ProfileImagej.getInt("ID");
                     return model;
                 } catch (JSONException e) {
@@ -1680,7 +1680,7 @@ public class WebService {
                        // model.State = cityj.getString("State");
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.IdImg=ProfileImagej.getInt("ID");
-                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
+                        model.ImgName=ProfileImagej.getString("Name");
                         list.add(model);
                     }
                     return list;
@@ -1735,7 +1735,7 @@ public class WebService {
 //                        model.State = cityj.getString("State");
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.ImgID=ProfileImagej.getInt("ID");
-                        model.ImgName=ProfileImagej.getString("Name")+ProfileImagej.getString("Extension");
+                        model.ImgName=ProfileImagej.getString("Name");
                         list.add(model);
                     }
 

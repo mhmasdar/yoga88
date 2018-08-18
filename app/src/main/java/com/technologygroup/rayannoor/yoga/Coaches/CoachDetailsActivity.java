@@ -25,6 +25,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
@@ -435,9 +437,9 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
     private void setViews() {
 
-//        if (coachModel.Img != null)
-//            if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))
-//                Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+        if (coachModel.ImgName != null)
+            if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
+                Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
 
 
         txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
@@ -506,7 +508,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
                 } else {
 
                     dialogRating.dismiss();
-
                     Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
                     snackbar.setAction("ثبت نام", new registerAction());
 

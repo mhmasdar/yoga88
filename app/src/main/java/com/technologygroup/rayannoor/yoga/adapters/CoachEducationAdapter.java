@@ -158,9 +158,9 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
                 imgDelete.setVisibility(View.INVISIBLE);
             }
 //
-//            if (current.Img != null)
-//                if (!current.Img.equals("") && !current.Img.equals("null"))
-//                    Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgEducation);
+            if (current.ImgName != null)
+                if (!current.ImgName.equals("") && !current.ImgName.equals("null"))
+                    Glide.with(context).load(App.imgAddr + current.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgEducation);
 //
             txtEducationTitle.setText(current.Title);
 

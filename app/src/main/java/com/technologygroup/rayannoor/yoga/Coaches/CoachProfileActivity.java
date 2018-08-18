@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
@@ -348,9 +350,9 @@ public class CoachProfileActivity extends AppCompatActivity {
 
             if (coachModel != null) {
 
-//                if (coachModel.Img != null)
-//                    if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))
-//                        Glide.with(CoachProfileActivity.this).load(App.imgAddr + coachModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+                if (coachModel.ImgName != null)
+                    if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
+                        Glide.with(CoachProfileActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
                 txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
 //                ClassLevels classLevels = new ClassLevels();
 //                txtCoachLevel.setText(classLevels.getCoachLevelName(coachModel.idCurrentPlan));
