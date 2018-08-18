@@ -70,9 +70,8 @@ public class GymDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_details);
-
         idsend = getIntent().getIntExtra("idgym", -1);
-        Toast.makeText(this, "hihi", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
         initView();
         getInfo();
         //set image darker
@@ -90,8 +89,6 @@ public class GymDetailsActivity extends AppCompatActivity {
         public void getInfo() {
 
         gymModel = new GymModel();
-
-
         webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
 
@@ -110,8 +107,10 @@ public class GymDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GymDetailsActivity.this, CoachPlanActivity.class);
-                intent.putExtra("idCoachOrGym", idGym);
+                intent.putExtra("idCoachOrGym", idsend);
                 intent.putExtra("idPlan", 2);
+                intent.putExtra("work", gymModel.workTime);
+                intent.putExtra("about", gymModel.About);
                 startActivity(intent);
             }
         });
@@ -121,8 +120,9 @@ public class GymDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, CommentsActivity.class);
-                    intent.putExtra("IdCoachOrGym", idGym);
+                    intent.putExtra("IdCoachOrGym", idsend);
                     intent.putExtra("IsGym", true);
+
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -137,7 +137,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 0);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -152,7 +154,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 1);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -167,7 +171,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -182,7 +188,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 3);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -197,7 +205,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 4);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -212,7 +222,9 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 5);
-                    intent.putExtra("idGym", idGym);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -286,7 +298,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            gymModel = webService.getGymInfo(App.isInternetOn(), idGym);
+            gymModel = webService.getGymInfo(App.isInternetOn(), idsend);
 
             return null;
         }

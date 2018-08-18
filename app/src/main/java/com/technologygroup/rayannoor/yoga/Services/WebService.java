@@ -1427,9 +1427,6 @@ public class WebService {
                 try {
 
                     JSONObject Object = new JSONObject(response);
-
-
-
                     model.Email = Object.getString("Email");
                     model.fname = Object.getString("FirstName");
                     model.Instagram = Object.getString("Instagram");

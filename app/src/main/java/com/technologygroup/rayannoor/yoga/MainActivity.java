@@ -27,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.rom4ek.arcnavigationview.ArcNavigationView;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachListActivity;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
-import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
+import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
 import com.technologygroup.rayannoor.yoga.Teaches.teachsActivity;
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (userType.equals("Gym") && idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, GymProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
                     intent.putExtra("idgym",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
