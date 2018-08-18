@@ -78,6 +78,10 @@ public class courseFragment extends Fragment {
         });
         idCoach = getArguments().getInt("idCoach", -1);
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
+        if(!calledFromPanel)
+        {
+            floactAction.setVisibility(View.GONE);
+        }
         WebServiceList webServiceList=new WebServiceList();
         webServiceList.execute();
         return view;

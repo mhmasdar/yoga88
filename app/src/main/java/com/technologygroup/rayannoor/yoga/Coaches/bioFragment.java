@@ -34,7 +34,7 @@ public class bioFragment extends Fragment {
     private String Bio;
     private String Biotemp;
     private int idCoach;
-
+    boolean calledFromPanel;
     public bioFragment() {
         // Required empty public constructor
     }
@@ -45,6 +45,7 @@ public class bioFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bio, container, false);
+         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         txtBio = (TextView) view.findViewById(R.id.txtBio);
         Bio = getArguments().getString("Bio", "");
         idCoach = getArguments().getInt("idCoach", -1);
@@ -59,6 +60,10 @@ public class bioFragment extends Fragment {
                 showDialog();
             }
         });
+        if(!calledFromPanel)
+        {
+         floactAction.setVisibility(View.GONE);
+        }
         return view;
     }
 
