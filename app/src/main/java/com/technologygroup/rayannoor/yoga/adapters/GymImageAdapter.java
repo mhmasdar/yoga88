@@ -15,7 +15,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.GalleryModel;
-import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.imageActivity;
 
@@ -105,6 +104,7 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
 
             this.position = position;
             this.current = current;
+            this.txtBody.setText(current.Description);
 
         }
     }

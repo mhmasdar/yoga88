@@ -1521,7 +1521,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "gym/gymGallery/" + id, "GET");
+            String response = connectToServer(App.apiAddr + "Gallery/GetByUserId/" + id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1535,8 +1535,11 @@ public class WebService {
                         JSONObject Object = Arrey.getJSONObject(i);
                         GalleryModel model = new GalleryModel();
 
-                        model.id = Object.getInt("id");
-                        model.img = Object.getString("img");
+                        model.id = Object.getInt("ID");
+                        model.Title=Object.getString("Title");
+                        model.Description=Object.getString("Description");
+                        JSONObject Imagej=Object.getJSONObject("Image");
+                        model.img = Imagej.getString("Name");
 //                        model.Date = Object.getString("Date");
 //                        model.lastUpdate = Object.getString("lastUpdate");
 //                        model.idRow = Object.getInt("idRow");

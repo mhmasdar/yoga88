@@ -112,10 +112,8 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
             if (current.ImgName != null)
                 if (!current.ImgName.equals("") && !current.ImgName.equals("null"))
                     Glide.with(context).load(App.imgAddr + current.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
-
             txtCertificateTitle.setText(current.Title);
-            txtCertificateDate.setText(classDate.changeDateToString(Integer.parseInt(current.Date)));
-
+            txtCertificateDate.setText(current.Date);
             this.position = position;
             this.current = current;
 

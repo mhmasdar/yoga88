@@ -8,5 +8,7 @@ public class GalleryModel {
 
     public int id;
     public String img;
+    public String Title;
+    public String Description;
 
 }

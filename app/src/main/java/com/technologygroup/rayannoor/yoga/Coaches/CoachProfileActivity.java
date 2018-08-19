@@ -362,15 +362,11 @@ public class CoachProfileActivity extends AppCompatActivity {
                 txtCoachRate.setText(strRate);
                 txtLikeCount.setText(coachModel.like + "");
                 rating.setRating((float) coachModel.Rate);
-
-
                 if (coachModel.IsVerified) {
-
                     lytEducation.setAlpha(1);
                     imgLockEducation.setVisibility(View.GONE);
                     lytBio.setAlpha(1);
                     imgLockBio.setVisibility(View.GONE);
-
                     lytResume.setAlpha(1);
                     imgLockResume.setVisibility(View.GONE);
                     lytGyms.setAlpha(1);
