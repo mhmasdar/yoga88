@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Teaches.TeachDetailsActivity;
-import com.technologygroup.rayannoor.yoga.Teaches.teachsActivity;
 import com.technologygroup.rayannoor.yoga.Teaches.teachsListActivity;
+
+import java.util.List;
 
 /**
  * Created by Mohamad Hasan on 2/7/2018.
@@ -23,19 +27,17 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
 
     private Context context;
     private LayoutInflater mInflater;
-
-
-
-    public TeachListAdapter(Context context) {
+    private List<TeachesModel> list;
+    public TeachListAdapter(Context context,List<TeachesModel> l) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        list=l;
     }
 
     @Override
     public TeachListAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_teach_list, parent, false);
         TeachListAdapter.myViewHolder holder = new TeachListAdapter.myViewHolder(view);
-
         return holder;
     }
 
@@ -51,11 +53,16 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
                 context.startActivity(intent);
             }
         });
+        if (list.get(position).Images != null)
+            if (!list.get(position).Images.equals("") && !list.get(position).Images.equals("null"))
+                Glide.with(context).load(App.imgAddr + list.get(position).Images).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTeach);
+        holder.txtTitle.setText(list.get(position).Title);
+//
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
 

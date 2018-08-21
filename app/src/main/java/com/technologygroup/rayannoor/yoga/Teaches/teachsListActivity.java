@@ -38,8 +38,9 @@ public class teachsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teachs_list);
         initView();
 
-        setUpRecyclerView();
-
+        list = new ArrayList<>();
+        webService = new WebServiceList();
+        webService.execute();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +50,6 @@ public class teachsListActivity extends AppCompatActivity {
         btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 webService = new WebServiceList();
                 webService.execute();
 
@@ -71,9 +71,8 @@ public class teachsListActivity extends AppCompatActivity {
 
     private void setUpRecyclerView(){
 
-        TeachListAdapter adapter = new TeachListAdapter(this);
+        TeachListAdapter adapter = new TeachListAdapter(this,list);
         Recycler.setAdapter(adapter);
-
         mLinearLayoutManagerVertical = new LinearLayoutManager(this);
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         Recycler.setLayoutManager(mLinearLayoutManagerVertical);
@@ -87,7 +86,7 @@ public class teachsListActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-            list = new ArrayList<>();
+
             Recycler.showShimmerAdapter();
         }
 

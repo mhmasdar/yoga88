@@ -40,7 +40,7 @@ public class RefereeListAdapter extends RecyclerView.Adapter<RefereeListAdapter.
        // holder.txtLikeCount.setText(Reff.get(position).like);
        // holder.txtViewCount.setText(Reff.get(position).View);
         holder.txtRefereeName.setText(Reff.get(position).fName+" "+ Reff.get(position).lName);
-        holder.txtLikeCount.setText(Reff.get(position).like);
+        holder.txtLikeCount.setText(""+Reff.get(position).like);
         if(Reff.get(position).IsVerified)
         {
             holder.txtStatus.setText("فعال");
