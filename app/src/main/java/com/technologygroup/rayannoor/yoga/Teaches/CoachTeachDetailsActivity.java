@@ -85,7 +85,7 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
         String[] tmp2 = new String[10];
 
         tmp = Body.split("~");
-        tmp2 = Images.split("~");
+//        tmp2 = Images.split("~");
 
         if (tmp.length > tmp2.length)
             visibleLyts = tmp.length;

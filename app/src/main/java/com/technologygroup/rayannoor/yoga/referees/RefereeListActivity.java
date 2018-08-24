@@ -23,11 +23,13 @@ import java.util.List;
 public class RefereeListActivity extends AppCompatActivity {
 
     private RelativeLayout btnBack;
-    private LinearLayout lytMain;
+
     private ShimmerRecyclerView Recycler;
     private LinearLayout lytDisconnect;
-    private Button btnTryAgain;
     private LinearLayout lytEmpty;
+    private LinearLayout lytMain;
+    private Button btnTryAgain;
+
     WebServiceCall call;;
 
     @Override
@@ -42,11 +44,13 @@ public class RefereeListActivity extends AppCompatActivity {
 
     private void initView() {
         btnBack = (RelativeLayout) findViewById(R.id.btnBack);
-        lytMain = (LinearLayout) findViewById(R.id.lytMain);
+
         Recycler = (ShimmerRecyclerView) findViewById(R.id.Recycler);
         lytDisconnect = (LinearLayout) findViewById(R.id.lytDisconnect);
-        btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+        lytMain = (LinearLayout) findViewById(R.id.lytMain);
         lytEmpty = (LinearLayout) findViewById(R.id.lytEmpty);
+        btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+
     }
 
     private void setUpRecyclerView(List<CoachModel> c) {

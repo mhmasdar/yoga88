@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.IntroduceDetailsActivity;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.YogaIntroduceActivity;
+
+import java.util.List;
 
 /**
  * Created by Mohamad Hasan on 4/14/2018.
@@ -20,12 +23,15 @@ public class IntroduceAdapter extends RecyclerView.Adapter<IntroduceAdapter.myVi
 
     private Context context;
     private LayoutInflater mInflater;
-    TextView harakat;
+
+    private List<TeachesModel> list;
 
 
-    public IntroduceAdapter(Context context) {
+    public IntroduceAdapter(Context context,List<TeachesModel> list) {
         this.context = context;
+        this.list = list;
         mInflater = LayoutInflater.from(context);
+
     }
 
     @Override
@@ -36,14 +42,14 @@ public class IntroduceAdapter extends RecyclerView.Adapter<IntroduceAdapter.myVi
     }
 
     @Override
-    public void onBindViewHolder(final IntroduceAdapter.myViewHolder holder, int position) {
-
-
+    public void onBindViewHolder(final myViewHolder holder, final int position) {
+        holder.harakat.setText(list.get(position).Title);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 YogaIntroduceActivity activity = (YogaIntroduceActivity) context;
                 Intent intent = new Intent(activity , IntroduceDetailsActivity.class);
+                intent.putExtra("Id",list.get(position).id);
                 context.startActivity(intent);
             }
         });
@@ -52,15 +58,13 @@ public class IntroduceAdapter extends RecyclerView.Adapter<IntroduceAdapter.myVi
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
 
     class myViewHolder extends RecyclerView.ViewHolder {
-
-
+        TextView harakat;
         myViewHolder(View itemView) {
-
             super(itemView);
             harakat = (TextView) itemView.findViewById(R.id.txtTitle);
         }

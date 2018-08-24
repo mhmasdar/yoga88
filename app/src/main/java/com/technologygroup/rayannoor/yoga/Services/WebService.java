@@ -806,6 +806,46 @@ public class WebService {
         } else
             return null;
     }
+    public List<TeachesModel> getTeachesArticle(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + " /Article/Get", "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<TeachesModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        TeachesModel model = new TeachesModel();
+
+                        model.id = Object.getInt("ID");
+                        model.Date = Object.getString("PublishDate");
+                        model.IsVerified=Object.getBoolean("IsVerified");
+                        model.IsUpdated=Object.getBoolean("IsUpdated");
+                        model.user.getfromjson(Object.getJSONObject("User"));
+                        model.Title = Object.getString("Title");
+                        model.Body = Object.getString("Bodies");
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
     public List<TeachesModel> getTeachesByuser(boolean isInternetAvailable, int fid,int id,String type) {
 
         if (isInternetAvailable) {
