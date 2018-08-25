@@ -6,8 +6,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class TeachDetailsActivity extends AppCompatActivity {
 
@@ -48,12 +54,34 @@ public class TeachDetailsActivity extends AppCompatActivity {
     private ImageView teachDetailsSharing;
     private LinearLayout lytLast;
     private LinearLayout lytNext;
+    private String myjsonid;
+    private JSONObject IDs;
+    private List<Integer> IDList;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teach_details);
+        myjsonid = getIntent().getStringExtra("IDs");
+        position = getIntent().getIntExtra("ID",-1);
+        try {
+            IDs=new JSONObject(myjsonid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try
+        {
+            for(int i=0;i<IDs.length();i++)
+            {
+                IDList.add(IDs.getInt("ID"+i));
+            }
+        }
+        catch (JSONException e)
+        {
 
+        }
+        Toast.makeText(this,IDs.toString(),Toast.LENGTH_LONG).show();
         initView();
     }
 
@@ -94,5 +122,9 @@ public class TeachDetailsActivity extends AppCompatActivity {
         teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
         lytLast = (LinearLayout) findViewById(R.id.lytLast);
         lytNext = (LinearLayout) findViewById(R.id.lytNext);
+    }
+    public void setImages()
+    {
+
     }
 }

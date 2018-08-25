@@ -17,6 +17,9 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Teaches.TeachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Teaches.teachsListActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -28,10 +31,24 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
     private Context context;
     private LayoutInflater mInflater;
     private List<TeachesModel> list;
-    public TeachListAdapter(Context context,List<TeachesModel> l) {
+    JSONObject id;
+
+    public TeachListAdapter(Context context,List<TeachesModel> l)  {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         list=l;
+        id=new JSONObject();
+        for(int i=0;i<l.size();i++)
+        {
+            try {
+                id.put("ID"+i,list.get(i).id);
+            }
+            catch (JSONException j)
+            {
+
+            }
+
+        }
     }
 
     @Override
@@ -42,7 +59,7 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
     }
 
     @Override
-    public void onBindViewHolder(final TeachListAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(final TeachListAdapter.myViewHolder holder, final int position) {
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +67,8 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
             public void onClick(View view) {
                 teachsListActivity activity = (teachsListActivity)context;
                 Intent intent = new Intent(activity , TeachDetailsActivity.class);
+                intent.putExtra("IDs",id.toString());
+                intent.putExtra("ID",position);
                 context.startActivity(intent);
             }
         });
