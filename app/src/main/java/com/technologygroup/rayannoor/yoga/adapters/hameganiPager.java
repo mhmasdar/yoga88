@@ -3,14 +3,11 @@ package com.technologygroup.rayannoor.yoga.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.technologygroup.rayannoor.yoga.Coaches.bioFragment;
-import com.technologygroup.rayannoor.yoga.Coaches.certificateFragment;
-import com.technologygroup.rayannoor.yoga.Coaches.educationFragment;
-import com.technologygroup.rayannoor.yoga.Coaches.resumeFragment;
-import com.technologygroup.rayannoor.yoga.hameganiFragment1;
-import com.technologygroup.rayannoor.yoga.hameganiFragment2;
-import com.technologygroup.rayannoor.yoga.hameganiFragment3;
-import com.technologygroup.rayannoor.yoga.hameganiFragment4;
+
+import com.technologygroup.rayannoor.yoga.NavigationMenu.hameganiFragment1;
+import com.technologygroup.rayannoor.yoga.NavigationMenu.hameganiFragment2;
+import com.technologygroup.rayannoor.yoga.NavigationMenu.hameganiFragment3;
+import com.technologygroup.rayannoor.yoga.NavigationMenu.hameganiFragment4;
 
 public class hameganiPager extends FragmentStatePagerAdapter {
 

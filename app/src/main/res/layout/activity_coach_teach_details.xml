@@ -88,7 +88,7 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:id="@+id/txtTitle"
-                        android:text="آموزش حرکت حرفه ای ماهی"
+                        android:text="هالاسانا /گاوآهن"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -101,7 +101,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt1"
-                            android:text="1.روی زمین دراز بکشید، دستها کنار بدنتان باشد."
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach1"
                             android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
@@ -111,7 +112,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:src="@drawable/img_t1"
                             android:id="@+id/img1"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -123,15 +124,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt2"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt2"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach2"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -140,7 +141,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img2"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -152,15 +153,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt3"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt3"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach3"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -169,7 +170,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img3"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -181,15 +182,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt4"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt4"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach4"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -198,7 +199,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img4"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -210,15 +211,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt5"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt5"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach5"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -227,7 +228,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img5"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -239,15 +240,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt6"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt6"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach6"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -256,7 +257,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img6"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -268,15 +269,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt7"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt7"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach7"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -285,7 +286,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img7"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -297,15 +298,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt8"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt8"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach8"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -314,7 +315,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img8"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -326,15 +327,15 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt9"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt9"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
-                            android:textColor="@color/lightBlack"
+                            android:lineSpacingMultiplier="1.3"
+                            android:text="@string/test_teach9"                            android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
@@ -343,7 +344,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img9"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -362,7 +363,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/txt10"
-                            android:text="1.  روی زمین دراز بکشید، دستها کنار بدنتان باشد."
+                            android:lineSpacingMultiplier="1.3"
                             android:textColor="@color/lightBlack"
                             android:gravity="center"
                             android:layout_marginRight="10dp"
@@ -372,7 +373,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:src="@drawable/home"
+                            android:visibility="gone"
                             android:id="@+id/img10"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"

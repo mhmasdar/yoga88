@@ -1,10 +1,12 @@
-package com.technologygroup.rayannoor.yoga;
+package com.technologygroup.rayannoor.yoga.NavigationMenu;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.technologygroup.rayannoor.yoga.R;
 
 public class rulesActivity extends AppCompatActivity {
 

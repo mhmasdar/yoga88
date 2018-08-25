@@ -1,4 +1,4 @@
-package com.technologygroup.rayannoor.yoga;
+package com.technologygroup.rayannoor.yoga.NavigationMenu;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.adapters.CoachServicesPager;
 import com.technologygroup.rayannoor.yoga.adapters.hameganiPager;
 

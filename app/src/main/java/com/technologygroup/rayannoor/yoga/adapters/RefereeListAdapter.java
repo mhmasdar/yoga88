@@ -72,7 +72,6 @@ public class RefereeListAdapter extends RecyclerView.Adapter<RefereeListAdapter.
 
         private TextView txtStatus;
         private TextView txtLikeCount;
-        private TextView txtViewCount;
         private TextView txtRefereeName;
         private RoundedImageView imgReferee;
 
@@ -82,7 +81,6 @@ public class RefereeListAdapter extends RecyclerView.Adapter<RefereeListAdapter.
 
             txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
-            txtViewCount = (TextView) itemView.findViewById(R.id.txtViewCount);
             txtRefereeName = (TextView) itemView.findViewById(R.id.txtRefereeName);
             imgReferee = (RoundedImageView) itemView.findViewById(R.id.imgReferee);
         }

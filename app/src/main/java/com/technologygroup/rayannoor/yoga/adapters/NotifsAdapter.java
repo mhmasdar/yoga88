@@ -50,7 +50,7 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 1;
     }
 
 

@@ -48,7 +48,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 1;
     }
 
 

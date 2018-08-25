@@ -162,7 +162,6 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
         private TextView txtGymName;
         private TextView txtGymAddress;
         private TextView txtLikeCount;
-        private TextView txtViewCount;
         private ImageView imgGym;
 
         myViewHolder(View itemView) {
@@ -171,7 +170,6 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
             txtGymName = (TextView) itemView.findViewById(R.id.txtGymName);
             txtGymAddress = (TextView) itemView.findViewById(R.id.txtGymAddress);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
-            txtViewCount = (TextView) itemView.findViewById(R.id.txtViewCount);
             imgGym = (ImageView) itemView.findViewById(R.id.imgGym);
         }
     }

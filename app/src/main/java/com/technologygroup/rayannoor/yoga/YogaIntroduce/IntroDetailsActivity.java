@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.technologygroup.rayannoor.yoga.R;
 
 public class IntroDetailsActivity extends AppCompatActivity {
@@ -54,6 +55,7 @@ public class IntroDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_details);
         initView();
+
     }
 
     private void initView() {

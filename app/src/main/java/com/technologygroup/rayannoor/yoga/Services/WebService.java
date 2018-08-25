@@ -12,6 +12,7 @@ import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.Models.CoachResumeModel;
 import com.technologygroup.rayannoor.yoga.Models.CommentModel;
 import com.technologygroup.rayannoor.yoga.Models.CourseModel;
+import com.technologygroup.rayannoor.yoga.Models.FAQmodel;
 import com.technologygroup.rayannoor.yoga.Models.GalleryModel;
 import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
@@ -256,7 +257,6 @@ public class WebService {
 
                 return serverResponseCode;
             }
-
         }
         return -5;
     }
@@ -1789,6 +1789,74 @@ public class WebService {
 
             }
             return null;
+        } else
+            return null;
+    }
+
+
+    public String getAboutUs(boolean isInternetAvailable, String key) {
+
+        String result="";
+
+        if (isInternetAvailable) {
+
+
+            String response = connectToServer(App.apiAddr + "kesho/getbyKey?key="+key, "GET");
+
+
+            if (response != null) {
+
+                try
+                {
+                    JSONObject Object = new JSONObject(response);
+                    result = Object.getString("KeshoValue");
+
+                    return result;
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+            }
+
+            return result;
+        } else
+            return null;
+    }
+
+    public List<FAQmodel> getFAQ(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "FAQ/Get", "GET");
+
+            if (response != null) {
+
+                List<FAQmodel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        FAQmodel model = new FAQmodel();
+
+                        model.question = Object.getString("Question");
+                        model.answer = Object.getString("Answer");
+
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
         } else
             return null;
     }

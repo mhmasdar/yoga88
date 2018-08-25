@@ -92,29 +92,6 @@
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_centerHorizontal="true"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:src="@drawable/ic_view"
-                        android:layout_height="15dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/txtViewCount"
-                        android:text="102"
-                        android:textSize="11sp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content">
 
                     <ImageView
@@ -145,7 +122,7 @@
         android:layout_width="105dp"
         android:id="@+id/imgGym"
         android:scaleType="fitXY"
-        android:src="@drawable/gym"
+        android:src="@drawable/ic_gym_list"
         android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".commonQuestionActivity">
+    tools:context=".NavigationMenu.commonQuestionActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -94,6 +94,7 @@
 
         <Button
             android:layout_width="wrap_content"
+            android:id="@+id/btnTryAgain"
             android:text="تلاش مجدد"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_back_yellow"

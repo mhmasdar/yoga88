@@ -149,7 +149,6 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
 
         private TextView txtStatus;
         private TextView txtLikeCount;
-        private TextView txtViewCount;
         private TextView txtCoachName;
         private RoundedImageView imgCoach;
 
@@ -159,7 +158,6 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
 
             txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
-            txtViewCount = (TextView) itemView.findViewById(R.id.txtViewCount);
             txtCoachName = (TextView) itemView.findViewById(R.id.txtCoachName);
             imgCoach = (RoundedImageView) itemView.findViewById(R.id.imgCoach);
         }

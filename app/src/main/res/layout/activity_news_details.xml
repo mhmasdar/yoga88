@@ -12,7 +12,7 @@
         android:id="@+id/imgNews"
         android:scaleType="fitXY"
         android:layout_weight="1"
-        android:src="@drawable/yoga3"
+        android:src="@drawable/test_notif"
         android:layout_height="match_parent" />
 
     <LinearLayout
@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:id="@+id/txtTitle"
-                android:text="عنوان خبر"
+                android:text="لیست افراد مجاز جهت شرکت در دوره مربیگری درجه 3 آمادگی جسمانی بانوان "
                 android:gravity="center_horizontal"
                 android:textColor="@color/lightBlack"
                 android:textStyle="bold"
@@ -68,7 +68,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/txtNewsBody"
-                android:text="@string/plansDescribe"
+                android:text="@string/test_notif"
                 android:lineSpacingMultiplier="1.3"
                 android:layout_margin="10dp"
                 android:textSize="13sp"

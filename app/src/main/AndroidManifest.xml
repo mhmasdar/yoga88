@@ -66,8 +66,8 @@
         <activity android:name=".Coaches.addTeachActivity" />
         <activity android:name=".Teaches.CoachTeachDetailsActivity" />
         <activity android:name=".YogaIntroduce.IntroDetailsActivity" />
-        <activity android:name=".ChartActivity" />
-        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".NavigationMenu.ChartActivity" />
+        <activity android:name=".NavigationMenu.AboutUsActivity" />
         <activity android:name=".WebActivity" />
         <activity android:name=".UserprofileActivity" />
         <activity android:name=".referees.RefereeListActivity" />
@@ -76,11 +76,11 @@
             android:name=".Notification.NewsDetailsActivity"
             android:theme="@style/CoachProfile" />
         <activity android:name=".selectSportActivity" />
-        <activity android:name=".aboutAppActivity" />
-        <activity android:name=".commonQuestionActivity" />
-        <activity android:name=".rulesActivity" />
-        <activity android:name=".SuggestionActivity" />
-        <activity android:name=".hameganiActivity" />
+        <activity android:name=".NavigationMenu.aboutAppActivity" />
+        <activity android:name=".NavigationMenu.commonQuestionActivity" />
+        <activity android:name=".NavigationMenu.rulesActivity" />
+        <activity android:name=".NavigationMenu.SuggestionActivity" />
+        <activity android:name=".NavigationMenu.hameganiActivity" />
         <activity android:name=".referees.RefereeServicesActivity" />
         <activity android:name=".referees.RefereeProfileActivity"></activity>
     </application>

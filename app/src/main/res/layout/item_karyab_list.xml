@@ -26,7 +26,7 @@
                 android:id="@+id/txtNotifTitle"
                 android:layout_marginTop="8dp"
                 android:textSize="17sp"
-                android:text="عنوان"
+                android:text="اعلان کاریابی"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content" />
 
@@ -35,7 +35,7 @@
                 android:id="@+id/txtNotifBody"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/plansDescribe"
+                android:text="@string/test_karyabi"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content" />
 
@@ -43,7 +43,7 @@
 
         <ImageView
             android:layout_width="80dp"
-            android:src="@drawable/ic_message_default"
+            android:src="@drawable/test_karyabi"
             android:paddingTop="10dp"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/txtNotifSender"
                     android:layout_marginRight="5dp"
-                    android:text="باشگاه کیمیا"
+                    android:text="حسین شوقی فر"
                     android:textColor="@color/lightBlack"
                     android:textSize="14sp"
                     android:layout_height="wrap_content" />

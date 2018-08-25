@@ -1,4 +1,4 @@
-package com.technologygroup.rayannoor.yoga;
+package com.technologygroup.rayannoor.yoga.NavigationMenu;
 
 
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
+import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.adapters.ChartAdapter;
 
 

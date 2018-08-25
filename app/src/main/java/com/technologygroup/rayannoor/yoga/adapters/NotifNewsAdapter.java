@@ -50,7 +50,7 @@ public class NotifNewsAdapter extends RecyclerView.Adapter<NotifNewsAdapter.myVi
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 1;
     }
 
 

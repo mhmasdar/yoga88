@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:scaleType="fitXY"
-        android:background="@drawable/yoga3" />
+        android:background="@drawable/test_notif" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/txvTitle"
-            android:text="عنوان خبر"
+            android:text="لیست افراد مجاز جهت شرکت در دوره مربیگری درجه 3 آمادگی جسمانی بانوان "
             android:layout_width="wrap_content"
             android:lineSpacingMultiplier="1.2"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:id="@+id/txtBody"
-            android:text="@string/plansDescribe"
+            android:text="@string/test_notif"
             android:layout_marginTop="5dp"
             android:textSize="12sp"
             android:maxLines="2"
