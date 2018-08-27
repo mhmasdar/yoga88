@@ -71,8 +71,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
     RatingBar rating_dialog;
     CircularProgressButton btnOk;
     ImageView imgClose;
-
-
     CoachModel coachModel;
     private boolean CanLike = true, CanRate = true;
     private boolean isLiked = false;
@@ -88,7 +86,11 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private ImageView imgSorush;
     Boolean calledFromPanel;
     int idsend;
-
+    int myid;
+    SharedPreferences mypref;
+    private SharedPreferences likes;
+    String reqtoprefer;
+    boolean liked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,9 +99,12 @@ public class CoachDetailsActivity extends AppCompatActivity {
         initView();
         idsend = getIntent().getIntExtra("idUser", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
-        
-        
-       /// prefs = getSharedPreferences("User", 0);
+        mypref = getSharedPreferences("User", 0);
+        myid = prefs.getInt("idUser", -1);
+        reqtoprefer=""+myid+":"+idsend;
+        likes = getSharedPreferences("Likes", 0);
+        liked=likes.getBoolean(reqtoprefer,false);
+        // prefs = getSharedPreferences("User", 0);
         //idUser = prefs.getInt("idUser", -1);
         getInfo();
     }
@@ -549,7 +554,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
             // id is for place
             result = webService.postLike(App.isInternetOn(), coachModel.id, idUser, "Coach");
-
             return null;
         }
 

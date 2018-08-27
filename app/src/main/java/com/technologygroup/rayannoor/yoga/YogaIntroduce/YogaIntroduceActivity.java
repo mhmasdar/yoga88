@@ -37,8 +37,6 @@ public class YogaIntroduceActivity extends AppCompatActivity {
         initView();
         call = new WebServiceCall();
         call.execute();
-
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,4 +7,5 @@ package com.technologygroup.rayannoor.yoga.Models;
 public class TeachTextImage {
     public String Text;
     public String Image;
+    public String Title;
 }

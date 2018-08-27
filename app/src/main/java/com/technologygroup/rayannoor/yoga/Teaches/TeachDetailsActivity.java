@@ -153,6 +153,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
             lyt[i].setVisibility(View.VISIBLE);
 
         }
+        txtTitle.setText(list.get(0).Title);
     }
     private class WebServiceList extends AsyncTask<Object, Void, Void> {
 

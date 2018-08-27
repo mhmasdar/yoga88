@@ -673,6 +673,7 @@ public class WebService {
                         try {
                             JSONObject image = Images.getJSONObject(0);
                             model.Image = image.getString("Name")+image.getString("Extension");
+                            model.Title=Arrey.getString("Title");
                         }
                         catch (JSONException e)
                         {

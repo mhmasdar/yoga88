@@ -13,6 +13,9 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.IntroduceDetailsActivity;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.YogaIntroduceActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -23,14 +26,26 @@ public class IntroduceAdapter extends RecyclerView.Adapter<IntroduceAdapter.myVi
 
     private Context context;
     private LayoutInflater mInflater;
-
     private List<TeachesModel> list;
+    JSONObject id;
 
 
     public IntroduceAdapter(Context context,List<TeachesModel> list) {
         this.context = context;
         this.list = list;
         mInflater = LayoutInflater.from(context);
+        id=new JSONObject();
+        for(int i=0;i<list.size();i++)
+        {
+            try {
+                id.put("ID"+i,list.get(i).id);
+            }
+            catch (JSONException j)
+            {
+
+            }
+
+        }
 
     }
 
@@ -49,7 +64,8 @@ public class IntroduceAdapter extends RecyclerView.Adapter<IntroduceAdapter.myVi
             public void onClick(View view) {
                 YogaIntroduceActivity activity = (YogaIntroduceActivity) context;
                 Intent intent = new Intent(activity , IntroduceDetailsActivity.class);
-                intent.putExtra("Id",list.get(position).id);
+                intent.putExtra("IDs",id.toString());
+                intent.putExtra("ID",position);
                 context.startActivity(intent);
             }
         });
