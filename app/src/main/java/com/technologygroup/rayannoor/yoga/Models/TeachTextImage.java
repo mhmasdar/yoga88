@@ -5,6 +5,6 @@ package com.technologygroup.rayannoor.yoga.Models;
  */
 
 public class TeachTextImage {
-    String Text;
-    String Image;
+    public String Text;
+    public String Image;
 }

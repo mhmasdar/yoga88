@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.R;
 
@@ -53,7 +54,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_details);
-
+        Toast.makeText(this,"here im",Toast.LENGTH_LONG).show();
         initView();
     }
 

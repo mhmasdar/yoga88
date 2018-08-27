@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rom4ek.arcnavigationview.ArcNavigationView;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachListActivity;
+import com.technologygroup.rayannoor.yoga.Coaches.*;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;

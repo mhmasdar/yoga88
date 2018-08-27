@@ -16,6 +16,7 @@ import com.technologygroup.rayannoor.yoga.Models.FAQmodel;
 import com.technologygroup.rayannoor.yoga.Models.GalleryModel;
 import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
+import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Models.idname;
@@ -635,6 +636,48 @@ public class WebService {
                         CoachCourseModel model = new CoachCourseModel();
                         model.id = Object.getInt("ID");
                         model.title = Object.getString("Name");
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public List<TeachTextImage> getMoves(boolean isInternetAvailable, int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Training/GetById/"+id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<TeachTextImage> list = new ArrayList<>();
+
+                try {
+
+                    JSONObject Arrey = new JSONObject(response);
+                    JSONArray ArreyBodies = Arrey.getJSONArray("Bodies");
+                    for (int i = 0; i < ArreyBodies.length(); i++) {
+                        JSONObject Object = ArreyBodies.getJSONObject(i);
+                        TeachTextImage model = new TeachTextImage();
+                        model.Text = Object.getString("Body");
+                        JSONArray Images=Object.getJSONArray("Images");
+                        try {
+                            JSONObject image = Images.getJSONObject(0);
+                            model.Image = image.getString("Name")+image.getString("Extension");
+                        }
+                        catch (JSONException e)
+                        {
+
+                        }
                         list.add(model);
 
                     }

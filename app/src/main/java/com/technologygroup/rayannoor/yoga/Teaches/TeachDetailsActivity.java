@@ -1,18 +1,26 @@
 package com.technologygroup.rayannoor.yoga.Teaches;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
+import com.technologygroup.rayannoor.yoga.Services.WebService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeachDetailsActivity extends AppCompatActivity {
@@ -31,6 +39,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
     private String myjsonid;
     private JSONObject IDs;
     private List<Integer> IDList;
+    private List<TeachTextImage> list;
     int position;
 
     @Override
@@ -40,6 +49,8 @@ public class TeachDetailsActivity extends AppCompatActivity {
         lyt=new LinearLayout[10];
         txt=new TextView[10];
         img=new ImageView[10];
+        IDList=new ArrayList<>();
+        initView();
         myjsonid = getIntent().getStringExtra("IDs");
         position = getIntent().getIntExtra("ID",-1);
         try {
@@ -47,19 +58,30 @@ public class TeachDetailsActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         try
         {
             for(int i=0;i<IDs.length();i++)
             {
-                IDList.add(IDs.getInt("ID"+i));
+                try {
+                    IDList.add(IDs.getInt("ID" + i));
+                }
+                catch (NullPointerException e)
+                {
+                    break;
+                }
             }
         }
+
         catch (JSONException e)
         {
 
         }
-        Toast.makeText(this,IDs.toString(),Toast.LENGTH_LONG).show();
-        initView();
+        Toast.makeText(this,""+ IDList.size(), Toast.LENGTH_SHORT).show();
+        list = new ArrayList<>();
+        WebServiceList webServiceList=new WebServiceList();
+        webServiceList.execute();
+
     }
 
     private void initView() {
@@ -97,11 +119,65 @@ public class TeachDetailsActivity extends AppCompatActivity {
         img[9] = (ImageView) findViewById(R.id.img10);
         lytShare = (LinearLayout) findViewById(R.id.lytShare);
         teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
-        lytLast = (LinearLayout) findViewById(R.id.lytLast);
-        lytNext = (LinearLayout) findViewById(R.id.lytNext);
+//        lytLast = (LinearLayout) findViewById(R.id.lytLast);
+//        lytLast.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (position-1 > 0) {
+//                    position=position-1;
+//                    WebServiceList webServiceList=new WebServiceList();
+//                    webServiceList.execute();
+//                }
+//            }
+//        });
+//        lytNext = (LinearLayout) findViewById(R.id.lytNext);
+//        lytNext.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (position+1 < IDList.size()) {
+//                    position=position+1;
+//                    WebServiceList webServiceList=new WebServiceList();
+//                    webServiceList.execute();
+//                }
+//            }
+//        });
     }
-    public void setImages()
+    public void settexts()
     {
+        for(int i=0;i<list.size();i++)
+        {
+            txt[i].setText(list.get(i).Text);
+            if (list.get(i).Image != null)
+                if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null"))
+                    Glide.with(this).load(App.imgAddr + list.get(i).Image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
+            lyt[i].setVisibility(View.VISIBLE);
+
+        }
+    }
+    private class WebServiceList extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            list = webService.getMoves(App.isInternetOn(), IDList.get(position));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            settexts();
+
+        }
 
     }
 
