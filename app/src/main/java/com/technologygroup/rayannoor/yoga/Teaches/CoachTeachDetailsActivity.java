@@ -105,9 +105,11 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
         for (int j = 0; j < tmp2.length; j++){
 
             selectedImgName.set(j, tmp2[j]);
-            if (!selectedImgName.get(j).equals("")) {
-                Glide.with(this).load(App.imgAddr + selectedImgName.get(j)).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[j]);
-                img[j].setVisibility(View.VISIBLE);
+            if(selectedImgName!=null) {
+                if (!selectedImgName.get(j).equals("")) {
+                    Glide.with(this).load(App.imgAddr + selectedImgName.get(j)).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[j]);
+                    img[j].setVisibility(View.VISIBLE);
+                }
             }
 
         }
@@ -161,9 +163,10 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
         lyt[9] = (LinearLayout) findViewById(R.id.lyt10);
         txt[9] = (TextView) findViewById(R.id.txt10);
         img[9] = (ImageView) findViewById(R.id.img10);
-        lytCoachProfile = (TextView) findViewById(R.id.lytCoachProfile);
-        txtCoachName = (TextView) findViewById(R.id.txtCoachName);
-        imgCoach = (ImageView) findViewById(R.id.imgCoach);
+        //lytShare = (LinearLayout) findViewById(R.id.lytShare);
+       // teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
+       // lytLast = (LinearLayout) findViewById(R.id.lytLast);
+       // lytNext = (LinearLayout) findViewById(R.id.lytNext);
     }
 
     private class WebServiceCoachInfo extends AsyncTask<Object, Void, Void> {
