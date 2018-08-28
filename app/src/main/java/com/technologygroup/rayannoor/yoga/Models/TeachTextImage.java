@@ -8,4 +8,6 @@ public class TeachTextImage {
     public String Text;
     public String Image;
     public String Title;
+    public int ID;
+    public String Name;
 }

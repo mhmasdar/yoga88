@@ -100,12 +100,11 @@ public class CoachDetailsActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idUser", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         mypref = getSharedPreferences("User", 0);
-        myid = prefs.getInt("idUser", -1);
+        myid = mypref.getInt("idUser", -1);
         reqtoprefer=""+myid+":"+idsend;
         likes = getSharedPreferences("Likes", 0);
         liked=likes.getBoolean(reqtoprefer,false);
-        // prefs = getSharedPreferences("User", 0);
-        //idUser = prefs.getInt("idUser", -1);
+
         getInfo();
     }
     private void others()
@@ -431,7 +430,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
     public void getInfo() {
 
         coachModel = new CoachModel();
-
         idsend = getIntent().getIntExtra("idUser", -1);
         WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
         callCity.execute();
@@ -441,12 +439,15 @@ public class CoachDetailsActivity extends AppCompatActivity {
     }
 
     private void setViews() {
+        try {
+            if (coachModel.ImgName != null)
+                if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
+                    Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+        }
+        catch (NullPointerException e)
+        {
 
-        if (coachModel.ImgName != null)
-            if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
-                Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
-
-
+        }
         txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
         txtLikeCount.setText(coachModel.like + "");
         txtCoachCity.setText(coachModel.State + "\n" + coachModel.City);

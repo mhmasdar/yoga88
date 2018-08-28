@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Teaches;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -30,8 +32,8 @@ public class TeachDetailsActivity extends AppCompatActivity {
     private TextView txtTitle;
     private LinearLayout[] lyt;
     private TextView[] txt;
+    private TextView txtCoachName;
     private ImageView[] img;
-
     private LinearLayout lytShare;
     private ImageView teachDetailsSharing;
     private LinearLayout lytLast;
@@ -116,6 +118,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
         img[8] = (ImageView) findViewById(R.id.img9);
         lyt[9] = (LinearLayout) findViewById(R.id.lyt10);
         txt[9] = (TextView) findViewById(R.id.txt10);
+        txtCoachName = (TextView) findViewById(R.id.txtCoachName);
         img[9] = (ImageView) findViewById(R.id.img10);
         lytShare = (LinearLayout) findViewById(R.id.lytShare);
         teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
@@ -154,6 +157,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
 
         }
         txtTitle.setText(list.get(0).Title);
+        txtCoachName.setText(list.get(0).Name);
     }
     private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
@@ -180,6 +184,12 @@ public class TeachDetailsActivity extends AppCompatActivity {
 
         }
 
+    }
+    public void gotoprofile(View v)
+    {
+        Intent intent = new Intent(TeachDetailsActivity.this, CoachDetailsActivity.class);
+        intent.putExtra("idUser",list.get(0).ID);
+        startActivity(intent);
     }
 
 }

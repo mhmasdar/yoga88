@@ -670,10 +670,21 @@ public class WebService {
                         TeachTextImage model = new TeachTextImage();
                         model.Text = Object.getString("Body");
                         JSONArray Images=Object.getJSONArray("Images");
+
                         try {
                             JSONObject image = Images.getJSONObject(0);
                             model.Image = image.getString("Name")+image.getString("Extension");
                             model.Title=Arrey.getString("Title");
+                            try {
+                                JSONObject User=Arrey.getJSONObject("User");
+                                model.ID=User.getInt("ID");
+                                model.Name= User.getString("FirstName")+" "+User.getString("LastName");
+                            }
+                            catch (JSONException e)
+                            {
+
+                            }
+
                         }
                         catch (JSONException e)
                         {
