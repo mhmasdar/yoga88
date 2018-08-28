@@ -85,6 +85,12 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
        // holder.idCurrentPlan = models.get(position).idCurrentPlan;
        // holder.Instagram = models.get(position).Instagram;
         holder.lName = models.get(position).lName;
+        holder.txtLikeCount.setText(""+models.get(position).like);
+        if(models.get(position).IsVerified)
+        {
+            holder.txtStatus.setText("فعال");
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.green));
+        }
 //        holder.Address = models.get(position).Address;
        // holder.Telegram = models.get(position).Telegram;
 //        holder.City = models.get(position).City;
@@ -162,6 +168,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
         private TextView txtGymName;
         private TextView txtGymAddress;
         private TextView txtLikeCount;
+        private TextView txtStatus;
         private ImageView imgGym;
 
         myViewHolder(View itemView) {
@@ -170,6 +177,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
             txtGymName = (TextView) itemView.findViewById(R.id.txtGymName);
             txtGymAddress = (TextView) itemView.findViewById(R.id.txtGymAddress);
             txtLikeCount = (TextView) itemView.findViewById(R.id.txtLikeCount);
+            txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
             imgGym = (ImageView) itemView.findViewById(R.id.imgGym);
         }
     }

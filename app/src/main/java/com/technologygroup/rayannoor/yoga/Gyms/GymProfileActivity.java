@@ -119,7 +119,7 @@ public class GymProfileActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.gym).into(gymImage);
         floatAction.hide();
         getWorkTime();
-        setViews();
+
 
         prefs = getSharedPreferences("User", 0);
         idUser = prefs.getInt("idUser", -1);
@@ -308,22 +308,16 @@ public class GymProfileActivity extends AppCompatActivity {
             if (gymModel.ImgName != null)
                 if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
                     Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gymImage);
-
-
         txtGymName.setText(gymModel.Name);
         txtLikeCount.setText(gymModel.like + "");
         txtAddress.setText(gymModel.Address);
 //        txtCoachCity.setText(coachModel.State + "\n" + coachModel.City);
         String strRate = String.valueOf(gymModel.Rate);
-        if (strRate.length() > 3)
-            strRate = strRate.substring(0, 3);
         txtGymRate.setText(strRate);
         RatingBarGym.setRating((float) gymModel.Rate);
-
-
         if (gymModel.IsVerified) {
-            ic_lock.setVisibility(View.GONE);
-            imgLockGyms.setVisibility(View.GONE);
+//            ic_lock.setVisibility(View.GONE);
+//            imgLockGyms.setVisibility(View.GONE);
             lytCoaches.setAlpha(1);
             imgLockCoaches.setVisibility(View.GONE);
             lytCourses.setAlpha(1);
@@ -381,10 +375,8 @@ public class GymProfileActivity extends AppCompatActivity {
                 } else {
 
                     dialogRating.dismiss();
-
                     Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
                     snackbar.setAction("ثبت نام", new registerAction());
-
                     Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
                     TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
                     LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
@@ -426,7 +418,6 @@ public class GymProfileActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
@@ -436,7 +427,7 @@ public class GymProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), idsend, idUser, "Gym");
+            result = webService.postLike(App.isInternetOn(), idsend, "Gym");
 
             return null;
         }
@@ -640,6 +631,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     lytNotifs.setAlpha(1);
                     imgLockNotifs.setVisibility(View.GONE);
                     setbuttons();
+                    setViews();
 
                 }
 

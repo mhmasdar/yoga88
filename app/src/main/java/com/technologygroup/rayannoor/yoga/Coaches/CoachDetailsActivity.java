@@ -66,6 +66,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private FloatingActionButton floatAction;
     private Dialog dialog;
 
+
     // dialog rating
     Dialog dialogRating;
     RatingBar rating_dialog;
@@ -90,7 +91,9 @@ public class CoachDetailsActivity extends AppCompatActivity {
     SharedPreferences mypref;
     private SharedPreferences likes;
     String reqtoprefer;
+    String reqtopreferRate;
     boolean liked;
+    float Rated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +105,10 @@ public class CoachDetailsActivity extends AppCompatActivity {
         mypref = getSharedPreferences("User", 0);
         myid = mypref.getInt("idUser", -1);
         reqtoprefer=""+myid+":"+idsend;
+        reqtopreferRate=""+myid+"::"+idsend;
         likes = getSharedPreferences("Likes", 0);
         liked=likes.getBoolean(reqtoprefer,false);
+        Rated=likes.getFloat(reqtopreferRate,0);
 
         getInfo();
     }
@@ -314,7 +319,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         if (idUser > 0) {
 
                             CanLike = false;
-
                             coachModel.like++;
                             txtLikeCount.setText(coachModel.like + "");
                             webServiceCallLike = new WebServiceCallLike(true);
@@ -554,7 +558,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id, idUser, "Coach");
+            result = webService.postLike(App.isInternetOn(), coachModel.id, "Coach");
             return null;
         }
 
@@ -562,15 +566,15 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            SharedPreferences.Editor editor = prefs.edit();
+            SharedPreferences.Editor editor = likes.edit();
 
             if (isLiked) {
 
                 if (result != null) {
 
-                    if (Integer.parseInt(result) == 1 || Integer.parseInt(result) == -3) {
+                    if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, true);
+                        editor.putBoolean(reqtoprefer + coachModel.id, true);
                         editor.apply();
 
                     } else {
@@ -578,6 +582,8 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like--;
                         txtLikeCount.setText(coachModel.like + "");
+                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.apply();
                     }
 
                 } else {
@@ -585,12 +591,14 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like--;
                     txtLikeCount.setText(coachModel.like + "");
+                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.apply();
                 }
 
             } else {
                 if (result != null) {
 
-                    if (Integer.parseInt(result) == 1) {
+                    if (result.equals("Ok")) {
 
                         editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
                         editor.apply();
@@ -646,7 +654,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (Integer.parseInt(result) > 0) {
+                if (result.equals("Ok")) {
 
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند

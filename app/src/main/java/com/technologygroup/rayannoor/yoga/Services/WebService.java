@@ -1247,12 +1247,12 @@ public class WebService {
     }
 
 
-    public String postLike(boolean isInternetAvailable, int idCoachOrGym, int idUser, String type) {
+    public String postLike(boolean isInternetAvailable, int idCoachOrGym,String type) {
 
         if (isInternetAvailable) {
 
-            String req = "{\"id\":" + idCoachOrGym + ",\"idUser\":" + idUser + "}";
-            String response = connectToServerByJson(App.apiAddr + type + "/like", "POST", req);
+
+            String response = connectToServer(App.apiAddr + "user/like?uid="+idCoachOrGym+"&role= "+type, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1264,8 +1264,8 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String req = "{\"id\":" + idCoachOrGym + ",\"idUser\":" + idUser + ",\"newRate\":" + rate + "}";
-            String response = connectToServerByJson(App.apiAddr + type + "/Rate", "POST", req);
+
+            String response = connectToServer(App.apiAddr + "user/Rate?uid="+idCoachOrGym+"&rate="+rate, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1527,6 +1527,8 @@ public class WebService {
                     model.Instagram = Object.getString("Instagram");
                     model.lName = Object.getString("LastName");
                     model.Telegram = Object.getString("Telegram");
+                    model.Address = Object.getString("Address");
+
                     //  model.Img = Object.getString("Img");
                     //  model.id = Object.getInt("id");
                     //  model.idCity = Object.getInt("idCity");
@@ -1818,7 +1820,7 @@ public class WebService {
 //                        model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
-//                        // model.like = Object.getInt("like");
+                        model.like = Object.getInt("Likes");
 
 //                        model.Mobile = Object.getString("Mobile");
 //                        // model.Rate = Object.getDouble("Rate");
