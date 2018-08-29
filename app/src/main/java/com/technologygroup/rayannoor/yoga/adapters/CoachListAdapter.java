@@ -57,7 +57,7 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachListAdapter.myVi
 
 
         if (models.get(position).ImgName != null)
-            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null"))
+            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null") &&!models.get(position).ImgName.equals("DefaultProfileImage.jpg"))
                 Glide.with(context).load(App.imgAddr + models.get(position).ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgCoach);
         //glide code for load image by url. It supports offline and online offline: R.id.....
 

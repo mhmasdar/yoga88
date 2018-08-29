@@ -103,13 +103,13 @@ public class CoachDetailsActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idUser", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         mypref = getSharedPreferences("User", 0);
-        myid = mypref.getInt("idUser", -1);
-        reqtoprefer=""+myid+":"+idsend;
-        reqtopreferRate=""+myid+"::"+idsend;
+        idUser = mypref.getInt("idUser", -1);
+        reqtoprefer=""+idUser+":"+idsend;
+        reqtopreferRate=""+idUser+"::"+idsend;
         likes = getSharedPreferences("Likes", 0);
         liked=likes.getBoolean(reqtoprefer,false);
+        btnLike.setLiked(liked);
         Rated=likes.getFloat(reqtopreferRate,0);
-
         getInfo();
     }
     private void others()
@@ -357,7 +357,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         if (idUser > 0) {
 
                             CanLike = false;
-
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
                             like = new WebServiceCallLike(false);
@@ -558,7 +557,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id, "Coach");
+            result = webService.postLike(App.isInternetOn(), coachModel.id, "coach");
             return null;
         }
 
@@ -574,7 +573,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean(reqtoprefer + coachModel.id, true);
+                        editor.putBoolean(reqtoprefer, true);
                         editor.apply();
 
                     } else {

@@ -673,7 +673,7 @@ public class WebService {
 
                         try {
                             JSONObject image = Images.getJSONObject(0);
-                            model.Image = image.getString("Name")+image.getString("Extension");
+                            model.Image = image.getString("Name");
                             model.Title=Arrey.getString("Title");
                             try {
                                 JSONObject User=Arrey.getJSONObject("User");
@@ -1252,7 +1252,7 @@ public class WebService {
         if (isInternetAvailable) {
 
 
-            String response = connectToServer(App.apiAddr + "user/like?uid="+idCoachOrGym+"&role= "+type, "GET");
+            String response = connectToServer(App.apiAddr + "user/like?uid="+idCoachOrGym+"&role="+type, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1263,11 +1263,8 @@ public class WebService {
     public String postRate(boolean isInternetAvailable, int idCoachOrGym, int idUser, String type, float rate) {
 
         if (isInternetAvailable) {
-
-
             String response = connectToServer(App.apiAddr + "user/Rate?uid="+idCoachOrGym+"&rate="+rate, "GET");
             Log.i("LOG", response + "");
-
             return response;
         } else
             return null;

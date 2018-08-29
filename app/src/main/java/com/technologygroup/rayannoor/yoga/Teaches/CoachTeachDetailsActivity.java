@@ -16,8 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
@@ -61,70 +59,17 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
         });
 
 
-        for (int j = 0; j < 10; j++) {
-            selectedImgName.add(j, "");
-            bodyList.add(j, "");
-        }
-
-
-        id = getIntent().getIntExtra("id", -1);
-        idRow = getIntent().getIntExtra("idRow", -1);
-        Title = getIntent().getStringExtra("Title");
-        Body = getIntent().getStringExtra("Body");
-        Images = getIntent().getStringExtra("Images");
-        imgPersonal = getIntent().getStringExtra("imgPersonal");
-
-        txtTitle.setText(Title);
-        txtCoachName.setText(getIntent().getStringExtra("coachName"));
-        if (imgPersonal != null)
-            if (!imgPersonal.equals("") && !imgPersonal.equals("null"))
-                Glide.with(this).load(App.imgAddr + imgPersonal).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
-
-
-        String[] tmp = new String[10];
-        String[] tmp2 = new String[10];
-
-        tmp = Body.split("~");
-//        tmp2 = Images.split("~");
-
-        if (tmp.length > tmp2.length)
-            visibleLyts = tmp.length;
-        else
-            visibleLyts = tmp2.length;
-
-        for (int j = 0; j < visibleLyts; j++) {
-
-            lyt[j].setVisibility(View.VISIBLE);
-
-        }
-
-        for (int j = 0; j < tmp.length; j++){
-            bodyList.set(j, tmp[j]);
-            txt[j].setText(j + 1 + ". " + bodyList.get(j));
-        }
-        for (int j = 0; j < tmp2.length; j++){
-
-            selectedImgName.set(j, tmp2[j]);
-            if(selectedImgName!=null) {
-                if (!selectedImgName.get(j).equals("")) {
-                    Glide.with(this).load(App.imgAddr + selectedImgName.get(j)).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[j]);
-                    img[j].setVisibility(View.VISIBLE);
-                }
-            }
-
-        }
 
 
         lytCoachProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (idRow > 0) {
 
-                    webServiceCoachInfo = new WebServiceCoachInfo();
-                    webServiceCoachInfo.execute();
-                } else {
-                    Toast.makeText(CoachTeachDetailsActivity.this, "مربی مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(CoachTeachDetailsActivity.this, CoachDetailsActivity.class);
+                //intent.putExtra("idUser", currentObj.id);
+//                intent.putExtra("calledFromPanel", false);
+
+                startActivity(intent);
             }
         });
 

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
@@ -41,6 +44,9 @@ public class RefereeListAdapter extends RecyclerView.Adapter<RefereeListAdapter.
        // holder.txtViewCount.setText(Reff.get(position).View);
         holder.txtRefereeName.setText(Reff.get(position).fName+" "+ Reff.get(position).lName);
         holder.txtLikeCount.setText(""+Reff.get(position).like);
+        if (Reff.get(position).ImgName != null)
+            if (!Reff.get(position).ImgName.equals("") && !Reff.get(position).ImgName.equals("null") && !Reff.get(position).ImgName.equals("DefaultProfileImage.jpg"))
+                Glide.with(context).load(App.imgAddr + Reff.get(position).ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgReferee);
         if(Reff.get(position).IsVerified)
         {
             holder.txtStatus.setText("فعال");

@@ -55,7 +55,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
         holder.txtGymAddress.setText(models.get(position).Address);
 
         if (models.get(position).ImgName != null)
-            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null"))
+            if (!models.get(position).ImgName.equals("") && !models.get(position).ImgName.equals("null") && !models.get(position).ImgName.equals("DefaultGymProfileImage.jpg"))
                 Glide.with(context).load(App.imgAddr + models.get(position).ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgGym);
 
 
