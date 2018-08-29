@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         //set image darker
         drawerHeaderImage.setColorFilter(Color.rgb(150, 150, 150), PorterDuff.Mode.MULTIPLY);
-        Glide.with(this).load(R.drawable.drawer).into(drawerHeaderImage);
+        Glide.with(this).load(R.drawable.pattern).into(drawerHeaderImage);
 
 
         hamegani.setOnClickListener(new View.OnClickListener() {

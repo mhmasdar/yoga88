@@ -116,7 +116,7 @@ public class GymProfileActivity extends AppCompatActivity {
         WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
         //set test image
-        Glide.with(this).load(R.drawable.gym).into(gymImage);
+//        Glide.with(this).load(R.drawable.gym).into(gymImage);
         floatAction.hide();
         getWorkTime();
 

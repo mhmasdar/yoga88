@@ -71,7 +71,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 android:fillViewport="true"
                 android:scrollbars="none"
                 android:layout_marginBottom="10dp"
@@ -89,13 +89,13 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:id="@+id/txtTitle"
-                        android:text="هالاسانا /گاوآهن"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt1"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -103,9 +103,8 @@
                             android:layout_width="wrap_content"
                             android:id="@+id/txt1"
                             android:lineSpacingMultiplier="1.3"
-                            android:text="@string/test_teach1"
                             android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -125,7 +124,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt2"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -134,7 +133,7 @@
                             android:id="@+id/txt2"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach2"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -154,7 +153,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt3"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -163,7 +162,7 @@
                             android:id="@+id/txt3"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach3"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -183,7 +182,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt4"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -192,7 +191,7 @@
                             android:id="@+id/txt4"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach4"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -212,7 +211,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt5"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -221,7 +220,7 @@
                             android:id="@+id/txt5"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach5"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -241,7 +240,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt6"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -250,7 +249,7 @@
                             android:id="@+id/txt6"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach6"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -270,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt7"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -279,7 +278,7 @@
                             android:id="@+id/txt7"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach7"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -299,7 +298,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt8"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -308,7 +307,7 @@
                             android:id="@+id/txt8"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach8"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -328,7 +327,7 @@
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/lyt9"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:gravity="right">
 
@@ -337,7 +336,7 @@
                             android:id="@+id/txt9"
                             android:lineSpacingMultiplier="1.3"
                             android:text="@string/test_teach9"                            android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -366,7 +365,7 @@
                             android:id="@+id/txt10"
                             android:lineSpacingMultiplier="1.3"
                             android:textColor="@color/lightBlack"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="35dp"
@@ -393,66 +392,6 @@
                 android:layout_height="match_parent"></RelativeLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:gravity="right|center_vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/lytCoachProfile"
-                    android:text="پروفایل مربی"
-                    android:textSize="11sp"
-                    android:onClick="gotoprofile"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/coach_edit_profile_back"
-                    android:layout_height="wrap_content">
-
-
-                </TextView>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_weight="0.6"
-                android:id="@+id/txtCoachName"
-                android:text="هادی قهرمانی"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="25dp"
-                android:src="@mipmap/ic_man"
-                android:id="@+id/imgCoach"
-                android:layout_height="25dp" />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 

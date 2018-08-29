@@ -19,6 +19,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:id="@+id/gymImage"
+                android:src="@drawable/pattern"
                 android:scaleType="fitXY"
                 android:layout_height="match_parent" />
 
