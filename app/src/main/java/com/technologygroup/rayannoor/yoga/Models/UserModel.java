@@ -36,9 +36,9 @@ public class UserModel {
             this.id = Object.getInt("ID");
             this.Mobile = Object.getString("Mobile");
             this.IsVerified = Object.getBoolean("IsVerified");
-            JSONObject rolej = Object.getJSONObject("Role");
-            this.Roleid = rolej.getInt("ID");
-            this.RoleName = rolej.getString("Name");
+//            JSONObject rolej = Object.getJSONObject("Role");
+//            this.Roleid = rolej.getInt("ID");
+//            this.RoleName = rolej.getString("Name");
             JSONObject Cityj = Object.getJSONObject("City");
             this.cityid = Cityj.getInt("ID");
             this.cityName = Cityj.getString("Name");

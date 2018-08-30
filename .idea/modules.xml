@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VarzeshKar.iml" filepath="$PROJECT_DIR$/VarzeshKar.iml" />
-      <module fileurl="file://E:/Users/hesi100/AndroidStudioProjects/yoga/VarzeshKar.iml" filepath="E:/Users/hesi100/AndroidStudioProjects/yoga/VarzeshKar.iml" />
+      <module fileurl="file://E:\Users\hesi100\AndroidStudioProjects\yoga\VarzeshKar.iml" filepath="E:\Users\hesi100\AndroidStudioProjects\yoga\VarzeshKar.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/yoga.iml" filepath="$PROJECT_DIR$/yoga.iml" />
-      <module fileurl="file://E:/Users/hesi100/AndroidStudioProjects/yoga/.idea/yoga.iml" filepath="E:/Users/hesi100/AndroidStudioProjects/yoga/.idea/yoga.iml" />
+      <module fileurl="file://E:\Users\hesi100\AndroidStudioProjects\yoga\.idea\yoga.iml" filepath="E:\Users\hesi100\AndroidStudioProjects\yoga\.idea\yoga.iml" />
     </modules>
   </component>
 </project>

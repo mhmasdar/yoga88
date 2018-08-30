@@ -51,7 +51,7 @@ public class TeachCoachesAdapter extends RecyclerView.Adapter<TeachCoachesAdapte
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, final int position) {
 
         final TeachesModel currentObj = list.get(position);
         holder.setData(currentObj, position);
@@ -60,14 +60,14 @@ public class TeachCoachesAdapter extends RecyclerView.Adapter<TeachCoachesAdapte
             @Override
             public void onClick(View view) {
                 CoachTeachsActivity activity = (CoachTeachsActivity) context;
-                Intent intent = new Intent(activity, CoachTeachDetailsActivity.class);
+                Intent intent = new Intent(context, CoachTeachDetailsActivity.class);
                 //intent.putExtra("calledToAdd", false);
-                intent.putExtra("id", currentObj.id);
-
+                intent.putExtra("ID", currentObj.id);
                 intent.putExtra("Title", currentObj.Title);
                 intent.putExtra("Body", currentObj.Body);
                 intent.putExtra("Images", currentObj.Images);
-                intent.putExtra("coachName", currentObj.Name);
+                intent.putExtra("coachName", currentObj.user.Name + " " +currentObj.user.lName);
+                intent.putExtra("coachID", currentObj.user.id);
                 intent.putExtra("ImagePersonal", currentObj.ImagePersonal);
                 context.startActivity(intent);
             }
@@ -76,11 +76,10 @@ public class TeachCoachesAdapter extends RecyclerView.Adapter<TeachCoachesAdapte
         holder.txtProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CoachTeachDetailsActivity activity = (CoachTeachDetailsActivity) context;
-                Intent intent = new Intent(activity, CoachDetailsActivity.class);
-                intent.putExtra("idUser", currentObj.id);
+//                CoachTeachDetailsActivity activity = (CoachTeachDetailsActivity) context;
+                Intent intent = new Intent(context, CoachDetailsActivity.class);
+                intent.putExtra("idUser", currentObj.user.id);
                 intent.putExtra("calledFromPanel", false);
-
                 context.startActivity(intent);
             }
         });

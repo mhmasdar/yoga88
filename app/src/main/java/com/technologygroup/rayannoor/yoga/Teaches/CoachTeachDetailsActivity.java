@@ -16,9 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
+import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
@@ -38,11 +41,12 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
 
     private int visibleLyts = 0;
     private int id, idRow;
-    private String Title, Images, Body, imgPersonal;
+    private String Title, Images, Body, imgPersonal,coachName;
     private List<String> selectedImgName = new ArrayList<>();
     private List<String> bodyList = new ArrayList<>();
-
+    private List<TeachTextImage> list;
     private CoachModel coachModel;
+    int coachID;
     WebServiceCoachInfo webServiceCoachInfo;
 
     @Override
@@ -57,21 +61,25 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        id = getIntent().getIntExtra("ID",-1);
+        coachName = getIntent().getStringExtra("coachName");
+        coachID = getIntent().getIntExtra("coachID",-1);
+        list = new ArrayList<>();
+        WebServiceList webServiceList=new WebServiceList();
+        webServiceList.execute();
 
 
-
-
-        lytCoachProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(CoachTeachDetailsActivity.this, CoachDetailsActivity.class);
-                //intent.putExtra("idUser", currentObj.id);
-//                intent.putExtra("calledFromPanel", false);
-
-                startActivity(intent);
-            }
-        });
+//        lytCoachProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(CoachTeachDetailsActivity.this, CoachDetailsActivity.class);
+//                //intent.putExtra("idUser", currentObj.id);
+////                intent.putExtra("calledFromPanel", false);
+//
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -107,7 +115,9 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
         img[8] = (ImageView) findViewById(R.id.img9);
         lyt[9] = (LinearLayout) findViewById(R.id.lyt10);
         txt[9] = (TextView) findViewById(R.id.txt10);
+
         img[9] = (ImageView) findViewById(R.id.img10);
+        txtCoachName = (TextView) findViewById(R.id.txtCoachName);
         //lytShare = (LinearLayout) findViewById(R.id.lytShare);
        // teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
        // lytLast = (LinearLayout) findViewById(R.id.lytLast);
@@ -195,7 +205,53 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
     }
 
 
+    private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            list = webService.getMoves(App.isInternetOn(), id);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            settexts();
+
+        }
+
+    }
+    public void settexts()
+    {
+        txtCoachName.setText(coachName);
+        for(int i=0;i<list.size();i++)
+        {
+
+            txt[i].setText(list.get(i).Text);
+            if (list.get(i).Image != null)
+                if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null"))
+                    Glide.with(this).load(App.imgAddr + list.get(i).Image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
+            lyt[i].setVisibility(View.VISIBLE);
+
+        }
+        txtTitle.setText(list.get(0).Title);
+    }
+    public void gotoprofile(View v)
+    {
+        Intent intent = new Intent(CoachTeachDetailsActivity.this, CoachDetailsActivity.class);
+        intent.putExtra("idUser",coachID);
+        startActivity(intent);
+    }
     @Override
     public void onStop() {
         super.onStop();

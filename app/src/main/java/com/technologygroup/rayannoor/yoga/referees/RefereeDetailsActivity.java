@@ -4,15 +4,19 @@ import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -22,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -61,12 +66,19 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     String instagram;
     String mobile;
     String sorosh;
+    private boolean CanLike = true, CanRate = true;
     int idReffre;
     CoachModel coachModel;
     int idsend;
     Boolean calledFromPanel;
     private Dialog dialog;
-
+    int idUser;
+    SharedPreferences mypref;
+    private SharedPreferences likes;
+    String reqtoprefer;
+    String reqtopreferRate;
+    boolean liked;
+    float Rated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +86,14 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         coachModel=new CoachModel();
         getInfo();
         initView();
+        mypref = getSharedPreferences("User", 0);
+        idUser = mypref.getInt("idUser", -1);
+        reqtoprefer=""+idUser+":"+idsend;
+        reqtopreferRate=""+idUser+"::"+idsend;
+        likes = getSharedPreferences("Likes", 0);
+        liked=likes.getBoolean(reqtoprefer,false);
+        btnLike.setLiked(liked);
+        Rated=likes.getFloat(reqtopreferRate,0);
         setDetail();
 
     }
@@ -281,6 +301,163 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+        btnLike.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+
+
+                if (coachModel.IsVerified) {
+
+                    if (CanLike) {
+
+                        if (idUser > 0) {
+
+                            CanLike = false;
+                            coachModel.like++;
+                            txtLikeCount.setText(coachModel.like + "");
+                            WebServiceCallLike webServiceCallLike = new WebServiceCallLike(true);
+                            webServiceCallLike.execute();
+
+                        } else {
+
+                            btnLike.setLiked(false);
+
+                            Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                            //snackbar.setAction("ثبت نام", new CoachDetailsActivity.registerAction());
+
+                            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                            TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                            textView.setLayoutParams(parms);
+                            textView.setGravity(Gravity.LEFT);
+                            snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                            snackbar.show();
+                        }
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+
+                if (coachModel.IsVerified) {
+
+                    if (CanLike) {
+
+                        if (idUser > 0) {
+
+                            CanLike = false;
+                            coachModel.like--;
+                            txtLikeCount.setText(coachModel.like + "");
+                            WebServiceCallLike like = new WebServiceCallLike(false);
+                            like.execute();
+
+                        } else {
+
+                            Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                            //snackbar.setAction("ثبت نام", new RefereeDetailsActivity().registerAction());
+
+                            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                            TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                            textView.setLayoutParams(parms);
+                            textView.setGravity(Gravity.LEFT);
+                            snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                            snackbar.show();
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+    private class WebServiceCallLike extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        boolean isLiked;
+
+        public WebServiceCallLike(boolean isLiked) {
+            this.isLiked = isLiked;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postLike(App.isInternetOn(), coachModel.id, "coach");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SharedPreferences.Editor editor = likes.edit();
+
+            if (isLiked) {
+
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean(reqtoprefer, true);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(RefereeDetailsActivity.this, "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(false);
+                        coachModel.like--;
+                        txtLikeCount.setText(coachModel.like + "");
+                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.apply();
+                    }
+
+                } else {
+                    Toast.makeText(RefereeDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                    coachModel.like--;
+                    txtLikeCount.setText(coachModel.like + "");
+                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.apply();
+                }
+
+            } else {
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(RefereeDetailsActivity.this, "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(true);
+                        coachModel.like++;
+                        txtLikeCount.setText(coachModel.like + "");
+                    }
+
+                } else {
+                    Toast.makeText(RefereeDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                    coachModel.like++;
+                    txtLikeCount.setText(coachModel.like + "");
+                }
+
+            }
+
+            CanLike = true;
+
+        }
 
     }
     private class WebServiceCallgetDetail extends AsyncTask<Object, Void, Void> {

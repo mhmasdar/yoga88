@@ -86,7 +86,6 @@ public class teachsListActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-
             Recycler.showShimmerAdapter();
         }
 

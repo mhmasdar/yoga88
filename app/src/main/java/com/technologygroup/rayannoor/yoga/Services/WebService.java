@@ -292,7 +292,7 @@ public class WebService {
                         model.id = Object.getInt("ID");
                         model.Mobile = Object.getString("Mobile");
                         model.IsVerified=Object.getBoolean("IsVerified");
-                        JSONObject rolej=Object.getJSONObject("Role");
+                        JSONObject rolej=Object.getJSONObject("UserRoles");
                         model.Roleid=rolej.getInt("ID");
                         model.RoleName=rolej.getString("Name");
                         JSONObject Cityj=Object.getJSONObject("City");
@@ -321,8 +321,11 @@ public class WebService {
 
 //            String req = "{\"idCity\":-1,\"Name\":\"" + model.Name + "\",\"lName\":\"" + model.lName + "\",\"Mobile\":\"" + model.Mobile + "\",\"Email\":\"" + model.Email + "\",\"Password\":\"" + model.Password + "\",\"Type\":3,\"isVisible\":true,\"lastUpdate\":1}";
 //            String response = connectToServerByJson(App.apiAddr + "User/add", "POST", req);
-
-            String response = connectToServer(App.apiAddr + "User/Register?name=" + model.Name + "&lname=" + model.lName + "&mobile=" + model.Mobile + "&email=" + model.Email + "&password=" + model.Password, "GET");
+            String username;
+            username=model.Name.replace(" ", "%20");
+            String userlname;
+            userlname=model.lName.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "User/Register?name=" + username + "&lname=" +userlname + "&mobile=" + model.Mobile + "&email=" + model.Email + "&password=" + model.Password, "GET");
             Log.i("LOG", response + "");
 
 
@@ -496,7 +499,7 @@ public class WebService {
                     model.Rate = Object.getDouble("Rate");
                     model.Telegram = Object.getString("Telegram");
                     model.sorosh = Object.getString("sorosh");
-                    JSONObject Rolej=Object.getJSONObject("Role");
+                    JSONObject Rolej=Object.getJSONObject("UserRoles");
                     model.rolename=Rolej.getString("Name");
                     model.roleid=Rolej.getInt("ID");
                     JSONObject cityj=Object.getJSONObject("City");
@@ -1367,9 +1370,9 @@ public class WebService {
                     model.Telegram = Object.getString("Telegram");
                     model.sorosh = Object.getString("Surush");
                     model.Bio = Object.getString("Bio");
-                    JSONObject Rolej=Object.getJSONObject("Role");
-                    model.rolename=Rolej.getString("Name");
-                    model.roleid=Rolej.getInt("ID");
+//                    JSONObject Rolej=Object.getJSONObject("UserRoles");
+//                    model.rolename=Rolej.getString("Name");
+//                    model.roleid=Rolej.getInt("ID");
                     JSONObject cityj=Object.getJSONObject("City");
                     model.City = cityj.getString("Name");
                     model.idCity = cityj.getInt("ID");
@@ -1421,9 +1424,9 @@ public class WebService {
                     model.Telegram = Object.getString("Telegram");
                     model.sorosh = Object.getString("Surush");
                     model.Bio = Object.getString("Bio");
-                    JSONObject Rolej=Object.getJSONObject("Role");
-                    model.rolename=Rolej.getString("Name");
-                    model.roleid=Rolej.getInt("ID");
+//                    JSONObject Rolej=Object.getJSONObject("UserRoles");
+//                    model.rolename=Rolej.getString("Name");
+//                    model.roleid=Rolej.getInt("ID");
                     JSONObject cityj=Object.getJSONObject("City");
                     model.City = cityj.getString("Name");
                     model.idCity = cityj.getInt("ID");
@@ -1740,7 +1743,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "user/get?fid="+1+"&cid="+13+"&role=Referee", "GET");
+            String response = connectToServer(App.apiAddr + "user/get?fid="+1+"&cid="+13+"&role=referee", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1764,13 +1767,13 @@ public class WebService {
                         model.IsVerified = Object.getBoolean("IsVerified");
                         // model.like = Object.getInt("like");
                         model.lName = Object.getString("LastName");
-                        //                     model.Mobile = Object.getString("Mobile");
+                        // model.Mobile = Object.getString("Mobile");
                         // model.Rate = Object.getDouble("Rate");
                         // model.Telegram = Object.getString("Telegram");
                         //model.sorosh = Object.getString("sorosh");
                         // JSONObject Rolej=Object.getJSONObject("Role");
                         // model.rolename=Rolej.getString("Name");
-                        //model.roleid=Rolej.getInt("ID");
+                        // model.roleid=Rolej.getInt("ID");
                         // JSONObject cityj=Object.getJSONObject("City");
                         // model.City = cityj.getString("Name");
                         // model.idCity = cityj.getInt("ID");

@@ -102,7 +102,11 @@ public class GymProfileActivity extends AppCompatActivity {
     private ImageView imgLockClip;
     private LinearLayout lytClip;
     private int idsend;
-    ImageView ic_lock;
+    private SharedPreferences likes;
+    String reqtoprefer;
+    String reqtopreferRate;
+    boolean liked;
+    float Rated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,11 +123,14 @@ public class GymProfileActivity extends AppCompatActivity {
 //        Glide.with(this).load(R.drawable.gym).into(gymImage);
         floatAction.hide();
         getWorkTime();
-
-
         prefs = getSharedPreferences("User", 0);
         idUser = prefs.getInt("idUser", -1);
-        calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
+        reqtoprefer=""+idUser+":"+idsend;
+        reqtopreferRate=""+idUser+"::"+idsend;
+        likes = getSharedPreferences("Likes", 0);
+        liked=likes.getBoolean(reqtoprefer,false);
+        btnLike.setLiked(liked);
+        Rated=likes.getFloat(reqtopreferRate,0);
         //set image dark
         gymImage.setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY);
         floatAction.setOnClickListener(new View.OnClickListener() {
@@ -443,9 +450,9 @@ public class GymProfileActivity extends AppCompatActivity {
 
                 if (result != null) {
 
-                    if (Integer.parseInt(result) == 1 || Integer.parseInt(result) == -3) {
+                    if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, true);
+                        editor.putBoolean(reqtoprefer, true);
                         editor.apply();
 
                     } else {
