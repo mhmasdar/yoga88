@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Teaches.teachsActivity" />
         <activity android:name=".YogaIntroduce.YogaIntroduceActivity" />
         <activity android:name=".Gyms.GymsListActivity" />
@@ -82,7 +82,8 @@
         <activity android:name=".NavigationMenu.SuggestionActivity" />
         <activity android:name=".NavigationMenu.hameganiActivity" />
         <activity android:name=".referees.RefereeServicesActivity" />
-        <activity android:name=".referees.RefereeProfileActivity"></activity>
+        <activity android:name=".referees.RefereeProfileActivity" />
+        <activity android:name=".SelectRoleActivity"></activity>
     </application>
 
 </manifest>
