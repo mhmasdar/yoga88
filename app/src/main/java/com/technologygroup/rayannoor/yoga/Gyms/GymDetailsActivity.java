@@ -54,6 +54,7 @@ public class GymDetailsActivity extends AppCompatActivity {
     private ImageView imgLockPhotos;
     private LinearLayout lytPhotos;
     private ImageView imgLockCoaches;
+
     private LinearLayout lytCoaches;
     private ImageView imgLockCourse;
     private LinearLayout lytCourses;
@@ -122,7 +123,6 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymDetailsActivity.this, CommentsActivity.class);
                     intent.putExtra("IdCoachOrGym", idsend);
                     intent.putExtra("IsGym", true);
-
                     startActivity(intent);
                 } else {
                     Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
@@ -153,7 +153,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 1);
+                    intent.putExtra("SelectedTabIndex", 3);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -170,7 +170,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("SelectedTabIndex", 4);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -187,7 +187,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("SelectedTabIndex", 5);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -204,7 +204,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 4);
+                    intent.putExtra("SelectedTabIndex", 1);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -221,7 +221,39 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 5);
+                    intent.putExtra("SelectedTabIndex", 7);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        lytClip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
+                    intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("idGym", idsend);
+                    intent.putExtra("work", gymModel.workTime);
+                    intent.putExtra("about", gymModel.About);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        lytWorkTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gymModel.IsVerified) {
+                    Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
+                    intent.putExtra("calledFromPanel", true);
+                    intent.putExtra("SelectedTabIndex", 6);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -260,6 +292,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         imgLockNotifs = (ImageView) findViewById(R.id.imgLockNotifs);
         lytNotifs = (LinearLayout) findViewById(R.id.lytNotifs);
         imgLockComments = (ImageView) findViewById(R.id.imgLockComments);
+
         lytComments = (LinearLayout) findViewById(R.id.lytComments);
         lytGymProfileUpgrade = (RelativeLayout) findViewById(R.id.lytGymProfileUpgrade);
     }
@@ -275,8 +308,6 @@ public class GymDetailsActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
             gymModel = new GymModel();
-
-
             dialog = new Dialog(GymDetailsActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
@@ -340,7 +371,11 @@ public class GymDetailsActivity extends AppCompatActivity {
                     lytAbout.setAlpha(1);
                     imgLockAbout.setVisibility(View.GONE);
                     lytNotifs.setAlpha(1);
+                    lytClip.setAlpha(1);
+                    lytWorkTime.setAlpha(1);
                     imgLockNotifs.setVisibility(View.GONE);
+                    imgLockWorkTime.setVisibility(View.GONE);
+                    imgLockClip.setVisibility(View.GONE);
                     setbuttons();
 
                 }
