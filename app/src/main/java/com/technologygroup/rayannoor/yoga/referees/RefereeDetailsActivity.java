@@ -6,9 +6,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -33,6 +36,8 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 public class RefereeDetailsActivity extends AppCompatActivity {
 
     private LinearLayout lytParent;
@@ -50,6 +55,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     private TextView txtRefereeRate;
     private LikeButton btnLike;
     private TextView txtLikeCount;
+
     private ImageView imgLockResume;
     private LinearLayout lytResume;
     private ImageView imgLockBio;
@@ -79,6 +85,10 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     String reqtopreferRate;
     boolean liked;
     float Rated;
+    Dialog dialogRating;
+    RatingBar rating_dialog;
+    CircularProgressButton btnOk;
+    ImageView imgClose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,6 +235,14 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             imgLockCourse.setVisibility(View.GONE);
             floatAction.show();
             btnLike.setEnabled(true);
+            lytRefereeRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (coachModel.IsVerified) {
+                        showRatingDialog();
+                    }
+                }
+            });
         }
 
 
@@ -336,6 +354,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     }
 
                 }
+
 
 
             }
@@ -456,6 +475,114 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             }
 
             CanLike = true;
+
+        }
+
+    }
+    private void showRatingDialog() {
+        dialogRating = new Dialog(this);
+        dialogRating.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogRating.setContentView(R.layout.dialog_rating);
+        rating_dialog = (RatingBar) dialogRating.findViewById(R.id.rating_dialog);
+        btnOk = dialogRating.findViewById(R.id.btnOk);
+        imgClose = dialogRating.findViewById(R.id.imgClose);
+        rating_dialog.setRating(Rated);
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogRating.dismiss();
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (idUser > 0) {
+
+                    WebServiceCallRateAdd webServiceCallRateAdd = new WebServiceCallRateAdd();
+                    webServiceCallRateAdd.execute();
+
+                } else {
+
+                    dialogRating.dismiss();
+                    Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
+                    //snackbar.setAction("ثبت نام", new registerAction());
+                    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+                    TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
+                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
+                    textView.setLayoutParams(parms);
+                    textView.setGravity(Gravity.LEFT);
+                    snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                    snackbar.show();
+                }
+
+            }
+        });
+        dialogRating.setCancelable(true);
+        dialogRating.setCanceledOnTouchOutside(true);
+        dialogRating.show();
+    }
+    private class WebServiceCallRateAdd extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        double rate;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnOk.startAnimation();
+            webService = new WebService();
+            rate = rating_dialog.getRating();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postRate(App.isInternetOn(), idsend, "referee", (float) rate);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (result.equals("Ok")) {
+
+                    SharedPreferences.Editor editor = likes.edit();
+                    editor.putFloat(reqtopreferRate,rating_dialog.getRating());
+                    editor.apply();
+                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.ic_ok);
+                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                    // بستن دیالوگ حتما با تاخیر انجام شود
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialogRating.dismiss();
+                        }
+                    }, 1000);
+                    WebServiceCallgetDetail webServiceCallgetDetail=new WebServiceCallgetDetail();
+                    webServiceCallgetDetail.execute();
+
+                } else {
+
+                    btnOk.revertAnimation();
+                    Toast.makeText(RefereeDetailsActivity.this, "ثبت امتیاز نا موفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+
+                btnOk.revertAnimation();
+                Toast.makeText(RefereeDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+            }
 
         }
 

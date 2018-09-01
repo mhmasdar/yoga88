@@ -43,6 +43,10 @@ import com.technologygroup.rayannoor.yoga.adapters.SlidingImage_Adapter;
 import com.technologygroup.rayannoor.yoga.referees.RefereeListActivity;
 import com.technologygroup.rayannoor.yoga.referees.RefereeProfileActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout lytBoard;
     private ImageView imgNewTeach;
     private View headerview;
+    JSONObject roles;
     private SharedPreferences prefs;
     public static Dialog dialog;
     public static Spinner StateSpinner;
@@ -89,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerCustomDuration pager;
     private LinearLayout lytReferee;
     private ArcNavigationView navView;
+    private JSONArray usertypes;
+    String Role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,32 +106,61 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("User", 0);
         userType = prefs.getString("userType","no");
         idUser = prefs.getInt("idUser", -1);
+        try {
+            usertypes=new JSONArray(userType);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if (idUser > 0) {
             txtUserName.setText(prefs.getString("Name", "") + " " + prefs.getString("lName", ""));
         }
+        try {
+            if (usertypes.length() == 1) {
+                try {
+                    Role = usertypes.getJSONObject(0).getString("Name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
+                }
+                if (Role.equals("Gym")) {
+                    txtLogin.setText("پنل باشگاه");
+                } else if (Role.equals("Coach")) {
+                    txtLogin.setText("پنل مربی");
+                } else if (Role.equals("Referee")) {
+                    txtLogin.setText("پنل داور");
+                } else if (Role.equals("Gym")) {
+                    txtLogin.setText("پنل باشگاه");
+                } else if (Role.equals("User")) {
+                    txtLogin.setText("حساب کاربری");
+                } else {
+                    txtLogin.setText("ورود/ثبت نام");
+                }
+            } else {
 
-        if (userType.equals("Gym")) {
-            txtLogin.setText("پنل باشگاه");
-        } else if (userType.equals("Coach")) {
-            txtLogin.setText("پنل مربی");
+                Role = "others";
+                roles = new JSONObject();
+                txtLogin.setText("ورود به پنل");
+                for (int j = 0; j < usertypes.length(); j++) {
+                    try {
+                        roles.put("Role" + j, usertypes.getJSONObject(j).getString("Name"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+
+            }
         }
-            else if (userType.equals("Referee")) {
-            txtLogin.setText("پنل داور");
-        }    else if (userType.equals("Gym")) {
-            txtLogin.setText("پنل باشگاه");
-        } else if (userType.equals("User")) {
-            txtLogin.setText("حساب کاربری");
-        } else {
-            txtLogin.setText("ورود/ثبت نام");
+        catch (NullPointerException e)
+        {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
-
         //set image darker
         drawerHeaderImage.setColorFilter(Color.rgb(150, 150, 150), PorterDuff.Mode.MULTIPLY);
         Glide.with(this).load(R.drawable.pattern).into(drawerHeaderImage);
-
-
         hamegani.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,32 +243,39 @@ public class MainActivity extends AppCompatActivity {
         lytLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userType.equals("no")) {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                if (userType.equals("Gym") && idUser > 0) {
+                if (Role.equals("Gym") && idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
                     intent.putExtra("idgym",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType.equals("Coach")&& idUser > 0) {
+                else if (Role.equals("Coach")&& idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
                     intent.putExtra("idUser",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType.equals("Referee")&& idUser > 0) {
+                else if (Role.equals("Referee")&& idUser > 0) {
                     Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
                     intent.putExtra("idReffre",idUser);
                     intent.putExtra("calledFromPanel",true);
                     startActivity(intent);
                 }
-                if (userType.equals("User")&& idUser > 0) {
+                else if (Role.equals("User")&& idUser > 0) {
+
                     Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
                     intent.putExtra("idgym",idUser);
                     intent.putExtra("calledFromPanel",true);
+                    startActivity(intent);
+                }
+                else if (Role.equals("others")&& idUser > 0) {
+                    Intent intent = new Intent(MainActivity.this, SelectRoleActivity.class);
+                    intent.putExtra("id",idUser);
+                    intent.putExtra("roles",roles.toString());
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
                 drawer_layout.closeDrawer(GravityCompat.END);

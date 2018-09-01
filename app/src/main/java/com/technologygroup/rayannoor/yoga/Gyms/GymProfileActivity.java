@@ -111,7 +111,6 @@ public class GymProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_profile);
-
         initView();
         gymModel = new GymModel();
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
@@ -119,8 +118,7 @@ public class GymProfileActivity extends AppCompatActivity {
         Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
         WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
-        //set test image
-//        Glide.with(this).load(R.drawable.gym).into(gymImage);
+
         floatAction.hide();
         getWorkTime();
         prefs = getSharedPreferences("User", 0);
@@ -343,6 +341,14 @@ public class GymProfileActivity extends AppCompatActivity {
             imgLockClip.setVisibility(View.GONE);
             floatAction.show();
             btnLike.setEnabled(true);
+            lytCoachRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (gymModel.IsVerified) {
+                        showRatingDialog();
+                    }
+                }
+            });
         }
 
     }
@@ -364,6 +370,7 @@ public class GymProfileActivity extends AppCompatActivity {
         rating_dialog = (RatingBar) dialogRating.findViewById(R.id.rating_dialog);
         btnOk = dialogRating.findViewById(R.id.btnOk);
         imgClose = dialogRating.findViewById(R.id.imgClose);
+        rating_dialog.setRating(Rated);
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -515,10 +522,8 @@ public class GymProfileActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Object... params) {
-
             // id is for place
-            result = webService.postRate(App.isInternetOn(), idsend, idUser, "Gym", (float) rate);
-
+            result = webService.postRate(App.isInternetOn(), idsend, "Gym", (float) rate);
             return null;
         }
 
@@ -528,9 +533,11 @@ public class GymProfileActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (Integer.parseInt(result) > 0) {
+                if (result.equals("Ok")) {
 
-
+                    SharedPreferences.Editor editor = likes.edit();
+                    editor.putFloat(reqtopreferRate,rating_dialog.getRating());
+                    editor.apply();
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_ok);
@@ -544,7 +551,8 @@ public class GymProfileActivity extends AppCompatActivity {
                             dialogRating.dismiss();
                         }
                     }, 1000);
-
+                    WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
+                    webServiceCoachInfo.execute();
 
                 } else {
 

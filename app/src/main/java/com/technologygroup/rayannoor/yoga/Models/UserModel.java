@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,16 +11,13 @@ import org.json.JSONObject;
 public class UserModel {
 
     public int id;
-
-
     public String Name;
     public String lName;
     public String Mobile;
     public String Email;
     public String Password;
     public boolean IsVerified;
-    public int Roleid;
-    public String RoleName;
+    public JSONArray userType;
     public int cityid;
     public int SessionKey;
     public String cityName;

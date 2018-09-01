@@ -292,9 +292,7 @@ public class WebService {
                         model.id = Object.getInt("ID");
                         model.Mobile = Object.getString("Mobile");
                         model.IsVerified=Object.getBoolean("IsVerified");
-                        JSONObject rolej=Object.getJSONObject("UserRoles");
-                        model.Roleid=rolej.getInt("ID");
-                        model.RoleName=rolej.getString("Name");
+                        model.userType=Object.getJSONArray("UserRoles");
                         JSONObject Cityj=Object.getJSONObject("City");
                         model.cityid=Cityj.getInt("ID");
                         model.cityName=Cityj.getString("Name");
@@ -1263,10 +1261,11 @@ public class WebService {
             return null;
     }
 
-    public String postRate(boolean isInternetAvailable, int idCoachOrGym, int idUser, String type, float rate) {
+    public String postRate(boolean isInternetAvailable, int idCoachOrGym, String type, float rate) {
 
         if (isInternetAvailable) {
-            String response = connectToServer(App.apiAddr + "user/Rate?uid="+idCoachOrGym+"&rate="+rate, "GET");
+            //user/Rate?uid=4&rate=4.5&role=coach
+            String response = connectToServer(App.apiAddr + "user/Rate?uid="+idCoachOrGym+"&rate="+rate+"&role="+type, "GET");
             Log.i("LOG", response + "");
             return response;
         } else

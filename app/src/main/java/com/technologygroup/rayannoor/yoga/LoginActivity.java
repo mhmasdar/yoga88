@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("idUser", userModel.id);
                     editor.putInt("SessionKey", userModel.SessionKey);
-                    editor.putString("userType", userModel.RoleName);
+                    editor.putString("userType",userModel.userType.toString());
                     editor.putString("Name", userModel.Name);
                     editor.putString("lName", userModel.lName);
                     editor.putString("Mobile", userModel.Mobile);

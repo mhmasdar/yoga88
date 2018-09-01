@@ -110,6 +110,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         liked=likes.getBoolean(reqtoprefer,false);
         btnLike.setLiked(liked);
         Rated=likes.getFloat(reqtopreferRate,0);
+        //btnOk.doneLoadingAnimation
         getInfo();
     }
     private void others()
@@ -497,6 +498,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         dialogRating.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogRating.setContentView(R.layout.dialog_rating);
         rating_dialog = (RatingBar) dialogRating.findViewById(R.id.rating_dialog);
+        rating_dialog.setRating(Rated);
         btnOk = dialogRating.findViewById(R.id.btnOk);
         imgClose = dialogRating.findViewById(R.id.imgClose);
         imgClose.setOnClickListener(new View.OnClickListener() {
@@ -510,9 +512,14 @@ public class CoachDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (idUser > 0) {
-
-                    webServiceCallRateAdd = new WebServiceCallRateAdd();
-                    webServiceCallRateAdd.execute();
+                    if(Rated==0) {
+                        webServiceCallRateAdd = new WebServiceCallRateAdd();
+                        webServiceCallRateAdd.execute();
+                    }
+                    else
+                    {
+                        Toast.makeText(CoachDetailsActivity.this, "قبلا رای داده شده است", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
 
@@ -642,8 +649,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postRate(App.isInternetOn(), coachModel.id, idUser, "coach", (float) rate);
-
+            result = webService.postRate(App.isInternetOn(), coachModel.id, "coach", (float) rate);
             return null;
         }
 
@@ -654,8 +660,9 @@ public class CoachDetailsActivity extends AppCompatActivity {
             if (result != null) {
 
                 if (result.equals("Ok")) {
-
-
+                    SharedPreferences.Editor editor = likes.edit();
+                    editor.putFloat(reqtopreferRate,rating_dialog.getRating());
+                    editor.apply();
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_ok);
@@ -669,22 +676,17 @@ public class CoachDetailsActivity extends AppCompatActivity {
                             dialogRating.dismiss();
                         }
                     }, 1000);
-
-
+                    WebServiceCallgetDetail webServiceCallgetDetail=new WebServiceCallgetDetail();
+                    webServiceCallgetDetail.execute();
                 } else {
-
                     btnOk.revertAnimation();
                     Toast.makeText(CoachDetailsActivity.this, "ثبت امتیاز نا موفق", Toast.LENGTH_LONG).show();
                 }
-
             } else {
-
                 btnOk.revertAnimation();
                 Toast.makeText(CoachDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
             }
-
         }
-
     }
     private class WebServiceCallgetDetail extends AsyncTask<Object, Void, Void> {
 
