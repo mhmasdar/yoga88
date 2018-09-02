@@ -24,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.rom4ek.arcnavigationview.ArcNavigationView;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.*;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
@@ -114,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (idUser > 0) {
             txtUserName.setText(prefs.getString("Name", "") + " " + prefs.getString("lName", ""));
+            String image = prefs.getString("ProfileImageName","null");
+            if (!image.equals("") && !image.equals("null"))
+                Glide.with(MainActivity.this).load(App.imgAddr + image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgUser);
         }
         try {
             if (usertypes.length() == 1) {

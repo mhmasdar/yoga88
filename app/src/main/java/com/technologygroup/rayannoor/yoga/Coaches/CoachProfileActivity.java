@@ -106,7 +106,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                 intent.putExtra("CoachId", coachModel.id);
                 intent.putExtra("CoachFName", coachModel.fName);
                 intent.putExtra("CoachLName", coachModel.lName);
-//                intent.putExtra("CoachImg", coachModel.Img);
+                intent.putExtra("CoachImg", coachModel.ImgName);
                 intent.putExtra("CoachNatCode", coachModel.natCode);
                 intent.putExtra("CoachEmail", coachModel.Email);
                 intent.putExtra("CoachMobile", coachModel.Mobile);

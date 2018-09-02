@@ -100,6 +100,15 @@ public class GymDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GymDetailsActivity.this, GymEditProfileActivity.class);
+                intent.putExtra("CoachId", gymModel.id);
+                intent.putExtra("CoachName", gymModel.Name);
+                intent.putExtra("GymAddress", gymModel.Address);
+                intent.putExtra("CoachImg", gymModel.ImgName);
+                //intent.putExtra("CoachNatCode", gymModel.natCode);
+                intent.putExtra("CoachEmail", gymModel.Email);
+                intent.putExtra("CoachMobile", gymModel.Mobile);
+                intent.putExtra("CoachIdTelegram", gymModel.Telegram);
+                intent.putExtra("CoachIdInstagram", gymModel.Instagram);
                 startActivity(intent);
             }
         });
