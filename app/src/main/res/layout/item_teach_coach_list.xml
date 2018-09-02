@@ -88,7 +88,7 @@
 
         <ImageView
             android:layout_width="80dp"
-            android:src="@drawable/img"
+            android:src="@drawable/ic_gym_list"
             android:scaleType="fitXY"
             android:id="@+id/imgTeach"
             android:layout_height="80dp" />
