@@ -307,7 +307,6 @@ public class CoachProfileActivity extends AppCompatActivity {
 
         private WebService webService;
         Dialog dialog;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -325,8 +324,6 @@ public class CoachProfileActivity extends AppCompatActivity {
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
-
-
         }
 
         @Override
