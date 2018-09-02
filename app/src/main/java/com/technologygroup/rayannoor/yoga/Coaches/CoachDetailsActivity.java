@@ -437,9 +437,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idUser", -1);
         WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
         callCity.execute();
-
-
-
     }
 
     private void setViews() {
@@ -663,6 +660,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
                     editor.apply();
+                    Rated=rating_dialog.getRating();
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_ok);
@@ -676,6 +674,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                             dialogRating.dismiss();
                         }
                     }, 1000);
+
                     WebServiceCallgetDetail webServiceCallgetDetail=new WebServiceCallgetDetail();
                     webServiceCallgetDetail.execute();
                 } else {
@@ -693,34 +692,30 @@ public class CoachDetailsActivity extends AppCompatActivity {
         private WebService webService;
         String result;
         double rate;
+        Dialog dialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            webService = new WebService();
             dialog = new Dialog(CoachDetailsActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
             ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
-            webService = new WebService();
 
         }
 
         @Override
         protected Void doInBackground(Object... params) {
-
-            // id is for place
             coachModel = webService.getCoachDetail(App.isInternetOn(), idsend);
-
             return null;
         }
 
@@ -729,7 +724,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             others();
-
         }
 
     }

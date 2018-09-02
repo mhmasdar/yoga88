@@ -406,6 +406,7 @@ public class CoachProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-      //  getInfo();
+        WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
     }
 }

@@ -327,11 +327,9 @@ public class GymDetailsActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
-
 
         }
 
@@ -364,7 +362,6 @@ public class GymDetailsActivity extends AppCompatActivity {
                 txtCoachRate.setText(strRate);
                 txtLikeCount.setText(gymModel.like + "");
                 rating.setRating((float) gymModel.Rate);
-
                 if (gymModel.IsVerified) {
 
                     lytGymHonours.setAlpha(1);
@@ -404,10 +401,15 @@ public class GymDetailsActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
         if (webServiceCoachInfo != null)
             if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCoachInfo.cancel(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
+    }
 }

@@ -17,12 +17,10 @@ import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
 import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.GymCoachesAdapter;
-import com.technologygroup.rayannoor.yoga.adapters.GymHonourAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +140,6 @@ public class coachsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
             Recycler.hideShimmerAdapter();
 
             if (list != null) {
