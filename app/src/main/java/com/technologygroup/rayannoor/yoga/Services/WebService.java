@@ -906,7 +906,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/training/getbyuserid?fid="+fid+"&uid="+id+"&type="+type, "GET");
+            String response = connectToServer(App.apiAddr+"training/getbyuserid?fid="+fid+"&uid="+id+"&type="+type, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -946,7 +946,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/training/getbyuserid?uid="+id+"&type="+type, "GET");
+            String response = connectToServer(App.apiAddr+"training/getbyuserid?uid="+id+"&type="+type, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1285,11 +1285,11 @@ public class WebService {
             return null;
     }
 
-    public List<CoachModel> getCoachesByField(boolean isInternetAvailable, int idField) {
+    public List<CoachModel> getCoachesByField(boolean isInternetAvailable, int fid,int cid) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/user/get?fid=1&cid=13&role=coach" , "GET");
+            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&role=coach" , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1345,7 +1345,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/user/getuserbyid?uid="+id+"&role=coach" , "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=coach" , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1399,7 +1399,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/user/getuserbyid?uid="+id+"&role=referee" , "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=referee" , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1511,7 +1511,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/user/getuserbyid?uid="+id+"&role=gym", "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=gym", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1738,11 +1738,11 @@ public class WebService {
         } else
             return null;
     }
-    public List<CoachModel> getReffres(boolean isInternetAvailable, String fid,String cid) {
+    public List<CoachModel> getReffres(boolean isInternetAvailable, int fid,int cid) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "user/get?fid="+1+"&cid="+13+"&role=referee", "GET");
+            String response = connectToServer(App.apiAddr + "user/get?fid="+fid+"&cid="+cid+"&role=referee", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1792,11 +1792,11 @@ public class WebService {
         } else
             return null;
     }
-    public List<GymModel> getGymByField(boolean isInternetAvailable, int idField) {
+    public List<GymModel> getGymByField(boolean isInternetAvailable, int fid,int cid) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer("http://varzesh.buludweb.com/api/user/get?fid=1&cid=13&role=gym" , "GET");
+            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&role=gym" , "GET");
 
             Log.i("LOG", response + "");
 

@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Teaches;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,10 @@ public class CoachTeachsActivity extends AppCompatActivity {
     private LinearLayout lytDisconnect;
     private LinearLayout lytEmpty;
     private List<TeachesModel> list;
+    private int stateNumber;
+    private int cityNumber;
+    private int fieldNumber;
+    private SharedPreferences prefs;
 
     WebServiceList webService;
     Button btnTryAgain;
@@ -37,21 +42,21 @@ public class CoachTeachsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach_teachs);
         initView();
-
+        prefs = getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         webService = new WebServiceList();
         webService.execute();
-
         btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 webService = new WebServiceList();
                 webService.execute();
 
@@ -93,7 +98,7 @@ public class CoachTeachsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getTeaches(App.isInternetOn(), 1, 1,"ersali");
+            list = webService.getTeaches(App.isInternetOn(), fieldNumber, stateNumber,"ersali");
 
             return null;
         }

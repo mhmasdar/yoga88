@@ -341,14 +341,14 @@ public class GymProfileActivity extends AppCompatActivity {
             imgLockClip.setVisibility(View.GONE);
             floatAction.show();
             btnLike.setEnabled(true);
-            lytCoachRating.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (gymModel.IsVerified) {
-                        showRatingDialog();
-                    }
-                }
-            });
+//            lytCoachRating.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (gymModel.IsVerified) {
+//                        showRatingDialog();
+//                    }
+//                }
+//            });
         }
 
     }
@@ -382,9 +382,14 @@ public class GymProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (idUser > 0) {
-
-                    webServiceCallRateAdd = new WebServiceCallRateAdd();
-                    webServiceCallRateAdd.execute();
+                    if(Rated==0) {
+                        webServiceCallRateAdd = new WebServiceCallRateAdd();
+                        webServiceCallRateAdd.execute();
+                    }
+                    else
+                    {
+                        Toast.makeText(GymProfileActivity.this, "امتیاز شما قبلا ثبت شده است", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
 
@@ -538,6 +543,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
                     editor.apply();
+                    Rated=rating_dialog.getRating();
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_ok);
@@ -700,7 +706,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 1);
+                    intent.putExtra("SelectedTabIndex", 3);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
                 }
@@ -714,7 +720,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("SelectedTabIndex", 4);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
                 }
@@ -728,7 +734,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("SelectedTabIndex", 5);
 
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
@@ -743,7 +749,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 4);
+                    intent.putExtra("SelectedTabIndex", 6);
 
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
@@ -757,7 +763,7 @@ public class GymProfileActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 5);
+                    intent.putExtra("SelectedTabIndex", 7);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
@@ -772,7 +778,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
 
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 2);
+                    intent.putExtra("SelectedTabIndex", 1);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);

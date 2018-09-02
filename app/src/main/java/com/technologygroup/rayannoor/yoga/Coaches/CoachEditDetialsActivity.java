@@ -255,7 +255,6 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         current.Telegram = getIntent().getStringExtra("CoachIdTelegram");
         current.Instagram = getIntent().getStringExtra("CoachIdInstagram");
         current.Email = getIntent().getStringExtra("CoachEmail");
-
         edtFName.setText(getIntent().getStringExtra("CoachFName"));
         edtLName.setText(getIntent().getStringExtra("CoachLName"));
         edtNatCode.setText(getIntent().getStringExtra("CoachNatCode"));
@@ -398,7 +397,6 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             result = webService.editCoachInfo(App.isInternetOn(), model);
-
             return null;
         }
 

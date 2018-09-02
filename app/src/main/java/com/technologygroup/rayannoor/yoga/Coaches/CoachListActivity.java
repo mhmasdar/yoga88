@@ -33,6 +33,7 @@ public class CoachListActivity extends AppCompatActivity {
     private List<CoachModel> coachModel;
     private int stateNumber;
     private int cityNumber;
+    private int fieldNumber;
     fetchDataCoachesList fetchDataCoachesList;
 
     @Override
@@ -41,9 +42,10 @@ public class CoachListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coach_list);
         initView();
 
-        prefs = getSharedPreferences("MyPrefs", 0);
-        stateNumber = prefs.getInt("stateNumber", 1);
-        cityNumber = prefs.getInt("cityNumber", 1);
+        prefs = getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
 
         fetchDataCoachesList = new fetchDataCoachesList();
         fetchDataCoachesList.execute();
@@ -95,7 +97,7 @@ public class CoachListActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Object... params) {
-         coachModel = webService.getCoachesByField(App.isInternetOn(), 2);
+         coachModel = webService.getCoachesByField(App.isInternetOn(), fieldNumber,cityNumber);
             return null;
         }
 

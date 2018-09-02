@@ -100,6 +100,15 @@ public class GymDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GymDetailsActivity.this, GymEditProfileActivity.class);
+                intent.putExtra("CoachId", gymModel.id);
+                intent.putExtra("CoachName", gymModel.Name);
+                intent.putExtra("GymAddress", gymModel.Address);
+                intent.putExtra("CoachImg", gymModel.ImgName);
+                //intent.putExtra("CoachNatCode", gymModel.natCode);
+                intent.putExtra("CoachEmail", gymModel.Email);
+                intent.putExtra("CoachMobile", gymModel.Mobile);
+                intent.putExtra("CoachIdTelegram", gymModel.Telegram);
+                intent.putExtra("CoachIdInstagram", gymModel.Instagram);
                 startActivity(intent);
             }
         });
@@ -312,17 +321,14 @@ public class GymDetailsActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
             ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
-
 
         }
 
@@ -355,7 +361,6 @@ public class GymDetailsActivity extends AppCompatActivity {
                 txtCoachRate.setText(strRate);
                 txtLikeCount.setText(gymModel.like + "");
                 rating.setRating((float) gymModel.Rate);
-
                 if (gymModel.IsVerified) {
 
                     lytGymHonours.setAlpha(1);
@@ -395,10 +400,15 @@ public class GymDetailsActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
         if (webServiceCoachInfo != null)
             if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCoachInfo.cancel(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
+    }
 }

@@ -30,6 +30,7 @@ public class GymsListActivity extends AppCompatActivity {
     private List<GymModel> gymModel;
     private int stateNumber;
     private int cityNumber;
+    private int fieldNumber;
     private SharedPreferences prefs;
     fetchDataGymsList fetchDataGymsList;
 
@@ -40,8 +41,9 @@ public class GymsListActivity extends AppCompatActivity {
         initView();
         RecyclerGyms = findViewById(R.id.RecyclerGyms);
         prefs = getSharedPreferences("User", 0);
-        stateNumber = prefs.getInt("stateNumber", 1);
-        cityNumber = prefs.getInt("cityNumber", 1);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
 
         fetchDataGymsList = new fetchDataGymsList();
         fetchDataGymsList.execute();
@@ -98,7 +100,7 @@ public class GymsListActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Object... params) {
-            gymModel = webService.getGymByField(App.isInternetOn(),2);
+            gymModel = webService.getGymByField(App.isInternetOn(),fieldNumber,cityNumber);
             return null;
         }
 

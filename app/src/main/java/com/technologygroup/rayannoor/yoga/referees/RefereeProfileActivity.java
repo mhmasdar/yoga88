@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachEditDetialsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
@@ -80,6 +82,12 @@ public class RefereeProfileActivity extends AppCompatActivity {
         imgLockComments = (ImageView) findViewById(R.id.imgLockComments);
         lytComments = (LinearLayout) findViewById(R.id.lytComments);
         lytRefereeProfileUpgrade = (RelativeLayout) findViewById(R.id.lytRefereeProfileUpgrade);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            finish();
+            }
+        });
     }
     public void getInfo() {
 
@@ -96,9 +104,9 @@ public class RefereeProfileActivity extends AppCompatActivity {
     }
     private void setViews() {
 
-//        if (coachModel.Img != null)
-//            if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))
-//                Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+        if (coachModel.ImgName != null)
+            if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
+                Glide.with(RefereeProfileActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgReferee);
 
 
         txtRefereeName.setText(coachModel.fName + " " + coachModel.lName);
@@ -140,17 +148,15 @@ public class RefereeProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(RefereeProfileActivity.this, CoachEditDetialsActivity.class);
-
                 intent.putExtra("CoachId", coachModel.id);
                 intent.putExtra("CoachFName", coachModel.fName);
                 intent.putExtra("CoachLName", coachModel.lName);
-//                intent.putExtra("CoachImg", coachModel.Img);
+               intent.putExtra("CoachImg", coachModel.ImgName);
                 intent.putExtra("CoachNatCode", coachModel.natCode);
                 intent.putExtra("CoachEmail", coachModel.Email);
                 intent.putExtra("CoachMobile", coachModel.Mobile);
                 intent.putExtra("CoachIdTelegram", coachModel.Telegram);
                 intent.putExtra("CoachIdInstagram", coachModel.Instagram);
-
                 startActivity(intent);
             }
         });
@@ -230,7 +236,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
         private WebService webService;
         String result;
         double rate;
-
+        Dialog dialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -240,7 +246,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
             ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
             rotation.setDuration(3000);
@@ -257,7 +262,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
 
             // id is for place
             coachModel = webService.getReffreDetail(App.isInternetOn(), idsend);
-
             return null;
         }
 

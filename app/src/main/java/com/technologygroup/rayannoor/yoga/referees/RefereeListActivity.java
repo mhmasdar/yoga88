@@ -29,6 +29,10 @@ public class RefereeListActivity extends AppCompatActivity {
     private LinearLayout lytEmpty;
     private LinearLayout lytMain;
     private Button btnTryAgain;
+    private int stateNumber;
+    private int cityNumber;
+    private int fieldNumber;
+    private SharedPreferences prefs;
 
     WebServiceCall call;;
 
@@ -37,6 +41,10 @@ public class RefereeListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referee_list);
         initView();
+        prefs = getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
         call = new WebServiceCall();
         call.execute();
 
@@ -64,7 +72,7 @@ public class RefereeListActivity extends AppCompatActivity {
         WebService webService;
         Internet internet;
         SharedPreferences sharedPreferences;
-        String cid,fid,res;
+
         List<CoachModel> reffres;
 
         @Override
@@ -72,15 +80,13 @@ public class RefereeListActivity extends AppCompatActivity {
             super.onPreExecute();
             internet=new Internet();
             webService=new WebService();
-            sharedPreferences= getSharedPreferences("User", 0);
-            cid=sharedPreferences.getString("cid","0");
-            fid=sharedPreferences.getString("fid","0");
+
         }
 
         @Override
         protected Void doInBackground(Object... params) {
 
-            reffres=webService.getReffres(App.isInternetOn(),fid,cid);
+            reffres=webService.getReffres(App.isInternetOn(),fieldNumber,cityNumber);
             return null;
         }
 

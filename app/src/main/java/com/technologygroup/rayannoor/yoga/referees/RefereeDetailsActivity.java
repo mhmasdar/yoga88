@@ -55,7 +55,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     private TextView txtRefereeRate;
     private LikeButton btnLike;
     private TextView txtLikeCount;
-
     private ImageView imgLockResume;
     private LinearLayout lytResume;
     private ImageView imgLockBio;
@@ -85,6 +84,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     String reqtopreferRate;
     boolean liked;
     float Rated;
+    boolean getdetailed=true;
     Dialog dialogRating;
     RatingBar rating_dialog;
     CircularProgressButton btnOk;
@@ -93,6 +93,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referee_details);
+
         coachModel=new CoachModel();
         getInfo();
         initView();
@@ -110,11 +111,10 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     public void getInfo() {
 
         coachModel = new CoachModel();
-
         idsend = getIntent().getIntExtra("idReffre", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
-        RefereeDetailsActivity.WebServiceCallgetDetail callCity = new RefereeDetailsActivity.WebServiceCallgetDetail();
+        WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
         callCity.execute();
 
 
@@ -319,6 +319,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+        dialog.dismiss();
         btnLike.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
@@ -354,9 +355,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     }
 
                 }
-
-
-
             }
 
             @Override
@@ -498,9 +496,14 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (idUser > 0) {
-
-                    WebServiceCallRateAdd webServiceCallRateAdd = new WebServiceCallRateAdd();
-                    webServiceCallRateAdd.execute();
+                    if(Rated==0) {
+                        WebServiceCallRateAdd webServiceCallRateAdd = new WebServiceCallRateAdd();
+                        webServiceCallRateAdd.execute();
+                    }
+                    else
+                    {
+                        Toast.makeText(RefereeDetailsActivity.this, "امتیاز شما قبلا ثبت شده است", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
 
@@ -541,7 +544,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
             // id is for place
             result = webService.postRate(App.isInternetOn(), idsend, "referee", (float) rate);
-
             return null;
         }
 
@@ -556,6 +558,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
                     editor.apply();
+                    Rated=rating_dialog.getRating();
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
                             R.drawable.ic_ok);
@@ -596,23 +599,19 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             webService = new WebService();
             dialog = new Dialog(RefereeDetailsActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
-            rotation.setDuration(3000);
-            rotation.setRepeatCount(Animation.INFINITE);
-            rotation.start();
-
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-
+                ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+                rotation.setDuration(3000);
+                rotation.setRepeatCount(Animation.INFINITE);
+                rotation.start();
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
         }
 
         @Override
@@ -620,7 +619,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
             // id is for place
             coachModel = webService.getReffreDetail(App.isInternetOn(), idsend);
-
             return null;
         }
 
@@ -634,9 +632,4 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getInfo();
-    }
 }

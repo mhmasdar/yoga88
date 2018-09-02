@@ -106,7 +106,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                 intent.putExtra("CoachId", coachModel.id);
                 intent.putExtra("CoachFName", coachModel.fName);
                 intent.putExtra("CoachLName", coachModel.lName);
-//                intent.putExtra("CoachImg", coachModel.Img);
+                intent.putExtra("CoachImg", coachModel.ImgName);
                 intent.putExtra("CoachNatCode", coachModel.natCode);
                 intent.putExtra("CoachEmail", coachModel.Email);
                 intent.putExtra("CoachMobile", coachModel.Mobile);
@@ -307,30 +307,23 @@ public class CoachProfileActivity extends AppCompatActivity {
 
         private WebService webService;
         Dialog dialog;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
             coachModel = new CoachModel();
-
-
             dialog = new Dialog(CoachProfileActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
             ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
             dialog.show();
-
-
         }
 
         @Override
@@ -406,6 +399,7 @@ public class CoachProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-      //  getInfo();
+        WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
+        webServiceCoachInfo.execute();
     }
 }
