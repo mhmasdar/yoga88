@@ -181,14 +181,12 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                             //showStateDialog();
 
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent i = new Intent(LoginActivity.this, selectSportActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
                             finish();
                         }
                     }, 1000);
-
-
                 } else {
 
                     btnLogin.revertAnimation();

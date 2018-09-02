@@ -236,7 +236,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
         private WebService webService;
         String result;
         double rate;
-
+        Dialog dialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -246,7 +246,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
             ImageView logo = dialog.findViewById(R.id.logo);
-
             //logo 360 rotate
             ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
             rotation.setDuration(3000);
@@ -263,7 +262,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
 
             // id is for place
             coachModel = webService.getReffreDetail(App.isInternetOn(), idsend);
-
             return null;
         }
 
