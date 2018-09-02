@@ -103,6 +103,7 @@ public class SelectRoleActivity extends AppCompatActivity {
             intent.putExtra("idReffre",id);
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
+            finish();
         }
         if(selectedRole.equals("باشگاه"))
         {
@@ -110,6 +111,7 @@ public class SelectRoleActivity extends AppCompatActivity {
             intent.putExtra("idgym",id);
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
+            finish();
         }
         if(selectedRole.equals("مربی"))
         {
@@ -117,6 +119,7 @@ public class SelectRoleActivity extends AppCompatActivity {
             intent.putExtra("idUser",id);
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
+            finish();
 
         }
         if(selectedRole.equals("کاربر"))
@@ -125,6 +128,7 @@ public class SelectRoleActivity extends AppCompatActivity {
             intent.putExtra("idgym",id);
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
+            finish();
         }
     }
 }
