@@ -231,7 +231,6 @@ public class selectSportActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             allthing.City = webService.getCiteies(App.isInternetOn(), selectedState);
-
             return null;
         }
 

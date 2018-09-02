@@ -29,12 +29,21 @@ public class YogaIntroduceActivity extends AppCompatActivity {
     private LinearLayout lytMain;
     private List<TeachesModel> list;
     private WebServiceCall call;
+    private int stateNumber;
+    private int cityNumber;
+    private int fieldNumber;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_sport);
         initView();
+        prefs = getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
+
         call = new WebServiceCall();
         call.execute();
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -74,15 +83,13 @@ public class YogaIntroduceActivity extends AppCompatActivity {
             super.onPreExecute();
             internet=new Internet();
             webService=new WebService();
-            sharedPreferences= getSharedPreferences("User", 0);
-            cid=sharedPreferences.getString("cid","0");
-            fid=sharedPreferences.getString("fid","0");
+
         }
 
         @Override
         protected Void doInBackground(Object... params) {
 
-            list=webService.getTeaches(App.isInternetOn(),1,1,"moarrefi");
+            list=webService.getTeaches(App.isInternetOn(),fieldNumber,stateNumber,"moarrefi");
             return null;
         }
 

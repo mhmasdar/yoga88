@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Teaches;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,10 @@ public class teachsListActivity extends AppCompatActivity {
     LinearLayoutManager mLinearLayoutManagerVertical;
     WebServiceList webService;
     private List<TeachesModel> list;
+    private int stateNumber;
+    private int cityNumber;
+    private int fieldNumber;
+    private SharedPreferences prefs;
 
 
     @Override
@@ -37,7 +42,10 @@ public class teachsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachs_list);
         initView();
-
+        prefs = getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
         list = new ArrayList<>();
         webService = new WebServiceList();
         webService.execute();
@@ -92,7 +100,7 @@ public class teachsListActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getTeaches(App.isInternetOn(), 1, 1,"hamegani");
+            list = webService.getTeaches(App.isInternetOn(), fieldNumber, stateNumber,"hamegani");
             return null;
         }
 
