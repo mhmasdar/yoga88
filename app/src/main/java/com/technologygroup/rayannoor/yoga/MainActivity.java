@@ -159,9 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (NullPointerException e)
         {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            txtLogin.setText("ورود/ثبت نام");
         }
         //set image darker
         drawerHeaderImage.setColorFilter(Color.rgb(150, 150, 150), PorterDuff.Mode.MULTIPLY);

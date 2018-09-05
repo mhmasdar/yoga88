@@ -1,6 +1,5 @@
 package com.technologygroup.rayannoor.yoga.Teaches;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -182,11 +180,11 @@ public class TeachDetailsActivity extends AppCompatActivity {
         }
 
     }
-    public void gotoprofile(View v)
-    {
-        Intent intent = new Intent(TeachDetailsActivity.this, CoachDetailsActivity.class);
-        intent.putExtra("idUser",list.get(0).ID);
-        startActivity(intent);
-    }
+//    public void gotoprofile(View v)
+//    {
+//        Intent intent = new Intent(TeachDetailsActivity.this, CoachDetailsActivity.class);
+//        intent.putExtra("idUser",list.get(0).ID);
+//        startActivity(intent);
+//    }
 
 }

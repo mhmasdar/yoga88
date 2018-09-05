@@ -8,13 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.technologygroup.rayannoor.yoga.MainActivity;
+
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.selectSportActivity;
 
@@ -100,13 +98,12 @@ public class IntroFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //showStateDialog();
-                    prefs = getContext().getSharedPreferences("MyPrefs", 0);
+                    prefs = getContext().getSharedPreferences("User", 0);
                     SharedPreferences.Editor editor = prefs.edit();
                     // -1 means guest
                     editor.putInt("idUser", -1);
                     // 1 means normal users
                     editor.putInt("userType", -1);
-
                     Intent i = new Intent(getContext(), selectSportActivity.class);
                     getContext().startActivity(i);
                     getActivity().finish();
