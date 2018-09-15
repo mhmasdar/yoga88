@@ -14,10 +14,17 @@ public class ZanguleModel {
     public String Body;
     public String Date;
     public UserModel user;
-    public void getJsonUser(JSONObject User) throws JSONException {
-        user.id=User.getInt("ID");
-        user.Name=User.getString("FirstName");
-        user.lName=User.getString("LastName");
-        user.RoleName=User.getString("RoleName");
+    public void getJsonUser(JSONObject User){
+        try {
+            user = new UserModel();
+            user.id = User.getInt("ID");
+            user.Name = User.getString("FirstName");
+            user.lName = User.getString("LastName");
+            user.RoleName = User.getString("RoleName");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

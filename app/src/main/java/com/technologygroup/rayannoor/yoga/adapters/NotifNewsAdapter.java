@@ -7,15 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Notification.NewsDetailsActivity;
-import com.technologygroup.rayannoor.yoga.Notification.NotifDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
 import com.technologygroup.rayannoor.yoga.R;
-
-import net.cachapa.expandablelayout.ExpandableLayout;
 
 public class NotifNewsAdapter extends RecyclerView.Adapter<NotifNewsAdapter.myViewHolder> {
 
@@ -57,14 +53,14 @@ public class NotifNewsAdapter extends RecyclerView.Adapter<NotifNewsAdapter.myVi
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txvTitle;
+        private TextView txtTitle;
         private TextView txtBody;
         private ImageView imgTitle;
 
         myViewHolder(View itemView) {
             super(itemView);
 
-            txvTitle = (TextView) itemView.findViewById(R.id.txvTitle);
+            txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
             txtBody = (TextView) itemView.findViewById(R.id.txtBody);
             imgTitle = (ImageView) itemView.findViewById(R.id.imgTitle);
 

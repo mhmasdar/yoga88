@@ -6,24 +6,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Notification.NotifDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
 import com.technologygroup.rayannoor.yoga.R;
-import com.technologygroup.rayannoor.yoga.imageActivity;
+
+import java.util.List;
 
 public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHolder> {
-
+    private List<ZanguleModel> list;
     private Context context;
     private LayoutInflater mInflater;
 
 
 
-    public KaryabAdapter(Context context) {
+    public KaryabAdapter(Context context,List<ZanguleModel> l) {
         this.context = context;
+        list=l;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -36,7 +37,20 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
 
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
+        holder.txtNotifTitle.setText(list.get(position).title);
+        holder.txtNotifBody.setText(list.get(position).Body);
+        holder.txtNotifDate.setText(list.get(position).Date);
+        holder.txtNotifSender.setText(list.get(position).user.Name+" "+list.get(position).user.lName);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificationActivity activity = (notificationActivity) context;
+                Intent intent = new Intent(activity, NotifDetailsActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        holder.txtGymDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 notificationActivity activity = (notificationActivity) context;
@@ -48,7 +62,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
 
     @Override
     public int getItemCount() {
-        return 1;
+        return list.size();
     }
 
 

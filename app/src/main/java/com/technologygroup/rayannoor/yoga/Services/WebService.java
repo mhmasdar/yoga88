@@ -623,7 +623,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Course/GetCoursesByUserID/"+id, "GET");
+            String response = connectToServer(App.apiAddr + "Course/GetCoursesByUserRoleID/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -748,7 +748,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Evidence/get?uid="+id+"&type=educational", "GET");
+            String response = connectToServer(App.apiAddr + "Evidence/get?urid="+id+"&type=educational", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -788,7 +788,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Evidence/get?uid="+id+"&type=evidence", "GET");
+            String response = connectToServer(App.apiAddr + "Evidence/get?urid="+id+"&type=evidence", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -941,6 +941,7 @@ public class WebService {
 
             }
             return null;
+
 
         } else
             return null;
@@ -1150,7 +1151,7 @@ public class WebService {
             //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
             String mytitle;
             mytitle=title.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "Course/AddCourse?uid="+id+"&title="+mytitle, "GET");
+            String response = connectToServer(App.apiAddr + "Course/AddCourse?urid="+id+"&title="+mytitle, "GET");
             Log.i("LOG", response + " ");
 
             return response;
@@ -1376,8 +1377,9 @@ public class WebService {
                     model.fName = Object.getString("FirstName");
                     model.RegisteredDate = Object.getString("RegisteredDate");
                     model.Instagram = Object.getString("Instagram");
-                    JSONObject UserRoles = Object.getJSONObject("UserRoles");
-//                    model.IsVerified = Object.getBoolean("IsVerified");
+                    JSONArray UserRoles = Object.getJSONArray("UserRoles");
+                    JSONObject user=UserRoles.getJSONObject(0);
+                    model.IsVerified = user.getBoolean("IsVerified");
                     model.like = Object.getInt("Likes");
                     model.lName = Object.getString("LastName");
                     model.Mobile = Object.getString("Mobile");
@@ -1432,7 +1434,9 @@ public class WebService {
                     model.fName = Object.getString("FirstName");
                     model.RegisteredDate = Object.getString("RegisteredDate");
                     model.Instagram = Object.getString("Instagram");
-//                    model.IsVerified = Object.getBoolean("IsVerified");
+                    JSONArray UserRoles = Object.getJSONArray("UserRoles");
+                    JSONObject user=UserRoles.getJSONObject(0);
+                    model.IsVerified = user.getBoolean("IsVerified");
                     model.like = Object.getInt("Likes");
                     model.lName = Object.getString("LastName");
                     model.Mobile = Object.getString("Mobile");
@@ -1528,7 +1532,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id, "GET");
+            String response = connectToServer(App.apiAddr+"user/GetUserRoleByID/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1565,7 +1569,9 @@ public class WebService {
                     model.Address = Object.getString("Address");
                     model.About = Object.getString("About");
                     model.Mobile= Object.getString("Mobile");
- //                   model.IsVerified=Object.getBoolean("IsVerified");
+                    JSONArray UserRoles = Object.getJSONArray("UserRoles");
+                    JSONObject user=UserRoles.getJSONObject(0);
+                    model.IsVerified = user.getBoolean("IsVerified");
                     JSONObject cityj=Object.getJSONObject("City");
                     model.City=cityj.getString("Name");
                     model.idCity=cityj.getInt("ID");
@@ -1634,7 +1640,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Gallery/GetByUserId/" + id, "GET");
+            String response = connectToServer(App.apiAddr + "Gallery/GetByUserRoleId/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1719,7 +1725,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "GymTerm/GetByGymID/" + id, "GET");
+            String response = connectToServer(App.apiAddr + "GymTerm/GetByGymID/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {

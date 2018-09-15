@@ -9,23 +9,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Notification.NewsDetailsActivity;
-import com.technologygroup.rayannoor.yoga.Notification.NotifDetailsActivity;
-import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
+import com.technologygroup.rayannoor.yoga.R;
+
+import java.util.List;
 
 /**
  * Created by Mohamad Hasan on 3/12/2018.
  */
 
 public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHolder> {
-
+    private List<ZanguleModel> list;
     private Context context;
     private LayoutInflater mInflater;
 
 
-    public NotifsAdapter(Context context) {
+    public NotifsAdapter(Context context,List<ZanguleModel> l) {
         this.context = context;
+        list=l;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -38,6 +41,8 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
 
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
+        holder.txtBody.setText(list.get(position).Body);
+        holder.txtTitle.setText(list.get(position).title);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,16 +55,22 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
 
     @Override
     public int getItemCount() {
-        return 1;
+        return list.size();
     }
 
 
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-
+        ImageView imgTitle;
+        TextView txtTitle;
+        TextView txtBody;
         myViewHolder(View itemView) {
             super(itemView);
+            imgTitle=itemView.findViewById(R.id.imgTitle);
+            txtTitle=itemView.findViewById(R.id.txtTitle);
+            txtBody=itemView.findViewById(R.id.txtBody);
+
         }
     }
 }

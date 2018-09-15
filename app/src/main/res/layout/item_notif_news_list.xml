@@ -24,7 +24,7 @@
         android:background="#9d252525">
 
         <TextView
-            android:id="@+id/txvTitle"
+            android:id="@+id/txtTitle"
             android:text="لیست افراد مجاز جهت شرکت در دوره مربیگری درجه 3 آمادگی جسمانی بانوان "
             android:layout_width="wrap_content"
             android:lineSpacingMultiplier="1.2"
@@ -34,6 +34,7 @@
             android:textStyle="bold"
             android:maxLines="2"
             android:ellipsize="end"
+
             android:textColor="@color/white"
             android:textSize="14sp" />
 
