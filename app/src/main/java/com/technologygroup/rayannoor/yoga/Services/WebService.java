@@ -1954,7 +1954,6 @@ public class WebService {
                         model.Date=Object.getString("PublishedDate");
                         model.Body=Object.getString("Body");
                         model.image=Object.getString("Image");
-
                         list.add(model);
 
                     }
@@ -1984,15 +1983,13 @@ public class WebService {
                     JSONArray Arrey = new JSONArray(response);
                     for (int i = 0; i < Arrey.length(); i++) {
                         JSONObject Object = Arrey.getJSONObject(i);
-                        JSONObject User = new JSONObject();
                         ZanguleModel model = new ZanguleModel();
                         model.id=Object.getInt("ID");
                         model.title=Object.getString("Title");
                         model.Date=Object.getString("PublishedDate");
                         model.Body=Object.getString("Body");
                         model.image=Object.getString("Image");
-                        User=Object.getJSONObject("User");
-
+                        model.getJsonUser(Object.getJSONObject("User"));
                         list.add(model);
 
                     }
