@@ -12,11 +12,11 @@ public class App extends Application {
 
 
     // urls
-    public static String apiAddr = "http://varzesh.buludweb.com/api/";
+    public static String apiAddr = "http://varzeshkarplus.ir/api/";
 //    public static String apiAddr = "http://yuga.gsharing.ir/api/";
 //    public static String apiAddr = "http://172.16.42.68/api/";
 //    public static String imgAddr = "http://yuga.gsharing.ir/content/upload/Images/";
-    public static String imgAddr = "http://varzesh.buludweb.com/Images/";
+    public static String imgAddr = "http://varzeshkarplus.ir/Images/";
 
 
     public static Context context;

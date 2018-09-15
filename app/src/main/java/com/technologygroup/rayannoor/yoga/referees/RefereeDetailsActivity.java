@@ -412,7 +412,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id, "coach");
+            result = webService.postLike(App.isInternetOn(), coachModel.id);
             return null;
         }
 

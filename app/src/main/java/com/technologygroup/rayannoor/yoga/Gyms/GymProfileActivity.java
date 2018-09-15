@@ -446,7 +446,7 @@ public class GymProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), idsend, "Gym");
+            result = webService.postLike(App.isInternetOn(), idsend);
 
             return null;
         }

@@ -19,6 +19,7 @@ import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Models.idname;
 
 import org.json.JSONArray;
@@ -291,7 +292,7 @@ public class WebService {
                         model.lName = Object.getString("LastName");
                         model.id = Object.getInt("ID");
                         model.Mobile = Object.getString("Mobile");
-                        model.IsVerified=Object.getBoolean("IsVerified");
+//                        model.IsVerified=Object.getBoolean("IsVerified");
                         model.userType=Object.getJSONArray("UserRoles");
                         JSONObject Cityj=Object.getJSONObject("City");
                         model.cityid=Cityj.getInt("ID");
@@ -572,7 +573,7 @@ public class WebService {
 //            String response = connectToServerByJson(App.apiAddr + "Resume/add", "POST", req);
             String mytitle;
             mytitle=model.Title.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
+            String response = connectToServer(App.apiAddr + "WorkResume/Add?urid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -802,6 +803,8 @@ public class WebService {
                         CoachHonorModel model = new CoachHonorModel();
 
                         model.id = Object.getInt("ID");
+//                        model.evidencetypeid = Object.getInt("EvidenceTypeId");
+//                        model.UserRoleId = Object.getInt("UserRoleId");
 //                        model.Date = Object.getString("Date");
                         model.Title = Object.getString("Title");
                         JSONObject imagej=Object.getJSONObject("Image");
@@ -1248,12 +1251,24 @@ public class WebService {
     }
 
 
-    public String postLike(boolean isInternetAvailable, int idCoachOrGym,String type) {
+    public String postLike(boolean isInternetAvailable, int idCoachOrGym) {
 
         if (isInternetAvailable) {
 
 
-            String response = connectToServer(App.apiAddr + "user/like?uid="+idCoachOrGym+"&role="+type, "GET");
+            String response = connectToServer(App.apiAddr + "user/like/"+idCoachOrGym, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+    public String postdisLike(boolean isInternetAvailable, int idCoachOrGym) {
+
+        if (isInternetAvailable) {
+
+
+            String response = connectToServer(App.apiAddr + "user/dislike/"+idCoachOrGym, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -1289,7 +1304,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&role=coach" , "GET");
+            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&rid=6" , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1345,7 +1360,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=coach" , "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1361,7 +1376,8 @@ public class WebService {
                     model.fName = Object.getString("FirstName");
                     model.RegisteredDate = Object.getString("RegisteredDate");
                     model.Instagram = Object.getString("Instagram");
-                    model.IsVerified = Object.getBoolean("IsVerified");
+                    JSONObject UserRoles = Object.getJSONObject("UserRoles");
+//                    model.IsVerified = Object.getBoolean("IsVerified");
                     model.like = Object.getInt("Likes");
                     model.lName = Object.getString("LastName");
                     model.Mobile = Object.getString("Mobile");
@@ -1376,6 +1392,7 @@ public class WebService {
                     model.City = cityj.getString("Name");
                     model.idCity = cityj.getInt("ID");
                     JSONObject Statej = cityj.getJSONObject("State");
+
                     model.State = Statej.getString("Name");
                     model.idState = Statej.getInt("ID");
                     JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
@@ -1399,7 +1416,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=referee" , "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1415,7 +1432,7 @@ public class WebService {
                     model.fName = Object.getString("FirstName");
                     model.RegisteredDate = Object.getString("RegisteredDate");
                     model.Instagram = Object.getString("Instagram");
-                    model.IsVerified = Object.getBoolean("IsVerified");
+//                    model.IsVerified = Object.getBoolean("IsVerified");
                     model.like = Object.getInt("Likes");
                     model.lName = Object.getString("LastName");
                     model.Mobile = Object.getString("Mobile");
@@ -1511,7 +1528,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/getuserbyid?uid="+id+"&role=gym", "GET");
+            String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1548,7 +1565,7 @@ public class WebService {
                     model.Address = Object.getString("Address");
                     model.About = Object.getString("About");
                     model.Mobile= Object.getString("Mobile");
-                    model.IsVerified=Object.getBoolean("IsVerified");
+ //                   model.IsVerified=Object.getBoolean("IsVerified");
                     JSONObject cityj=Object.getJSONObject("City");
                     model.City=cityj.getString("Name");
                     model.idCity=cityj.getInt("ID");
@@ -1742,7 +1759,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "user/get?fid="+fid+"&cid="+cid+"&role=referee", "GET");
+            String response = connectToServer(App.apiAddr + "user/get?fid="+fid+"&cid="+cid+"&rid=6", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1796,7 +1813,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&role=gym" , "GET");
+            String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&rid=5" , "GET");
 
             Log.i("LOG", response + "");
 
@@ -1901,6 +1918,80 @@ public class WebService {
                         model.question = Object.getString("Question");
                         model.answer = Object.getString("Answer");
 
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public List<ZanguleModel> getZangule(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Post/Get/"+id, "GET");
+
+            if (response != null) {
+
+                List<ZanguleModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.Body=Object.getString("Body");
+                        model.image=Object.getString("Image");
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public List<ZanguleModel> getZanguleKaryabi(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Post/Get/"+3, "GET");
+
+            if (response != null) {
+
+                List<ZanguleModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        JSONObject User = new JSONObject();
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.Body=Object.getString("Body");
+                        model.image=Object.getString("Image");
+                        User=Object.getJSONObject("User");
 
                         list.add(model);
 

@@ -56,7 +56,6 @@ public class CoachServicesActivity extends AppCompatActivity {
         CoachServicesPager adapter = new CoachServicesPager(getSupportFragmentManager(), calledFromPanel, idRefree,Bio);
         CoachPager.setAdapter(adapter);
         CoachPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         CoachPager.setCurrentItem(selectedTabIndex);
 
 //        TabLayout.Tab tab = tabLayout.getTabAt(selectedTabIndex);

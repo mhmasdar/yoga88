@@ -22,6 +22,7 @@ public class UserModel {
     public int SessionKey;
     public String cityName;
     public String state;
+    public String RoleName;
     public int IDProfileImage;
     public String ProfileImageName;
     public void getfromjson(JSONObject Object)

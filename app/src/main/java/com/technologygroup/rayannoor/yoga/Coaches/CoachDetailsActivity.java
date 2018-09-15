@@ -388,6 +388,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     showRatingDialog();
                 }
             }
+
         });
 
         lytBack.setOnClickListener(new View.OnClickListener() {
@@ -457,8 +458,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
             strRate = strRate.substring(0, 3);
         txtCoachRate.setText(strRate);
         RatingBarCoach.setRating((float) coachModel.Rate);
-
-
         if (coachModel.IsVerified) {
 
             lytEducation.setAlpha(1);
@@ -561,7 +560,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id, "coach");
+            result = webService.postLike(App.isInternetOn(), coachModel.id);
             return null;
         }
 

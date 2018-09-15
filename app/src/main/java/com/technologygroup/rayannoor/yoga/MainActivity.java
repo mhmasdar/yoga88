@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 txtLogin.setText("ورود به پنل");
                 for (int j = 0; j < usertypes.length(); j++) {
                     try {
-                        roles.put("Role" + j, usertypes.getJSONObject(j).getString("Name"));
+                        roles.put("Role" + j, usertypes.getJSONObject(j).getString("RoleName"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                         break;
@@ -246,38 +246,42 @@ public class MainActivity extends AppCompatActivity {
         lytLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Role.equals("Gym") && idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
-                    intent.putExtra("idgym",idUser);
-                    intent.putExtra("calledFromPanel",true);
-                    startActivity(intent);
-                }
-                else if (Role.equals("Coach")&& idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
-                    intent.putExtra("idUser",idUser);
-                    intent.putExtra("calledFromPanel",true);
-                    startActivity(intent);
-                }
-                else if (Role.equals("Referee")&& idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
-                    intent.putExtra("idReffre",idUser);
-                    intent.putExtra("calledFromPanel",true);
-                    startActivity(intent);
-                }
-                else if (Role.equals("User")&& idUser > 0) {
+                try {
 
-                    Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
-                    intent.putExtra("idgym",idUser);
-                    intent.putExtra("calledFromPanel",true);
-                    startActivity(intent);
+
+                    if (Role.equals("Gym") && idUser > 0) {
+                        Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
+                        intent.putExtra("idgym", idUser);
+                        intent.putExtra("calledFromPanel", true);
+                        startActivity(intent);
+                    } else if (Role.equals("Coach") && idUser > 0) {
+                        Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
+                        intent.putExtra("idUser", idUser);
+                        intent.putExtra("calledFromPanel", true);
+                        startActivity(intent);
+                    } else if (Role.equals("Referee") && idUser > 0) {
+                        Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
+                        intent.putExtra("idReffre", idUser);
+                        intent.putExtra("calledFromPanel", true);
+                        startActivity(intent);
+                    } else if (Role.equals("User") && idUser > 0) {
+
+                        Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
+                        intent.putExtra("idgym", idUser);
+                        intent.putExtra("calledFromPanel", true);
+                        startActivity(intent);
+                    } else if (Role.equals("others") && idUser > 0) {
+                        Intent intent = new Intent(MainActivity.this, SelectRoleActivity.class);
+                        intent.putExtra("id", idUser);
+                        intent.putExtra("roles", roles.toString());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                 }
-                else if (Role.equals("others")&& idUser > 0) {
-                    Intent intent = new Intent(MainActivity.this, SelectRoleActivity.class);
-                    intent.putExtra("id",idUser);
-                    intent.putExtra("roles",roles.toString());
-                    startActivity(intent);
-                }
-                else {
+                catch(NullPointerException e)
+                {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

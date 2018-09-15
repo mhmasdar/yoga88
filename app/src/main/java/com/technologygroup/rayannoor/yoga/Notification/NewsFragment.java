@@ -11,12 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
-import com.technologygroup.rayannoor.yoga.Models.CoachResumeModel;
 import com.technologygroup.rayannoor.yoga.R;
-import com.technologygroup.rayannoor.yoga.adapters.CoachResumeAdapter;
 import com.technologygroup.rayannoor.yoga.adapters.NotifNewsAdapter;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,5 +57,6 @@ public class NewsFragment extends Fragment {
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         Recycler.setLayoutManager(mLinearLayoutManagerVertical);
     }
+
 
 }
