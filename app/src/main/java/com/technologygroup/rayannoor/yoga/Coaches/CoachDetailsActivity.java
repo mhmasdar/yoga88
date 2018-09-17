@@ -79,6 +79,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     WebServiceCallRateAdd webServiceCallRateAdd;
     WebServiceCallLike like;
+    WebServiceCallِDisLike dislike;
     WebServiceCallLike webServiceCallLike;
     private ImageView imgLockBio;
     private LinearLayout lytBio;
@@ -328,10 +329,8 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         } else {
 
                             btnLike.setLiked(false);
-
                             Snackbar snackbar = Snackbar.make(lytParent, "ابتدا باید ثبت نام کنید", Snackbar.LENGTH_LONG);
                             snackbar.setAction("ثبت نام", new registerAction());
-
                             Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
                             TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
                             LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f);
@@ -356,12 +355,11 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     if (CanLike) {
 
                         if (idUser > 0) {
-
                             CanLike = false;
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
-                            like = new WebServiceCallLike(false);
-                            like.execute();
+                            dislike = new WebServiceCallِDisLike(false);
+                            dislike.execute();
 
                         } else {
 
@@ -626,7 +624,92 @@ public class CoachDetailsActivity extends AppCompatActivity {
         }
 
     }
+    private class WebServiceCallِDisLike extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        String result;
+        boolean isLiked;
+
+        public WebServiceCallِDisLike(boolean isLiked) {
+            this.isLiked = isLiked;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postdisLike(App.isInternetOn(), coachModel.id);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SharedPreferences.Editor editor = likes.edit();
+
+            if (isLiked) {
+
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(CoachDetailsActivity.this, "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(false);
+                        coachModel.like++;
+                        txtLikeCount.setText(coachModel.like + "");
+                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.apply();
+                    }
+
+                } else {
+                    Toast.makeText(CoachDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                    coachModel.like++;
+                    txtLikeCount.setText(coachModel.like + "");
+                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.apply();
+                }
+
+            } else {
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(CoachDetailsActivity.this, "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(true);
+                        coachModel.like++;
+                        txtLikeCount.setText(coachModel.like + "");
+                    }
+
+                } else {
+                    Toast.makeText(CoachDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                    coachModel.like++;
+                    txtLikeCount.setText(coachModel.like + "");
+                }
+
+            }
+
+            CanLike = true;
+
+        }
+
+    }
     private class WebServiceCallRateAdd extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;

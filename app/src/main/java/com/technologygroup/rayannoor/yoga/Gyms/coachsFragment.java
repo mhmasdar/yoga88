@@ -149,7 +149,6 @@ public class coachsFragment extends Fragment {
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
-
                     setUpRecyclerView(list);
 
                 } else {

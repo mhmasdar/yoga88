@@ -28,6 +28,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
@@ -206,9 +208,9 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     }
     private void setViews() {
 
-//        if (coachModel.Img != null)
-//            if (!coachModel.Img.equals("") && !coachModel.Img.equals("null"))
-//                Glide.with(CoachDetailsActivity.this).load(App.imgAddr + coachModel.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+        if (coachModel.ImgName != null)
+            if (!coachModel.ImgName.equals("") && !coachModel.ImgName.equals("null"))
+                Glide.with(RefereeDetailsActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgReferee);
 
 
         txtRefereeName.setText(coachModel.fName + " " + coachModel.lName);
@@ -370,8 +372,8 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             CanLike = false;
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
-                            WebServiceCallLike like = new WebServiceCallLike(false);
-                            like.execute();
+                            WebServiceCallِDisLike dislike = new WebServiceCallِDisLike(false);
+                            dislike.execute();
 
                         } else {
 
@@ -453,6 +455,92 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 if (result != null) {
 
                     if (result.equals("Ok")) {
+                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(RefereeDetailsActivity.this, "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(true);
+                        coachModel.like++;
+                        txtLikeCount.setText(coachModel.like + "");
+                    }
+
+                } else {
+                    Toast.makeText(RefereeDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                    coachModel.like++;
+                    txtLikeCount.setText(coachModel.like + "");
+                }
+
+            }
+
+            CanLike = true;
+
+        }
+
+    }
+    private class WebServiceCallِDisLike extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        boolean isLiked;
+
+        public WebServiceCallِDisLike(boolean isLiked) {
+            this.isLiked = isLiked;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postdisLike(App.isInternetOn(), coachModel.id);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SharedPreferences.Editor editor = likes.edit();
+
+            if (isLiked) {
+
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(RefereeDetailsActivity.this, "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(false);
+                        coachModel.like++;
+                        txtLikeCount.setText(coachModel.like + "");
+                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.apply();
+                    }
+
+                } else {
+                    Toast.makeText(RefereeDetailsActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                    coachModel.like++;
+                    txtLikeCount.setText(coachModel.like + "");
+                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.apply();
+                }
+
+            } else {
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
                         editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
                         editor.apply();
 

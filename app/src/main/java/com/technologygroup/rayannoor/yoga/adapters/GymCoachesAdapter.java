@@ -159,7 +159,7 @@ public class GymCoachesAdapter extends RecyclerView.Adapter<GymCoachesAdapter.my
         @Override
         protected Void doInBackground(Object... params) {
 
-            coachModel = webService.getCoachInfo(App.isInternetOn(), idUser);
+            coachModel = webService.getCoachDetail(App.isInternetOn(), idUser);
 
             return null;
         }
@@ -181,7 +181,7 @@ public class GymCoachesAdapter extends RecyclerView.Adapter<GymCoachesAdapter.my
                 intent.putExtra("lName", coachModel.lName);
                 intent.putExtra("Telegram", coachModel.Telegram);
 //                intent.putExtra("Img", coachModel.Img);
-                intent.putExtra("id", coachModel.id);
+                intent.putExtra("idUser", coachModel.id);
                 intent.putExtra("idCity", coachModel.idCity);
 //                intent.putExtra("idCurrentPlan", coachModel.idCurrentPlan);
                 intent.putExtra("like", coachModel.like);

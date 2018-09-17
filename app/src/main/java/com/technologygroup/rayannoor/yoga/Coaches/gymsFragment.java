@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.CoachGymsModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -107,7 +108,7 @@ public class gymsFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-//            list = webService.getCoachGyms(App.isInternetOn(), idCoach);
+            list = webService.getCoachGyms(App.isInternetOn(), idCoach);
 
             return null;
         }
@@ -126,7 +127,7 @@ public class gymsFragment extends Fragment {
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
 
-  //                  setUpRecyclerView(list);
+                    setUpRecyclerView(list);
 
                 } else {
 

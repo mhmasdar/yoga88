@@ -475,7 +475,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "user/getuserbyid?uid="+id+"&role=coach", "GET");
+            String response = connectToServer(App.apiAddr + "user/getuserrolebyid/"+id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -950,7 +950,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"training/getbyuserid?uid="+id+"&type="+type, "GET");
+            String response = connectToServer(App.apiAddr+"training/getbyuserid?urid="+id+"&type="+type, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -990,7 +990,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "GymCoaches/selectGyms/" + id, "GET");
+            String response = connectToServer(App.apiAddr + "user/GetCoachGyms/" + id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1003,13 +1003,9 @@ public class WebService {
                     for (int i = 0; i < Arrey.length(); i++) {
                         JSONObject Object = Arrey.getJSONObject(i);
                         CoachGymsModel model = new CoachGymsModel();
-
-                        model.id = Object.getInt("id");
-                        model.Img = Object.getString("Img");
-                        model.Name = Object.getString("Name");
-                        model.like = Object.getInt("like");
-                        model.Rate = Object.getDouble("Rate");
-
+                        model.id = Object.getInt("ID");
+                        model.Img = Object.getJSONObject("ProfileImage").getString("Name");
+                        model.Name = Object.getString("FirstName")+Object.getString("LastName");
                         list.add(model);
 
                     }
@@ -1687,7 +1683,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "GymCoaches/gymCoach/" + id, "GET");
+            String response = connectToServer(App.apiAddr + "user/GetGymCoaches/" + id, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1701,10 +1697,10 @@ public class WebService {
                         JSONObject Object = Arrey.getJSONObject(i);
                         GymCoachesModel model = new GymCoachesModel();
 
-                        model.idUser = Object.getInt("idUser");
-                        model.Img = Object.getString("img");
-                        model.fName = Object.getString("fName");
-                        model.lName = Object.getString("lName");
+                        model.idUser = Object.getInt("ID");
+                        model.Img = Object.getJSONObject("ProfileImage").getString("Name");
+                        model.fName = Object.getString("FirstName");
+                        model.lName = Object.getString("LastName");
 
                         list.add(model);
 
