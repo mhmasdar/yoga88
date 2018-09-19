@@ -59,7 +59,7 @@ public class NewsFragment extends Fragment {
 
 
     private void setUpRecyclerView(){
-        NotifNewsAdapter adapter = new NotifNewsAdapter(getActivity());
+        NotifNewsAdapter adapter = new NotifNewsAdapter(getActivity(),list);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -89,7 +89,6 @@ public class NewsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
             Recycler.clearAnimation();
 
             if (list != null) {
@@ -99,7 +98,6 @@ public class NewsFragment extends Fragment {
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
-
                     setUpRecyclerView();
 
                 } else {
@@ -110,7 +108,6 @@ public class NewsFragment extends Fragment {
 
 
                 }
-
             } else {
 
                 lytMain.setVisibility(View.GONE);

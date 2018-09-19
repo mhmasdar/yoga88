@@ -1277,7 +1277,7 @@ public class WebService {
 
         if (isInternetAvailable) {
             //user/Rate?uid=4&rate=4.5&role=coach
-            String response = connectToServer(App.apiAddr + "user/Rate?uid="+idCoachOrGym+"&rate="+rate+"&role="+type, "GET");
+            String response = connectToServer(App.apiAddr + "user/Rate?urid="+idCoachOrGym+"&rate="+rate+"&role="+type, "GET");
             Log.i("LOG", response + "");
             return response;
         } else

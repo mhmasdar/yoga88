@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Notification.NewsDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
@@ -40,14 +43,18 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
     }
 
     @Override
-    public void onBindViewHolder(final myViewHolder holder, int position) {
+    public void onBindViewHolder(final myViewHolder holder, final int position) {
         holder.txtBody.setText(list.get(position).Body);
         holder.txtTitle.setText(list.get(position).title);
+        if (list.get(position).image != null)
+            if (!list.get(position).image.equals("") && !list.get(position).image.equals("null"))
+                Glide.with(context).load(App.imgAddr + list.get(position).image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTitle);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 notificationActivity activity = (notificationActivity) context;
                 Intent intent = new Intent(activity, NewsDetailsActivity.class);
+                intent.putExtra("id",list.get(position).id);
                 context.startActivity(intent);
             }
         });

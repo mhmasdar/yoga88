@@ -36,7 +36,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
     }
 
     @Override
-    public void onBindViewHolder(final myViewHolder holder, int position) {
+    public void onBindViewHolder(final myViewHolder holder, final int position) {
         holder.txtNotifTitle.setText(list.get(position).title);
         holder.txtNotifBody.setText(list.get(position).Body);
         holder.txtNotifDate.setText(list.get(position).Date);
@@ -47,6 +47,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
             public void onClick(View v) {
                 notificationActivity activity = (notificationActivity) context;
                 Intent intent = new Intent(activity, NotifDetailsActivity.class);
+                intent.putExtra("id",list.get(position).id);
                 context.startActivity(intent);
             }
         });
@@ -55,6 +56,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
             public void onClick(View v) {
                 notificationActivity activity = (notificationActivity) context;
                 Intent intent = new Intent(activity, NotifDetailsActivity.class);
+
                 context.startActivity(intent);
             }
         });
