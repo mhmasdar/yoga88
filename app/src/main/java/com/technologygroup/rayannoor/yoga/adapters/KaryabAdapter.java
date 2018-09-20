@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
+import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Notification.NotifDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
 import com.technologygroup.rayannoor.yoga.R;
+import com.technologygroup.rayannoor.yoga.referees.RefereeDetailsActivity;
 
 import java.util.List;
 
@@ -55,9 +58,21 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
             @Override
             public void onClick(View v) {
                 notificationActivity activity = (notificationActivity) context;
-                Intent intent = new Intent(activity, NotifDetailsActivity.class);
-
-                context.startActivity(intent);
+                if(list.get(position).user.RoleName.equals("Coach")) {
+                    Intent intent = new Intent(activity, CoachDetailsActivity.class);
+                    intent.putExtra("idUser",list.get(position).user.id);
+                    context.startActivity(intent);
+                }
+                else if(list.get(position).user.RoleName.equals("Referee")) {
+                    Intent intent = new Intent(activity, RefereeDetailsActivity.class);
+                    intent.putExtra("idUser",list.get(position).user.id);
+                    context.startActivity(intent);
+                }
+                else if(list.get(position).user.RoleName.equals("Gym")) {
+                    Intent intent = new Intent(activity, GymProfileActivity.class);
+                    intent.putExtra("idgym",list.get(position).user.id);
+                    context.startActivity(intent);
+                }
             }
         });
     }

@@ -107,6 +107,12 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         liked=likes.getBoolean(reqtoprefer,false);
         btnLike.setLiked(liked);
         Rated=likes.getFloat(reqtopreferRate,0);
+        lytBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         setDetail();
 
     }

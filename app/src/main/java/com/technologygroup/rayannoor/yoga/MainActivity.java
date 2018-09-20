@@ -148,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 txtLogin.setText("ورود به پنل");
                 for (int j = 0; j < usertypes.length(); j++) {
                     try {
-                        roles.put("Role" + j, usertypes.getJSONObject(j).getString("RoleName"));
+                        roles.put("Role" + j, usertypes.getJSONObject(j).getJSONObject("Role").getString("Name"));
+                        roles.put("ID" + j, usertypes.getJSONObject(j).getString("ID"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                         break;

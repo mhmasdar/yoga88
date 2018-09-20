@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
     private class WebServiceCallReg extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        UserModel result;
+        String result;
         UserModel userModel;
 
         @Override
@@ -147,18 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (result.id > 0) {
-                    prefs = getSharedPreferences("User", 0);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("idUser", result.id);
-                    editor.putInt("userType", 3);
-                    editor.putString("Name", result.Name);
-                    editor.putString("lName", result.lName);
-                    editor.putString("Mobile", result.Mobile);
-                    editor.putString("Email", result.Email);
-                    editor.putBoolean("isFirstRun", false);
-                    editor.putString("Password", result.Password);
-                    editor.apply();
+                if (result.equals("Ok")) {
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
@@ -171,26 +160,18 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             //showStateDialog();
-                            Intent i = new Intent(RegisterActivity.this, selectSportActivity.class);
+                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(i);
                             finish();
 
                         }
                     }, 1000);
-
-
-                } else if (result.id == 0 || result.id == -1 || result.id == -2) {
-                    btnRegister.revertAnimation();
-                    Toast.makeText(RegisterActivity.this, "ثبت نام نا موفق است", Toast.LENGTH_LONG).show();
-                } else if (result.id == -3) {
-                    btnRegister.revertAnimation();
-                    Toast.makeText(RegisterActivity.this, "شماره تلفن تکراری است", Toast.LENGTH_LONG).show();
-                } else {
-
-                    btnRegister.revertAnimation();
-                    Toast.makeText(RegisterActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 }
-
+                else if(result.equals("This Mobile already exists"))
+                {
+                    btnRegister.revertAnimation();
+                    Toast.makeText(RegisterActivity.this, "این شماره از قبل وجود دارد", Toast.LENGTH_LONG).show();
+                }
             } else {
 
                 btnRegister.revertAnimation();

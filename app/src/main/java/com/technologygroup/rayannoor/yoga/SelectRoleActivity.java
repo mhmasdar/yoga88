@@ -28,6 +28,7 @@ public class SelectRoleActivity extends AppCompatActivity {
     private String roles;
     private JSONObject rolej;
     private List<String> rol;
+    private List<Integer> ID;
     private String selectedRole;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,12 +96,11 @@ public class SelectRoleActivity extends AppCompatActivity {
         RoleSpinner = (Spinner) findViewById(R.id.RoleSpinner);
         btnOk = (Button) findViewById(R.id.btnOk);
     }
-    public void ok(View v)
-    {
+    public void ok(View v) throws JSONException {
         if(selectedRole.equals("داور"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, RefereeProfileActivity.class);
-            intent.putExtra("idReffre",id);
+            intent.putExtra("idReffre",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();
@@ -108,7 +108,7 @@ public class SelectRoleActivity extends AppCompatActivity {
         if(selectedRole.equals("باشگاه"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, GymDetailsActivity.class);
-            intent.putExtra("idgym",id);
+            intent.putExtra("idgym",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();
@@ -116,7 +116,7 @@ public class SelectRoleActivity extends AppCompatActivity {
         if(selectedRole.equals("مربی"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, CoachProfileActivity.class);
-            intent.putExtra("idUser",id);
+            intent.putExtra("idUser",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();
@@ -125,7 +125,7 @@ public class SelectRoleActivity extends AppCompatActivity {
         if(selectedRole.equals("کاربر"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, UserprofileActivity.class);
-            intent.putExtra("idgym",id);
+            intent.putExtra("idgym",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();

@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("ProfileImageName", userModel.ProfileImageName);
                     editor.putBoolean("isFirstRun", false);
                     editor.putString("idcity",String.valueOf(userModel.cityid));
+                    editor.putString("userType",userModel.userType.toString());
                     editor.apply();
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند

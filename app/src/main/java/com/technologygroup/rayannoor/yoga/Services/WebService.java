@@ -314,7 +314,7 @@ public class WebService {
             return null;
     }
 
-    public UserModel userRegister(boolean isInternetAvailable, UserModel model) {
+    public String userRegister(boolean isInternetAvailable, UserModel model) {
 
         if (isInternetAvailable) {
 
@@ -326,37 +326,7 @@ public class WebService {
             userlname=model.lName.replace(" ", "%20");
             String response = connectToServer(App.apiAddr + "User/Register?name=" + username + "&lname=" +userlname + "&mobile=" + model.Mobile + "&email=" + model.Email + "&password=" + model.Password, "GET");
             Log.i("LOG", response + "");
-
-
-            if (response != null) {
-
-                UserModel modelNew = new UserModel();
-
-                if (response.equals("-1")) {
-
-                    modelNew.id = -1;
-
-                } else {
-
-
-                    try {
-
-                        JSONObject Object = new JSONObject(response);
-                        modelNew.Email = Object.getString("Email");
-                        modelNew.Name = Object.getString("Name");
-                        modelNew.Password = Object.getString("Password");
-                        modelNew.lName = Object.getString("lName");
-                        modelNew.id = Object.getInt("id");
-//                        modelNew.idCity = Object.getInt("idCity");
-//                        modelNew.Type = Object.getInt("Type");
-                        modelNew.Mobile = Object.getString("Mobile");
-                        return modelNew;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return null;
+            return response;
         } else
             return null;
     }
@@ -1996,6 +1966,35 @@ public class WebService {
 
                     }
                     return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public ZanguleModel getZanguleDetail(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Post/GetPost/"+id, "GET");
+
+            if (response != null) {
+                try {
+
+                    JSONObject Object = new JSONObject(response);
+
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.Body=Object.getString("Body");
+                        model.image=Object.getString("Image");
+                        model.getJsonUser(Object.getJSONObject("User"));
+                    return model;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
