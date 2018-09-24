@@ -30,10 +30,10 @@ public class UserModel {
         try {
 //            this.Email = Object.getString("Email");
             this.Name = Object.getString("FirstName");
-            this.Password = Object.getString("Password");
+//            this.Password = Object.getString("Password");
             this.lName = Object.getString("LastName");
             this.id = Object.getInt("ID");
-            this.Mobile = Object.getString("Mobile");
+ //           this.Mobile = Object.getString("Mobile");
             this.IsVerified = Object.getBoolean("IsVerified");
 //            JSONObject rolej = Object.getJSONObject("Role");
 //            this.Roleid = rolej.getInt("ID");
