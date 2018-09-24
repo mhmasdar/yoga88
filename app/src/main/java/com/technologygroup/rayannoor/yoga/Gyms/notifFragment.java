@@ -13,12 +13,8 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
-import com.technologygroup.rayannoor.yoga.Models.CourseModel;
 import com.technologygroup.rayannoor.yoga.R;
-import com.technologygroup.rayannoor.yoga.adapters.GymCourseAdapter;
 import com.technologygroup.rayannoor.yoga.adapters.GymNotifAdapter;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +28,7 @@ public class notifFragment extends Fragment {
     private LinearLayout lytMain;
     private LinearLayout lytDisconnect;
     private LinearLayout lytEmpty;
+    boolean calledFromPanel;
 
     public notifFragment() {
         // Required empty public constructor
@@ -43,6 +40,7 @@ public class notifFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notif, container, false);
+        calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
@@ -58,6 +56,10 @@ public class notifFragment extends Fragment {
                 showDialog();
             }
         });
+        if (!calledFromPanel) {
+            floactAction.setVisibility(View.GONE);
+        }
+
 
         return view;
     }

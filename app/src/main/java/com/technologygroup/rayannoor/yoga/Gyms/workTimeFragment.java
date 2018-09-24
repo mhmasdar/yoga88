@@ -26,6 +26,7 @@ public class workTimeFragment extends Fragment {
     private FloatingActionButton floactAction;
     private ImageView imgClose;
     private EditText edtWorktime;
+    boolean calledFromPanel;
     private CircularProgressButton btnOk;
 
     public workTimeFragment() {
@@ -38,7 +39,7 @@ public class workTimeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_work_time, container, false);
-
+        calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         txtWork = (TextView) view.findViewById(R.id.txtWork);
         String work = getArguments().getString("work", "");
         txtWork.setText(work);
@@ -49,6 +50,9 @@ public class workTimeFragment extends Fragment {
                 showDialog();
             }
         });
+        if (!calledFromPanel) {
+            floactAction.setVisibility(View.GONE);
+        }
         return view;
     }
 

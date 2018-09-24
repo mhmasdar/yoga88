@@ -39,6 +39,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
     private JSONObject IDs;
     private List<Integer> IDList;
     private List<TeachTextImage> list;
+
     int position;
 
     @Override
@@ -119,16 +120,13 @@ public class TeachDetailsActivity extends AppCompatActivity {
         lytShare = (LinearLayout) findViewById(R.id.lytShare);
         teachDetailsSharing = (ImageView) findViewById(R.id.teach_details_sharing);
 //        lytLast = (LinearLayout) findViewById(R.id.lytLast);
-//        lytLast.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (position-1 > 0) {
-//                    position=position-1;
-//                    WebServiceList webServiceList=new WebServiceList();
-//                    webServiceList.execute();
-//                }
-//            }
-//        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                }
+            }
+        );
 //        lytNext = (LinearLayout) findViewById(R.id.lytNext);
 //        lytNext.setOnClickListener(new OnClickListener() {
 //            @Override

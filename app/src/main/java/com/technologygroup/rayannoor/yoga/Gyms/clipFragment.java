@@ -40,6 +40,7 @@ public class clipFragment extends Fragment {
     private ImageView img;
     private ImageView imgSelectClip;
     private CircularProgressButton btnOk;
+    boolean calledFromPanel;
 
 
     public clipFragment() {
@@ -52,11 +53,13 @@ public class clipFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_clip, container, false);
+        calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);
         Recycler = (ShimmerRecyclerView) view.findViewById(R.id.Recycler);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         btnTryAgain = (Button) view.findViewById(R.id.btnTryAgain);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
+
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
 
         setUpRecyclerView();
@@ -67,6 +70,9 @@ public class clipFragment extends Fragment {
                 showDialog();
             }
         });
+        if (!calledFromPanel) {
+            floactAction.setVisibility(View.GONE);
+        }
 
         return view;
     }
