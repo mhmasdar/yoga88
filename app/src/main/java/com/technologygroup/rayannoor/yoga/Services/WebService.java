@@ -1915,7 +1915,7 @@ public class WebService {
         if (isInternetAvailable) {
 
             String response = connectToServer(App.apiAddr + "Post/Get/"+id, "GET");
-
+            Log.i("LOG", response + "");
             if (response != null) {
 
                 List<ZanguleModel> list = new ArrayList<>();
@@ -1950,7 +1950,7 @@ public class WebService {
         if (isInternetAvailable) {
 
             String response = connectToServer(App.apiAddr + "Post/Get/"+3, "GET");
-
+            Log.i("LOG", response + "");
             if (response != null) {
 
                 List<ZanguleModel> list = new ArrayList<>();
@@ -1986,7 +1986,7 @@ public class WebService {
         if (isInternetAvailable) {
 
             String response = connectToServer(App.apiAddr + "Post/GetPost/"+id, "GET");
-
+            Log.i("LOG", response + "");
             if (response != null) {
                 try {
 

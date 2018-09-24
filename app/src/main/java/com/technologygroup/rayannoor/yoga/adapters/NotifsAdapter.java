@@ -77,6 +77,7 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
             imgTitle=itemView.findViewById(R.id.imgTitle);
             txtTitle=itemView.findViewById(R.id.txtTitle);
             txtBody=itemView.findViewById(R.id.txtBody);
+            txtBody.setVisibility(View.GONE);
 
         }
     }

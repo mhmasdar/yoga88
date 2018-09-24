@@ -78,6 +78,7 @@ public class NotifNewsAdapter extends RecyclerView.Adapter<NotifNewsAdapter.myVi
 
             txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
             txtBody = (TextView) itemView.findViewById(R.id.txtBody);
+            txtBody.setVisibility(View.GONE);
             imgTitle = (ImageView) itemView.findViewById(R.id.imgTitle);
 
         }
