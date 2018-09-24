@@ -28,7 +28,7 @@ public class UserModel {
     public void getfromjson(JSONObject Object)
     {
         try {
-            this.Email = Object.getString("Email");
+//            this.Email = Object.getString("Email");
             this.Name = Object.getString("FirstName");
             this.Password = Object.getString("Password");
             this.lName = Object.getString("LastName");
@@ -46,6 +46,7 @@ public class UserModel {
             JSONObject ProfileImagej = Object.getJSONObject("ProfileImage");
             this.ProfileImageName = ProfileImagej.getString("Name");
             this.IDProfileImage = ProfileImagej.getInt("ID");
+
         }
         catch (JSONException e) {
             e.printStackTrace();

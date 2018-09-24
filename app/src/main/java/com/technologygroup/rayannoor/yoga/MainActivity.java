@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (usertypes.length() == 1) {
                 try {
-                    Role = usertypes.getJSONObject(0).getString("Name");
+                    Role = usertypes.getJSONObject(0).getJSONObject("Role").getString("Name");
                 } catch (JSONException e) {
                     e.printStackTrace();
 

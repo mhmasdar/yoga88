@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Services;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.bumptech.glide.gifdecoder.GifHeaderParser;
@@ -21,6 +22,7 @@ import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Models.idname;
+import com.technologygroup.rayannoor.yoga.app;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,8 +151,6 @@ public class WebService {
             String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";
-
-
             int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
             int maxBufferSize = 1 * 1024 * 1024;
@@ -179,6 +179,7 @@ public class WebService {
                 // Toast.makeText(g, "فایل یافت نشد", Toast.LENGTH_LONG).show();
 
                 return -1;
+
             } else {
                 try {
                     FileInputStream fileInputStream = new FileInputStream(selectedFile);
@@ -302,6 +303,10 @@ public class WebService {
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.ProfileImageName=ProfileImagej.getString("Name");
                         model.IDProfileImage=ProfileImagej.getInt("ID");
+                        SharedPreferences prefs = app.context.getSharedPreferences("User",0);
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("userType",model.userType.toString());
+                        editor.apply();
                         return model;
                     } catch (JSONException e) {
                         e.printStackTrace();
