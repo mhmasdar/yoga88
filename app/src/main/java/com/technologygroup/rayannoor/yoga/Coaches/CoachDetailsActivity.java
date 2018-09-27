@@ -125,7 +125,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 0);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -139,7 +139,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 1);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -154,7 +154,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -168,7 +168,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 3);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -182,7 +182,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 4);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -196,7 +196,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(CoachDetailsActivity.this, CoachServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 5);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -208,7 +208,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CoachDetailsActivity.this, CommentsActivity.class);
-                intent.putExtra("IdCoachOrGym", coachModel.id);
+                intent.putExtra("IdCoachOrGym", idsend);
                 intent.putExtra("IsGym", false);
                 startActivity(intent);
             }
@@ -558,7 +558,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id);
+            result = webService.postLike(App.isInternetOn(), idsend);
             return null;
         }
 
@@ -582,7 +582,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like--;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.putBoolean(reqtoprefer + idsend, false);
                         editor.apply();
                     }
 
@@ -591,7 +591,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like--;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.putBoolean(reqtoprefer + idsend, false);
                     editor.apply();
                 }
 
@@ -600,7 +600,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
                         editor.apply();
 
                     } else {
@@ -644,7 +644,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postdisLike(App.isInternetOn(), coachModel.id);
+            result = webService.postdisLike(App.isInternetOn(), idsend);
             return null;
         }
 
@@ -668,7 +668,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like++;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.putBoolean(reqtoprefer + idsend, false);
                         editor.apply();
                     }
 
@@ -677,7 +677,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like++;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.putBoolean(reqtoprefer + idsend, false);
                     editor.apply();
                 }
 
@@ -686,7 +686,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
                         editor.apply();
 
                     } else {
@@ -728,7 +728,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postRate(App.isInternetOn(), coachModel.id, "coach", (float) rate);
+            result = webService.postRate(App.isInternetOn(), idsend, "coach", (float) rate);
             return null;
         }
 

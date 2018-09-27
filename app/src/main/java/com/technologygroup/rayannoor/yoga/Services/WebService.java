@@ -1,6 +1,5 @@
 package com.technologygroup.rayannoor.yoga.Services;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.bumptech.glide.gifdecoder.GifHeaderParser;
@@ -22,7 +21,6 @@ import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Models.idname;
-import com.technologygroup.rayannoor.yoga.app;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -303,10 +301,7 @@ public class WebService {
                         JSONObject ProfileImagej=Object.getJSONObject("ProfileImage");
                         model.ProfileImageName=ProfileImagej.getString("Name");
                         model.IDProfileImage=ProfileImagej.getInt("ID");
-                        SharedPreferences prefs = app.context.getSharedPreferences("User",0);
-                        SharedPreferences.Editor editor=prefs.edit();
-                        editor.putString("userType",model.userType.toString());
-                        editor.apply();
+
                         return model;
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -597,7 +592,7 @@ public class WebService {
     public List<CoachCourseModel> getCoachCourses(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
-
+            Log.i("LOG","Course/GetCoursesByUserRoleID/"+id);
             String response = connectToServer(App.apiAddr + "Course/GetCoursesByUserRoleID/"+id, "GET");
             Log.i("LOG", response + "");
 
@@ -964,7 +959,7 @@ public class WebService {
     public List<CoachGymsModel> getCoachGyms(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
-
+            Log.i("LOG", App.apiAddr + "user/GetCoachGyms/" + id);
             String response = connectToServer(App.apiAddr + "user/GetCoachGyms/" + id, "GET");
             Log.i("LOG", response + "");
 
@@ -980,7 +975,10 @@ public class WebService {
                         CoachGymsModel model = new CoachGymsModel();
                         model.id = Object.getInt("ID");
                         model.Img = Object.getJSONObject("ProfileImage").getString("Name");
-                        model.Name = Object.getString("FirstName")+Object.getString("LastName");
+                        model.Name = Object.getString("FirstName")+" "+Object.getString("LastName");
+                        model.like=Object.getInt("Likes");
+                        model.like=Object.getInt("Likes");
+
                         list.add(model);
 
                     }
@@ -1275,7 +1273,7 @@ public class WebService {
     public List<CoachModel> getCoachesByField(boolean isInternetAvailable, int fid,int cid) {
 
         if (isInternetAvailable) {
-
+            Log.i("LOG", App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&rid=6");
             String response = connectToServer(App.apiAddr+"user/get?fid="+fid+"&cid="+cid+"&rid=6" , "GET");
 
             Log.i("LOG", response + "");
@@ -1736,7 +1734,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "user/get?fid="+fid+"&cid="+cid+"&rid=6", "GET");
+            String response = connectToServer(App.apiAddr + "user/get?fid="+fid+"&cid="+cid+"&rid=4", "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {

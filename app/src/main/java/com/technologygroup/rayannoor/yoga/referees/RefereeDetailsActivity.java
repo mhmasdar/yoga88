@@ -265,7 +265,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 0);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -278,7 +278,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 1);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -293,7 +293,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -307,7 +307,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 3);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -321,7 +321,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeDetailsActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 4);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -420,7 +420,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postLike(App.isInternetOn(), coachModel.id);
+            result = webService.postLike(App.isInternetOn(), idsend);
             return null;
         }
 
@@ -444,7 +444,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like--;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.putBoolean(reqtoprefer + idsend, false);
                         editor.apply();
                     }
 
@@ -453,7 +453,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like--;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.putBoolean(reqtoprefer + idsend, false);
                     editor.apply();
                 }
 
@@ -461,7 +461,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 if (result != null) {
 
                     if (result.equals("Ok")) {
-                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
                         editor.apply();
 
                     } else {
@@ -505,7 +505,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.postdisLike(App.isInternetOn(), coachModel.id);
+            result = webService.postdisLike(App.isInternetOn(), idsend);
             return null;
         }
 
@@ -529,7 +529,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like++;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + coachModel.id, false);
+                        editor.putBoolean(reqtoprefer + idsend, false);
                         editor.apply();
                     }
 
@@ -538,7 +538,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like++;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + coachModel.id, false);
+                    editor.putBoolean(reqtoprefer + idsend, false);
                     editor.apply();
                 }
 
@@ -547,7 +547,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + coachModel.id, false);
+                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
                         editor.apply();
 
                     } else {

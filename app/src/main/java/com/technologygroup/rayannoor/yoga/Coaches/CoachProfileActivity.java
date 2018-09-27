@@ -103,7 +103,7 @@ public class CoachProfileActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(CoachProfileActivity.this, CoachEditDetialsActivity.class);
 
-                intent.putExtra("CoachId", coachModel.id);
+                intent.putExtra("CoachId", idCoach);
                 intent.putExtra("CoachFName", coachModel.fName);
                 intent.putExtra("CoachLName", coachModel.lName);
                 intent.putExtra("CoachImg", coachModel.ImgName);
@@ -348,7 +348,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                         Glide.with(CoachProfileActivity.this).load(App.imgAddr + coachModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
                 txtCoachName.setText(coachModel.fName + " " + coachModel.lName);
 //                ClassLevels classLevels = new ClassLevels();
-//                txtCoachLevel.setText(classLevels.getCoachLevelName(coachModel.idCurrentPlan));
+//                txtCoachLevel.setText(classLevels.getCoachLevelName(idCoachCurrentPlan));
                 String strRate = String.valueOf(coachModel.Rate);
                 if (strRate.length() > 3)
                     strRate = strRate.substring(0, 3);

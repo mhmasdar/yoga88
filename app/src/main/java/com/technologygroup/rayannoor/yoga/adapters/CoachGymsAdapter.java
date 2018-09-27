@@ -58,17 +58,16 @@ public class CoachGymsAdapter extends RecyclerView.Adapter<CoachGymsAdapter.myVi
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtGymRate;
-        private TextView txtGymLikeCount;
+
         private TextView txtGymName;
         private ImageView imgGym;
-
+        private TextView txtGymLikeCount;
         private int position;
         private CoachGymsModel current;
 
         myViewHolder(View itemView) {
             super(itemView);
-            txtGymRate = (TextView) itemView.findViewById(R.id.txtGymRate);
+
             txtGymLikeCount = (TextView) itemView.findViewById(R.id.txtGymLikeCount);
             txtGymName = (TextView) itemView.findViewById(R.id.txtGymName);
             imgGym = (ImageView) itemView.findViewById(R.id.imgGym);
@@ -81,9 +80,7 @@ public class CoachGymsAdapter extends RecyclerView.Adapter<CoachGymsAdapter.myVi
                     Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
 
             txtGymName.setText(current.Name);
-            txtGymLikeCount.setText(current.like + "");
-            txtGymRate.setText(current.Rate + "");
-
+            txtGymLikeCount.setText(""+current.like);
             this.position = position;
             this.current = current;
 

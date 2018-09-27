@@ -148,7 +148,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(RefereeProfileActivity.this, CoachEditDetialsActivity.class);
-                intent.putExtra("CoachId", coachModel.id);
+                intent.putExtra("CoachId", idsend);
                 intent.putExtra("CoachFName", coachModel.fName);
                 intent.putExtra("CoachLName", coachModel.lName);
                intent.putExtra("CoachImg", coachModel.ImgName);
@@ -167,7 +167,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", calledFromPanel);
                     intent.putExtra("SelectedTabIndex", 0);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -180,7 +180,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 1);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -195,7 +195,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -209,7 +209,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 3);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
@@ -223,7 +223,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
                     intent.putExtra("calledFromPanel", false);
                     intent.putExtra("SelectedTabIndex", 4);
-                    intent.putExtra("idCoach", coachModel.id);
+                    intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);
                     startActivity(intent);
                 }
