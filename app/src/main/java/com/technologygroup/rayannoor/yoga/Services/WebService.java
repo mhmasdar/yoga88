@@ -977,8 +977,6 @@ public class WebService {
                         model.Img = Object.getJSONObject("ProfileImage").getString("Name");
                         model.Name = Object.getString("FirstName")+" "+Object.getString("LastName");
                         model.like=Object.getInt("Likes");
-                        model.like=Object.getInt("Likes");
-
                         list.add(model);
 
                     }
@@ -1982,14 +1980,12 @@ public class WebService {
     public ZanguleModel getZanguleDetail(boolean isInternetAvailable,int id) {
 
         if (isInternetAvailable) {
-
             String response = connectToServer(App.apiAddr + "Post/GetPost/"+id, "GET");
             Log.i("LOG", response + "");
             if (response != null) {
                 try {
 
                     JSONObject Object = new JSONObject(response);
-
                         ZanguleModel model = new ZanguleModel();
                         model.id=Object.getInt("ID");
                         model.title=Object.getString("Title");
@@ -1998,6 +1994,41 @@ public class WebService {
                         model.image=Object.getString("Image");
                         model.getJsonUser(Object.getJSONObject("User"));
                     return model;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public List<ZanguleModel> getZanguleGym(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "api/Post/GetByGymID/"+id, "GET");
+            Log.i("LOG", response + "");
+            if (response != null) {
+
+                List<ZanguleModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.Body=Object.getString("Body");
+                        model.image=Object.getString("Image");
+                        list.add(model);
+
+                    }
+                    return list;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

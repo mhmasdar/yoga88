@@ -8,18 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
+
+import java.util.List;
 
 
 public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myViewHolder> {
 
     private Context context;
     private LayoutInflater mInflater;
+    private List<ZanguleModel> list;
 
 
-    public GymNotifAdapter(Context context) {
+    public GymNotifAdapter(Context context,List<ZanguleModel> l) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        list=l;
     }
 
     @Override
@@ -31,11 +36,12 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
 
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
+        holder.setData(list.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
 
@@ -53,13 +59,19 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
 
         myViewHolder(View itemView) {
             super(itemView);
-
             txtNotifTitle = (TextView) itemView.findViewById(R.id.txtNotifTitle);
             txtNotifBody = (TextView) itemView.findViewById(R.id.txtNotifBody);
             imgNotif = (ImageView) itemView.findViewById(R.id.imgNotif);
             imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
             imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);
             txtNotifDate = (TextView) itemView.findViewById(R.id.txtNotifDate);
+
+        }
+        private void setData(ZanguleModel current)
+        {
+            txtNotifTitle.setText(current.title);
+            txtNotifBody.setText(current.Body);
+            txtNotifDate.setText(current.Date);
         }
     }
 }
