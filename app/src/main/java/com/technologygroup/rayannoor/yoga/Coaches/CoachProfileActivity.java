@@ -47,8 +47,6 @@ public class CoachProfileActivity extends AppCompatActivity {
     private TextView txtCoachLevel;
     private ImageView imgLockTeachs;
     private LinearLayout lytTeachs;
-    private LinearLayout lytComments;
-    private ImageView imgLockCeomments;
     private RatingBar rating;
 
 
@@ -56,7 +54,6 @@ public class CoachProfileActivity extends AppCompatActivity {
     private int idCoach;
     private CoachModel coachModel;
     WebServiceCoachInfo webServiceCoachInfo;
-    private ImageView imgLockComments;
     private ImageView imgLockBio;
     private LinearLayout lytBio;
     private ImageView imgLockCourse;
@@ -120,27 +117,29 @@ public class CoachProfileActivity extends AppCompatActivity {
         lytCoachProfileUpgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CoachProfileActivity.this, CoachPlanActivity.class);
-                intent.putExtra("idCoachOrGym", idCoach);
-                intent.putExtra("idPlan", 1);
-                startActivity(intent);
+//                Intent intent = new Intent(CoachProfileActivity.this, CoachPlanActivity.class);
+//                intent.putExtra("idCoachOrGym", idCoach);
+//                intent.putExtra("idPlan", 1);
+//                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "این بخش به زودی فعال خواهد شد..." , Toast.LENGTH_LONG).show();
             }
         });
 
 
-        lytComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (coachModel.IsVerified) {
-                    Intent intent = new Intent(CoachProfileActivity.this, CommentsActivity.class);
-                    intent.putExtra("IdCoachOrGym", idCoach);
-                    intent.putExtra("IsGym", false);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+//        lytComments.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (coachModel.IsVerified) {
+//                    Intent intent = new Intent(CoachProfileActivity.this, CommentsActivity.class);
+//                    intent.putExtra("IdCoachOrGym", idCoach);
+//                    intent.putExtra("IsGym", false);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
 
         lytEducation.setOnClickListener(new View.OnClickListener() {
@@ -288,10 +287,7 @@ public class CoachProfileActivity extends AppCompatActivity {
         txtCoachLevel = (TextView) findViewById(R.id.txtCoachLevel);
         imgLockTeachs = (ImageView) findViewById(R.id.imgLockTeach);
         lytTeachs = (LinearLayout) findViewById(R.id.lytTeach);
-        lytComments = (LinearLayout) findViewById(R.id.lytComments);
         rating = (RatingBar) findViewById(R.id.rating);
-        imgLockCeomments = findViewById(R.id.imgLockComments);
-        imgLockComments = (ImageView) findViewById(R.id.imgLockComments);
         imgLockBio = (ImageView) findViewById(R.id.imgLockBio);
         lytBio = (LinearLayout) findViewById(R.id.lytBio);
         imgLockCourse = (ImageView) findViewById(R.id.imgLockCourse);
@@ -321,8 +317,8 @@ public class CoachProfileActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
         }
 
@@ -366,8 +362,8 @@ public class CoachProfileActivity extends AppCompatActivity {
                     imgLockGyms.setVisibility(View.GONE);
                     lytCertificates.setAlpha(1);
                     imgLockCertificates.setVisibility(View.GONE);
-                    lytComments.setAlpha(1);
-                    imgLockCeomments.setVisibility(View.GONE);
+//                    lytComments.setAlpha(1);
+//                    imgLockCeomments.setVisibility(View.GONE);
                     lytTeachs.setAlpha(1);
                     imgLockTeachs.setVisibility(View.GONE);
                     lytCourse.setAlpha(1);

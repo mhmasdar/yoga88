@@ -67,7 +67,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     private LinearLayout lytEducation;
     private ImageView imgLockCourse;
     private LinearLayout lytCourse;
-    private FloatingActionButton floatAction;
     String Email;
     String Telegram;
     String instagram;
@@ -158,7 +157,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         imgLockCertificates = (ImageView) findViewById(R.id.imgLockCertificates);
         imgLockCourse = (ImageView) findViewById(R.id.imgLockCourse);
         imgLockBio = (ImageView) findViewById(R.id.imgLockBio);
-        floatAction = (FloatingActionButton) findViewById(R.id.floatAction);
 
     }
     public void setDetail()
@@ -241,7 +239,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             imgLockBio.setVisibility(View.GONE);
             lytCourse.setAlpha(1);
             imgLockCourse.setVisibility(View.GONE);
-            floatAction.show();
             btnLike.setEnabled(true);
             lytRefereeRating.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -256,7 +253,6 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
     }
     private void others() {
-        floatAction.hide();
         setViews();
         lytResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -703,8 +699,8 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 rotation.setDuration(3000);
                 rotation.setRepeatCount(Animation.INFINITE);
                 rotation.start();
-                dialog.setCancelable(true);
-                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
         }
 

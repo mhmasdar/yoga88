@@ -72,13 +72,13 @@ public class IntroFragment extends Fragment {
                 layoutResId = R.layout.intro_fragment_layout_3;
                 break;
             case 3:
-                layoutResId = R.layout.intro_fragment_layout_7;
-                break;
-            case 4:
                 layoutResId = R.layout.intro_fragment_layout_4;
                 break;
-            case 5:
+            case 4:
                 layoutResId = R.layout.intro_fragment_layout_5;
+                break;
+            case 5:
+                layoutResId = R.layout.intro_fragment_layout_7;
                 break;
             default:
                 layoutResId = R.layout.intro_fragment_layout_6;

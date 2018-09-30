@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga.Notification;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -22,12 +23,23 @@ public class notificationActivity extends AppCompatActivity {
     private Typeface typeface;
     private String userType;
 
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+    private String notifsCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         initView();
         typeface = Typeface.createFromAsset(getAssets(), "font.ttf");
+
+        prefs = getSharedPreferences("User", 0);
+        editor = prefs.edit();
+
+        notifsCount = getIntent().getStringExtra("notifsCount");
+        editor.putString("notifsCount", notifsCount);
+        editor.apply();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +52,11 @@ public class notificationActivity extends AppCompatActivity {
 
 
         tabLayout.addTab(tabLayout.newTab().setText("اخبار"));
-        tabLayout.addTab(tabLayout.newTab().setText("اعلانات"));
+
+        if (Integer.valueOf(notifsCount) > 0)
+            tabLayout.addTab(tabLayout.newTab().setText("اعلانات (" + notifsCount + ")"));
+        else
+            tabLayout.addTab(tabLayout.newTab().setText("اعلانات "));
 
         if (!userType.equals("no"))
             tabLayout.addTab(tabLayout.newTab().setText("کاریابی"));
@@ -96,15 +112,4 @@ public class notificationActivity extends AppCompatActivity {
         }
 
     }
-
-
-//    private void setUpRecyclerView() {
-//        NotifsAdapter adapter = new NotifsAdapter(notificationActivity.this);
-//        RecyclerCoach.setAdapter(adapter);
-//
-//        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(notificationActivity.this);
-//        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-//        RecyclerCoach.setLayoutManager(mLinearLayoutManagerVertical);
-//    }
-
 }

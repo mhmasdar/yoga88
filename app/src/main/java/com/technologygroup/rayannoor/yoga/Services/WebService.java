@@ -1,9 +1,11 @@
 package com.technologygroup.rayannoor.yoga.Services;
 
+import android.media.Image;
 import android.util.Log;
 
 import com.bumptech.glide.gifdecoder.GifHeaderParser;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.ChartModel;
 import com.technologygroup.rayannoor.yoga.Models.CoachCourseModel;
 import com.technologygroup.rayannoor.yoga.Models.CoachEduModel;
 import com.technologygroup.rayannoor.yoga.Models.CoachGymsModel;
@@ -16,6 +18,7 @@ import com.technologygroup.rayannoor.yoga.Models.FAQmodel;
 import com.technologygroup.rayannoor.yoga.Models.GalleryModel;
 import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
+import com.technologygroup.rayannoor.yoga.Models.MainPageModel;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
@@ -181,7 +184,7 @@ public class WebService {
             } else {
                 try {
                     FileInputStream fileInputStream = new FileInputStream(selectedFile);
-                    URL url = new URL(App.apiAddr + "upload/UploadFiles");
+                    URL url = new URL(App.apiAddr + "Upload/UploadFiles");
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setDoInput(true);//Allow Inputs
                     connection.setDoOutput(true);//Allow Outputs
@@ -2038,5 +2041,152 @@ public class WebService {
 
         } else
             return null;
+    }
+
+    public List<ChartModel> getChart(boolean isInternetAvailable, int id, boolean isCommittee) {
+
+        if (isInternetAvailable) {
+
+            String response;
+            if (!isCommittee)
+                response = connectToServer(App.apiAddr + "Chart/GetByFieldID/"+id, "GET");
+            else
+                response = connectToServer(App.apiAddr + "Chart/Get", "GET");
+
+
+
+            if (response != null) {
+
+                List<ChartModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ChartModel model = new ChartModel();
+
+                        model.title = Object.getString("Post");
+
+                        JSONObject User = Object.getJSONObject("User");
+                        JSONObject ProfileImage = User.getJSONObject("ProfileImage");
+                        model.name = User.getString("FirstName") + " " + User.getString("LastName");
+                        model.image = ProfileImage.getString("Name");
+
+
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+
+    public String sendSuggestion(boolean isInternetAvailable , String req) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServerByJson(App.apiAddr + "Support/Send", "POST", req);
+
+
+            if (response != null)
+                return String.valueOf(response);
+
+
+            else
+                return null;
+        }
+        return null;
+    }
+
+    public String getSliderImage(boolean isInternetAvailable , int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Slider/GetByFieldID/"+id, "GET");
+            String result = null;
+
+            if (response != null) {
+
+                try
+                {
+
+                    JSONObject Object = new JSONObject(response);
+                    JSONObject Image = Object.getJSONObject("Image");
+
+                    result = Image.getString("Name");
+                    return result;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
+
+    public MainPageModel getMainPageCounts(boolean isInternetAvailable) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Main/Get", "GET");
+
+
+            if (response != null) {
+
+                try
+                {
+                    MainPageModel model = new MainPageModel();
+                    JSONObject Object = new JSONObject(response);
+
+                    model.notifsCount = Object.getString("ElanatCount");
+                    model.teachsCount = Object.getString("TrainingCount");
+
+                    return model;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
+
+    public String getCommitteeName(boolean isInternetAvailable , int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Field/GetById/"+id, "GET");
+            String result = null;
+
+            if (response != null) {
+
+                try
+                {
+
+                    JSONObject Object = new JSONObject(response);
+
+                    result = Object.getString("Name");
+                    return result;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return null;
+        }
+        return null;
     }
 }

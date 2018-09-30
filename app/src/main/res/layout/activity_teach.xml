@@ -107,17 +107,35 @@
             android:id="@+id/img2"
             android:layout_height="match_parent" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:text="آموزش های ارسالی مربیان"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="20dp"
-            android:textSize="17sp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgNewTeach"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_new"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginRight="3dp"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="آموزش های ارسالی مربیان"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
 
 

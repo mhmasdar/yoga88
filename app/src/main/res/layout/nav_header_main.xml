@@ -148,7 +148,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="هیئت ورزش های همگانی "
+                    android:text="هیات ورزش های همگانی "
                     android:textSize="15sp"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/black"

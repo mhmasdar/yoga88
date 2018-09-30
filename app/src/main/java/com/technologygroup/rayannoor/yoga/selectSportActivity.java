@@ -37,42 +37,55 @@ public class selectSportActivity extends AppCompatActivity {
     private int selectedState = 0, selectedCity = 0, selectedField = 0;
     SharedPreferences prefs;
     StateCityFieldModel allthing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_sport);
         initView();
+
         allthing=new StateCityFieldModel();
-        final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.welcome_text);
-        txtWelcome.startAnimation(anim);
-        Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.welcome_text2);
-                txtWelcome.startAnimation(anim2);
-            }
-        }, 2200);
+        prefs = getSharedPreferences("User", 0);
 
-        handler1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                txtWelcome.setVisibility(View.GONE);
-                lytMain.setVisibility(View.VISIBLE);
-                Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select1);
-                Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select2);
-                Animation anim3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select3);
-                Animation anim4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select4);
-                Animation anim5 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select5);
-                txt1.startAnimation(anim1);
-                txt2.startAnimation(anim1);
-                lyt1.startAnimation(anim2);
-                lyt2.startAnimation(anim3);
-                lyt3.startAnimation(anim4);
-                btn.startAnimation(anim5);
-            }
-        }, 3200);
+        //چک می کنیم که آیا برنامه برای اولین بار اجرا شده است یا خیر. اگر اولین اجرای برنامه باشد، متن خوش آمدید را نمایش می دهد. در غیر اینصورت، مستقیما موارد اصلی نمایش داده می شوند.
+        if (prefs.getBoolean("isFirstRun",true))
+        {
+            final Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.welcome_text);
+            txtWelcome.startAnimation(anim);
+            Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.welcome_text2);
+                    txtWelcome.startAnimation(anim2);
+                }
+            }, 2200);
 
+            handler1.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    txtWelcome.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.VISIBLE);
+                    Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select1);
+                    Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select2);
+                    Animation anim3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select3);
+                    Animation anim4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select4);
+                    Animation anim5 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.select5);
+                    txt1.startAnimation(anim1);
+                    txt2.startAnimation(anim1);
+                    lyt1.startAnimation(anim2);
+                    lyt2.startAnimation(anim3);
+                    lyt3.startAnimation(anim4);
+                    btn.startAnimation(anim5);
+                }
+            }, 3200);
+        }
+
+        else
+        {
+            txtWelcome.setVisibility(View.GONE);
+            lytMain.setVisibility(View.VISIBLE);
+        }
 
         WebServiceCallState callState = new WebServiceCallState();
         callState.execute();
@@ -316,4 +329,15 @@ public class selectSportActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (prefs.getBoolean("isFirstRun",true))
+            super.onBackPressed();
+        else
+        {
+            Intent intent = new Intent(selectSportActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

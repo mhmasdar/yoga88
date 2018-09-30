@@ -62,8 +62,6 @@ public class GymDetailsActivity extends AppCompatActivity {
     private LinearLayout lytWorkTime;
     private ImageView imgLockNotifs;
     private LinearLayout lytNotifs;
-    private ImageView imgLockComments;
-    private LinearLayout lytComments;
     private RelativeLayout lytGymProfileUpgrade;
     int idsend;
 
@@ -116,28 +114,18 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytGymProfileUpgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GymDetailsActivity.this, CoachPlanActivity.class);
-                intent.putExtra("idCoachOrGym", idsend);
-                intent.putExtra("idPlan", 2);
-                intent.putExtra("work", gymModel.workTime);
-                intent.putExtra("about", gymModel.About);
-                startActivity(intent);
+//                Intent intent = new Intent(GymDetailsActivity.this, CoachPlanActivity.class);
+//                intent.putExtra("idCoachOrGym", idsend);
+//                intent.putExtra("idPlan", 2);
+//                intent.putExtra("work", gymModel.workTime);
+//                intent.putExtra("about", gymModel.About);
+//                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "این بخش به زودی فعال خواهد شد..." , Toast.LENGTH_LONG).show();
+
             }
         });
 
-        lytComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.IsVerified) {
-                    Intent intent = new Intent(GymDetailsActivity.this, CommentsActivity.class);
-                    intent.putExtra("IdCoachOrGym", idsend);
-                    intent.putExtra("IsGym", true);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         lytGymHonours.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,9 +288,6 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytWorkTime = (LinearLayout) findViewById(R.id.lytWorkTime);
         imgLockNotifs = (ImageView) findViewById(R.id.imgLockNotifs);
         lytNotifs = (LinearLayout) findViewById(R.id.lytNotifs);
-        imgLockComments = (ImageView) findViewById(R.id.imgLockComments);
-
-        lytComments = (LinearLayout) findViewById(R.id.lytComments);
         lytGymProfileUpgrade = (RelativeLayout) findViewById(R.id.lytGymProfileUpgrade);
     }
 
@@ -326,8 +311,8 @@ public class GymDetailsActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
 
         }
@@ -371,8 +356,6 @@ public class GymDetailsActivity extends AppCompatActivity {
                     imgLockCoaches.setVisibility(View.GONE);
                     lytCourses.setAlpha(1);
                     imgLockCourse.setVisibility(View.GONE);
-                    lytComments.setAlpha(1);
-                    imgLockComments.setVisibility(View.GONE);
                     lytAbout.setAlpha(1);
                     imgLockAbout.setVisibility(View.GONE);
                     lytNotifs.setAlpha(1);

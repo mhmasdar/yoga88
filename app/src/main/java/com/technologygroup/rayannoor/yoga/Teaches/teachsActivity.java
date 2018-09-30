@@ -2,6 +2,7 @@ package com.technologygroup.rayannoor.yoga.Teaches;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ public class teachsActivity extends AppCompatActivity {
     private ImageView img1;
     private ImageView img2;
     private ImageView img3;
+    private ImageView imgNewTeach;
+
+    private String teachsCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,12 @@ public class teachsActivity extends AppCompatActivity {
         img2.setColorFilter(Color.rgb(190, 190, 190), PorterDuff.Mode.MULTIPLY);
         img3.setColorFilter(Color.rgb(190, 190, 190), PorterDuff.Mode.MULTIPLY);
 
+
+        teachsCount = getIntent().getStringExtra("teachsCount");
+        if (Integer.valueOf(teachsCount) > 0)
+            imgNewTeach.setVisibility(View.VISIBLE);
+        else
+            imgNewTeach.setVisibility(View.INVISIBLE);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +70,7 @@ public class teachsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(teachsActivity.this, CoachTeachsActivity.class);
+                intent.putExtra("teachsCount" , teachsCount);
                 startActivity(intent);
             }
         });
@@ -79,6 +90,7 @@ public class teachsActivity extends AppCompatActivity {
         img1 = (ImageView) findViewById(R.id.img1);
         img2 = (ImageView) findViewById(R.id.img2);
         img3 = (ImageView) findViewById(R.id.img3);
+        imgNewTeach = (ImageView) findViewById(R.id.imgNewTeach);
     }
 
 }

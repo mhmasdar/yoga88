@@ -63,7 +63,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private LinearLayout lytGyms;
     private ImageView imgLockCertificates;
     private LinearLayout lytCertificates, lytParent;
-    private FloatingActionButton floatAction;
     private Dialog dialog;
 
 
@@ -116,7 +115,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
     }
     private void others()
     {
-        floatAction.hide();
         setViews();
         lytResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,15 +202,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
         });
 
 
-        floatAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CoachDetailsActivity.this, CommentsActivity.class);
-                intent.putExtra("IdCoachOrGym", idsend);
-                intent.putExtra("IsGym", false);
-                startActivity(intent);
-            }
-        });
 
 
         imgTelegram.setOnClickListener(new View.OnClickListener() {
@@ -421,7 +410,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
         lytGyms = (LinearLayout) findViewById(R.id.lytGyms);
         imgLockCertificates = (ImageView) findViewById(R.id.imgLockCertificates);
         lytCertificates = (LinearLayout) findViewById(R.id.lytCertificates);
-        floatAction = (FloatingActionButton) findViewById(R.id.floatAction);
         lytParent = findViewById(R.id.lytParent);
         imgLockBio = (ImageView) findViewById(R.id.imgLockBio);
         lytBio = (LinearLayout) findViewById(R.id.lytBio);
@@ -470,7 +458,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
             imgLockBio.setVisibility(View.GONE);
             lytCourse.setAlpha(1);
             imgLockCourse.setVisibility(View.GONE);
-            floatAction.show();
             btnLike.setEnabled(true);
         }
 
@@ -789,8 +776,8 @@ public class CoachDetailsActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
 
         }

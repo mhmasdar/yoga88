@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
@@ -31,6 +32,7 @@ import com.technologygroup.rayannoor.yoga.Coaches.*;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;
+import com.technologygroup.rayannoor.yoga.Models.MainPageModel;
 import com.technologygroup.rayannoor.yoga.NavigationMenu.AboutUsActivity;
 import com.technologygroup.rayannoor.yoga.NavigationMenu.ChartActivity;
 import com.technologygroup.rayannoor.yoga.NavigationMenu.SuggestionActivity;
@@ -39,6 +41,7 @@ import com.technologygroup.rayannoor.yoga.NavigationMenu.commonQuestionActivity;
 import com.technologygroup.rayannoor.yoga.NavigationMenu.hameganiActivity;
 import com.technologygroup.rayannoor.yoga.NavigationMenu.rulesActivity;
 import com.technologygroup.rayannoor.yoga.Notification.notificationActivity;
+import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.Teaches.teachsActivity;
 import com.technologygroup.rayannoor.yoga.YogaIntroduce.YogaIntroduceActivity;
 import com.technologygroup.rayannoor.yoga.adapters.SlidingImage_Adapter;
@@ -97,7 +100,13 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout lytReferee;
     private ArcNavigationView navView;
     private JSONArray usertypes;
-    String Role;
+    private String Role, SliderImage;
+    private int idField;
+    private getSlider slider;
+    private getCounts counts;
+    private getCommitteeName committeeName;
+    private String storedNotifsCount, storedTeachsCount, newNotifsCount, newTeachsCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("User", 0);
         userType = prefs.getString("userType","no");
         idUser = prefs.getInt("idUser", -1);
+        storedNotifsCount = prefs.getString("notifsCount", "0");
+        storedTeachsCount = prefs.getString("teachsCount", "0");
+
+
         try {
             usertypes=new JSONArray(userType);
         } catch (JSONException e) {
@@ -162,9 +175,19 @@ public class MainActivity extends AppCompatActivity {
         {
             txtLogin.setText("ورود/ثبت نام");
         }
+
+
         //set image darker
         drawerHeaderImage.setColorFilter(Color.rgb(150, 150, 150), PorterDuff.Mode.MULTIPLY);
         Glide.with(this).load(R.drawable.pattern).into(drawerHeaderImage);
+
+
+        //get third image of slider from server
+        idField = prefs.getInt("idField", 0);
+        slider = new getSlider();
+        slider.execute();
+
+
         hamegani.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, teachsActivity.class);
+                intent.putExtra("teachsCount" , newTeachsCount);
                 startActivity(intent);
             }
         });
@@ -316,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, notificationActivity.class);
                 intent.putExtra("userType", userType);
+                intent.putExtra("notifsCount", newNotifsCount);
                 startActivity(intent);
             }
         });
@@ -326,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, selectSportActivity.class);
                 startActivity(intent);
-                drawer_layout.closeDrawer(GravityCompat.END);
+                finish();
             }
         });
 
@@ -384,8 +409,124 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-        initSlider();
+    private void setCommitteName()
+    {
+        switch (idField)
+        {
+            case 1:
+                txtTitle.setText(txtTitle.getText().toString() + "یوگا");
+                break;
+
+            case 2:
+                txtTitle.setText(txtTitle.getText().toString() + "پیلاتس");
+                break;
+
+            case 3:
+                txtTitle.setText(txtTitle.getText().toString() + "ایروبیک");
+                break;
+
+            case 4:
+                txtTitle.setText(txtTitle.getText().toString() + "آمادگی جسمانی");
+                break;
+
+            case 5:
+                txtTitle.setText(txtTitle.getText().toString() + "بزرگسالان");
+                break;
+
+            case 6:
+                txtTitle.setText(txtTitle.getText().toString() + "فریزبی");
+                break;
+
+            case 7:
+                txtTitle.setText(txtTitle.getText().toString() + "سازمان ها و نهادها");
+                break;
+
+            case 8:
+                txtTitle.setText(txtTitle.getText().toString() + "پینت بال");
+                break;
+
+            case 9:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش های طبیعی و مهارت های فردی و نمایشی");
+                break;
+
+            case 10:
+                txtTitle.setText(txtTitle.getText().toString() + "داوطلبین ورزشی");
+                break;
+
+            case 11:
+                txtTitle.setText(txtTitle.getText().toString() + "مشاوره ورزشی");
+                break;
+
+            case 12:
+                txtTitle.setText(txtTitle.getText().toString() + "داژبال");
+                break;
+
+            case 13:
+                txtTitle.setText(txtTitle.getText().toString() + "پرثوا");
+                break;
+
+            case 14:
+                txtTitle.setText(txtTitle.getText().toString() + "پرواز کایت");
+                break;
+
+            case 15:
+                txtTitle.setText(txtTitle.getText().toString() + "ماهیگیری ورزشی");
+                break;
+
+            case 16:
+                txtTitle.setText(txtTitle.getText().toString() + "بازی های فکری");
+                break;
+
+            case 17:
+                txtTitle.setText(txtTitle.getText().toString() + "پیاده روی");
+                break;
+
+            case 18:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش مادران");
+                break;
+
+            case 19:
+                txtTitle.setText(txtTitle.getText().toString() + "روش های تمرینی آمادگی جسمانی");
+                break;
+
+            case 20:
+                txtTitle.setText(txtTitle.getText().toString() + "بازی ها و ورزش کودکان");
+                break;
+
+            case 21:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش های در آب");
+                break;
+
+            case 22:
+                txtTitle.setText(txtTitle.getText().toString() + "چوگو");
+                break;
+
+            case 23:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش های طبیعی");
+                break;
+
+            case 24:
+                txtTitle.setText(txtTitle.getText().toString() + "طناب زنی");
+                break;
+
+            case 25:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش روزانه");
+                break;
+
+            case 26:
+                txtTitle.setText(txtTitle.getText().toString() + "گردشگری ورزشی");
+                break;
+
+            case 27:
+                txtTitle.setText(txtTitle.getText().toString() + "ورزش آتش نشانان و امدادگران");
+                break;
+
+            case 28:
+                txtTitle.setText(txtTitle.getText().toString() + "تندرستی و حرکات اصلاحی ورزشی");
+                break;
+        }
     }
 
     private void initView() {
@@ -394,7 +535,7 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         headerview = navigationView.getHeaderView(0);
         drawerHeaderImage = (ImageView) headerview.findViewById(R.id.drawerHeaderImage);
-        imgNewTeach = (ImageView) headerview.findViewById(R.id.imgNewTeach);
+        imgNewTeach = (ImageView) findViewById(R.id.imgNewTeach);
         imgUser = (RoundedImageView) headerview.findViewById(R.id.imgUser);
         txtUserName = (TextView) headerview.findViewById(R.id.txtUserName);
         lytLogin = (LinearLayout) headerview.findViewById(R.id.lytLogin);
@@ -426,7 +567,6 @@ public class MainActivity extends AppCompatActivity {
         navView = (ArcNavigationView) findViewById(R.id.nav_view);
     }
 
-
     @Override
     public void onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
@@ -436,10 +576,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initSlider() {
+    private void initSlider(String thirdImage) {
 
 
-        pager.setAdapter(new SlidingImage_Adapter(MainActivity.this));
+        pager.setAdapter(new SlidingImage_Adapter(MainActivity.this , thirdImage));
 
         // Auto start of viewpager
         final Handler handler = new Handler();
@@ -465,4 +605,137 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    private class getSlider extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            SliderImage = webService.getSliderImage(App.isInternetOn(), idField);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (SliderImage != null && !SliderImage.equals("null") && !SliderImage.equals("")) // server responding
+                initSlider(SliderImage);
+            else
+                initSlider("");
+
+
+            counts = new getCounts();
+            counts.execute();
+        }
+    }
+
+    private class getCounts extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        private MainPageModel model;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            model = webService.getMainPageCounts(App.isInternetOn());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (model != null) // server responding
+            {
+                newNotifsCount = String.valueOf(Integer.valueOf(model.notifsCount) - Integer.valueOf(storedNotifsCount));
+                if (!model.notifsCount.equals("") && !model.notifsCount.equals("0") && Integer.valueOf(newNotifsCount)>0)
+                {
+
+                    txtNewMessageCount.setText(newNotifsCount);
+                    txtNewMessageCount.setVisibility(View.VISIBLE);
+                }
+                else
+                    txtNewMessageCount.setVisibility(View.INVISIBLE);
+
+                newTeachsCount = String.valueOf(Integer.valueOf(model.teachsCount) - Integer.valueOf(storedTeachsCount));
+                if (!model.teachsCount.equals("") && Integer.valueOf(newTeachsCount)>0)
+                    imgNewTeach.setVisibility(View.VISIBLE);
+                else
+                    imgNewTeach.setVisibility(View.GONE);
+
+            }
+
+            committeeName = new getCommitteeName();
+            committeeName.execute();
+        }
+    }
+
+    private class getCommitteeName extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            SliderImage = webService.getCommitteeName(App.isInternetOn(), idField);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (SliderImage != null && !SliderImage.equals("null") && !SliderImage.equals("")) // server responding
+                txtTitle.setText(txtTitle.getText() + SliderImage);
+
+        }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (slider != null)
+            if (slider.getStatus() == AsyncTask.Status.RUNNING)
+                slider.cancel(true);
+
+        if (counts != null)
+            if (counts.getStatus() == AsyncTask.Status.RUNNING)
+                counts.cancel(true);
+
+        if (committeeName != null)
+            if (committeeName.getStatus() == AsyncTask.Status.RUNNING)
+                committeeName.cancel(true);
+    }
+
 }

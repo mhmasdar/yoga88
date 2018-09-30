@@ -147,8 +147,8 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
 
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
 
 

@@ -88,8 +88,9 @@ public class refCertificateFragment extends Fragment implements
 
     RefereeCertificateAdapter adapter;
     private boolean calledFromPanel = false;
-    WebServiceAdd callBackFileDetails;
-    WebServiceList webServiceCoachInfo;
+    private WebServiceAdd callBackFileDetails;
+    private WebServiceList webServiceCoachInfo;
+    private CallBackFile callBackFile;
 
     public refCertificateFragment() {
         // Required empty public constructor
@@ -439,44 +440,28 @@ public class refCertificateFragment extends Fragment implements
             super.onPostExecute(aVoid);
 
 
-            if (resultAdd != null) {
-
-                if (Integer.parseInt(resultAdd) > 0) {
-                    CallBackFile callBackFile = new CallBackFile();
-                    callBackFile.execute();
-
+            if (resultAdd != null)
+            {
+                if (Integer.parseInt(resultAdd) > 0)
+                {
                     model.id = Integer.parseInt(resultAdd);
 
-                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_ok);
-                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
-
-                    // بستن دیالوگ حتما با تاخیر انجام شود
-                    Handler handler1 = new Handler();
-                    handler1.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                        }
-                    }, 1000);
+                    callBackFile = new CallBackFile(model);
+                    callBackFile.execute();
 
 
-                    list.add(model);
-                    setUpRecyclerView(list);
+                }
 
-                } else if (Integer.parseInt(resultAdd) == 0) {
+                else if (Integer.parseInt(resultAdd) == 0)
+                {
 
                     btnOk.revertAnimation();
                     Toast.makeText(getContext(), "ارسال اطلاعات ناموفق است", Toast.LENGTH_LONG).show();
 
-                } else {
-
-                    btnOk.revertAnimation();
-                    Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
                 }
-            } else {
+            }
+
+            else {
 
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
@@ -490,18 +475,17 @@ public class refCertificateFragment extends Fragment implements
         private WebService webService;
         int fileResult;
         String lastUpdate;
+        CoachHonorModel model;
+
+        CallBackFile(CoachHonorModel model)
+        {
+            this.model = model;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-
-//            dialog2 = new Dialog(getContext());
-//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog2.setContentView(R.layout.dialog_waiting);
-//            dialog2.setCancelable(true);
-//            dialog2.setCanceledOnTouchOutside(true);
-//            dialog2.show();
 
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
@@ -520,53 +504,38 @@ public class refCertificateFragment extends Fragment implements
             super.onPostExecute(aVoid);
 
 
-            if (fileResult == 200) {
-//                dialog2.dismiss();
+            if (fileResult == 200) //file uploaded successfully
+            {
+
+                // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_ok);
+                btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                // بستن دیالوگ حتما با تاخیر انجام شود
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+
+                    }
+                }, 1000);
+
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
-            } else if (fileResult == 0) {
-                Toast.makeText(getContext(), "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
-            } else {
-                Toast.makeText(getContext(), "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
+                list.add(model);
+                setUpRecyclerView(list);
+
+
             }
-        }
-    }
 
-    private class CallBackFileDelete extends AsyncTask<Object, Void, Void> {
-
-        private WebService webService;
-        String deleteResult;
-        String lastUpdate;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            webService = new WebService();
-
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            int j = 0;
-            if (resultAdd != null)
-                if (Integer.parseInt(resultAdd) > 0)
-                    j = 1;
-//                    deleteResult = webService.deleteImgDetails(App.isInternetOn(), Integer.parseInt(resultAdd));
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-//            dialog2.dismiss();
-
+            else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -581,6 +550,10 @@ public class refCertificateFragment extends Fragment implements
         if (callBackFileDetails != null)
             if (callBackFileDetails.getStatus() == AsyncTask.Status.RUNNING)
                 callBackFileDetails.cancel(true);
+
+        if (callBackFile != null)
+            if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFile.cancel(true);
     }
 
 }

@@ -536,40 +536,6 @@ public class certificateFragment extends Fragment implements
         }
     }
 
-    private class CallBackFileDelete extends AsyncTask<Object, Void, Void> {
-
-        private WebService webService;
-        String deleteResult;
-        String lastUpdate;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            webService = new WebService();
-
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            int j = 0;
-            if (resultAdd != null)
-                if (Integer.parseInt(resultAdd) > 0)
-                    j = 1;
-//                    deleteResult = webService.deleteImgDetails(App.isInternetOn(), Integer.parseInt(resultAdd));
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-//            dialog2.dismiss();
-
-        }
-    }
-
     @Override
     public void onStop() {
         super.onStop();

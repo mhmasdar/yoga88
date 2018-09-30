@@ -35,6 +35,8 @@ public class CoachTeachsActivity extends AppCompatActivity {
 
     WebServiceList webService;
     Button btnTryAgain;
+    private String teachsCount;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -43,6 +45,12 @@ public class CoachTeachsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coach_teachs);
         initView();
         prefs = getSharedPreferences("User", 0);
+        editor = prefs.edit();
+
+        teachsCount = getIntent().getStringExtra("teachsCount");
+        editor.putString("teachsCount", teachsCount);
+        editor.apply();
+
         stateNumber = prefs.getInt("idState", 0);
         cityNumber = prefs.getInt("idCity", 0);
         fieldNumber = prefs.getInt("idField", 0);

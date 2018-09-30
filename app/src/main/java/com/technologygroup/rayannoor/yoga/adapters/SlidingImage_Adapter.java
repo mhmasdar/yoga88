@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,13 @@ public class SlidingImage_Adapter extends PagerAdapter {
     private LayoutInflater inflater;
     private Context context;
     private List<Integer> images = new ArrayList<>();
+    private String thirdImage;
 
 
-    public SlidingImage_Adapter(Context context) {
+    public SlidingImage_Adapter(Context context, String thirdImage) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+        this.thirdImage = thirdImage;
 
     }
 
@@ -57,8 +60,13 @@ public class SlidingImage_Adapter extends PagerAdapter {
             Glide.with(context).load(R.drawable.home2).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
 
         else if (position == 2)
-            Glide.with(context).load(R.drawable.home3).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+        {
+            if (thirdImage.equals(""))
+                Glide.with(context).load(R.drawable.home3).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+            else
+                Glide.with(context).load(App.imgAddr + thirdImage).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
 
+        }
 
         view.addView(imageLayout, 0);
 

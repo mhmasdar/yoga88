@@ -18,8 +18,18 @@
         android:layout_weight="0.4"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:src="@drawable/logo"
+            android:layout_height="100dp" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:src="@drawable/varzeshkar_text"
+            android:layout_height="40dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -82,37 +92,6 @@
             android:textCursorDrawable="@drawable/cursor_color"
             android:textSize="14sp"
             android:inputType="textEmailAddress"/>
-
-        <!--<EditText-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:id="@+id/edtUserName"-->
-        <!--android:textCursorDrawable="@drawable/cursor_color"-->
-        <!--android:hint="نام کاربری"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:textColorHint="@color/lightBlack"-->
-        <!--android:textColor="@color/lightBlack"-->
-        <!--android:background="@drawable/edit_text_transparent"-->
-        <!--android:padding="10dp"-->
-        <!--android:singleLine="true"-->
-        <!--android:textSize="14sp"-->
-        <!--android:gravity="right|center_vertical"-->
-        <!--android:layout_height="wrap_content" />-->
-
-        <EditText
-            android:layout_width="match_parent"
-            android:id="@+id/edtUserPass"
-            android:textCursorDrawable="@drawable/cursor_color"
-            android:hint="کلمه عبور"
-            android:layout_marginTop="10dp"
-            android:textColorHint="@color/lightBlack"
-            android:textColor="@color/lightBlack"
-            android:background="@drawable/edit_text_transparent"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="14sp"
-            android:gravity="right|center_vertical"
-            android:layout_height="wrap_content"
-            android:inputType="numberPassword"/>
 
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/btnRegister"

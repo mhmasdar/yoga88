@@ -45,8 +45,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
     private LinearLayout lytEducation;
     private ImageView imgLockCourse;
     private LinearLayout lytCourse;
-    private ImageView imgLockComments;
-    private LinearLayout lytComments;
     private RelativeLayout lytRefereeProfileUpgrade;
     CoachModel coachModel;
     int idsend;
@@ -58,6 +56,15 @@ public class RefereeProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_referee_profile);
         initView();
         getInfo();
+
+
+        lytRefereeProfileUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "این بخش به زودی فعال خواهد شد..." , Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     private void initView() {
@@ -79,8 +86,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
         lytEducation = (LinearLayout) findViewById(R.id.lytEducation);
         imgLockCourse = (ImageView) findViewById(R.id.imgLockCourse);
         lytCourse = (LinearLayout) findViewById(R.id.lytCourse);
-        imgLockComments = (ImageView) findViewById(R.id.imgLockComments);
-        lytComments = (LinearLayout) findViewById(R.id.lytComments);
         lytRefereeProfileUpgrade = (RelativeLayout) findViewById(R.id.lytRefereeProfileUpgrade);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,11 +136,6 @@ public class RefereeProfileActivity extends AppCompatActivity {
             imgLockBio.setVisibility(View.GONE);
             lytCourse.setAlpha(1);
             imgLockCourse.setVisibility(View.GONE);
-            lytComments.setAlpha(1);
-
-            imgLockComments.setVisibility(View.GONE);
-         //   floatAction.show();
-           // btnLike.setEnabled(true);
         }
 
 

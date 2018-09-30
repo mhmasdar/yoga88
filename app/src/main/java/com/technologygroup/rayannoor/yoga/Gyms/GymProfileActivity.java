@@ -68,7 +68,6 @@ public class GymProfileActivity extends AppCompatActivity {
     private LinearLayout lytWorkTime;
     private ImageView imgLockNotifs;
     private LinearLayout lytNotifs;
-    private FloatingActionButton floatAction;
     private ImageView imgNavigate;
     private TextView txtAddress;
     private TextView txtGymName;
@@ -119,7 +118,6 @@ public class GymProfileActivity extends AppCompatActivity {
         WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
 
-        floatAction.hide();
         getWorkTime();
         prefs = getSharedPreferences("User", 0);
         idUser = prefs.getInt("idUser", -1);
@@ -131,15 +129,8 @@ public class GymProfileActivity extends AppCompatActivity {
         Rated=likes.getFloat(reqtopreferRate,0);
         //set image dark
         gymImage.setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY);
-        floatAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(GymProfileActivity.this, CommentsActivity.class);
-                intent.putExtra("IdCoachOrGym",idsend);
-                intent.putExtra("IsGym", calledFromPanel);
-                startActivity(intent);
-            }
-        });
+
+
         btnLike.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
@@ -259,7 +250,6 @@ public class GymProfileActivity extends AppCompatActivity {
         lytWorkTime = (LinearLayout) findViewById(R.id.lytWorkTime);
         imgLockNotifs = (ImageView) findViewById(R.id.imgLockNotifs);
         lytNotifs = (LinearLayout) findViewById(R.id.lytNotifs);
-        floatAction = (FloatingActionButton) findViewById(R.id.floatAction);
         imgNavigate = (ImageView) findViewById(R.id.imgNavigate);
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtGymName = (TextView) findViewById(R.id.txtGymName);
@@ -339,7 +329,6 @@ public class GymProfileActivity extends AppCompatActivity {
             imgLockAbout.setVisibility(View.GONE);
             lytClip.setAlpha(1);
             imgLockClip.setVisibility(View.GONE);
-            floatAction.show();
             btnLike.setEnabled(true);
 //            lytCoachRating.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -437,8 +426,8 @@ public class GymProfileActivity extends AppCompatActivity {
             rotation.setDuration(3000);
             rotation.setRepeatCount(Animation.INFINITE);
             rotation.start();
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
         }
 

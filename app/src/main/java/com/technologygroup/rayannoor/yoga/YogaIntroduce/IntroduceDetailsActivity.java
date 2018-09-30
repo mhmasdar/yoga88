@@ -1,9 +1,13 @@
 package com.technologygroup.rayannoor.yoga.YogaIntroduce;
 
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -40,6 +45,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
     private List<Integer> IDList;
     private List<TeachTextImage> list;
     int position;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +153,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
         });
 
     }
+
     public void settexts()
     {
         for(int i=0;i<list.size();i++)
@@ -160,6 +167,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
         }
         txtTitle.setText(list.get(0).Title);
     }
+
     private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -168,7 +176,18 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-
+            dialog = new Dialog(IntroduceDetailsActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
         }
 
         @Override
@@ -181,6 +200,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            dialog.dismiss();
             settexts();
 
         }

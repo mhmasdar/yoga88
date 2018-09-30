@@ -457,15 +457,4 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_comment"
-        app:backgroundTint="@color/colorAccent"
-        android:id="@+id/floatAction"
-        android:layout_height="wrap_content" />
-
-
 </RelativeLayout>

@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edtMobile;
     private EditText edtEmail;
     private EditText edtUserName;
-    private EditText edtUserPass;
     private CircularProgressButton btnRegister;
     private TextView txtLogin;
 
@@ -74,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtFName.getText().toString().equals("") || !edtLName.getText().toString().equals("") || !edtMobile.getText().toString().equals("") || !edtEmail.getText().toString().equals("") || !edtUserPass.getText().toString().equals("")) {
+                if (!edtFName.getText().toString().equals("") || !edtLName.getText().toString().equals("") || !edtMobile.getText().toString().equals("") || !edtEmail.getText().toString().equals("")) {
 
                     if (edtMobile.getText().toString().length() == 11 && edtMobile.getText().toString().startsWith("0")) {
 
@@ -107,7 +106,6 @@ public class RegisterActivity extends AppCompatActivity {
         edtMobile = (EditText) findViewById(R.id.edtMobile);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         //edtUserName = (EditText) findViewById(R.id.edtUserName);
-        edtUserPass = (EditText) findViewById(R.id.edtUserPass);
         btnRegister = (CircularProgressButton) findViewById(R.id.btnRegister);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
     }
@@ -129,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             userModel.lName = edtLName.getText().toString();
             userModel.Mobile = edtMobile.getText().toString().substring(1);
             userModel.Email = edtEmail.getText().toString();
-            userModel.Password = edtUserPass.getText().toString();
+            userModel.Password = "1";
 
 
         }
