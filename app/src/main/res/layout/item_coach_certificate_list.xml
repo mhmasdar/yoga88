@@ -81,6 +81,7 @@
                android:textColor="@color/lightBlack"
                android:id="@+id/txtCertificateDate"
                android:text="اردیبهشت 96"
+               android:visibility="gone"
                android:layout_height="wrap_content" />
 
        </LinearLayout>
