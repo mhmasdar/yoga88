@@ -51,7 +51,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
 
-        holder.txtGymName.setText(models.get(position).fname + " "+models.get(position).lName );
+        holder.txtGymName.setText(models.get(position).Name);
         holder.txtGymAddress.setText(models.get(position).Address);
 
         if (models.get(position).ImgName != null)

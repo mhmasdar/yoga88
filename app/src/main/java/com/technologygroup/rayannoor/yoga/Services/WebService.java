@@ -1,6 +1,5 @@
 package com.technologygroup.rayannoor.yoga.Services;
 
-import android.media.Image;
 import android.util.Log;
 
 import com.bumptech.glide.gifdecoder.GifHeaderParser;
@@ -546,7 +545,8 @@ public class WebService {
 //            String response = connectToServerByJson(App.apiAddr + "Resume/add", "POST", req);
             String mytitle;
             mytitle=model.Title.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "WorkResume/Add?urid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
+            Log.i("LOG", App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate);
+            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -573,6 +573,18 @@ public class WebService {
         if (isInternetAvailable) {
 
             String response = connectToServer(App.apiAddr + "Evidence/Delete?eid="+id, "GET");
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
+    public String deletegymnotif(boolean isInternetAvailable, int id) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("post",id);
+        if (isInternetAvailable) {
+
+            String response = connectToServerByJson(App.apiAddr + "Post/DeleteElanat" , "POST",jsonObject.toString());
             Log.i("LOG", response + "");
 
             return response;
@@ -1330,7 +1342,7 @@ public class WebService {
     public CoachModel getCoachDetail(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
-
+            Log.i("LOG", App.apiAddr+"user/getuserrolebyid/"+id);
             String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id , "GET");
 
             Log.i("LOG", response + "");
@@ -1387,7 +1399,7 @@ public class WebService {
     public CoachModel getReffreDetail(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
-
+            Log.i("LOG", App.apiAddr+"user/getuserrolebyid/"+id);
             String response = connectToServer(App.apiAddr+"user/getuserrolebyid/"+id , "GET");
 
             Log.i("LOG", response + "");
@@ -1516,6 +1528,7 @@ public class WebService {
                     model.fname = Object.getString("FirstName");
                     model.Instagram = Object.getString("Instagram");
                     model.lName = Object.getString("LastName");
+
                     model.Telegram = Object.getString("Telegram");
                     model.Address = Object.getString("Address");
 
@@ -1809,6 +1822,7 @@ public class WebService {
                         model.id = Object.getInt("ID");
                         model.fname = Object.getString("FirstName");
                         model.lName = Object.getString("LastName");
+                        model.Name=Object.getString("Name");
 //                        model.RegisteredDate = Object.getString("RegisteredDate");
 //                        model.Instagram = Object.getString("Instagram");
                         model.IsVerified = Object.getBoolean("IsVerified");
