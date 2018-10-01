@@ -44,6 +44,9 @@ import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.RefereeCertificateAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -430,7 +433,7 @@ public class refCertificateFragment extends Fragment implements
         @Override
         protected Void doInBackground(Object... params) {
 
-            resultAdd = webService.AddCoachHonor(App.isInternetOn(), model);
+            resultAdd = webService.AddCoachHonor(App.isInternetOn(), model,idCoach);
 
             return null;
         }
@@ -438,13 +441,23 @@ public class refCertificateFragment extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-
-            if (resultAdd != null)
+            JSONObject jsonObject=null;
+            int idm = 0;
+            try {
+                jsonObject=new JSONObject(resultAdd);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                idm=jsonObject.getInt("ID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (idm != 0)
             {
-                if (Integer.parseInt(resultAdd) > 0)
+                if (idm > 0)
                 {
-                    model.id = Integer.parseInt(resultAdd);
+                    model.id = idm;
 
                     callBackFile = new CallBackFile(model);
                     callBackFile.execute();
@@ -452,7 +465,7 @@ public class refCertificateFragment extends Fragment implements
 
                 }
 
-                else if (Integer.parseInt(resultAdd) == 0)
+                else if (idm == 0)
                 {
 
                     btnOk.revertAnimation();

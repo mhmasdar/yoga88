@@ -193,7 +193,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (coachModel.IsVerified) {
                     Intent intent = new Intent(RefereeProfileActivity.this, RefereeServicesActivity.class);
-                    intent.putExtra("calledFromPanel", false);
+                    intent.putExtra("calledFromPanel", true);
                     intent.putExtra("SelectedTabIndex", 2);
                     intent.putExtra("idCoach", idsend);
                     intent.putExtra("idBio", coachModel.Bio);

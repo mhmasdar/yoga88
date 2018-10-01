@@ -1060,12 +1060,13 @@ public class WebService {
             return "ok";
     }
 
-    public String AddCoachHonor(boolean isInternetAvailable, CoachHonorModel model) {
+    public String AddCoachHonor(boolean isInternetAvailable, CoachHonorModel model,int id) {
 
         if (isInternetAvailable) {
 
-            String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + -1 + ",\"idRow\":" + model.idRow + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\""  + "\"}";
-            String response = connectToServerByJson(App.apiAddr + "honor/add", "POST", req);
+            String test;
+            test=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Evidence/Add?urid="+id+"&title="+test+"&type=evidence ", "GET");
             Log.i("LOG", response + "");
 
             return response;

@@ -429,7 +429,7 @@ public class certificateFragment extends Fragment implements
         @Override
         protected Void doInBackground(Object... params) {
 
-            resultAdd = webService.AddCoachHonor(App.isInternetOn(), model);
+            resultAdd = webService.AddCoachHonor(App.isInternetOn(), model,idCoach);
 
             return null;
         }
@@ -460,8 +460,6 @@ public class certificateFragment extends Fragment implements
                             dialog.dismiss();
                         }
                     }, 1000);
-
-
                     list.add(model);
                     setUpRecyclerView(list);
 
