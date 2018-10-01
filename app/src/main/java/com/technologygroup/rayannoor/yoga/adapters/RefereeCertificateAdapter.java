@@ -32,11 +32,11 @@ import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.referees.RefereeServicesActivity;
 
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class RefereeCertificateAdapter extends RecyclerView.Adapter<RefereeCerti
     private static final int PICK_FILE_REQUEST = 3;
     private static String selectedImgName = "", selectedFilePath;
     private static int idCoach;
-    CoachServicesActivity activity;
+    RefereeServicesActivity activity;
     private boolean flagImgChanged = false;
     private boolean calledFromPanel = false;
 
@@ -84,7 +84,7 @@ public class RefereeCertificateAdapter extends RecyclerView.Adapter<RefereeCerti
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-//        activity = (CoachServicesActivity) context;
+        activity = (RefereeServicesActivity) context;
     }
 
     public RefereeCertificateAdapter(Context context){
