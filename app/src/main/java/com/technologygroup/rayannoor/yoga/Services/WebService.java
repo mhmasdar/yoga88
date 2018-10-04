@@ -1922,6 +1922,24 @@ public class WebService {
         } else
             return null;
     }
+    public String getBio(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "user/getbio?urid="+id, "GET");
+            return response;
+        } else
+            return null;
+    }
+    public String getworktime(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "user/GetgymTime?urid="+id, "GET");
+            return response;
+        } else
+            return null;
+    }
     public List<ZanguleModel> getZangule(boolean isInternetAvailable,int id) {
 
         if (isInternetAvailable) {

@@ -46,10 +46,8 @@ public class aboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gym_about, container, false);
         txtAbout = (TextView) view.findViewById(R.id.txtAbout);
-        String about = getArguments().getString("about", "");
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idGym = getArguments().getInt("idGym", -1);
-        txtAbout.setText(about);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
 
         floactAction.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +60,8 @@ public class aboutFragment extends Fragment {
         {
             floactAction.setVisibility(View.GONE);
         }
+        WebgetBio webgetBio=new WebgetBio();
+        webgetBio.execute();
         return view;
     }
 
@@ -120,6 +120,35 @@ public class aboutFragment extends Fragment {
             }
 
 
+        }
+
+    }
+    private class WebgetBio extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+
+
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.getBio(App.isInternetOn(), idGym);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            txtAbout.setText(result);
         }
 
     }

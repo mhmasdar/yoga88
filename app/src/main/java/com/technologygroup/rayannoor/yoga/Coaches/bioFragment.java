@@ -47,13 +47,8 @@ public class bioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bio, container, false);
          calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         txtBio = (TextView) view.findViewById(R.id.txtBio);
-        Bio = getArguments().getString("Bio", "");
         idCoach = getArguments().getInt("idCoach", -1);
-        txtBio.setText(Bio);
-
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
-
-
         floactAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +59,8 @@ public class bioFragment extends Fragment {
         {
          floactAction.setVisibility(View.GONE);
         }
+        WebgetBio webgetBio=new WebgetBio();
+        webgetBio.execute();
         return view;
     }
 
@@ -126,6 +123,35 @@ public class bioFragment extends Fragment {
             }
 
 
+        }
+
+    }
+    private class WebgetBio extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+
+
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.getBio(App.isInternetOn(), idCoach);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            txtBio.setText(result);
         }
 
     }

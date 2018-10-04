@@ -47,14 +47,13 @@ public class refBioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ref_bio, container, false);
         txtBio = (TextView) view.findViewById(R.id.txtBio);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
-        Bio = getArguments().getString("Bio", "");
         idCoach = getArguments().getInt("idCoach", -1);
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         txtBio.setText(Bio);
-//        if(!calledFromPanel)
-//        {
-//            floactAction.hide();
-//        }
+        if(!calledFromPanel)
+        {
+            floactAction.hide();
+        }
         floactAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +91,8 @@ public class refBioFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+        WebgetBio webgetBio=new WebgetBio();
+        webgetBio.execute();
     }
     private class WebServiceBio extends AsyncTask<Object, Void, Void> {
 
@@ -124,6 +125,35 @@ public class refBioFragment extends Fragment {
             }
 
 
+        }
+
+    }
+    private class WebgetBio extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+
+
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.getBio(App.isInternetOn(), idCoach);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            txtBio.setText(result);
         }
 
     }
