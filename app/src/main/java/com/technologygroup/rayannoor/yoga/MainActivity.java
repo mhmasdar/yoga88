@@ -276,17 +276,35 @@ public class MainActivity extends AppCompatActivity {
 
                     if (Role.equals("Gym") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
-                        intent.putExtra("idgym", idUser);
+                        int id= 0;
+                        try {
+                            id = usertypes.getJSONObject(0).getInt("ID");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        intent.putExtra("idgym", id);
                         intent.putExtra("calledFromPanel", true);
                         startActivity(intent);
                     } else if (Role.equals("Coach") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
-                        intent.putExtra("idUser", idUser);
+                        int id= 0;
+                        try {
+                            id = usertypes.getJSONObject(0).getInt("ID");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        intent.putExtra("idUser", id);
                         intent.putExtra("calledFromPanel", true);
                         startActivity(intent);
                     } else if (Role.equals("Referee") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
-                        intent.putExtra("idReffre", idUser);
+                        int id= 0;
+                        try {
+                            id = usertypes.getJSONObject(0).getInt("ID");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        intent.putExtra("idReffre", id);
                         intent.putExtra("calledFromPanel", true);
                         startActivity(intent);
                     } else if (Role.equals("User") && idUser > 0) {

@@ -23,9 +23,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.Classes.ClassLevels;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachPlanActivity;
-import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -338,8 +335,13 @@ public class GymDetailsActivity extends AppCompatActivity {
                     if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
                         Glide.with(GymDetailsActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
                 txtGymName.setText(gymModel.Name);
-                ClassLevels classLevels = new ClassLevels();
-                txtCoachLevel.setText(classLevels.getCoachLevelName(gymModel.idCurrentPlan));
+                if(gymModel.IsVerified) {
+                    txtCoachLevel.setText("فعال");
+                }
+                else
+                {
+                    txtCoachLevel.setText("غیر فعال");
+                }
                 String strRate = String.valueOf(gymModel.Rate);
                 if (strRate.length() > 3)
                     strRate = strRate.substring(0, 3);

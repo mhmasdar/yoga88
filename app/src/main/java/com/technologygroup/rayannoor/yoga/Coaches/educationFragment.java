@@ -432,7 +432,7 @@ public class educationFragment extends Fragment implements
         @Override
         protected Void doInBackground(Object... params) {
 
-            resultAdd = webService.AddCoachEdu(App.isInternetOn(), model);
+            resultAdd = webService.AddCoachEdu(App.isInternetOn(), idCoach,model);
 
             return null;
         }

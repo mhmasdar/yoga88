@@ -6,8 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
@@ -44,7 +48,14 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
         holder.txtNotifBody.setText(list.get(position).Body);
         holder.txtNotifDate.setText(list.get(position).Date);
         holder.txtNotifSender.setText(list.get(position).user.Name+" "+list.get(position).user.lName);
-
+        if (list.get(position).image != null) {
+            if (!list.get(position).image.equals("") && !list.get(position).image.equals("null"))
+                Glide.with(context).load(App.imgAddr + list.get(position).image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.karyab_image);
+            else
+                Glide.with(context).load(R.drawable.test_notif).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.karyab_image);
+        }
+        else
+            Glide.with(context).load(R.drawable.test_notif).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.karyab_image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +102,7 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
         private TextView txtNotifDate;
         private TextView txtNotifSender;
         private TextView txtGymDetails;
+        private ImageView karyab_image;
 
         myViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +112,8 @@ public class KaryabAdapter extends RecyclerView.Adapter<KaryabAdapter.myViewHold
             txtNotifDate = (TextView) itemView.findViewById(R.id.txtNotifDate);
             txtNotifSender = (TextView) itemView.findViewById(R.id.txtNotifSender);
             txtGymDetails = (TextView) itemView.findViewById(R.id.txtGymDetails);
+            karyab_image = (ImageView) itemView.findViewById(R.id.karyab_image);
+
         }
     }
 }

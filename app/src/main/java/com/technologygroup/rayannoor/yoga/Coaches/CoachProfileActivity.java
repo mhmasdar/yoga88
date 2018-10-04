@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
@@ -82,18 +81,6 @@ public class CoachProfileActivity extends AppCompatActivity {
             finish();
         }
 
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-    }
-    private void others()
-    {
         imgEditCoachDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +100,18 @@ public class CoachProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+    }
+    private void others()
+    {
+
 
         lytCoachProfileUpgrade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,6 +369,7 @@ public class CoachProfileActivity extends AppCompatActivity {
                     imgLockCourse.setVisibility(View.GONE);
                     lytJob.setAlpha(1);
                     imgLockJob.setVisibility(View.GONE);
+
                     others();
                 }
 

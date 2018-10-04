@@ -37,6 +37,8 @@ public class notifFragment extends Fragment {
     private LinearLayout lytEmpty;
     boolean calledFromPanel;
     private List<ZanguleModel> list;
+    private int idGym;
+
     public notifFragment() {
         // Required empty public constructor
     }
@@ -53,6 +55,7 @@ public class notifFragment extends Fragment {
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         Recycler = (ShimmerRecyclerView) view.findViewById(R.id.Recycler);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
+        idGym = getArguments().getInt("idGym", -1);
         list=new ArrayList<>();
         floactAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +96,7 @@ public class notifFragment extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getZangule(App.isInternetOn(),1);
+            list = webService.getZanguleGym(App.isInternetOn(),idGym);
 
             return null;
         }

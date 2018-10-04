@@ -1046,16 +1046,14 @@ public class WebService {
     }
 
 
-    public String AddCoachEdu(boolean isInternetAvailable, CoachEduModel model) {
+    public String AddCoachEdu(boolean isInternetAvailable,int id ,CoachEduModel model) {
 
         if (isInternetAvailable) {
 
-            //     String req = "{\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
-            //     String response = connectToServerByJson(App.apiAddr + "EducationalRecord/add", "POST", req);
-            //   Log.i("LOG", response + "");
-
-            // return response;
-            return "";
+            String test;
+            test=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Evidence/Add?urid="+id+"&title="+test+"&type=educational", "GET");
+            return response;
         } else
             return "ok";
     }
@@ -1944,7 +1942,42 @@ public class WebService {
                         model.title=Object.getString("Title");
                         model.Date=Object.getString("PublishedDate");
                         model.Body=Object.getString("Body");
-                        model.image=Object.getString("Image");
+                        model.image=Object.getJSONObject("Image").getString("Name");
+                        list.add(model);
+
+                    }
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+        } else
+            return null;
+    }
+    public List<ZanguleModel> getZanguleGym(boolean isInternetAvailable,int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "Post/GetbyGymId/"+id, "GET");
+            Log.i("LOG", response + "");
+            if (response != null) {
+
+                List<ZanguleModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Arrey = new JSONArray(response);
+                    for (int i = 0; i < Arrey.length(); i++) {
+                        JSONObject Object = Arrey.getJSONObject(i);
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.Body=Object.getString("Body");
+                        model.image=Object.getJSONObject("Image").getString("Name");
                         list.add(model);
 
                     }
@@ -1979,7 +2012,7 @@ public class WebService {
                         model.title=Object.getString("Title");
                         model.Date=Object.getString("PublishedDate");
                         model.Body=Object.getString("Body");
-                        model.image=Object.getString("Image");
+                        model.image=Object.getJSONObject("Image").getString("Name");
                         model.getJsonUser(Object.getJSONObject("User"));
                         list.add(model);
 
@@ -2009,7 +2042,7 @@ public class WebService {
                         model.title=Object.getString("Title");
                         model.Date=Object.getString("PublishedDate");
                         model.Body=Object.getString("Body");
-                        model.image=Object.getString("Image");
+                        model.image=Object.getJSONObject("Image").getString("Name");
                         model.getJsonUser(Object.getJSONObject("User"));
                     return model;
                 } catch (JSONException e) {
@@ -2022,41 +2055,7 @@ public class WebService {
         } else
             return null;
     }
-    public List<ZanguleModel> getZanguleGym(boolean isInternetAvailable,int id) {
 
-        if (isInternetAvailable) {
-
-            String response = connectToServer(App.apiAddr + "api/Post/GetByGymID/"+id, "GET");
-            Log.i("LOG", response + "");
-            if (response != null) {
-
-                List<ZanguleModel> list = new ArrayList<>();
-
-                try {
-
-                    JSONArray Arrey = new JSONArray(response);
-                    for (int i = 0; i < Arrey.length(); i++) {
-                        JSONObject Object = Arrey.getJSONObject(i);
-                        ZanguleModel model = new ZanguleModel();
-                        model.id=Object.getInt("ID");
-                        model.title=Object.getString("Title");
-                        model.Date=Object.getString("PublishedDate");
-                        model.Body=Object.getString("Body");
-                        model.image=Object.getString("Image");
-                        list.add(model);
-
-                    }
-                    return list;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            return null;
-
-        } else
-            return null;
-    }
 
     public List<ChartModel> getChart(boolean isInternetAvailable, int id, boolean isCommittee) {
 

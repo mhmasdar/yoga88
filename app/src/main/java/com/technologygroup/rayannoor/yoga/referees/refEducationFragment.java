@@ -44,6 +44,9 @@ import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.RefereeEducationAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +81,7 @@ public class refEducationFragment extends Fragment implements
     TextView txtNoImage;
     ImageView imgCertificate, imgSelectPicture, imgClose;
     CircularProgressButton btnOk;
+    CallBackFile callBackFile;
 
 
     //relates to date and time picker
@@ -423,63 +427,55 @@ public class refEducationFragment extends Fragment implements
             model = new CoachEduModel();
             model.id = -1;
             model.idCoach = idCoach;
-//            model.Name = edtTitle.getText().toString();
-//            model.gettingPlace = edtUniversity.getText().toString();
+            model.Title = edtTitle.getText().toString();
             model.Date = edtDate.getText().toString();
-//            model.Img = selectedImgName;
+
         }
 
         @Override
         protected Void doInBackground(Object... params) {
 
-            resultAdd = webService.AddCoachEdu(App.isInternetOn(), model);
-
+            resultAdd = webService.AddCoachEdu(App.isInternetOn(),idCoach,model);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            JSONObject jsonObject=null;
+            int idm = 0;
+            try {
+                jsonObject=new JSONObject(resultAdd);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                idm=jsonObject.getInt("ID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (idm != 0)
+            {
+                if (idm > 0)
+                {
+                    model.id = idm;
 
-
-            if (resultAdd != null) {
-
-                if (Integer.parseInt(resultAdd) > 0) {
-                    CallBackFile callBackFile = new CallBackFile();
+                    callBackFile = new CallBackFile(model);
                     callBackFile.execute();
 
-                    model.id = Integer.parseInt(resultAdd);
 
-                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_ok);
-                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+                }
 
-                    // بستن دیالوگ حتما با تاخیر انجام شود
-                    Handler handler1 = new Handler();
-                    handler1.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                        }
-                    }, 1000);
-
-
-                    list.add(model);
-                    setUpRecyclerView(list);
-
-                } else if (Integer.parseInt(resultAdd) == 0) {
+                else if (idm == 0)
+                {
 
                     btnOk.revertAnimation();
                     Toast.makeText(getContext(), "ارسال اطلاعات ناموفق است", Toast.LENGTH_LONG).show();
 
-                } else {
-
-                    btnOk.revertAnimation();
-                    Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
                 }
-            } else {
+            }
+
+            else {
 
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
@@ -488,23 +484,24 @@ public class refEducationFragment extends Fragment implements
         }
     }
 
+
+
     private class CallBackFile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
         int fileResult;
         String lastUpdate;
+        CoachEduModel model;
+
+        CallBackFile(CoachEduModel model)
+        {
+            this.model = model;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-
-//            dialog2 = new Dialog(getContext());
-//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            //      dialog2.setContentView(R.layout.dialog_waiting);
-//            dialog2.setCancelable(true);
-//            dialog2.setCanceledOnTouchOutside(true);
-//            dialog2.show();
 
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
@@ -514,6 +511,7 @@ public class refEducationFragment extends Fragment implements
         protected Void doInBackground(Object... params) {
 
             fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePath, selectedImgName);
+
             return null;
         }
 
@@ -522,18 +520,37 @@ public class refEducationFragment extends Fragment implements
             super.onPostExecute(aVoid);
 
 
-            if (fileResult == 200) {
-//                dialog2.dismiss();
+            if (fileResult == 200) //file uploaded successfully
+            {
+
+                // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_ok);
+                btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                // بستن دیالوگ حتما با تاخیر انجام شود
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+
+                    }
+                }, 1000);
+
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
-            } else if (fileResult == 0) {
-                Toast.makeText(getContext(), "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
-            } else {
-                Toast.makeText(getContext(), "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
+                list.add(model);
+                setUpRecyclerView(list);
+
+
+            }
+
+            else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
     }
