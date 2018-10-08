@@ -70,23 +70,9 @@ public class coachsFragment extends Fragment {
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         Recycler = (ShimmerRecyclerView) view.findViewById(R.id.Recycler);
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
-
-
-
-//        setUpRecyclerView();
-
         if (!calledFromPanel) {
             floactAction.setVisibility(View.GONE);
         }
-
-        if (idGym > 0) {
-
-            webServiceCoachInfo = new WebServiceList();
-            webServiceCoachInfo.execute();
-        } else {
-            Toast.makeText(getContext(), "باشگاه مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
-        }
-
         floactAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +104,6 @@ public class coachsFragment extends Fragment {
     private void setUpRecyclerView(List<GymCoachesModel> list) {
         adapter = new GymCoachesAdapter(getActivity(), list, idGym, calledFromPanel);
         Recycler.setAdapter(adapter);
-
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         Recycler.setLayoutManager(mLinearLayoutManagerVertical);
@@ -187,4 +172,15 @@ public class coachsFragment extends Fragment {
                 webServiceCoachInfo.cancel(true);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (idGym > 0) {
+
+            webServiceCoachInfo = new WebServiceList();
+            webServiceCoachInfo.execute();
+        } else {
+            Toast.makeText(getContext(), "باشگاه مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
+        }
+    }
 }
