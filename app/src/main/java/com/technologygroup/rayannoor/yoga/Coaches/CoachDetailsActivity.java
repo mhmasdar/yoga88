@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -30,7 +29,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.LoginActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -811,11 +809,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallLike.cancel(true);
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getInfo();
-    }
+
 
 }
 

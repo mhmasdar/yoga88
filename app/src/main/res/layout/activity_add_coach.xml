@@ -60,6 +60,7 @@
                                     android:paddingLeft="15dp"
                                     android:paddingRight="15dp"
                                     android:background="@drawable/search_text_back"
+                                    android:onClick="filter"
                                     android:layout_height="match_parent">
 
                                     <TextView

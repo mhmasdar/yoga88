@@ -3,6 +3,7 @@ package com.technologygroup.rayannoor.yoga.Gyms;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,7 +44,10 @@ public class coachsFragment extends Fragment {
     List<GymCoachesModel> list;
     GymCoachesAdapter adapter;
     WebServiceList webServiceCoachInfo;
-
+    private int stateNumber;
+    private int cityNumber;
+    private int fieldNumber;
+    private SharedPreferences prefs;
     public coachsFragment() {
         // Required empty public constructor
     }
@@ -57,8 +61,10 @@ public class coachsFragment extends Fragment {
 
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idGym = getArguments().getInt("idGym", -1);
-
-
+        prefs = App.context.getSharedPreferences("User", 0);
+        stateNumber = prefs.getInt("idState", 0);
+        cityNumber = prefs.getInt("idCity", 0);
+        fieldNumber = prefs.getInt("idField", 0);
         lytMain = (LinearLayout) view.findViewById(R.id.lytMain);
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
@@ -85,6 +91,7 @@ public class coachsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity() , AddCoachActivity.class);
+                intent.putExtra("idGym",idGym);
                 startActivity(intent);
             }
         });
@@ -133,7 +140,6 @@ public class coachsFragment extends Fragment {
         protected Void doInBackground(Object... params) {
 
             list = webService.getGymCoaches(App.isInternetOn(), idGym);
-
             return null;
         }
 

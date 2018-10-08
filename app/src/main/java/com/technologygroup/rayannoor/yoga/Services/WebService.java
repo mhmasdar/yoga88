@@ -1922,6 +1922,30 @@ public class WebService {
         } else
             return null;
     }
+    public String addgymcoach(boolean isInternetAvailable, int idgym,int idcoach) {
+
+        String result="";
+
+        if (isInternetAvailable) {
+
+
+            String response = connectToServer(App.apiAddr + "user/AddGymCoach?gid="+ idgym +"&cid="+idcoach, "GET");
+            return result;
+        } else
+            return null;
+    }
+    public String deletegymcoach(boolean isInternetAvailable, int idgym,int idcoach) {
+
+        String result="";
+
+        if (isInternetAvailable) {
+
+
+            String response = connectToServer(App.apiAddr + "user/DeleteGymCoach?gid="+ idgym +"&cid="+idcoach, "GET");
+            return result;
+        } else
+            return null;
+    }
     public String getBio(boolean isInternetAvailable,int id) {
 
         if (isInternetAvailable) {
