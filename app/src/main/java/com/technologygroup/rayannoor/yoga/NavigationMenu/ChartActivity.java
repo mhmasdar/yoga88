@@ -112,7 +112,7 @@ public class ChartActivity extends AppCompatActivity {
 
             if (result != null) // server responding
             {
-                if (result.equals("")) {
+                if (result.size() == 0) {
                     lytDisconnect.setVisibility(View.GONE);
                     lytEmpty.setVisibility(View.VISIBLE);
                     lytMain.setVisibility(View.GONE);

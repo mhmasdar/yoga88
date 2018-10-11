@@ -23,9 +23,9 @@ public class notificationActivity extends AppCompatActivity {
     private Typeface typeface;
     private String userType;
 
-    private SharedPreferences prefs;
+    private SharedPreferences CountPrefs;
     private SharedPreferences.Editor editor;
-    private String notifsCount;
+    private String totalNotifsCount, newNotifsCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,17 @@ public class notificationActivity extends AppCompatActivity {
         initView();
         typeface = Typeface.createFromAsset(getAssets(), "font.ttf");
 
-        prefs = getSharedPreferences("User", 0);
-        editor = prefs.edit();
+        CountPrefs = getSharedPreferences("Counts", 0);
+        editor = CountPrefs.edit();
 
-        notifsCount = getIntent().getStringExtra("notifsCount");
-        editor.putString("notifsCount", notifsCount);
-        editor.apply();
+        totalNotifsCount = getIntent().getStringExtra("totalNotifsCount");
+        newNotifsCount = getIntent().getStringExtra("newNotifsCount");
+        if (!totalNotifsCount.equals("0"))
+        {
+            editor.putString("notifsCount", totalNotifsCount);
+            editor.apply();
+        }
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +58,8 @@ public class notificationActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("اخبار"));
 
-        if (Integer.valueOf(notifsCount) > 0)
-            tabLayout.addTab(tabLayout.newTab().setText("اعلانات (" + notifsCount + ")"));
+        if (Integer.valueOf(newNotifsCount) > 0)
+            tabLayout.addTab(tabLayout.newTab().setText("اعلانات (" + newNotifsCount + ")"));
         else
             tabLayout.addTab(tabLayout.newTab().setText("اعلانات "));
 

@@ -44,7 +44,7 @@ public class CoachTeachsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach_teachs);
         initView();
-        prefs = getSharedPreferences("User", 0);
+        prefs = getSharedPreferences("Counts", 0);
         editor = prefs.edit();
 
         teachsCount = getIntent().getStringExtra("teachsCount");

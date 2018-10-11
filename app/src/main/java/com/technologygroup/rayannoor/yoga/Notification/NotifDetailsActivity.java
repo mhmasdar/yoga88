@@ -21,6 +21,7 @@ import com.technologygroup.rayannoor.yoga.Gyms.GymProfileActivity;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 import com.technologygroup.rayannoor.yoga.referees.RefereeDetailsActivity;
 
 public class NotifDetailsActivity extends AppCompatActivity {
@@ -56,6 +57,17 @@ public class NotifDetailsActivity extends AppCompatActivity {
         webServiceCallgetDetail.execute();
 
 
+
+        imgNotifDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotifDetailsActivity.this, imageActivity.class);
+                intent.putExtra("ImgName", zanguleModel.image);
+                startActivity(intent);
+
+            }
+        });
+
         imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +78,8 @@ public class NotifDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void initView() {

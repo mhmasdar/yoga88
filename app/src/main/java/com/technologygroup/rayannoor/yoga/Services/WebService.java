@@ -2247,4 +2247,24 @@ public class WebService {
         }
         return null;
     }
+
+    public String sendFileDetails(boolean isInternetAvailable , String name, int imgType) {
+
+        if (isInternetAvailable) {
+
+
+            String req = "{\"Name\":\"" + name + "\",\"ImageTypeID\":\"" + imgType +"}";
+            String response = connectToServerByJson(App.apiAddr + "upload/Addfile", "POST", req);
+
+            String result = null;
+
+            if (response != null && response.equals("OK"))
+                return "ok";
+            else
+                return "failed";
+
+        }
+        return null;
+    }
+
 }

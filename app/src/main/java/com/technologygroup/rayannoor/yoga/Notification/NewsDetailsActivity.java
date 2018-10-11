@@ -19,6 +19,7 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 import com.technologygroup.rayannoor.yoga.referees.RefereeDetailsActivity;
 
 public class NewsDetailsActivity extends AppCompatActivity {
@@ -50,6 +51,17 @@ public class NewsDetailsActivity extends AppCompatActivity {
                 share.setType("text/plain");
                 share.putExtra(Intent.EXTRA_TEXT, zanguleModel.title + "\n" + "آخرین اخبار مربوط به هیات ورزش های همگانی را در ورزشکار پلاس ببین");
                 startActivity(Intent.createChooser(share, "به اشتراک گذاري از طريق..."));
+
+            }
+        });
+
+
+        imgNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewsDetailsActivity.this, imageActivity.class);
+                intent.putExtra("ImgName", zanguleModel.image);
+                startActivity(intent);
 
             }
         });

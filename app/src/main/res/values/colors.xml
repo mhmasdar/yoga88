@@ -35,4 +35,13 @@
     <color name="c0_1">#e91c1c</color>
 
 
+    <array name="arr">
+
+        <item>@color/colorPrimary</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+
+    </array>
+
+
 </resources>

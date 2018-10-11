@@ -118,7 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_weight="0.4"
                         android:scaleType="fitXY"
-                        android:src="@drawable/test_karyabi"
+                        android:src="@drawable/ic_gym_list"
                         android:id="@+id/imgNotifDetails"
                         android:layout_gravity="center_horizontal"
                         android:layout_height="match_parent" />

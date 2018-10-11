@@ -50,7 +50,7 @@ public class NotifsAdapter extends RecyclerView.Adapter<NotifsAdapter.myViewHold
             if (!list.get(position).image.equals("") && !list.get(position).image.equals("null"))
                 Glide.with(context).load(App.imgAddr + list.get(position).image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTitle);
             else
-                Glide.with(context).load(R.drawable.test_notif).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTitle);
+                Glide.with(context).load(R.drawable.ic_gym_list).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTitle);
         }
         else
             Glide.with(context).load(R.drawable.test_notif).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.imgTitle);

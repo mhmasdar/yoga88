@@ -37,4 +37,5 @@ dependencies {
     implementation 'br.com.simplepass:loading-button-android:1.12.1'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
     implementation 'com.rom4ek:arcnavigationview:1.0.3'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
 }

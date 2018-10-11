@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgNewTeach;
     private View headerview;
     JSONObject roles;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs, CountPrefs;
     public static Dialog dialog;
     public static Spinner StateSpinner;
     public static Spinner CitySpinner;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private getSlider slider;
     private getCounts counts;
     private getCommitteeName committeeName;
-    private String storedNotifsCount, storedTeachsCount, newNotifsCount, newTeachsCount;
+    private String storedNotifsCount, storedTeachsCount, newNotifsCount, newTeachsCount, totalNotifsCount, totlaTeachsCount;
 
 
     @Override
@@ -117,9 +117,15 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("User", 0);
         userType = prefs.getString("userType","no");
         idUser = prefs.getInt("idUser", -1);
-        storedNotifsCount = prefs.getString("notifsCount", "0");
-        storedTeachsCount = prefs.getString("teachsCount", "0");
+        idField = prefs.getInt("idField", 0);
 
+        CountPrefs = getSharedPreferences("Counts", 0);
+        storedNotifsCount = CountPrefs.getString("notifsCount", "0");
+        storedTeachsCount = CountPrefs.getString("teachsCount", "0");
+
+
+        slider = new getSlider();
+        slider.execute();
 
         try {
             usertypes=new JSONArray(userType);
@@ -182,10 +188,6 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.pattern).into(drawerHeaderImage);
 
 
-        //get third image of slider from server
-        idField = prefs.getInt("idField", 0);
-        slider = new getSlider();
-        slider.execute();
 
 
         hamegani.setOnClickListener(new View.OnClickListener() {
@@ -358,7 +360,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, notificationActivity.class);
                 intent.putExtra("userType", userType);
-                intent.putExtra("notifsCount", newNotifsCount);
+                intent.putExtra("totalNotifsCount", totalNotifsCount);
+                intent.putExtra("newNotifsCount", newNotifsCount);
                 startActivity(intent);
             }
         });
@@ -427,124 +430,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void setCommitteName()
-    {
-        switch (idField)
-        {
-            case 1:
-                txtTitle.setText(txtTitle.getText().toString() + "یوگا");
-                break;
-
-            case 2:
-                txtTitle.setText(txtTitle.getText().toString() + "پیلاتس");
-                break;
-
-            case 3:
-                txtTitle.setText(txtTitle.getText().toString() + "ایروبیک");
-                break;
-
-            case 4:
-                txtTitle.setText(txtTitle.getText().toString() + "آمادگی جسمانی");
-                break;
-
-            case 5:
-                txtTitle.setText(txtTitle.getText().toString() + "بزرگسالان");
-                break;
-
-            case 6:
-                txtTitle.setText(txtTitle.getText().toString() + "فریزبی");
-                break;
-
-            case 7:
-                txtTitle.setText(txtTitle.getText().toString() + "سازمان ها و نهادها");
-                break;
-
-            case 8:
-                txtTitle.setText(txtTitle.getText().toString() + "پینت بال");
-                break;
-
-            case 9:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش های طبیعی و مهارت های فردی و نمایشی");
-                break;
-
-            case 10:
-                txtTitle.setText(txtTitle.getText().toString() + "داوطلبین ورزشی");
-                break;
-
-            case 11:
-                txtTitle.setText(txtTitle.getText().toString() + "مشاوره ورزشی");
-                break;
-
-            case 12:
-                txtTitle.setText(txtTitle.getText().toString() + "داژبال");
-                break;
-
-            case 13:
-                txtTitle.setText(txtTitle.getText().toString() + "پرثوا");
-                break;
-
-            case 14:
-                txtTitle.setText(txtTitle.getText().toString() + "پرواز کایت");
-                break;
-
-            case 15:
-                txtTitle.setText(txtTitle.getText().toString() + "ماهیگیری ورزشی");
-                break;
-
-            case 16:
-                txtTitle.setText(txtTitle.getText().toString() + "بازی های فکری");
-                break;
-
-            case 17:
-                txtTitle.setText(txtTitle.getText().toString() + "پیاده روی");
-                break;
-
-            case 18:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش مادران");
-                break;
-
-            case 19:
-                txtTitle.setText(txtTitle.getText().toString() + "روش های تمرینی آمادگی جسمانی");
-                break;
-
-            case 20:
-                txtTitle.setText(txtTitle.getText().toString() + "بازی ها و ورزش کودکان");
-                break;
-
-            case 21:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش های در آب");
-                break;
-
-            case 22:
-                txtTitle.setText(txtTitle.getText().toString() + "چوگو");
-                break;
-
-            case 23:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش های طبیعی");
-                break;
-
-            case 24:
-                txtTitle.setText(txtTitle.getText().toString() + "طناب زنی");
-                break;
-
-            case 25:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش روزانه");
-                break;
-
-            case 26:
-                txtTitle.setText(txtTitle.getText().toString() + "گردشگری ورزشی");
-                break;
-
-            case 27:
-                txtTitle.setText(txtTitle.getText().toString() + "ورزش آتش نشانان و امدادگران");
-                break;
-
-            case 28:
-                txtTitle.setText(txtTitle.getText().toString() + "تندرستی و حرکات اصلاحی ورزشی");
-                break;
-        }
     }
 
     private void initView() {
@@ -654,55 +539,6 @@ public class MainActivity extends AppCompatActivity {
                 initSlider("");
 
 
-            counts = new getCounts();
-            counts.execute();
-        }
-    }
-
-    private class getCounts extends AsyncTask<Object, Void, Void> {
-
-        private WebService webService;
-        private MainPageModel model;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            webService = new WebService();
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            model = webService.getMainPageCounts(App.isInternetOn());
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-
-            if (model != null) // server responding
-            {
-                newNotifsCount = String.valueOf(Integer.valueOf(model.notifsCount) - Integer.valueOf(storedNotifsCount));
-                if (!model.notifsCount.equals("") && !model.notifsCount.equals("0") && Integer.valueOf(newNotifsCount)>0)
-                {
-
-                    txtNewMessageCount.setText(newNotifsCount);
-                    txtNewMessageCount.setVisibility(View.VISIBLE);
-                }
-                else
-                    txtNewMessageCount.setVisibility(View.INVISIBLE);
-
-                newTeachsCount = String.valueOf(Integer.valueOf(model.teachsCount) - Integer.valueOf(storedTeachsCount));
-                if (!model.teachsCount.equals("") && Integer.valueOf(newTeachsCount)>0)
-                    imgNewTeach.setVisibility(View.VISIBLE);
-                else
-                    imgNewTeach.setVisibility(View.GONE);
-
-            }
-
             committeeName = new getCommitteeName();
             committeeName.execute();
         }
@@ -735,9 +571,57 @@ public class MainActivity extends AppCompatActivity {
             if (SliderImage != null && !SliderImage.equals("null") && !SliderImage.equals("")) // server responding
                 txtTitle.setText(txtTitle.getText() + SliderImage);
 
+            counts = new getCounts();
+            counts.execute();
         }
     }
 
+    private class getCounts extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        private MainPageModel model;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            model = webService.getMainPageCounts(App.isInternetOn());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (model != null) // server responding
+            {
+                totalNotifsCount = model.notifsCount;
+                newNotifsCount = String.valueOf(Integer.valueOf(model.notifsCount) - Integer.valueOf(storedNotifsCount));
+                if (!model.notifsCount.equals("") && !model.notifsCount.equals("0") && Integer.valueOf(newNotifsCount)>0)
+                {
+
+                    txtNewMessageCount.setText(newNotifsCount);
+                    txtNewMessageCount.setVisibility(View.VISIBLE);
+                }
+                else
+                    txtNewMessageCount.setVisibility(View.INVISIBLE);
+
+                newTeachsCount = String.valueOf(Integer.valueOf(model.teachsCount) - Integer.valueOf(storedTeachsCount));
+                if (!model.teachsCount.equals("") && Integer.valueOf(newTeachsCount)>0)
+                    imgNewTeach.setVisibility(View.VISIBLE);
+                else
+                    imgNewTeach.setVisibility(View.GONE);
+
+            }
+        }
+    }
 
     @Override
     public void onStop() {

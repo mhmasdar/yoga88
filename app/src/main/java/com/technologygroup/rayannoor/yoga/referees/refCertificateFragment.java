@@ -94,6 +94,7 @@ public class refCertificateFragment extends Fragment implements
     private WebServiceAdd callBackFileDetails;
     private WebServiceList webServiceCoachInfo;
     private CallBackFile callBackFile;
+    private sendFileDetails fileDetails;
 
     public refCertificateFragment() {
         // Required empty public constructor
@@ -441,6 +442,7 @@ public class refCertificateFragment extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             JSONObject jsonObject=null;
             int idm = 0;
             try {
@@ -459,8 +461,8 @@ public class refCertificateFragment extends Fragment implements
                 {
                     model.id = idm;
 
-                    callBackFile = new CallBackFile(model);
-                    callBackFile.execute();
+                    fileDetails = new sendFileDetails(model);
+                    fileDetails.execute();
 
 
                 }
@@ -479,6 +481,53 @@ public class refCertificateFragment extends Fragment implements
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
 
+            }
+        }
+    }
+
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+        CoachHonorModel model;
+
+        sendFileDetails(CoachHonorModel model)
+        {
+            this.model = model;
+        }
+
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                callBackFile = new CallBackFile(model);
+                callBackFile.execute();
+            }
+
+            else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
     }
