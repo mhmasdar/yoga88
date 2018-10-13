@@ -32,6 +32,7 @@ import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.GymCourseAdapter;
+import com.technologygroup.rayannoor.yoga.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class coursesFragment extends Fragment implements
     EditText t;
     List<CourseModel> list;
     List<GymCoachesModel> listcoaches;
-    ArrayList<String> coaches;
+    List<String> coaches;
     List<Integer> coachesId;
     GymCourseAdapter adapter;
     WebServiceList webServiceCoachInfo;
@@ -143,7 +144,8 @@ public class coursesFragment extends Fragment implements
         edtTitle=dialog.findViewById(R.id.edtTitle);
         edtTime=dialog.findViewById(R.id.edtTime);
         btnOk=dialog.findViewById(R.id.btnOk);
-        ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(coursesFragment.this, android.R.layout.simple_spinner_item,coaches);
+
+        ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(app.context, android.R.layout.simple_spinner_item,coaches);
         edtDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
