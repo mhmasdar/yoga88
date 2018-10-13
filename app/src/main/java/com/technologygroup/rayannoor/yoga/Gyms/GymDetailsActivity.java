@@ -67,7 +67,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_details);
         idsend = getIntent().getIntExtra("idgym", -1);
-        Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
+
         initView();
         getInfo();
         //set image darker

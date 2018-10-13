@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
@@ -70,7 +69,7 @@ public class GymsListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        Toast.makeText(this, ""+gymModel.size(), Toast.LENGTH_SHORT).show();
+
         GymListAdapter adapter = new GymListAdapter(GymsListActivity.this, gymModel);
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);

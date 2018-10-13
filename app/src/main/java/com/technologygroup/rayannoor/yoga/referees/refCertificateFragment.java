@@ -106,10 +106,8 @@ public class refCertificateFragment extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_certificate, container, false);
-
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idCoach = getArguments().getInt("idCoach", -1);
-
         lytEmpty = view.findViewById(R.id.lytEmpty);
         lytMain = view.findViewById(R.id.lytMain);
         lytDisconnect = view.findViewById(R.id.lytDisconnect);
@@ -190,16 +188,12 @@ public class refCertificateFragment extends Fragment implements
         imgSelectPicture = dialog.findViewById(R.id.imgSelectPicture);
         btnOk = dialog.findViewById(R.id.btnOk);
         imgClose = dialog.findViewById(R.id.imgClose);
-
-
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 RefereeServicesActivity activity = (RefereeServicesActivity) getContext();
-
                 PersianCalendar now = new PersianCalendar();
-
                 DatePickerDialog dpd = DatePickerDialog.newInstance(refCertificateFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
                 dpd.show(activity.getFragmentManager(), DATEPICKER);
                 dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {

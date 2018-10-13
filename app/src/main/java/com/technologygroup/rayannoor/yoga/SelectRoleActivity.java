@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymDetailsActivity;
@@ -79,7 +78,6 @@ public class SelectRoleActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 selectedRole=RoleSpinner.getSelectedItem().toString();
-                Toast.makeText(SelectRoleActivity.this, selectedRole, Toast.LENGTH_SHORT).show();
 
             }
             public void onNothingSelected(AdapterView<?> parent)

@@ -2247,24 +2247,279 @@ public class WebService {
         }
         return null;
     }
-
-    public String sendFileDetails(boolean isInternetAvailable , String name, int imgType) {
+    //////////////////////////////////////////////jsons function
+    public String editGymWorkTime(boolean isInternetAvailable, String bio, int id) {
 
         if (isInternetAvailable) {
+            String mytitle;
+            mytitle=bio.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "user/editgymtime?urid=" + id + "&gymtime=" +mytitle, "GET");
+            Log.i("LOG", response + "");
+            return response;
+        } else
+            return null;
+    }
+    public Integer AddGymTerm(boolean isInternetAvailable ,int gymid,int coachid,String title,String days,String StartDate,String EndDate) {
 
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID","");
+                j.put("GymID",gymid);
+                j.put("CoachID",coachid);
+                j.put("Title",title);
+                j.put("Days",days);
+                j.put("StartDate",StartDate);
+                j.put("EndDate",EndDate);
 
-            String req = "{\"Name\":\"" + name + "\",\"ImageTypeID\":\"" + imgType +"}";
-            String response = connectToServerByJson(App.apiAddr + "upload/Addfile", "POST", req);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "GymTerm/AddGymTerm", "POST",j.toString());
+            if (response != null) {
+                try
+                {
+                    JSONObject Object = new JSONObject(response);
+                    return Object.getInt("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            String result = null;
-
-            if (response != null && response.equals("OK"))
-                return "ok";
             else
-                return "failed";
-
+                return null;
         }
         return null;
     }
+    public String DeleteGymTerm(boolean isInternetAvailable ,int idterm) {
 
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",idterm);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "GymTerm/DeleteGymTerm", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String DeletePost(boolean isInternetAvailable ,int idpost) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",idpost);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Post/DeletePost", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String ForgetPass(boolean isInternetAvailable ,long phone) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("Mobile",phone);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/ForgetPassword", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String ChangePass(boolean isInternetAvailable ,int rid,String oldpass,String newpass) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("UserRoleID",rid);
+                j.put("OldPassword",oldpass);
+                j.put("NewPassword",newpass);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/ForgetPassword", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String EditCoachProfile(boolean isInternetAvailable ,int ID,String FirstName,String LastName,String Melli,String surush,String Instagram,String Telegram,String Mobile,String Email) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",ID);
+                j.put("FirstName",FirstName);
+                j.put("LastName",LastName);
+                j.put("MelliCode",Melli);
+                j.put("surush",surush);
+                j.put("Instagram",Instagram);
+                j.put("Telegram",Telegram);
+                j.put("Mobile",Mobile);
+                j.put("Email",Email);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/EditUser", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String EditGymProfile(boolean isInternetAvailable ,int ID,String FirstName,String LastName,String Melli,String surush,String Instagram,String Telegram,String Mobile,String Email,String Name,String Address) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",ID);
+                j.put("FirstName",FirstName);
+                j.put("LastName",LastName);
+                j.put("Name",Name);
+                j.put("MelliCode",Melli);
+                j.put("surush",surush);
+                j.put("Instagram",Instagram);
+                j.put("Telegram",Telegram);
+                j.put("Mobile",Mobile);
+                j.put("Email",Email);
+                j.put("Address",Address);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/EditUser", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    public String EditKaryabi(boolean isInternetAvailable ,int id,String title,String body) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",id);
+                j.put("Title",title);
+                j.put("Body",body);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Post/EditKaryabi", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
+    public String EditElanat(boolean isInternetAvailable ,int id,String title,String body) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",id);
+                j.put("Title",title);
+                j.put("Body",body);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Post/EditElanat", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
+    public Integer AddElanat(boolean isInternetAvailable ,int Rid,String title,String body) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID","");
+                j.put("UserRoleID",Rid);
+                j.put("Title",title);
+                j.put("Body",body);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Post/AddElanat", "POST",j.toString());
+            if (response != null) {
+
+                try {
+                    return new JSONObject(response).getInt("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
+    public Integer AddKaryabi(boolean isInternetAvailable ,int Rid,String title,String body) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID","");
+                j.put("UserRoleID",Rid);
+                j.put("Title",title);
+                j.put("Body",body);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Post/AddKaryabi", "POST",j.toString());
+            if (response != null) {
+
+                try {
+                    return new JSONObject(response).getInt("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
 }

@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.R;
@@ -63,13 +64,31 @@ public class workTimeFragment extends Fragment {
     }
 
     private void showDialog() {
-        Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_gym_worktime);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtWorktime = (EditText) dialog.findViewById(R.id.edtWorktime);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (idGym > 0) {
 
+                    WebEditTime webEditTime = new WebEditTime(edtWorktime.getText().toString());
+                    webEditTime.execute();
+                } else {
+                    Toast.makeText(getContext(), "باشگاه مورد نظر یافت نشد", Toast.LENGTH_LONG).show();
+                    getActivity().finish();
+                }
+            }
+        });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
@@ -96,6 +115,37 @@ public class workTimeFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             txtWork.setText(result);
+        }
+
+    }
+    private class WebEditTime extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        String work;
+        WebEditTime(String s)
+        {
+            work =s;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.editGymWorkTime(App.isInternetOn(),work,idGym);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(result.equals("OK")||result.equals("Ok"))
+            txtWork.setText(work);
         }
 
     }

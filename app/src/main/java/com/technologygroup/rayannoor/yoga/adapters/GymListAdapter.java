@@ -20,7 +20,7 @@ import com.technologygroup.rayannoor.yoga.R;
 
 import java.util.List;
 
-//import android.widget.Toast;
+
 
 /**
  * Created by Mohamad Hasan on 2/7/2018.

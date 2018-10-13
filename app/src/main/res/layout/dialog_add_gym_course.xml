@@ -166,7 +166,7 @@
 
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:layout_width="match_parent"
-                android:id="@+id/btnOk"
+                android:id="@+id/CircularProgressButton btnOk;"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_margin="25dp"

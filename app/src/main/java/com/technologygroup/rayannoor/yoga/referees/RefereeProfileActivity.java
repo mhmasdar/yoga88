@@ -100,7 +100,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
 
         idsend = getIntent().getIntExtra("idReffre", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
-        Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
+
         WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
         callCity.execute();
 

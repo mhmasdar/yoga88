@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -35,7 +34,6 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassLevels;
-import com.technologygroup.rayannoor.yoga.CommentsActivity;
 import com.technologygroup.rayannoor.yoga.LoginActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -114,7 +112,7 @@ public class GymProfileActivity extends AppCompatActivity {
         gymModel = new GymModel();
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         idsend = getIntent().getIntExtra("idgym", -1);
-        Toast.makeText(this, ""+idsend, Toast.LENGTH_SHORT).show();
+
         WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
 
