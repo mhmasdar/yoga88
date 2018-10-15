@@ -4,7 +4,10 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,18 +30,25 @@ import org.json.JSONException;
 
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 
 public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myViewHolder> {
 
     private Context context;
     private LayoutInflater mInflater;
     private List<ZanguleModel> list;
+    int idgym;
+    private Dialog dialog;
+    private EditText edtTitle;
+    private EditText edtBody;
+    CircularProgressButton btnOk;
 
-
-    public GymNotifAdapter(Context context,List<ZanguleModel> l) {
+    public GymNotifAdapter(Context context,List<ZanguleModel> l,int i) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         list=l;
+        idgym=i;
     }
 
     @Override
@@ -92,7 +103,31 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
                     removeItem(position,current);
                 }
             });
+            imgEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDialog(current,position);
+                }
+            });
         }
+    }
+    private void showDialog(final ZanguleModel c, final int pos) {
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_add_gym_notif);
+        edtBody=dialog.findViewById(R.id.edtBody);
+        edtTitle=dialog.findViewById(R.id.edtTitle);
+        btnOk=dialog.findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(c,pos);
+               webServiceADD.execute();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
     public void removeItem(final int position, final ZanguleModel current) {
 
@@ -200,4 +235,70 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
         }
 
     }
+    private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        ZanguleModel model;
+        String result;
+        int pos;
+
+        public WebServiceCallBackEdit(ZanguleModel model, int pos) {
+            this.model = model;
+            this.pos = pos;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnOk.startAnimation();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+            result = webService.EditElanat(App.isInternetOn(), model.id,model.title,model.Body);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+                if (result.equals("OK")||result.equals("Ok")) {
+
+                    list.remove(pos);
+                    list.add(pos, model);
+                    notifyDataSetChanged();
+
+                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                    Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.ic_ok);
+                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                    // بستن دیالوگ حتما با تاخیر انجام شود
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 1000);
+
+
+                    //Toast.makeText(context, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+                } else {
+                    btnOk.revertAnimation();
+                    Toast.makeText(context, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                btnOk.revertAnimation();
+                Toast.makeText(context, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 }

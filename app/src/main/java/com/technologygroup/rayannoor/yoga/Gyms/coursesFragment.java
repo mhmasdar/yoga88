@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,6 @@ import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.GymCourseAdapter;
-import com.technologygroup.rayannoor.yoga.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,13 +143,14 @@ public class coursesFragment extends Fragment implements
         edtDateEnd=dialog.findViewById(R.id.edtEndDate);
         edtTitle=dialog.findViewById(R.id.edtTitle);
         edtTime=dialog.findViewById(R.id.edtTime);
+        selectCoach=dialog.findViewById(R.id.CoachesSpinner);
         btnOk=dialog.findViewById(R.id.btnOk);
-
-        ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(app.context, android.R.layout.simple_spinner_item,coaches);
+        WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
+        webServiceListCoach.execute();
         edtDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                t=edtDateEnd;
+                t=edtDateStart;
                 GymServiceActivity activity = (GymServiceActivity) getContext();
                 PersianCalendar now = new PersianCalendar();
                 DatePickerDialog dpd = DatePickerDialog.newInstance(coursesFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
@@ -173,7 +174,6 @@ public class coursesFragment extends Fragment implements
                 PersianCalendar now = new PersianCalendar();
                 DatePickerDialog dpd = DatePickerDialog.newInstance(coursesFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
                 dpd.show(activity.getFragmentManager(), DATEPICKER);
-
                 dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
@@ -185,14 +185,31 @@ public class coursesFragment extends Fragment implements
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                WebServiceADD webServiceADD=new WebServiceADD(edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateEnd.getText().toString());
+                webServiceADD.execute();
             }
         });
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
+    public void setSpinner()
+    {
+        ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,coaches);
+        dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectCoach.setAdapter(dataAdapterCourse);
+        selectCoach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
+                pos=selectCoach.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         // Note: monthOfYear is 0-indexed
@@ -300,15 +317,15 @@ public class coursesFragment extends Fragment implements
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Recycler.hideShimmerAdapter();
-
+            coaches = new ArrayList<>();
+            coachesId = new ArrayList<>();
+            coachesId.clear();
+            coaches.clear();
             if (listcoaches != null) {
                 for (int i = 0; i < listcoaches.size(); i++) {
-                    coaches = new ArrayList<>();
-                    coachesId = new ArrayList<>();
-                    coachesId.clear();
-                    coaches.clear();
                     coaches.add(listcoaches.get(i).fName + " " + listcoaches.get(i).lName);
                     coachesId.add(listcoaches.get(i).idUser);
+                    setSpinner();
                 }
 
             }
@@ -320,7 +337,6 @@ public class coursesFragment extends Fragment implements
         private WebService webService;
 
         Integer result;
-        int pos;
         String title;
         String days;
         String StartDate;

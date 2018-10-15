@@ -32,9 +32,9 @@ public class gymsFragment extends Fragment {
     private ShimmerRecyclerView Recycler;
     LinearLayout lytMain, lytDisconnect, lytEmpty;
     private SharedPreferences prefs;
-    private int idCoach;
-    List<CoachGymsModel> list;
 
+    List<CoachGymsModel> list;
+    private int idCoach;
     private boolean calledFromPanel = false;
     WebServiceList webServiceCoachInfo;
 

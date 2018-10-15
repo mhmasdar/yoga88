@@ -271,9 +271,21 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         dialogForget.setContentView(R.layout.dialog_change_password);
         Button btn_cancel = (Button) dialogForget.findViewById(R.id.btn_cancel);
         Button btnPassSend = (Button) dialogForget.findViewById(R.id.btnPassSend);
-        EditText edtNewPass = (EditText) dialogForget.findViewById(R.id.edtNewPass);
-        EditText edtLastPass = (EditText) dialogForget.findViewById(R.id.edtLastPass);
-
+        final EditText edtNewPass = (EditText) dialogForget.findViewById(R.id.edtNewPass);
+        final EditText edtLastPass = (EditText) dialogForget.findViewById(R.id.edtLastPass);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogForget.dismiss();
+            }
+        });
+        btnPassSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebServiceChangePass webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                webServiceChangePass.execute();
+            }
+        });
         dialogForget.setCancelable(true);
         dialogForget.setCanceledOnTouchOutside(true);
         dialogForget.show();
@@ -471,7 +483,70 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             }
         }
     }
+    private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        String oldpass;
+        String newpass;
+        String result;
+        Dialog dialog;
+
+        public WebServiceChangePass(String o,String n) {
+            oldpass=o;
+            newpass=n;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(CoachEditDetialsActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.ChangePass(App.isInternetOn(),idCoach,oldpass,newpass);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("OK")||result.equals("Ok")) {
+
+                    Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(CoachEditDetialsActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(CoachEditDetialsActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
     @Override
     public void onStop() {
         super.onStop();

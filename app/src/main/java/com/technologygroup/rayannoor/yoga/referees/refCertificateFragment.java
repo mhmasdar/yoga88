@@ -502,7 +502,7 @@ public class refCertificateFragment extends Fragment implements
         @Override
         protected Void doInBackground(Object... params) {
 
-            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2);
+            //fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2);
 
             return null;
         }

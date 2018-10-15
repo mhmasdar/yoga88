@@ -1,18 +1,24 @@
 package com.technologygroup.rayannoor.yoga.Gyms;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,6 +27,7 @@ import com.technologygroup.rayannoor.yoga.MainActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
+import com.technologygroup.rayannoor.yoga.Services.WebService;
 
 public class GymEditProfileActivity extends AppCompatActivity {
 
@@ -118,7 +125,38 @@ public class GymEditProfileActivity extends AppCompatActivity {
         });
         initView();
         setView();
-
+        idCoach = getIntent().getIntExtra("CoachId", -1);
+        lytChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+    private void showDialog() {
+        dialogForget = new Dialog(GymEditProfileActivity.this);
+        dialogForget.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogForget.setContentView(R.layout.dialog_change_password);
+        Button btn_cancel = (Button) dialogForget.findViewById(R.id.btn_cancel);
+        Button btnPassSend = (Button) dialogForget.findViewById(R.id.btnPassSend);
+        final EditText edtNewPass = (EditText) dialogForget.findViewById(R.id.edtNewPass);
+        final EditText edtLastPass = (EditText) dialogForget.findViewById(R.id.edtLastPass);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogForget.dismiss();
+            }
+        });
+        btnPassSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebServiceChangePass webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                webServiceChangePass.execute();
+            }
+        });
+        dialogForget.setCancelable(true);
+        dialogForget.setCanceledOnTouchOutside(true);
+        dialogForget.show();
     }
     private void initView() {
         header = (LinearLayout) findViewById(R.id.header);
@@ -162,6 +200,70 @@ public class GymEditProfileActivity extends AppCompatActivity {
         edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
         edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
         edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
+
+    }
+    private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String oldpass;
+        String newpass;
+        String result;
+        Dialog dialog;
+
+        public WebServiceChangePass(String o,String n) {
+            oldpass=o;
+            newpass=n;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(GymEditProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.ChangePass(App.isInternetOn(),idCoach,oldpass,newpass);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("OK")||result.equals("Ok")) {
+
+                    Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(GymEditProfileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(GymEditProfileActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
 
     }
 }
