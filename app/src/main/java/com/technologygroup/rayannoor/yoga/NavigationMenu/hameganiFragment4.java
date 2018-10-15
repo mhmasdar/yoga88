@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.navigationMenuModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
@@ -61,7 +62,7 @@ public class hameganiFragment4 extends Fragment {
     private class getAbout extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        private String result;
+        private navigationMenuModel result;
 
 
         @Override
@@ -100,7 +101,7 @@ public class hameganiFragment4 extends Fragment {
 
             if (result != null) // server responding
             {
-                txt.setText(result);
+                txt.setText(result.value);
             }
             else
             {

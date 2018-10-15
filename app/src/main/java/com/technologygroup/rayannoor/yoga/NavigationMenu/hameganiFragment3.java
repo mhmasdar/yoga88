@@ -36,6 +36,9 @@ public class hameganiFragment3 extends Fragment {
     private List<ChartModel> result;
     private Button btnTryAgain;
 
+    private SharedPreferences prefs;
+    private int idState;
+
     public hameganiFragment3() {
         // Required empty public constructor
     }
@@ -51,6 +54,12 @@ public class hameganiFragment3 extends Fragment {
         lytDisconnect = (LinearLayout) view.findViewById(R.id.lytDisconnect);
         lytEmpty = (LinearLayout) view.findViewById(R.id.lytEmpty);
         btnTryAgain = (Button) view.findViewById(R.id.btnTryAgain);
+
+
+        //get state id
+        prefs = getActivity().getSharedPreferences("User", 0);
+        idState = prefs.getInt("idState", 0);
+
 
 
         chart = new getChart();
@@ -94,7 +103,7 @@ public class hameganiFragment3 extends Fragment {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.getChart(App.isInternetOn(), 0, true);
+            result = webService.getChart(App.isInternetOn(), 0, idState, true);
 
             return null;
         }

@@ -37,6 +37,7 @@ import com.technologygroup.rayannoor.yoga.Models.CoachEduModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.List;
 
@@ -100,10 +101,20 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
     }
 
     @Override
-    public void onBindViewHolder(final myViewHolder holder, int position) {
+    public void onBindViewHolder(final myViewHolder holder, final int position) {
 
         final CoachEduModel currentObj = list.get(position);
         holder.setData(currentObj, position);
+
+        holder.imgEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoachServicesActivity activity = (CoachServicesActivity) context;
+                Intent intent = new Intent(activity, imageActivity.class);
+                intent.putExtra("ImgName", list.get(position).ImgName);
+                context.startActivity(intent);
+            }
+        });
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

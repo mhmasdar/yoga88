@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.navigationMenuModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
@@ -24,7 +25,7 @@ public class rulesActivity extends AppCompatActivity {
     private TextView txtAbout;
     private getRules rules;
     private Dialog dialog1;
-    private String result;
+    private navigationMenuModel result;
     private LinearLayout lytMain;
     private LinearLayout lytDisconnect;
     private Button btnTryAgain;
@@ -116,7 +117,7 @@ public class rulesActivity extends AppCompatActivity {
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
 
-                    txtAbout.setText(result);
+                    txtAbout.setText(result.value);
                 }
             } else {
                 lytDisconnect.setVisibility(View.VISIBLE);

@@ -19,7 +19,6 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
             android:id="@+id/txtResumeTitle"
-            android:text="عضو هیِئت مدیره ورزش های همگانی"
             android:layout_height="wrap_content" />
 
         <ImageView
@@ -45,7 +44,6 @@
             android:textColor="@color/black"
             android:id="@+id/txtStartDate"
             android:textSize="11sp"
-            android:text="تاریخ شروع : 1396/11/23"
             android:layout_height="wrap_content"
             android:gravity="right"/>
 
@@ -77,7 +75,6 @@
                 android:textColor="@color/black"
                 android:id="@+id/txtEndDate"
                 android:textSize="11sp"
-                android:text="تاریخ پایان : 1396/12/28"
                 android:layout_height="wrap_content" />
 
             <ImageView

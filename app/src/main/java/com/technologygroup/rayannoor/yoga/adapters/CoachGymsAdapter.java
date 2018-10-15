@@ -1,6 +1,7 @@
 package com.technologygroup.rayannoor.yoga.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachGymsModel;
 import com.technologygroup.rayannoor.yoga.R;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.List;
 
@@ -43,9 +46,19 @@ public class CoachGymsAdapter extends RecyclerView.Adapter<CoachGymsAdapter.myVi
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, final int position) {
         final CoachGymsModel currentObj = list.get(position);
         holder.setData(currentObj, position);
+
+        holder.imgGym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoachServicesActivity activity = (CoachServicesActivity) context;
+                Intent intent = new Intent(activity, imageActivity.class);
+                intent.putExtra("ImgName", list.get(position).Img);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

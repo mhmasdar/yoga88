@@ -34,9 +34,11 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
+import com.technologygroup.rayannoor.yoga.Notification.NewsDetailsActivity;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.List;
 
@@ -108,10 +110,20 @@ public class CoachCertificateAdapter extends RecyclerView.Adapter<CoachCertifica
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, final int position) {
 
         final CoachHonorModel currentObj = list.get(position);
         holder.setData(currentObj, position);
+
+        holder.imgCertificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoachServicesActivity activity = (CoachServicesActivity) context;
+                Intent intent = new Intent(activity, imageActivity.class);
+                intent.putExtra("ImgName", list.get(position).ImgName);
+                context.startActivity(intent);
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

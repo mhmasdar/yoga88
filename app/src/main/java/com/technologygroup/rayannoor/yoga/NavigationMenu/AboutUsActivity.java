@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.navigationMenuModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
@@ -64,7 +65,7 @@ public class AboutUsActivity extends AppCompatActivity {
     private class getAboutUs extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        private String result;
+        private navigationMenuModel result;
         private Dialog dialog1;
 
 
@@ -118,7 +119,7 @@ public class AboutUsActivity extends AppCompatActivity {
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
 
-                    txtAbout.setText(result);
+                    txtAbout.setText(result.value);
                 }
             }
 

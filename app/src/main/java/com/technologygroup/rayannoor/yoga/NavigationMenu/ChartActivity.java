@@ -31,7 +31,7 @@ public class ChartActivity extends AppCompatActivity {
     private List<ChartModel> result;
     private Button btnTryAgain;
     private SharedPreferences prefs;
-    private int idField;
+    private int idField, idState;
 
 
     @Override
@@ -40,9 +40,10 @@ public class ChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chart);
         initView();
 
-        //get field id
+        //get field id & state id
         prefs = getSharedPreferences("User", 0);
         idField = prefs.getInt("idField", 0);
+        idState = prefs.getInt("idState", 0);
 
         chart = new getChart();
         chart.execute();
@@ -99,7 +100,7 @@ public class ChartActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.getChart(App.isInternetOn(), idField, false);
+            result = webService.getChart(App.isInternetOn(), idField, idState, false);
 
             return null;
         }

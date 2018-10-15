@@ -61,7 +61,7 @@
         android:visibility="visible"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:scrollbars="none"
             android:fillViewport="true"
@@ -78,28 +78,18 @@
                     android:gravity="right"
                     android:lineSpacingMultiplier="1.3"
                     android:textColor="@color/black"
-                    android:text="@string/plansDescribe"
                     android:layout_margin="15dp"
                     android:layout_height="wrap_content" />
 
-                <ImageView
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:id="@+id/img1"
-                    android:layout_margin="15dp"
-                    android:src="@drawable/home"
-                    android:layout_height="220dp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:id="@+id/img2"
-                    android:visibility="visible"
-                    android:layout_margin="15dp"
-                    android:src="@drawable/home"
-                    android:layout_height="220dp" />
+                    android:id="@+id/Recycler"
+                    android:layout_margin="25dp"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 

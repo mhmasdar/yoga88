@@ -23,6 +23,7 @@ import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.Models.idname;
+import com.technologygroup.rayannoor.yoga.Models.navigationMenuModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -1856,9 +1857,8 @@ public class WebService {
     }
 
 
-    public String getAboutUs(boolean isInternetAvailable, String key) {
+    public navigationMenuModel getAboutUs(boolean isInternetAvailable, String key) {
 
-        String result="";
 
         if (isInternetAvailable) {
 
@@ -1870,10 +1870,20 @@ public class WebService {
 
                 try
                 {
+                    navigationMenuModel model = new navigationMenuModel();
                     JSONObject Object = new JSONObject(response);
-                    result = Object.getString("KeshoValue");
+                    model.value = Object.getString("KeshoValue");
 
-                    return result;
+                    JSONArray images = Object.getJSONArray("Images");
+
+                    for (int i=0 ; i<images.length() ; i++)
+                    {
+                        JSONObject img = images.getJSONObject(i);
+                        model.images.add(img.getString("Name"));
+                    }
+
+
+                    return model;
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -1882,7 +1892,7 @@ public class WebService {
 
             }
 
-            return result;
+            return null;
         } else
             return null;
     }
@@ -2101,15 +2111,15 @@ public class WebService {
     }
 
 
-    public List<ChartModel> getChart(boolean isInternetAvailable, int id, boolean isCommittee) {
+    public List<ChartModel> getChart(boolean isInternetAvailable, int FieldID, int StateID, boolean isCommittee) {
 
         if (isInternetAvailable) {
 
             String response;
             if (!isCommittee)
-                response = connectToServer(App.apiAddr + "Chart/GetByFieldID/"+id, "GET");
+                response = connectToServer(App.apiAddr + "Chart/GetByFieldID?fid="+FieldID+"&sid="+StateID, "GET");
             else
-                response = connectToServer(App.apiAddr + "Chart/Get", "GET");
+                response = connectToServer(App.apiAddr + "Chart/Get?sid="+StateID, "GET");
 
 
 
@@ -2519,6 +2529,25 @@ public class WebService {
 
             else
                 return null;
+        }
+        return null;
+    }
+
+    public String sendFileDetails(boolean isInternetAvailable , String name, int imgType) {
+
+        if (isInternetAvailable) {
+
+
+            String req = "{\"Name\":\"" + name + "\",\"ImageTypeID\":\"" + imgType +"}";
+            String response = connectToServerByJson(App.apiAddr + "upload/Addfile", "POST", req);
+
+            String result = null;
+
+            if (response != null && response.equals("OK"))
+                return "ok";
+            else
+                return "failed";
+
         }
         return null;
     }

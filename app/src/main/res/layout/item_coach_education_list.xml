@@ -22,7 +22,6 @@
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:id="@+id/txtEducationTitle"
-                android:text="فوق لیسانس ماساژ، دانشگاه میشیگان"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -53,7 +52,7 @@
 
         <ImageView
             android:layout_width="80dp"
-            android:src="@drawable/img"
+            android:src="@drawable/ic_gym_list"
             android:scaleType="fitXY"
             android:id="@+id/imgEducation"
             android:layout_height="match_parent" />

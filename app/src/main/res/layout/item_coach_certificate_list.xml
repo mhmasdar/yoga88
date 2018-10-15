@@ -68,7 +68,8 @@
 
            <ImageView
                android:layout_width="70dp"
-               android:src="@drawable/img"
+               android:scaleType="fitXY"
+               android:src="@drawable/ic_gym_list"
                android:id="@+id/imgCertificate"
                android:layout_weight="1"
                android:layout_height="70dp" />

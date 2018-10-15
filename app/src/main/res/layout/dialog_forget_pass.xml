@@ -43,17 +43,17 @@
             android:layout_width="wrap_content"
             android:textSize="12sp"
             android:layout_margin="10dp"
-            android:text="لطفا ایمیل خود را وارد کنید. کلمه عبور به ایمیل شما ارسال خواهد شد"
+            android:text="لطفا شماره همراه خود را وارد کنید. کلمه عبور به شماره شما ارسال خواهد شد"
             android:layout_height="wrap_content" />
 
         <EditText
             android:layout_width="match_parent"
             android:background="@color/actionBarBack"
             android:id="@+id/edtEmail"
-            android:inputType="textWebEmailAddress"
+            android:inputType="number"
             android:textColorHint="@color/lightBlack"
             android:textColor="@color/lightBlack"
-            android:hint="ایمیل "
+            android:hint="شماره تلفن "
             android:layout_marginTop="15dp"
             android:textCursorDrawable="@color/colorPrimary"
             android:layout_marginRight="10dp"

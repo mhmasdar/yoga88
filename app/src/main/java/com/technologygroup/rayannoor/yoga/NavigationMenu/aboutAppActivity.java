@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -15,8 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Gyms.GymsListActivity;
+import com.technologygroup.rayannoor.yoga.Models.navigationMenuModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.adapters.GymListAdapter;
+import com.technologygroup.rayannoor.yoga.adapters.aboutAppAdapter;
+
+import java.util.List;
 
 public class aboutAppActivity extends AppCompatActivity {
 
@@ -28,6 +36,8 @@ public class aboutAppActivity extends AppCompatActivity {
     private LinearLayout lytDisconnect;
     private Button btnTryAgain;
     private LinearLayout lytEmpty;
+    private RecyclerView Recycler;
+
     getAboutUs aboutUs;
 
     @Override
@@ -71,12 +81,13 @@ public class aboutAppActivity extends AppCompatActivity {
         lytDisconnect = (LinearLayout) findViewById(R.id.lytDisconnect);
         btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
         lytEmpty = (LinearLayout) findViewById(R.id.lytEmpty);
+        Recycler = (RecyclerView) findViewById(R.id.Recycler);
     }
 
     private class getAboutUs extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        private String result;
+        private navigationMenuModel result;
         private Dialog dialog1;
 
 
@@ -130,7 +141,8 @@ public class aboutAppActivity extends AppCompatActivity {
                     lytEmpty.setVisibility(View.GONE);
                     lytMain.setVisibility(View.VISIBLE);
 
-                    txtAbout.setText(result);
+                    txtAbout.setText(result.value);
+                    setUpRecyclerView(result.images);
                 }
             }
 
@@ -142,6 +154,16 @@ public class aboutAppActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void setUpRecyclerView(List<String> images) {
+
+        aboutAppAdapter adapter = new aboutAppAdapter(aboutAppActivity.this , images);
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getApplicationContext());
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        Recycler.setLayoutManager(mLinearLayoutManagerVertical);
+        Recycler.setAdapter(adapter);
+    }
+
 
     @Override
     public void onStop() {
