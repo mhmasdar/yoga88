@@ -13,6 +13,7 @@ public class ZanguleModel {
     public String image;
     public String Body;
     public String Date;
+    public boolean IsVerified;
     public UserModel user;
     public void getJsonUser(JSONObject User){
         try {

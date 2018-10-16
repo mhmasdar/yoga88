@@ -1339,6 +1339,44 @@ public class WebService {
         } else
             return null;
     }
+    public List<ZanguleModel> getCoachKaryabi(boolean isInternetAvailable, int id) {
+
+        if (isInternetAvailable) {
+            Log.i("LOG", App.apiAddr+"Post/GetKaryabi/"+id);
+            String response = connectToServer(App.apiAddr+"Post/GetKaryabi/"+id , "GET");
+
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                List<ZanguleModel> list = new ArrayList<>();
+
+                try {
+
+                    JSONArray Array = new JSONArray(response);
+
+                    for (int i = 0; i < Array.length(); i++) {
+
+                        JSONObject Object = Array.getJSONObject(i);
+                        ZanguleModel model = new ZanguleModel();
+                        model.id=Object.getInt("ID");
+                        model.title=Object.getString("Title");
+                        model.Date=Object.getString("PublishedDate");
+                        model.IsVerified=Object.getBoolean("IsVerified");
+                        model.Body=Object.getString("Body");
+                        list.add(model);
+                    }
+
+                    return list;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+        } else
+            return null;
+    }
     public CoachModel getCoachDetail(boolean isInternetAvailable, int id) {
 
         if (isInternetAvailable) {
@@ -2339,7 +2377,7 @@ public class WebService {
         }
         return null;
     }
-    public String ForgetPass(boolean isInternetAvailable ,long phone) {
+    public String ForgetPass(boolean isInternetAvailable ,String phone) {
 
         if (isInternetAvailable) {
             JSONObject j=new JSONObject();

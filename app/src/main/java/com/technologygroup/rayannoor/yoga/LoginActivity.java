@@ -37,10 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtRegister;
     private SharedPreferences prefs;
     Dialog dialog;
+    Dialog dialog1;
     WebServiceCall call;
     private ImageView imgClose;
+    private ImageView imgClose1;
     private EditText edtEmail;
     private CircularProgressButton btnOk;
+    private CircularProgressButton btnOk1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,16 +114,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Dialog dialog = new Dialog(LoginActivity.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_forget_pass);
-        imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
-        edtEmail = (EditText) dialog.findViewById(R.id.edtEmail);
-        btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
+        dialog1 = new Dialog(LoginActivity.this);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setContentView(R.layout.dialog_forget_pass);
+        imgClose1 = (ImageView) dialog1.findViewById(R.id.imgClose);
+        edtEmail = (EditText) dialog1.findViewById(R.id.edtEmail);
+        btnOk1 = (CircularProgressButton) dialog1.findViewById(R.id.btnOk);
+        btnOk1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebServiceّForget webServiceّForget=new WebServiceّForget(edtEmail.getText().toString());
+                webServiceّForget.execute();
+            }
+        });
+        imgClose1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               dialog1.dismiss();
+            }
+        });
 
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
+        dialog1.setCancelable(true);
+        dialog1.setCanceledOnTouchOutside(true);
+        dialog1.show();
     }
 
     private class WebServiceCall extends AsyncTask<Object, Void, Void> {
@@ -203,7 +219,70 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+    private class WebServiceّForget extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        String phone;
+        String result;
+        WebServiceّForget(String p)
+        {
+         phone=p;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnOk1.startAnimation();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.ForgetPass(App.isInternetOn(), phone.substring(1));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (result != null) {
+
+                if (result.equals("OK")||result.equals("Ok")) {
+                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.ic_ok);
+                    btnOk1.doneLoadingAnimation(R.color.green, icon); // finish loading
+
+                    // بستن دیالوگ حتما با تاخیر انجام شود
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //showStateDialog();
+
+                            Intent i = new Intent(LoginActivity.this, selectSportActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(i);
+                            finish();
+                        }
+                    }, 1000);
+                } else {
+
+                    btnOk1.revertAnimation();
+                    Toast.makeText(LoginActivity.this, "شماره موبایل اشتباه است", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+
+                btnOk1.revertAnimation();
+                Toast.makeText(LoginActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
 
     @Override
     public void onStop() {
