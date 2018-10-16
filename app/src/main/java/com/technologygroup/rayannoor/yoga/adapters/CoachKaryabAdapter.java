@@ -7,17 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
+
+import java.util.List;
 
 public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.myViewHolder> {
 
     private Context context;
     private LayoutInflater mInflater;
+    List<ZanguleModel> list;
 
 
-    public CoachKaryabAdapter(Context context) {
+    public CoachKaryabAdapter(Context context,List<ZanguleModel> l) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        list=l;
     }
 
     @Override
@@ -29,12 +34,14 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
 
     @Override
     public void onBindViewHolder(final myViewHolder holder, int position) {
-
+        holder.txtNotifDate.setText(list.get(position).Date);
+        holder.txtNotifTitle.setText(list.get(position).title);
+        holder.txtNotifBody.setText(list.get(position).Body);
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
 

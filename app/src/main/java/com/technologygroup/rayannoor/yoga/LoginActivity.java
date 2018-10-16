@@ -261,11 +261,8 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             //showStateDialog();
-
-                            Intent i = new Intent(LoginActivity.this, selectSportActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i);
-                            finish();
+                            btnOk1.revertAnimation();
+                            dialog1.dismiss();
                         }
                     }, 1000);
                 } else {

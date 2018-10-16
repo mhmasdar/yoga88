@@ -28,6 +28,7 @@ public class GymModel {
     public String Address;
     public double Rate;
     public String Telegram;
+    public String sorosh;
     public String City;
 
     public String State;

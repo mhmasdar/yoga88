@@ -22,9 +22,13 @@ import android.widget.TextView;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.CoachKaryabAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
@@ -51,6 +55,7 @@ public class karyabiFragment extends Fragment {
     private CircularProgressButton btnOk;
     private int idCoach;
     private boolean calledFromPanel = false;
+    private List<ZanguleModel> list;
 
     public karyabiFragment() {
         // Required empty public constructor
@@ -75,8 +80,8 @@ public class karyabiFragment extends Fragment {
             floactAction.setVisibility(View.GONE);
         }
 
-
-        setUpRecyclerView();
+        WebServiceList webServiceList=new WebServiceList();
+        webServiceList.execute();
 
 
         floactAction.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +95,7 @@ public class karyabiFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        CoachKaryabAdapter adapter = new CoachKaryabAdapter(getActivity());
+        CoachKaryabAdapter adapter = new CoachKaryabAdapter(getActivity(),list);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());
@@ -170,8 +175,62 @@ public class karyabiFragment extends Fragment {
                         dialog.dismiss();
                     }
                 }, 1000);
-//                WebServiceList webServiceList=new WebServiceList();
-//                webServiceList.execute();
+                WebServiceList webServiceList=new WebServiceList();
+                webServiceList.execute();
+            }
+
+        }
+
+    }
+    private class WebServiceList extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            list = new ArrayList<>();
+            Recycler.showShimmerAdapter();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            list = webService.getCoachKaryabi(App.isInternetOn(), idCoach);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Recycler.clearAnimation();
+
+            if (list != null) {
+
+                if (list.size() > 0) {
+
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.VISIBLE);
+                    setUpRecyclerView();
+
+                } else {
+
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.VISIBLE);
+
+
+                }
+
+            } else {
+
+                lytMain.setVisibility(View.GONE);
+                lytEmpty.setVisibility(View.GONE);
+                lytDisconnect.setVisibility(View.VISIBLE);
+
             }
 
         }

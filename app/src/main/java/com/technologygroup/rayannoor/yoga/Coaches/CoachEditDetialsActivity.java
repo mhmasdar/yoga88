@@ -408,7 +408,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.editCoachInfo(App.isInternetOn(), model);
+            result = webService.EditCoachProfile(App.isInternetOn(), model);
             return null;
         }
 
@@ -419,7 +419,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (result != null) {
-                if (result.equals("true")) {
+                if (result.equals("Ok")) {
 
                     if (flagImgChanged) {
                         CallBackFile callBackFile = new CallBackFile();

@@ -2416,20 +2416,20 @@ public class WebService {
         }
         return null;
     }
-    public String EditCoachProfile(boolean isInternetAvailable ,int ID,String FirstName,String LastName,String Melli,String surush,String Instagram,String Telegram,String Mobile,String Email) {
+    public String EditCoachProfile(boolean isInternetAvailable ,CoachModel model) {
 
         if (isInternetAvailable) {
             JSONObject j=new JSONObject();
             try {
-                j.put("ID",ID);
-                j.put("FirstName",FirstName);
-                j.put("LastName",LastName);
-                j.put("MelliCode",Melli);
-                j.put("surush",surush);
-                j.put("Instagram",Instagram);
-                j.put("Telegram",Telegram);
-                j.put("Mobile",Mobile);
-                j.put("Email",Email);
+                j.put("ID",model.id);
+                j.put("FirstName",model.fName);
+                j.put("LastName",model.lName);
+                j.put("MelliCode","");
+                j.put("surush",model.sorosh);
+                j.put("Instagram",model.Instagram);
+                j.put("Telegram",model.Telegram);
+                j.put("Mobile",model.Mobile);
+                j.put("Email",model.Email);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -2442,22 +2442,22 @@ public class WebService {
         }
         return null;
     }
-    public String EditGymProfile(boolean isInternetAvailable ,int ID,String FirstName,String LastName,String Melli,String surush,String Instagram,String Telegram,String Mobile,String Email,String Name,String Address) {
+    public String EditGymProfile(boolean isInternetAvailable ,GymModel model) {
 
         if (isInternetAvailable) {
             JSONObject j=new JSONObject();
             try {
-                j.put("ID",ID);
-                j.put("FirstName",FirstName);
-                j.put("LastName",LastName);
-                j.put("Name",Name);
-                j.put("MelliCode",Melli);
-                j.put("surush",surush);
-                j.put("Instagram",Instagram);
-                j.put("Telegram",Telegram);
-                j.put("Mobile",Mobile);
-                j.put("Email",Email);
-                j.put("Address",Address);
+                j.put("ID",model.id);
+                j.put("FirstName",model.fname);
+                j.put("LastName",model.lName);
+                j.put("Name",model.Name);
+                j.put("MelliCode","");
+                j.put("surush","");
+                j.put("Instagram",model.Instagram);
+                j.put("Telegram",model.Telegram);
+                j.put("Mobile",model.Mobile);
+                j.put("Email",model.Email);
+                j.put("Address",model.Address);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
