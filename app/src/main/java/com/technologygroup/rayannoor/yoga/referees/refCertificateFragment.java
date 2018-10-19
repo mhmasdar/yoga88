@@ -455,7 +455,7 @@ public class refCertificateFragment extends Fragment implements
                 {
                     model.id = idm;
 
-                    fileDetails = new sendFileDetails(model);
+                    fileDetails = new sendFileDetails(model, idm);
                     fileDetails.execute();
 
 
@@ -484,10 +484,12 @@ public class refCertificateFragment extends Fragment implements
         private WebService webService;
         String fileResult;
         CoachHonorModel model;
+        int ObjectID;
 
-        sendFileDetails(CoachHonorModel model)
+        sendFileDetails(CoachHonorModel model, int ObjectID)
         {
             this.model = model;
+            this.ObjectID = ObjectID;
         }
 
 
@@ -502,7 +504,7 @@ public class refCertificateFragment extends Fragment implements
         @Override
         protected Void doInBackground(Object... params) {
 
-            //fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2);
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2, ObjectID);
 
             return null;
         }
