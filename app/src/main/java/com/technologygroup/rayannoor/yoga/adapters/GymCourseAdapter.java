@@ -100,9 +100,30 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
     public int getItemCount() {
         return list.size();
     }
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        // Note: monthOfYear is 0-indexed
+        boolean flagMonth = false, flagDay = false;
+
+        if (dayOfMonth / 10 < 1)
+            flagDay = true;
+        if ((monthOfYear + 1) / 10 < 1)
+            flagMonth = true;
+
+        date = year + "";
+        if (flagMonth)
+            date += "/0" + (monthOfYear + 1);
+        else
+            date += "/" + (monthOfYear + 1);
+        if (flagDay)
+            date += "/0" + dayOfMonth;
+        else
+            date += "/" + dayOfMonth;
+
+
+        t.setText(date);
+//        startDateInt = date.replace("/", "");
+
 
     }
 
@@ -166,7 +187,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             edtTitle=dialog.findViewById(R.id.edtTitle);
             edtTime=dialog.findViewById(R.id.edtTime);
             title=dialog.findViewById(R.id.Title);
-
+            imgClose=dialog.findViewById(R.id.imgClose);
             selectCoach=dialog.findViewById(R.id.CoachesSpinner);
             title.setText("تغییر نام دوره");
             edtTitle.setText(courseModel.Title);
@@ -215,6 +236,12 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
                 public void onClick(View v) {
 //                    WebServiceADD webServiceADD=new WebServiceADD(edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateEnd.getText().toString());
 //                    webServiceADD.execute();
+                }
+            });
+            imgClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                dialog.dismiss();
                 }
             });
             dialog.setCancelable(true);
