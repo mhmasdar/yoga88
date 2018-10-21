@@ -449,21 +449,27 @@ public class refEducationFragment extends Fragment implements
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            catch (NullPointerException e)
+            {
+                idm=0;
+            }
             try {
                 idm=jsonObject.getInt("ID");
             } catch (JSONException e) {
+                idm=0;
                 e.printStackTrace();
+            }
+            catch (NullPointerException e)
+            {
+                idm=0;
             }
             if (idm != 0)
             {
                 if (idm > 0)
                 {
                     model.id = idm;
-
                     callBackFile = new CallBackFile(model);
                     callBackFile.execute();
-
-
                 }
 
                 else if (idm == 0)

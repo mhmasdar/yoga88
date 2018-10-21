@@ -44,6 +44,9 @@ import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.CoachCertificateAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -438,14 +441,21 @@ public class certificateFragment extends Fragment implements
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-
+            JSONObject add;
+            int y=0;
             if (resultAdd != null) {
 
-                if (Integer.parseInt(resultAdd) > 0) {
+                try {
+                    add=new JSONObject(resultAdd);
+                    y=add.getInt("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (y > 0) {
                     CallBackFile callBackFile = new CallBackFile();
                     callBackFile.execute();
 
-                    model.id = Integer.parseInt(resultAdd);
+                    model.id = y;
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
@@ -463,7 +473,7 @@ public class certificateFragment extends Fragment implements
                     list.add(model);
                     setUpRecyclerView(list);
 
-                } else if (Integer.parseInt(resultAdd) == 0) {
+                } else if (y == 0) {
 
                     btnOk.revertAnimation();
                     Toast.makeText(getContext(), "ارسال اطلاعات ناموفق است", Toast.LENGTH_LONG).show();
@@ -474,7 +484,8 @@ public class certificateFragment extends Fragment implements
                     Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
 
                 }
-            } else {
+            }
+            else {
 
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
@@ -533,7 +544,6 @@ public class certificateFragment extends Fragment implements
             }
         }
     }
-
     @Override
     public void onStop() {
         super.onStop();

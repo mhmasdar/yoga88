@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
@@ -48,6 +49,7 @@ public class notifFragment extends Fragment {
     private EditText edtTitle;
     private EditText edtBody;
     CircularProgressButton btnOk;
+    ImageView imgClose;
 
     public notifFragment() {
         // Required empty public constructor
@@ -210,12 +212,19 @@ public class notifFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_add_gym_notif);
         edtBody=dialog.findViewById(R.id.edtBody);
         edtTitle=dialog.findViewById(R.id.edtTitle);
+        imgClose=dialog.findViewById(R.id.imgClose);
         btnOk=dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebServiceAdd webServiceADD=new WebServiceAdd(edtTitle.getText().toString(),edtBody.getText().toString());
                 webServiceADD.execute();
+            }
+        });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
         dialog.setCancelable(true);

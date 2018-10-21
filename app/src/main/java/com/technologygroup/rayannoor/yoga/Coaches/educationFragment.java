@@ -44,6 +44,9 @@ import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.CoachEducationAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -423,6 +426,7 @@ public class educationFragment extends Fragment implements
             model = new CoachEduModel();
             model.id = -1;
             model.idCoach = idCoach;
+            model.Title=edtTitle.getText().toString();
 //            model.Name = edtTitle.getText().toString();
 //            model.gettingPlace = edtUniversity.getText().toString();
             model.Date = edtDate.getText().toString();
@@ -440,15 +444,20 @@ public class educationFragment extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-
+            int y=0;
+            try {
+                JSONObject add=new JSONObject(resultAdd);
+                y=add.getInt("ID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (resultAdd != null) {
 
-                if (Integer.parseInt(resultAdd) > 0) {
+                if (y > 0) {
                     CallBackFile callBackFile = new CallBackFile();
                     callBackFile.execute();
 
-                    model.id = Integer.parseInt(resultAdd);
+                    model.id = y;
 
                     // بعد از اتمام عملیات کدهای زیر اجرا شوند
                     Bitmap icon = BitmapFactory.decodeResource(getResources(),
@@ -468,7 +477,7 @@ public class educationFragment extends Fragment implements
                     list.add(model);
                     setUpRecyclerView(list);
 
-                } else if (Integer.parseInt(resultAdd) == 0) {
+                } else if (y == 0) {
 
                     btnOk.revertAnimation();
                     Toast.makeText(getContext(), "ارسال اطلاعات ناموفق است", Toast.LENGTH_LONG).show();
