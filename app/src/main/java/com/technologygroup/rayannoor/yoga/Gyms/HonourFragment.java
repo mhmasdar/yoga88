@@ -236,6 +236,13 @@ public class HonourFragment extends Fragment implements
              web.execute();
             }
         });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
@@ -368,6 +375,7 @@ public class HonourFragment extends Fragment implements
             if (resultAdd != null) {
 
                 if (y > 0) {
+                    model.id=y;
                     CallBackFile callBackFile = new CallBackFile(model);
                     callBackFile.execute();
 

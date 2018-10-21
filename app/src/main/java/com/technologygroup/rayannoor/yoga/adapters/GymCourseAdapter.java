@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -27,9 +29,11 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.CourseModel;
+import com.technologygroup.rayannoor.yoga.Models.GymCoachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -46,10 +50,13 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
     private boolean calledFromPanel = false;
     private static int idGym;
     private List<CourseModel> list;
+    List<String> coaches;
+    List<Integer> coachesId;
     GymServiceActivity activity;
     ClassDate classDate;
     private ImageView imgClose;
     private EditText edtCourse;
+    List<GymCoachesModel> listcoaches;
 
     TextView title;
     public static Dialog dialog;
@@ -139,6 +146,13 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
                     removeItem(position,current);
                 }
             });
+            imgEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    EditDiolog(current,position);
+                }
+            });
 
         }
         private void EditDiolog(final CourseModel courseModel, final int position)
@@ -151,12 +165,16 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             edtDateEnd=dialog.findViewById(R.id.edtEndDate);
             edtTitle=dialog.findViewById(R.id.edtTitle);
             edtTime=dialog.findViewById(R.id.edtTime);
+            title=dialog.findViewById(R.id.Title);
+
             selectCoach=dialog.findViewById(R.id.CoachesSpinner);
             title.setText("تغییر نام دوره");
-            edtCourse.setText(courseModel.Title);
+            edtTitle.setText(courseModel.Title);
+            edtTime.setText(courseModel.Days);
             btnOk=dialog.findViewById(R.id.btnOk);
-//            WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
-//            webServiceListCoach.execute();
+
+            WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
+            webServiceListCoach.execute();
             edtDateStart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -411,6 +429,61 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
 //                webServiceList.execute();
 //            }
 //        }
+private class WebServiceListCoach extends AsyncTask<Object, Void, Void> {
+
+    private WebService webService;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        webService = new WebService();
+        listcoaches = new ArrayList<>();
+
+    }
+
+    @Override
+    protected Void doInBackground(Object... params) {
+
+        listcoaches = webService.getGymCoaches(App.isInternetOn(), idGym);
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+        coaches = new ArrayList<>();
+        coachesId = new ArrayList<>();
+        coachesId.clear();
+        coaches.clear();
+        if (listcoaches != null) {
+            for (int i = 0; i < listcoaches.size(); i++) {
+                coaches.add(listcoaches.get(i).fName + " " + listcoaches.get(i).lName);
+                coachesId.add(listcoaches.get(i).idUser);
+                setSpinner();
+            }
+
+        }
+    }
+
+    }
+        public void setSpinner()
+        {
+            ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,coaches);
+            dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            selectCoach.setAdapter(dataAdapterCourse);
+            selectCoach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                    pos=selectCoach.getSelectedItemPosition();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
 
     }
 }

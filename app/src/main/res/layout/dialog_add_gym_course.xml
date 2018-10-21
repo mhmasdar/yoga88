@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:text="اضافه کردن دوره آموزشی"
             android:gravity="center"
+            android:id="@+id/Title"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:layout_marginRight="10dp"
