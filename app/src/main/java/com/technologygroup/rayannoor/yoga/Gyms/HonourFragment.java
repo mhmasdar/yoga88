@@ -37,7 +37,6 @@ import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
