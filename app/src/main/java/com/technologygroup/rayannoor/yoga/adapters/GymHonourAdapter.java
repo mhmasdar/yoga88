@@ -1,19 +1,25 @@
 package com.technologygroup.rayannoor.yoga.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
-import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachHonorModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -21,11 +27,14 @@ import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.List;
 
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+
 /**
  * Created by Mohamad Hasan on 3/8/2018.
  */
 
-public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myViewHolder> {
+public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myViewHolder> implements
+        DatePickerDialog.OnDateSetListener{
 
     private Context context;
     private LayoutInflater mInflater;
@@ -34,6 +43,18 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
     private List<CoachHonorModel> list;
     GymServiceActivity activity;
     ClassDate classDate;
+    private Dialog dialog;
+    private ImageView imgClose;
+    private EditText edtTitle;
+    private EditText edtDate;
+    private TextView txtNoImage;
+    private ImageView imgHonour;
+    private ImageView imgSelectPicture;
+    private CircularProgressButton btnOk;
+    public boolean flagPermission = false;
+    private static final String TIMEPICKER = "TimePickerDialog",
+            DATEPICKER = "DatePickerDialog", MULTIDATEPICKER = "MultiDatePickerDialog";
+    private static final int PICK_FILE_REQUEST = 1;
 
     public GymHonourAdapter(Context context, List<CoachHonorModel> list, int idGym, boolean calledFromPanel) {
         this.context = context;
@@ -95,6 +116,33 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
         return list.size();
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        // Note: monthOfYear is 0-indexed
+        boolean flagMonth = false, flagDay = false;
+        String date;
+        if (dayOfMonth / 10 < 1)
+            flagDay = true;
+        if ((monthOfYear + 1) / 10 < 1)
+            flagMonth = true;
+
+        date = year + "";
+        if (flagMonth)
+            date += "/0" + (monthOfYear + 1);
+        else
+            date += "/" + (monthOfYear + 1);
+        if (flagDay)
+            date += "/0" + dayOfMonth;
+        else
+            date += "/" + dayOfMonth;
+
+
+        edtDate.setText(date);
+//        startDateInt = date.replace("/", "");
+
+
+    }
+
     class myViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtCertificateTitle;
@@ -115,7 +163,7 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
             txtCertificateDate = (TextView) itemView.findViewById(R.id.txtCertificateDate);
         }
 
-        private void setData(CoachHonorModel current, int position) {
+        private void setData(final CoachHonorModel current, final int position) {
 
             if (!calledFromPanel){
                 imgEdit.setVisibility(View.INVISIBLE);
@@ -129,9 +177,67 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
             txtCertificateDate.setText(current.Date);
             this.position = position;
             this.current = current;
+            imgEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                   showDialog(current,position);
+                }
+            });
 
         }
 
+    }
+    private void showDialog(CoachHonorModel current, int position) {
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_add_gym_honour);
+        imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
+        edtTitle = (EditText) dialog.findViewById(R.id.edtTitle);
+        edtDate = (EditText) dialog.findViewById(R.id.edtDate);
+        txtNoImage = (TextView) dialog.findViewById(R.id.txtNoImage);
+        imgHonour = (ImageView) dialog.findViewById(R.id.imgHonour);
+        imgSelectPicture = (ImageView) dialog.findViewById(R.id.imgSelectPicture);
+        edtTitle.setText(current.Title);
+        edtDate.setText(current.Date);
+        btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
+//        imgSelectPicture.setOnClickListener(imgSelectPicture_click);
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                GymServiceActivity activity = (GymServiceActivity) context;
+
+                PersianCalendar now = new PersianCalendar();
+
+                DatePickerDialog dpd = DatePickerDialog.newInstance(GymHonourAdapter.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
+                dpd.show(activity.getFragmentManager(), DATEPICKER);
+                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        Log.d("TimePicker", "Dialog was cancelled");
+                    }
+                });
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                WebServiceAdd web=new WebServiceAdd();
+//                web.execute();
+            }
+        });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 }
 
