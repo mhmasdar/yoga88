@@ -2339,6 +2339,32 @@ public class WebService {
         }
         return null;
     }
+    public String EditGymTerm(boolean isInternetAvailable ,int id,int gymid,int coachid,String title,String days,String StartDate,String EndDate) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID","id");
+                j.put("GymID",gymid);
+                j.put("CoachID",coachid);
+                j.put("Title",title);
+                j.put("Days",days);
+                j.put("StartDate",StartDate);
+                j.put("EndDate",EndDate);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "GymTerm/EditGymTerm", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+
+            else
+                return null;
+        }
+        return null;
+    }
     public String DeleteGymTerm(boolean isInternetAvailable ,int idterm) {
 
         if (isInternetAvailable) {

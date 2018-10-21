@@ -307,7 +307,8 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             @Override
             protected Void doInBackground(Object... params) {
 
-             //   result = webService.editCoachCourse(App.isInternetOn(), model);
+                result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,coachesId.get(pos),edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateStart.getText().toString());
+                //public String EditGymTerm(boolean isInternetAvailable ,int id,int gymid,int coachid,String title,String days,String StartDate,String EndDate) {
                 return null;
             }
 
