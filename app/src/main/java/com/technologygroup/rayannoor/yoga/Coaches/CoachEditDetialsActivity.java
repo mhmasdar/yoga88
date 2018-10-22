@@ -49,7 +49,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
     private LinearLayout lytLogOut;
     private EditText edtFName;
     private EditText edtLName;
-    private EditText edtNatCode;
+    //private EditText edtNatCode;
     private LinearLayout lytMobile;
     private EditText edtMobile;
     private LinearLayout lytTelegram;
@@ -143,7 +143,6 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                         Intent intent = new Intent(CoachEditDetialsActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-
                         finish();
 
                     }
@@ -164,7 +163,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
                     if (!edtFName.getText().toString().equals("") && !edtLName.getText().toString().equals("")) {
 
-                        if (edtNatCode.getText().toString().length() == 10) {
+                      //  if (edtNatCode.getText().toString().length() == 10) {
 
                             CoachModel tmpModel = new CoachModel();
 
@@ -186,21 +185,21 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                             tmpModel.id = idCoach;
                             tmpModel.fName = edtFName.getText().toString();
                             tmpModel.lName = edtLName.getText().toString();
-                            tmpModel.natCode = edtNatCode.getText().toString();
+                          //  tmpModel.natCode = edtNatCode.getText().toString();
                             tmpModel.Mobile = edtMobile.getText().toString();
                             tmpModel.Telegram = edtTelegram.getText().toString();
                             tmpModel.Instagram = edtInstagram.getText().toString();
                             tmpModel.Email = edtEmail.getText().toString();
 
 
-                            callBackFileDetails = new WebServiceCallBackEdit(tmpModel);
-                            callBackFileDetails.execute();
+                            WebServiceEditProfile webServiceEditProfile = new WebServiceEditProfile(tmpModel);
+                            webServiceEditProfile.execute();
 
 
-                        } else {
-                            Toast.makeText(CoachEditDetialsActivity.this, "کد ملی صحیح نیست", Toast.LENGTH_LONG).show();
-
-                        }
+//                        } else {
+//                            Toast.makeText(CoachEditDetialsActivity.this, "کد ملی صحیح نیست", Toast.LENGTH_LONG).show();
+//
+//                        }
 
                     } else {
                         Toast.makeText(CoachEditDetialsActivity.this, "لطفا نام و نام خانوادگی را وارد کنید", Toast.LENGTH_LONG).show();
@@ -223,7 +222,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         lytLogOut = (LinearLayout) findViewById(R.id.lytLogOut);
         edtFName = (EditText) findViewById(R.id.edtFName);
         edtLName = (EditText) findViewById(R.id.edtLName);
-        edtNatCode = (EditText) findViewById(R.id.edtNatCode);
+      //  edtNatCode = (EditText) findViewById(R.id.edtNatCode);
         lytMobile = (LinearLayout) findViewById(R.id.lytMobile);
         edtMobile = (EditText) findViewById(R.id.edtMobile);
         lytTelegram = (LinearLayout) findViewById(R.id.lytTelegram);
@@ -257,7 +256,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         current.Email = getIntent().getStringExtra("CoachEmail");
         edtFName.setText(getIntent().getStringExtra("CoachFName"));
         edtLName.setText(getIntent().getStringExtra("CoachLName"));
-        edtNatCode.setText(getIntent().getStringExtra("CoachNatCode"));
+       // edtNatCode.setText(getIntent().getStringExtra("CoachNatCode"));
         edtMobile.setText(getIntent().getStringExtra("CoachMobile"));
         edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
         edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
@@ -425,6 +424,68 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                         CallBackFile callBackFile = new CallBackFile();
                         callBackFile.execute();
                     }
+
+                    Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(CoachEditDetialsActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(CoachEditDetialsActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+    private class WebServiceEditProfile extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        CoachModel model;
+        String result;
+        Dialog dialog;
+
+        public WebServiceEditProfile(CoachModel model) {
+            this.model = model;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(CoachEditDetialsActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.EditCoachProfile(App.isInternetOn(), model);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("Ok")) {
 
                     Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 
