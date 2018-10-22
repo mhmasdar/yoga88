@@ -488,12 +488,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 if (result.equals("Ok")) {
 
                     Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
-                    edtFName.setText(model.fName);
-                    edtLName.setText(model.lName);
-                    edtMobile.setText(model.Mobile);
-                    edtTelegram.setText(model.Telegram);
-                    edtInstagram.setText(model.Instagram);
-                    edtEmail.setText(model.Email);
+
                 } else {
                     Toast.makeText(CoachEditDetialsActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
                 }

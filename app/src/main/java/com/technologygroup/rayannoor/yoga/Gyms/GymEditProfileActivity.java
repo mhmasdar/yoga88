@@ -334,12 +334,8 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 if (result.equals("Ok")||result.equals("OK")) {
 
                     Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
-                    edtFName.setText(model.Name);
-                    edtLName.setText(model.lName);
-                    edtMobile.setText(model.Mobile);
-                    edtTelegram.setText(model.Telegram);
-                    edtInstagram.setText(model.Instagram);
-                    edtEmail.setText(model.Email);
+
+
                 } else {
                     Toast.makeText(GymEditProfileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
                 }
