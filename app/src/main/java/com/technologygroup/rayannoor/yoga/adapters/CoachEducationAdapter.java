@@ -1,14 +1,12 @@
 package com.technologygroup.rayannoor.yoga.adapters;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -22,20 +20,18 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.gifdecoder.GifHeaderParser;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Models.CoachEduModel;
 import com.technologygroup.rayannoor.yoga.R;
-import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.imageActivity;
 
@@ -59,7 +55,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
     // dialog add content
     EditText edtTitle, edtUniversity, edtDate;
     TextView txtNoImage, txtWindowTitle;
-    ImageView imgCertificate, imgSelectPicture, imgClose;
+    ImageView  imgClose;
     CircularProgressButton btnOk;
     //relates to date and time picker
     private static final String TIMEPICKER = "TimePickerDialog",
@@ -69,7 +65,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
     private static String selectedImgName = "", selectedFilePath;
     private static int idCoach;
     CoachServicesActivity activity;
-    private boolean flagImgChanged = false;
+
     private boolean calledFromPanel = false;
 
     public CoachEducationAdapter(Context context, List<CoachEduModel> list, int idCoach, boolean calledFromPanel) {
@@ -87,8 +83,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
         edtUniversity = dialogEdit.findViewById(R.id.edtUniversity);
         edtDate = dialogEdit.findViewById(R.id.edtDate);
         txtNoImage = dialogEdit.findViewById(R.id.txtNoImage);
-        imgCertificate = dialogEdit.findViewById(R.id.imgCertificate);
-        imgSelectPicture = dialogEdit.findViewById(R.id.imgSelectPicture);
+
         btnOk = dialogEdit.findViewById(R.id.btnOk);
         imgClose = dialogEdit.findViewById(R.id.imgClose);
     }
@@ -252,11 +247,12 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
         edtUniversity = dialogEdit.findViewById(R.id.edtUniversity);
         edtDate = dialogEdit.findViewById(R.id.edtDate);
         txtNoImage = dialogEdit.findViewById(R.id.txtNoImage);
-        imgCertificate = dialogEdit.findViewById(R.id.imgCertificate);
-        imgSelectPicture = dialogEdit.findViewById(R.id.imgSelectPicture);
+
         btnOk = dialogEdit.findViewById(R.id.btnOk);
         imgClose = dialogEdit.findViewById(R.id.imgClose);
         txtWindowTitle.setText("ویرایش سوابق تحصیلی");
+        LinearLayout lytimage=dialogEdit.findViewById(R.id.lytimage);
+        lytimage.setVisibility(View.GONE);
 //        edtTitle.setText(current.Name);
 //        edtUniversity.setText(current.gettingPlace);
         edtDate.setText(current.Date);
@@ -288,7 +284,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
             }
         });
 
-        imgSelectPicture.setOnClickListener(imgSelectPicture_click);
+
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,7 +299,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
 
                 if (!edtTitle.getText().toString().equals("") && !edtUniversity.getText().toString().equals("") && !edtDate.getText().toString().equals("")) {
 
-                    if (!selectedImgName.equals("")) {
+
 //
 //                        if (!current.Img.equals(selectedImgName))
 //                            flagImgChanged = true;
@@ -320,65 +316,18 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
 //                        tmpModel.gettingPlace = edtUniversity.getText().toString();
                         WebServiceCallBackEdit callBackFileDetails = new WebServiceCallBackEdit(tmpModel, position);
                         callBackFileDetails.execute();
-                    } else {
-                        Toast.makeText(context, "لطفا تصویر مدرک را انتخاب کنید", Toast.LENGTH_LONG).show();
                     }
 
-                } else {
-                    Toast.makeText(context, "لطفا فیلد ها را کامل کنید", Toast.LENGTH_LONG).show();
-                }
+
 
             }
         });
     }
-    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (App.isInternetOn()) {
-                showFileChooser();
-            } else {
-                Toast.makeText(context, "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
-            }
 
-        }
-    };
 
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        //sets the select file to all types of files
-        intent.setType("*/*");
-        //allows to select data and return it
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        //starts new activity to select file and return data
-        activity.startActivityForResult(Intent.createChooser(intent, "انتخاب فایل"), PICK_FILE_REQUEST);
-    }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("MyAdapter", "onActivityResult");
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PICK_FILE_REQUEST) {
-                if (data == null) {
-                    //no data present
-                    return;
-                }
-                Uri selectedFileUri = data.getData();
-                imgCertificate.setVisibility(View.VISIBLE);
-                txtNoImage.setVisibility(View.GONE);
-                if (selectedFileUri != null)
-                    if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
-                        Glide.with(context).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
-                selectedFilePath = FilePath.getPath(context, selectedFileUri);
-                Log.i(GifHeaderParser.TAG, "Selected File Path:" + selectedFilePath);
-                if (selectedFilePath != null && !selectedFilePath.equals("")) {
-                    String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
-                    ClassDate classDate = new ClassDate();
-                    selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
-                }
-            } else {
-                Toast.makeText(context, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
+
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         // Note: monthOfYear is 0-indexed
@@ -493,10 +442,7 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
             if (result != null) {
                 if (result.equals("OK")) {
 
-                    if (flagImgChanged){
-                        CallBackFile callBackFile = new CallBackFile();
-                        callBackFile.execute();
-                    }
+
 
                     list.remove(pos);
                     list.add(pos, model);
@@ -526,44 +472,5 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
             }
         }
     }
-    private class CallBackFile extends AsyncTask<Object, Void, Void> {
-        private WebService webService;
-        int fileResult;
-        String lastUpdate;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            webService = new WebService();
-//            dialog2 = new Dialog(getContext());
-//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog2.setContentView(R.layout.dialog_waiting);
-//            dialog2.setCancelable(true);
-//            dialog2.setCanceledOnTouchOutside(true);
-//            dialog2.show();
-            ClassDate classDate = new ClassDate();
-            lastUpdate = classDate.getDateTime();
-        }
-        @Override
-        protected Void doInBackground(Object... params) {
 
-            fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePath, selectedImgName);
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (fileResult == 200) {
-//                dialog2.dismiss();
-                Toast.makeText(context, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
-            } else if (fileResult == 0) {
-                Toast.makeText(context, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
-            } else {
-                Toast.makeText(context, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
-            }
-        }
-    }
 }
