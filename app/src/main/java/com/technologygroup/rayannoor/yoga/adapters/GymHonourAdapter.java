@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -43,6 +44,7 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
     private List<CoachHonorModel> list;
     GymServiceActivity activity;
     ClassDate classDate;
+    private String selectedFilePath, selectedImgName = "";
     private Dialog dialog;
     private ImageView imgClose;
     private EditText edtTitle;
@@ -239,5 +241,70 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
+    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (flagPermission) {
+
+                if (App.isInternetOn()) {
+
+                    if (idGym > 0) {
+
+                        showFileChooser();
+
+                    }
+                } else {
+                    Toast.makeText(context, "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    };
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        //sets the select file to all types of files
+        intent.setType("*/*");
+        //allows to select data and return it
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //starts new activity to select file and return data
+        activity.startActivityForResult(Intent.createChooser(intent, "انتخاب فایل"), PICK_FILE_REQUEST);
+    }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//         super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == Activity.RESULT_OK) {
+//            if (requestCode == PICK_FILE_REQUEST) {
+//                if (data == null) {
+//                    //no data present
+//                    return;
+//                }
+//
+//
+//                Uri selectedFileUri = data.getData();
+//
+//                imgHonour.setVisibility(View.VISIBLE);
+//                txtNoImage.setVisibility(View.GONE);
+//
+//                if (selectedFileUri != null)
+//                    if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
+//                        Glide.with(context).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgHonour);
+//
+//                selectedFilePath = FilePath.getPath(this.activity, selectedFileUri);
+//                Log.i(TAG, "Selected File Path:" + selectedFilePath);
+//
+//                if (selectedFilePath != null && !selectedFilePath.equals("")) {
+//
+//                    String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+//                    ClassDate classDate = new ClassDate();
+//                    selectedImgName = classDate.getDateTime() + "_" + "g_" + idGym + "." + extension;
+//
+//                }
+//            } else {
+//                Toast.makeText(context, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 }
 

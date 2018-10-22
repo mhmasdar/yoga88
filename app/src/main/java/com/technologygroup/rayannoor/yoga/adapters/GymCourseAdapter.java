@@ -190,10 +190,11 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             imgClose=dialog.findViewById(R.id.imgClose);
             selectCoach=dialog.findViewById(R.id.CoachesSpinner);
             title.setText("تغییر نام دوره");
+            btnOk=dialog.findViewById(R.id.btnOk);
+            edtDateStart.setText(courseModel.startDate);
+            edtDateEnd.setText(courseModel.endDate);
             edtTitle.setText(courseModel.Title);
             edtTime.setText(courseModel.Days);
-            btnOk=dialog.findViewById(R.id.btnOk);
-
             WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
             webServiceListCoach.execute();
             edtDateStart.setOnClickListener(new View.OnClickListener() {
@@ -234,8 +235,14 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    WebServiceADD webServiceADD=new WebServiceADD(edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateEnd.getText().toString());
-//                    webServiceADD.execute();
+                    CourseModel model=new CourseModel();
+                    model.idTerm=courseModel.idTerm;
+                    model.Title=edtTitle.getText().toString();
+                    model.startDate=edtDateStart.getText().toString();
+                    model.endDate=edtDateEnd.getText().toString();
+                    model.Days=edtTime.getText().toString();
+                    WebServiceCallBackEdit webServiceCallBackEdit=new WebServiceCallBackEdit(model,position);
+                    webServiceCallBackEdit.execute();
                 }
             });
             imgClose.setOnClickListener(new View.OnClickListener() {
@@ -308,7 +315,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             protected Void doInBackground(Object... params) {
 
                 result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,coachesId.get(pos),edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateStart.getText().toString());
-                //public String EditGymTerm(boolean isInternetAvailable ,int id,int gymid,int coachid,String title,String days,String StartDate,String EndDate) {
+
                 return null;
             }
 
@@ -391,72 +398,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             }
 
         }
-//        private class WebServiceADD extends AsyncTask<Object, Void, Void> {
-//
-//            private WebService webService;
-//
-//            Integer result;
-//            String title;
-//            String days;
-//            String StartDate;
-//            String EndDate;
-//
-//            public WebServiceADD(String t,String d,String S,String E) {
-//                title=t;
-//                days=d;
-//                StartDate=S;
-//                EndDate=E;
-//            }
-//
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//                btnOk.startAnimation();
-//                webService = new WebService();
-//            }
-//
-//            @Override
-//            protected Void doInBackground(Object... params) {
-//
-//                result = webService.(App.isInternetOn(),idGym,coachesId.get(pos),title,days,StartDate,EndDate);
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//
-//                if (result != null) {
-//                    if (result>0) {
-//
-//
-//                        // بعد از اتمام عملیات کدهای زیر اجرا شوند
-//                        Bitmap icon = BitmapFactory.decodeResource(getResources(),
-//                                R.drawable.ic_ok);
-//                        btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
-//
-//                        // بستن دیالوگ حتما با تاخیر انجام شود
-//                        Handler handler1 = new Handler();
-//                        handler1.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                dialog.dismiss();
-//                            }
-//                        }, 1000);
-//
-//                        //Toast.makeText(context, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        btnOk.revertAnimation();
-//                        Toast.makeText(getContext(), "ناموفق", Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    btnOk.revertAnimation();
-//                    Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-//                }
-//                coursesFragment.WebServiceList webServiceList=new coursesFragment.WebServiceList();
-//                webServiceList.execute();
-//            }
-//        }
+
 private class WebServiceListCoach extends AsyncTask<Object, Void, Void> {
 
     private WebService webService;
