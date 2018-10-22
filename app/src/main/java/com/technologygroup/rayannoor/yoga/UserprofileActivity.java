@@ -56,7 +56,7 @@ public class UserprofileActivity extends AppCompatActivity {
 
         edtFName.setText(prefs.getString("Name", ""));
         edtLName.setText(prefs.getString("lName", ""));
-        edtMobile.setText("0" + prefs.getString("Mobile", ""));
+        edtMobile.setText(prefs.getString("Mobile", ""));
         edtEmail.setText(prefs.getString("Email", ""));
 
         imgBack.setOnClickListener(new View.OnClickListener() {
@@ -193,31 +193,20 @@ public class UserprofileActivity extends AppCompatActivity {
         btnPassSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtLastPass.getText().toString().equals("") && !edtLastPass.getText().toString().equals("")) {
+//                if (!edtLastPass.getText().toString().equals("") && !edtLastPass.getText().toString().equals("")) {
+//
+//
+//                    if (prefs.getString("Password", "").equals(edtLastPass.getText().toString())) {
+                        WebServiceChangePass webServiceChangePass = new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                        webServiceChangePass.execute();
 
-
-                    if (prefs.getString("Password", "").equals(edtLastPass.getText().toString())) {
-
-                        userModel = new UserModel();
-
-                        userModel.id = idUser;
-                        userModel.cityid = -1;
-                        userModel.Name = prefs.getString("Name", "");
-                        userModel.lName = prefs.getString("lName", "");
-                        userModel.Mobile = prefs.getString("Mobile", "");
-                        userModel.Email = prefs.getString("Email", "");
-                        userModel.Password = edtNewPass.getText().toString();
-
-                        callBackEdit = new WebServiceCallBackEdit(userModel);
-                        callBackEdit.execute();
-
-                    } else {
-                        Toast.makeText(UserprofileActivity.this, "رمز قبلی اشتباه می باشد", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Toast.makeText(UserprofileActivity.this, "لطفا فیلد ها را پر کنید", Toast.LENGTH_SHORT).show();
-                }
+//                    } else {
+//                        Toast.makeText(UserprofileActivity.this, "رمز قبلی اشتباه می باشد", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } else {
+//                    Toast.makeText(UserprofileActivity.this, "لطفا فیلد ها را پر کنید", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -272,7 +261,7 @@ public class UserprofileActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.editUserInfo(App.isInternetOn(), model);
+            result = webService.EditUserProfile(App.isInternetOn(), model);
 
             return null;
         }
@@ -284,7 +273,7 @@ public class UserprofileActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (result != null) {
-                if (Integer.parseInt(result) == 1) {
+                if (result.equals("OK")||result.equals("Ok")) {
 
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString("Name", userModel.Name);
@@ -293,7 +282,70 @@ public class UserprofileActivity extends AppCompatActivity {
                     editor.putString("Email", userModel.Email);
                     editor.putString("Password", userModel.Password);
                     editor.apply();
+                    Toast.makeText(UserprofileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 
+                } else {
+                    Toast.makeText(UserprofileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(UserprofileActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+
+    }
+    private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String oldpass;
+        String newpass;
+        String result;
+        Dialog dialog;
+
+        public WebServiceChangePass(String o,String n) {
+            oldpass=o;
+            newpass=n;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(UserprofileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.ChangePass(App.isInternetOn(),idUser,oldpass,newpass);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("OK")||result.equals("Ok")) {
 
                     Toast.makeText(UserprofileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 

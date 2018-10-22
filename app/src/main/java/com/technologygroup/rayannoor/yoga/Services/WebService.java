@@ -2467,6 +2467,32 @@ public class WebService {
         }
         return null;
     }
+    public String EditUserProfile(boolean isInternetAvailable ,UserModel model) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",model.id);
+                j.put("FirstName",model.Name);
+                j.put("LastName",model.lName);
+                j.put("MelliCode","");
+                j.put("surush","");
+                j.put("Instagram","");
+                j.put("Telegram","");
+                j.put("Mobile",model.Mobile);
+                j.put("Email",model.Email);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/EditUser", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
     public String EditGymProfile(boolean isInternetAvailable ,GymModel model) {
 
         if (isInternetAvailable) {

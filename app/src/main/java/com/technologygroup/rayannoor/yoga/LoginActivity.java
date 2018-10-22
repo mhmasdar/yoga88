@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("userType",userModel.userType.toString());
                     editor.putString("Name", userModel.Name);
                     editor.putString("lName", userModel.lName);
-                    editor.putString("Mobile", userModel.Mobile);
+                    editor.putString("Mobile", edtUserName.getText().toString());
                     editor.putString("Email", userModel.Email);
                     editor.putString("Password", userModel.Password);
                     editor.putString("ProfileImageName", userModel.ProfileImageName);
@@ -265,6 +265,7 @@ public class LoginActivity extends AppCompatActivity {
                             dialog1.dismiss();
                         }
                     }, 1000);
+
                 } else {
 
                     btnOk1.revertAnimation();

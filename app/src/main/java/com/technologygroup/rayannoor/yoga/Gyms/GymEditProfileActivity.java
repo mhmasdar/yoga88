@@ -20,8 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.MainActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
@@ -36,6 +34,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
     private ImageView imgBack;
     private LinearLayout lytChangePassword;
     private LinearLayout lytLogOut;
+    private LinearLayout lytok;
     private EditText edtName;
     private EditText edtAddress;
     private EditText edtNatCode;
@@ -176,17 +175,18 @@ public class GymEditProfileActivity extends AppCompatActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         imgProfile = (RoundedImageView) findViewById(R.id.imgProfile);
         lytEditInformation = (LinearLayout) findViewById(R.id.lytEditInformation);
+        lytok = (LinearLayout) findViewById(R.id.lytok);
     }
     private void setView() {
         current = new GymModel();
 
-        if (getIntent().getStringExtra("CoachImg") != null)
-            if (!getIntent().getStringExtra("CoachImg").equals("") && !getIntent().getStringExtra("CoachImg").equals("null")) {
-                Glide.with(GymEditProfileActivity.this).load(App.imgAddr + getIntent().getStringExtra("CoachImg")).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
-                current.ImgName = getIntent().getStringExtra("CoachImg");
-            } else
-                current.ImgName = "";
-        else current.ImgName = "";
+//        if (getIntent().getStringExtra("CoachImg") != null)
+//            if (!getIntent().getStringExtra("CoachImg").equals("") && !getIntent().getStringExtra("CoachImg").equals("null")) {
+//                Glide.with(GymEditProfileActivity.this).load(App.imgAddr + getIntent().getStringExtra("CoachImg")).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+//                current.ImgName = getIntent().getStringExtra("CoachImg");
+//            } else
+//                current.ImgName = "";
+//        else current.ImgName = "";
 
         current.Name = getIntent().getStringExtra("CoachName");
         current.Address = getIntent().getStringExtra("GymAddress");
@@ -200,6 +200,23 @@ public class GymEditProfileActivity extends AppCompatActivity {
         edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
         edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
         edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
+        lytok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GymModel tmp;
+                tmp=new GymModel();
+                tmp.id=current.id;
+                tmp.Name=edtFName.getText().toString();
+                tmp.lName=edtLName.getText().toString();
+                tmp.Mobile=edtMobile.getText().toString();
+                tmp.Telegram=edtTelegram.getText().toString();
+                tmp.Instagram=edtInstagram.getText().toString();
+                tmp.Email=edtEmail.getText().toString();
+                WebServiceEditProfile webServiceEditProfile=new WebServiceEditProfile(tmp);
+                webServiceEditProfile.execute();
+
+            }
+        });
 
     }
     private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
@@ -255,6 +272,74 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
                     Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 
+
+                } else {
+                    Toast.makeText(GymEditProfileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(GymEditProfileActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+    private class WebServiceEditProfile extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        GymModel model;
+        String result;
+        Dialog dialog;
+
+        public WebServiceEditProfile(GymModel model) {
+            this.model = model;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(GymEditProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.EditGymProfile(App.isInternetOn(), model);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("Ok")||result.equals("OK")) {
+
+                    Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+                    edtFName.setText(model.Name);
+                    edtLName.setText(model.lName);
+                    edtMobile.setText(model.Mobile);
+                    edtTelegram.setText(model.Telegram);
+                    edtInstagram.setText(model.Instagram);
+                    edtEmail.setText(model.Email);
                 } else {
                     Toast.makeText(GymEditProfileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
                 }

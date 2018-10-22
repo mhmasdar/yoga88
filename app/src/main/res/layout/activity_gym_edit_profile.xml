@@ -232,6 +232,7 @@
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
@@ -475,6 +476,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
+            android:id="@+id/lytok"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_height="wrap_content">
 
