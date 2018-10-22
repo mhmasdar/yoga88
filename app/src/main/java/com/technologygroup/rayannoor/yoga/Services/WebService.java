@@ -2343,7 +2343,7 @@ public class WebService {
         if (isInternetAvailable) {
             JSONObject j=new JSONObject();
             try {
-                j.put("ID","id");
+                j.put("ID",id);
                 j.put("GymID",gymid);
                 j.put("CoachID",coachid);
                 j.put("Title",title);
