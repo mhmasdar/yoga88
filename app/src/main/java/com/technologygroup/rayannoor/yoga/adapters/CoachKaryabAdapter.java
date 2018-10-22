@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
@@ -51,6 +52,8 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
         private TextView txtNotifDate;
         private TextView txtNotifTitle;
         private TextView txtNotifBody;
+        private ImageView imgDelete;
+        private ImageView imgEdit;
 
 
         myViewHolder(View itemView) {
@@ -59,7 +62,8 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             txtNotifDate = (TextView) itemView.findViewById(R.id.txtNotifDate);
             txtNotifTitle = (TextView) itemView.findViewById(R.id.txtNotifTitle);
             txtNotifBody = (TextView) itemView.findViewById(R.id.txtNotifBody);
-
+            imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
+            imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);
         }
     }
 }
