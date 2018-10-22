@@ -1143,11 +1143,10 @@ public class WebService {
     public String editCoachHonor(boolean isInternetAvailable, CoachHonorModel model) {
 
         if (isInternetAvailable) {
-
             //String req = "{\"Date\":" + model.Date.substring(0, 4) + ",\"Des\":\"" + model.Des + "\",\"id\":" + model.id + ",\"idRow\":" + ",\"isGym\":false,\"lastUpdate\":0,\"Title\":\"" + model.Title + "\",\"Image\":\""  + "\",\"Name\":\"" + model.Name + "\"}";
             String mytitle;
             mytitle=model.Title.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "Course/EditCourse?id="+model.id+"&title="+mytitle,"GET");
+            String response = connectToServer(App.apiAddr + "Evidence/Edit?eid="+model.id+"&title="+mytitle,"GET");
             Log.i("LOG", response + "");
 
             return response;

@@ -1,6 +1,5 @@
 package com.technologygroup.rayannoor.yoga.Coaches;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -113,27 +112,4 @@ public class CoachServicesActivity extends AppCompatActivity {
         }
 
     }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2) {
-
-            adapterEdu = new CoachEducationAdapter(CoachServicesActivity.this);
-
-            adapterEdu.onActivityResult(requestCode, resultCode, data);
-        }
-
-        if (requestCode == 3) {
-
-            adapterHonor = new CoachCertificateAdapter(CoachServicesActivity.this);
-
-            adapterHonor.onActivityResult(requestCode, resultCode, data);
-        }
-
-    }
-
-
 }

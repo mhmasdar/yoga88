@@ -279,8 +279,6 @@ public class RefereeCertificateAdapter extends RecyclerView.Adapter<RefereeCerti
 
         btnOk = dialogEdit.findViewById(R.id.btnOk);
         imgClose = dialogEdit.findViewById(R.id.imgClose);
-
-
         txtWindowTitle.setText("ویرایش سوابق تحصیلی");
         edtTitle.setText(current.Title);
 //        edtBody.setText(current.Des);
