@@ -376,8 +376,8 @@ public class HonourFragment extends Fragment implements
 
                 if (y > 0) {
                     model.id=y;
-                    CallBackFile callBackFile = new CallBackFile(model);
-                    callBackFile.execute();
+                    sendFileDetails fileDetails = new sendFileDetails(model, y);
+                    fileDetails.execute();
 
                     model.id = y;
 
@@ -415,6 +415,50 @@ public class HonourFragment extends Fragment implements
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
 
+            }
+        }
+    }
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+        CoachHonorModel model;
+        int ObjectID;
+
+        sendFileDetails(CoachHonorModel model, int ObjectID)
+        {
+            this.model = model;
+            this.ObjectID = ObjectID;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2, ObjectID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                CallBackFile callBackFile = new CallBackFile(model);
+                callBackFile.execute();
+            }
+
+            else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -471,9 +515,6 @@ public class HonourFragment extends Fragment implements
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
-                list.add(model);
-                setUpRecyclerView(list);
-
 
             }
 

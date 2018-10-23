@@ -491,9 +491,6 @@ public class refCertificateFragment extends Fragment implements
             this.model = model;
             this.ObjectID = ObjectID;
         }
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -505,7 +502,6 @@ public class refCertificateFragment extends Fragment implements
         protected Void doInBackground(Object... params) {
 
             fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2, ObjectID);
-
             return null;
         }
 
@@ -581,11 +577,6 @@ public class refCertificateFragment extends Fragment implements
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
-
-
-                list.add(model);
-                setUpRecyclerView(list);
-
 
             }
 

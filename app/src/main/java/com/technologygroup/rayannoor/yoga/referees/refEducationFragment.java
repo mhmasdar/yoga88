@@ -468,8 +468,8 @@ public class refEducationFragment extends Fragment implements
                 if (idm > 0)
                 {
                     model.id = idm;
-                    callBackFile = new CallBackFile(model);
-                    callBackFile.execute();
+                    sendFileDetails fileDetails = new sendFileDetails(model, idm);
+                    fileDetails.execute();
                 }
 
                 else if (idm == 0)
@@ -489,7 +489,50 @@ public class refEducationFragment extends Fragment implements
             }
         }
     }
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
 
+        private WebService webService;
+        String fileResult;
+        CoachEduModel model;
+        int ObjectID;
+
+        sendFileDetails(CoachEduModel model, int ObjectID)
+        {
+            this.model = model;
+            this.ObjectID = ObjectID;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 2, ObjectID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                callBackFile = new CallBackFile(model);
+                callBackFile.execute();
+            }
+
+            else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
     private class CallBackFile extends AsyncTask<Object, Void, Void> {
