@@ -598,7 +598,7 @@ public class WebService {
         if (isInternetAvailable) {
             String mytitle;
             mytitle=bio.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "user/editbio?uid=" + id + "&bio=" +mytitle+"&role="+type, "GET");
+            String response = connectToServer(App.apiAddr + "user/editbio?urid=" + id + "&bio=" +mytitle+"&role="+type, "GET");
             Log.i("LOG", response + "");
             return response;
         } else
