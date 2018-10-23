@@ -1,14 +1,18 @@
 package com.technologygroup.rayannoor.yoga.Gyms;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,12 +24,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.MainActivity;
+import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
+import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class GymEditProfileActivity extends AppCompatActivity {
 
@@ -131,6 +142,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 showDialog();
             }
         });
+        imgProfile.setOnClickListener(imgSelectPicture_click);
     }
     private void showDialog() {
         dialogForget = new Dialog(GymEditProfileActivity.this);
@@ -217,6 +229,236 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (flagPermission) {
+
+                if (App.isInternetOn()) {
+
+                    if (idCoach > 0) {
+
+                        showFileChooser();
+
+                    }
+                } else {
+                    Toast.makeText(GymEditProfileActivity.this, "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    };
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        //sets the select file to all types of files
+        intent.setType("*/*");
+        //allows to select data and return it
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //starts new activity to select file and return data
+        startActivityForResult(Intent.createChooser(intent, "انتخاب فایل"), PICK_FILE_REQUEST);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == PICK_FILE_REQUEST) {
+                if (data == null) {
+                    //no data present
+                    return;
+                }
+
+
+                Uri selectedFileUri = data.getData();
+
+                if (selectedFileUri != null)
+                    if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
+                        Glide.with(this).loadFromMediaStore(selectedFileUri).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+
+                selectedFilePath = FilePath.getPath(this, selectedFileUri);
+                Log.i(TAG, "Selected File Path:" + selectedFilePath);
+
+                if (selectedFilePath != null && !selectedFilePath.equals("")) {
+
+                    String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+                    ClassDate classDate = new ClassDate();
+                    selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
+                    sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
+                }
+            } else {
+                Toast.makeText(this, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+        } else
+            flagPermission = false;
+    }
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+
+        int ObjectID;
+
+        sendFileDetails( int ObjectID)
+        {
+            this.ObjectID = ObjectID;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 1, ObjectID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                CallBackFile callBackFile = new CallBackFile();
+                callBackFile.execute();
+            }
+
+            else
+            {
+
+                Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private class CallBackFile extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        int fileResult;
+        String lastUpdate;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            ClassDate classDate = new ClassDate();
+            lastUpdate = classDate.getDateTime();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePath, selectedImgName);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult == 200) {
+//                dialog2.dismiss();
+                Toast.makeText(GymEditProfileActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+
+            } else if (fileResult == 0) {
+                Toast.makeText(GymEditProfileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
+//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
+//                callBackFileDelete.execute();
+            } else {
+                Toast.makeText(GymEditProfileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
+//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
+//                callBackFileDelete.execute();
+            }
+        }
+    }
+    private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        CoachModel model;
+        String result;
+        Dialog dialog;
+
+        public WebServiceCallBackEdit() {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(GymEditProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.EditCoachProfile(App.isInternetOn(), model);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+                if (result.equals("Ok")) {
+
+                    if (flagImgChanged) {
+                        CallBackFile callBackFile = new CallBackFile();
+                        callBackFile.execute();
+                    }
+
+                    Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(GymEditProfileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(GymEditProfileActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
+            }
+
+        }
 
     }
     private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {

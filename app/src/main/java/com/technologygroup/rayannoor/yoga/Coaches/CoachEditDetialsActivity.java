@@ -350,7 +350,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                     String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
                     ClassDate classDate = new ClassDate();
                     selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
-
+                    sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
                 }
             } else {
                 Toast.makeText(this, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
@@ -368,9 +369,49 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         } else
             flagPermission = false;
     }
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+
+        int ObjectID;
+
+        sendFileDetails( int ObjectID)
+        {
+            this.ObjectID = ObjectID;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 1, ObjectID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
 
 
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                CallBackFile callBackFile = new CallBackFile();
+                callBackFile.execute();
+            }
 
+            else
+            {
+
+                Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -378,8 +419,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         String result;
         Dialog dialog;
 
-        public WebServiceCallBackEdit(CoachModel model) {
-            this.model = model;
+        public WebServiceCallBackEdit() {
+
         }
 
         @Override
