@@ -395,10 +395,6 @@ public class HonourFragment extends Fragment implements
                         }
                     }, 1000);
 
-
-                    list.add(model);
-                    setUpRecyclerView(list);
-
                 } else if (y == 0) {
 
                     btnOk.revertAnimation();
