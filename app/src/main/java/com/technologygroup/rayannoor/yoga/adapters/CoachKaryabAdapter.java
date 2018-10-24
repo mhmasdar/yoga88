@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,9 +85,11 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
         private TextView txtNotifDate;
         private TextView txtNotifTitle;
         private TextView txtNotifBody;
+
         private ImageView imgDelete;
         private ImageView imgEdit;
-
+        private LinearLayout lytImage;
+        private TextView title;
 
         myViewHolder(View itemView) {
             super(itemView);
@@ -95,14 +98,20 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             txtNotifTitle = (TextView) itemView.findViewById(R.id.txtNotifTitle);
             txtNotifBody = (TextView) itemView.findViewById(R.id.txtNotifBody);
             imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
+
+
             imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);
         }
         private void showDialog(final ZanguleModel c, final int pos) {
             dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_add_gym_notif);
+            dialog.setContentView(R.layout.dialog_add_coach_karyab);
             txtNotifBody=dialog.findViewById(R.id.edtBody);
             txtNotifTitle=dialog.findViewById(R.id.edtTitle);
+            lytImage=dialog.findViewById(R.id.lytImage);
+            title=dialog.findViewById(R.id.txtWindowTitle);
+            title.setText("ویرایش کاریابی");
+            lytImage.setVisibility(View.GONE);
             btnOk=dialog.findViewById(R.id.btnOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
         private TextView txtNotifDate;
 
 
+
         myViewHolder(View itemView) {
             super(itemView);
             txtNotifTitle = (TextView) itemView.findViewById(R.id.txtNotifTitle);
@@ -112,11 +114,17 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
         }
     }
     private void showDialog(final ZanguleModel c, final int pos) {
+        LinearLayout lytImage;
+        TextView title;
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_gym_notif);
         edtBody=dialog.findViewById(R.id.edtBody);
         edtTitle=dialog.findViewById(R.id.edtTitle);
+        lytImage=dialog.findViewById(R.id.lytImage);
+        lytImage.setVisibility(View.GONE);
+        title=dialog.findViewById(R.id.title);
+        title.setText("ویرایش اعلان همگانی");
         btnOk=dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

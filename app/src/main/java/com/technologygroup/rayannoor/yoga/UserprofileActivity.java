@@ -1,14 +1,18 @@
 package com.technologygroup.rayannoor.yoga;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,9 +23,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
+import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class UserprofileActivity extends AppCompatActivity {
 
@@ -36,6 +46,9 @@ public class UserprofileActivity extends AppCompatActivity {
     private RoundedImageView imgProfile;
     private LinearLayout lytEditInformation;
     private Dialog dialogForget;
+    public boolean flagPermission = false;
+    private static final int PICK_FILE_REQUEST = 4;
+    private String selectedFilePath, selectedImgName = "";
 
 
     SharedPreferences prefs;
@@ -65,7 +78,7 @@ public class UserprofileActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        imgProfile.setOnClickListener(imgSelectPicture_click);
         lytLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -360,8 +373,170 @@ public class UserprofileActivity extends AppCompatActivity {
         }
 
     }
+    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (flagPermission) {
+
+                if (App.isInternetOn()) {
+
+                    if (idUser > 0) {
+
+                        showFileChooser();
+
+                    }
+                } else {
+                    Toast.makeText(UserprofileActivity.this, "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    };
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        //sets the select file to all types of files
+        intent.setType("*/*");
+        //allows to select data and return it
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //starts new activity to select file and return data
+        startActivityForResult(Intent.createChooser(intent, "انتخاب فایل"), PICK_FILE_REQUEST);
+    }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == PICK_FILE_REQUEST) {
+                if (data == null) {
+                    //no data present
+                    return;
+                }
+
+
+                Uri selectedFileUri = data.getData();
+
+                if (selectedFileUri != null)
+                    if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
+                        Glide.with(this).loadFromMediaStore(selectedFileUri).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+
+                selectedFilePath = FilePath.getPath(this, selectedFileUri);
+                Log.i(TAG, "Selected File Path:" + selectedFilePath);
+
+                if (selectedFilePath != null && !selectedFilePath.equals("")) {
+
+                    String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
+                    ClassDate classDate = new ClassDate();
+                    selectedImgName = classDate.getDateTime() + "_" + "c_" + idUser + "." + extension;
+                    sendFileDetails fileDetails = new sendFileDetails(idUser);
+                    fileDetails.execute();
+                }
+            } else {
+                Toast.makeText(this, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+            flagPermission = true;
+        } else
+            flagPermission = false;
+    }
+    private class sendFileDetails extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+
+        int ObjectID;
+
+        sendFileDetails( int ObjectID)
+        {
+            this.ObjectID = ObjectID;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.sendFileDetails(App.isInternetOn(), selectedImgName, 1, ObjectID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            {
+                CallBackFile callBackFile = new CallBackFile();
+                callBackFile.execute();
+            }
+
+            else
+            {
+
+                Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private class CallBackFile extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        int fileResult;
+        String lastUpdate;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            ClassDate classDate = new ClassDate();
+            lastUpdate = classDate.getDateTime();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePath, selectedImgName);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult == 200) {
+//                dialog2.dismiss();
+                Toast.makeText(UserprofileActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+
+            } else if (fileResult == 0) {
+                Toast.makeText(UserprofileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
+//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
+//                callBackFileDelete.execute();
+            } else {
+                Toast.makeText(UserprofileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
+//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
+//                callBackFileDelete.execute();
+            }
+        }
+    }
     @Override
     public void onStop() {
         super.onStop();
