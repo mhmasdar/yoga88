@@ -585,7 +585,7 @@ public class WebService {
         jsonObject.put("post",id);
         if (isInternetAvailable) {
 
-            String response = connectToServerByJson(App.apiAddr + "Post/DeleteElanat" , "POST",jsonObject.toString());
+            String response = connectToServerByJson(App.apiAddr + "Post/DeletePost" , "POST",jsonObject.toString());
             Log.i("LOG", response + "");
 
             return response;
