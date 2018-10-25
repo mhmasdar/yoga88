@@ -2641,6 +2641,7 @@ public class WebService {
                     return new JSONObject(response).getInt("ID");
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    return -1;
                 }
             }
 

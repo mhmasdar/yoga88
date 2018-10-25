@@ -292,12 +292,12 @@ public class galleryFragment extends Fragment {
 
                 Uri selectedFileUri = data.getData();
 
-                imgSelectPicture.setVisibility(View.VISIBLE);
+                img.setVisibility(View.VISIBLE);
                 txtNoImage.setVisibility(View.GONE);
 
                 if (selectedFileUri != null)
                     if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
-                        Glide.with(getContext()).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgSelectPicture);
+                        Glide.with(getContext()).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
 
                 selectedFilePath = FilePath.getPath(this.getActivity(), selectedFileUri);
                 Log.i(TAG, "Selected File Path:" + selectedFilePath);
