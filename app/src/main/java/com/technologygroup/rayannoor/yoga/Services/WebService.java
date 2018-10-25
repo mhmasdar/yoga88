@@ -2621,7 +2621,34 @@ public class WebService {
         }
         return null;
     }
+    public Integer AddGallery(boolean isInternetAvailable ,int Rid,String title,String body) {
 
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+
+                j.put("UserRoleID",Rid);
+                j.put("Title",title);
+                j.put("Description",body);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Gallery/AddGallery", "POST",j.toString());
+            if (response != null) {
+
+                try {
+                    return new JSONObject(response).getInt("ID");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+                return -1;
+        }
+        return -1;
+    }
     public String sendFileDetails(boolean isInternetAvailable , String name, int imgType, int objectID) {
 
         if (isInternetAvailable) {
