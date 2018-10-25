@@ -214,7 +214,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
 
                 if (result != null) {
 
-                    if (result.equals("OK")) {
+                    if (result.equals("OK")||result.equals("OK")) {
                         Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
                         list.remove(position);
                         notifyDataSetChanged();

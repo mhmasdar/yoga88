@@ -547,7 +547,7 @@ public class WebService {
             String mytitle;
             mytitle=model.Title.replace(" ", "%20");
             Log.i("LOG", App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate);
-            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + endDate, "GET");
+            String response = connectToServer(App.apiAddr + "WorkResume/Add?uid=" + model.idCoach + "&title=" + mytitle + "&startDate=" + model.startDate + "&endDate=" + model.endDate, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -573,7 +573,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Evidence/Delete?eid="+id, "GET");
+            String response = connectToServer(App.apiAddr + "WorkResume/Delete/"+id, "GET");
             Log.i("LOG", response + "");
 
             return response;
@@ -582,7 +582,7 @@ public class WebService {
     }
     public String deletegymnotif(boolean isInternetAvailable, int id) throws JSONException {
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("post",id);
+        jsonObject.put("ID",id);
         if (isInternetAvailable) {
 
             String response = connectToServerByJson(App.apiAddr + "Post/DeletePost" , "POST",jsonObject.toString());
@@ -1195,7 +1195,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            String response = connectToServerByJson(App.apiAddr + "honor/delete", "POST", id + "");
+            String response = connectToServer(App.apiAddr + "Evidence/Delete?eid="+id, "GET");
             Log.i("LOG", response + "");
 
             return response;

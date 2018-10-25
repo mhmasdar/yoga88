@@ -243,6 +243,9 @@ public class notifFragment extends Fragment {
         edtBody=dialog.findViewById(R.id.edtBody);
         edtTitle=dialog.findViewById(R.id.edtTitle);
         imgClose=dialog.findViewById(R.id.imgClose);
+        txtNoImage=dialog.findViewById(R.id.txtNoImage);
+        imgSelectPicture=dialog.findViewById(R.id.imgSelectPicture);
+        imgSelectPicture.setOnClickListener(imgSelectPicture_click);
         btnOk=dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,6 +264,26 @@ public class notifFragment extends Fragment {
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
+    View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (flagPermission) {
+
+                if (App.isInternetOn()) {
+
+                    if (idGym > 0) {
+
+                        showFileChooser();
+
+                    }
+                } else {
+                    Toast.makeText(getContext(), "به اینترنت متصل نیستید", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    };
     private void showFileChooser() {
         Intent intent = new Intent();
         //sets the select file to all types of files
@@ -413,7 +436,8 @@ public class notifFragment extends Fragment {
 
                     }
                 }, 1000);
-
+                WebServiceList webServiceList=new WebServiceList();
+                webServiceList.execute();
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
             }

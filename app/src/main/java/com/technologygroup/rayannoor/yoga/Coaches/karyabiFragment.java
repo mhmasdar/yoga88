@@ -138,6 +138,7 @@ public class karyabiFragment extends Fragment {
         edtUniversity = (EditText) dialog.findViewById(R.id.edtUniversity);
         txtNoImage = (TextView) dialog.findViewById(R.id.txtNoImage);
         imgSelectPicture = (ImageView) dialog.findViewById(R.id.imgSelectPicture);
+        imgCertificate = (ImageView) dialog.findViewById(R.id.imgCertificate);
         imgSelectPicture.setOnClickListener(imgSelectPicture_click);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -437,6 +438,8 @@ public class karyabiFragment extends Fragment {
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+                WebServiceList webServiceList=new WebServiceList();
+                webServiceList.execute();
 
             }
 
