@@ -23,9 +23,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
+import com.technologygroup.rayannoor.yoga.Coaches.CoachProfileActivity;
 import com.technologygroup.rayannoor.yoga.Models.GymModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GymDetailsActivity extends AppCompatActivity {
 
@@ -393,7 +397,48 @@ public class GymDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        WebServiceCoachInfo webServiceCoachInfo=new WebServiceCoachInfo();
-        webServiceCoachInfo.execute();
+        getInfo getinfo=new getInfo();
+        getinfo.execute();
+
+    }
+    private class getInfo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String Result;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            Result = webService.getPanelInfo(App.isInternetOn(), idGym);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject panelj=new JSONObject(Result);
+
+
+                JSONObject imagej=panelj.getJSONObject("ProfileImage");
+                String imageName=imagej.getString("Name");
+                if (imageName != null)
+                    if (!imageName.equals("") && !imageName.equals("null")) {
+                        Glide.with(GymDetailsActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
+
+                    }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
