@@ -427,8 +427,6 @@ public class GymDetailsActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             try {
                 JSONObject panelj=new JSONObject(Result);
-
-
                 JSONObject imagej=panelj.getJSONObject("ProfileImage");
                 String imageName=imagej.getString("Name");
                 if (imageName != null)
