@@ -590,9 +590,8 @@ public class refEducationFragment extends Fragment implements
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
 
-                list.add(model);
-                setUpRecyclerView(list);
-
+                WebServiceList webServiceList=new WebServiceList();
+                webServiceList.execute();
 
             }
 

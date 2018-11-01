@@ -40,14 +40,13 @@ public class teachsActivity extends AppCompatActivity {
         img1.setColorFilter(Color.rgb(190, 190, 190), PorterDuff.Mode.MULTIPLY);
         img2.setColorFilter(Color.rgb(190, 190, 190), PorterDuff.Mode.MULTIPLY);
         img3.setColorFilter(Color.rgb(190, 190, 190), PorterDuff.Mode.MULTIPLY);
-
-
         teachsCount = getIntent().getStringExtra("teachsCount");
-        if (Integer.valueOf(teachsCount) > 0)
-            imgNewTeach.setVisibility(View.VISIBLE);
-        else
-            imgNewTeach.setVisibility(View.INVISIBLE);
-
+        if(teachsCount!=null) {
+            if (Integer.valueOf(teachsCount) > 0)
+                imgNewTeach.setVisibility(View.VISIBLE);
+            else
+                imgNewTeach.setVisibility(View.INVISIBLE);
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ package com.technologygroup.rayannoor.yoga.Models;
 public class CourseModel {
 
     public int idTerm;
+    public int idcoach;
     public String Days;
     public String Times;
     public String Title;

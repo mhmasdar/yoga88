@@ -50,6 +50,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
     private boolean calledFromPanel = false;
     private static int idGym;
     private List<CourseModel> list;
+    public int poscoach;
     List<String> coaches;
     List<Integer> coachesId;
     GymServiceActivity activity;
@@ -241,6 +242,8 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
                     model.startDate=edtDateStart.getText().toString();
                     model.endDate=edtDateEnd.getText().toString();
                     model.Days=edtTime.getText().toString();
+                    model.idcoach=poscoach;
+                    model.coachName=selectCoach.getSelectedItem().toString();
                     WebServiceCallBackEdit webServiceCallBackEdit=new WebServiceCallBackEdit(model,position);
                     webServiceCallBackEdit.execute();
                 }
@@ -314,7 +317,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             @Override
             protected Void doInBackground(Object... params) {
 
-                result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,coachesId.get(pos),edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateStart.getText().toString());
+                result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,model.idcoach,edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateStart.getText().toString());
 
                 return null;
             }
@@ -447,6 +450,7 @@ private class WebServiceListCoach extends AsyncTask<Object, Void, Void> {
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                     pos=selectCoach.getSelectedItemPosition();
+                    poscoach=coachesId.get(pos);
                 }
 
                 @Override

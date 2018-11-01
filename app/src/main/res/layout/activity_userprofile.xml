@@ -167,6 +167,7 @@
                                 android:id="@+id/edtFName"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="نام"
+                                android:editable="false"
                                 android:textColorHint="@color/colorPrimary"
                                 android:textColor="@color/black"
                                 android:background="@drawable/edit_text_back_login"
@@ -207,6 +208,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:id="@+id/edtLName"
+                                android:editable="false"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="نام خانوادگی"
 
@@ -253,6 +255,7 @@
                                 android:id="@+id/edtMobile"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="شماره همراه"
+                                android:editable="false"
                                 android:textColor="@color/black"
                                 android:background="@drawable/edit_text_back_login"
                                 android:padding="5dp"
@@ -298,6 +301,7 @@
                                 android:id="@+id/edtEmail"
                                 android:textCursorDrawable="@drawable/cursor_color"
                                 android:hint="ایمیل"
+                                android:editable="false"
                                 android:textColor="@color/black"
                                 android:background="@drawable/edit_text_back_login"
                                 android:padding="5dp"

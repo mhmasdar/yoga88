@@ -64,7 +64,7 @@ public class RefereeEducationAdapter extends RecyclerView.Adapter<RefereeEducati
     String date;
     private static final int PICK_FILE_REQUEST = 2;
     private static int idCoach;
-    CoachServicesActivity activity;
+    RefereeServicesActivity activity;
     private boolean flagImgChanged = false;
     private boolean calledFromPanel = false;
 
@@ -74,7 +74,7 @@ public class RefereeEducationAdapter extends RecyclerView.Adapter<RefereeEducati
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-        // activity = (CoachServicesActivity) context;
+        activity = (RefereeServicesActivity) context;
     }
     public RefereeEducationAdapter(Context context){
         this.context = context;
@@ -312,6 +312,7 @@ public class RefereeEducationAdapter extends RecyclerView.Adapter<RefereeEducati
 //                        tmpModel.Img = selectedImgName;
 //                        tmpModel.Name = edtTitle.getText().toString();
                         tmpModel.Date = edtDate.getText().toString();
+                        tmpModel.Title = edtTitle.getText().toString();
 //                        tmpModel.gettingPlace = edtUniversity.getText().toString();
                         WebServiceCallBackEdit callBackFileDetails = new WebServiceCallBackEdit(tmpModel, position);
                         callBackFileDetails.execute();

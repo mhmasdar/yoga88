@@ -29,10 +29,10 @@ public class refBioFragment extends Fragment {
     private FloatingActionButton floactAction;
     private ImageView imgClose;
     private EditText edtBio;
-    private String Bio;
+
     private CircularProgressButton btnOk;
     int idCoach;
-    private String Biotemp;
+    public String Biotemp;
     Boolean calledFromPanel;
 
     public refBioFragment() {
@@ -49,7 +49,7 @@ public class refBioFragment extends Fragment {
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
         idCoach = getArguments().getInt("idCoach", -1);
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
-        txtBio.setText(Bio);
+
         if(!calledFromPanel)
         {
             floactAction.hide();
@@ -61,7 +61,8 @@ public class refBioFragment extends Fragment {
             }
         });
 //09142583265
-
+        WebgetBio webgetBio=new WebgetBio();
+        webgetBio.execute();
         return view;
     }
 
@@ -72,7 +73,7 @@ public class refBioFragment extends Fragment {
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtBio = (EditText) dialog.findViewById(R.id.edtBio);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
-        edtBio.setText(Bio);
+
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
@@ -98,6 +99,7 @@ public class refBioFragment extends Fragment {
 
         private WebService webService;
         String result;
+        String bio1;
 
 
 
@@ -106,6 +108,7 @@ public class refBioFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+            bio1=edtBio.getText().toString().trim();
         }
 
         @Override
@@ -121,7 +124,7 @@ public class refBioFragment extends Fragment {
             super.onPostExecute(aVoid);
             if(result.equals("Ok"))
             {
-                txtBio.setText(Biotemp);
+                txtBio.setText(bio1);
             }
 
 
@@ -139,6 +142,7 @@ public class refBioFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             webService = new WebService();
         }
 

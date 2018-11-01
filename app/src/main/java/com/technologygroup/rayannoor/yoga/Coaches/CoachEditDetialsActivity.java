@@ -37,6 +37,10 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.UserprofileActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
@@ -63,6 +67,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
     private Dialog dialogForget;
 
     private int idCoach;
+    private int idimage;
     private boolean flagImgChanged = false;
     CoachModel current;
 
@@ -100,7 +105,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        getInfo getinfo=new getInfo();
+        getinfo.execute();
         lytChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -350,7 +356,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                     String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
                     ClassDate classDate = new ClassDate();
                     selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
-                    sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                    deleteImage fileDetails = new deleteImage();
                     fileDetails.execute();
                 }
             } else {
@@ -399,7 +405,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            if (fileResult != null && fileResult.equals("OK")||fileResult.equals("ok")) //file uploaded successfully
             {
                 CallBackFile callBackFile = new CallBackFile();
                 callBackFile.execute();
@@ -637,6 +643,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 if (result.equals("OK")||result.equals("Ok")) {
 
                     Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+                    dialogForget.dismiss();
+
 
                 } else {
                     Toast.makeText(CoachEditDetialsActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
@@ -648,6 +656,92 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
         }
 
+    }
+    private class deleteImage extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            try {
+                fileResult = webService.deleteImage(App.isInternetOn(), idimage);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(fileResult.equals("-2"))
+            {
+                sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                fileDetails.execute();
+            }
+            if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
+            {
+                sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                fileDetails.execute();
+            }
+
+            else
+            {
+
+                Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private class getInfo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String Result;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            Result = webService.getPanelInfo(App.isInternetOn(), idCoach);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject panelj=new JSONObject(Result);
+                edtEmail.setText(panelj.getString("Email"));
+                edtInstagram.setText(panelj.getString("Instagram"));
+                edtTelegram.setText(panelj.getString("Telegram"));
+
+                JSONObject imagej=panelj.getJSONObject("ProfileImage");
+                String imageName=imagej.getString("Name");
+                idimage=imagej.getInt("ID");
+
+                if (imageName != null)
+                    if (!imageName.equals("") && !imageName.equals("null"))
+                        Glide.with(CoachEditDetialsActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @Override
     public void onStop() {

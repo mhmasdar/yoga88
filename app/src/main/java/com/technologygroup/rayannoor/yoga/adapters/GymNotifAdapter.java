@@ -115,7 +115,7 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
     }
     private void showDialog(final ZanguleModel c, final int pos) {
         LinearLayout lytImage;
-        TextView title;
+        final TextView title;
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_gym_notif);
@@ -125,11 +125,16 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
         lytImage.setVisibility(View.GONE);
         title=dialog.findViewById(R.id.title);
         title.setText("ویرایش اعلان همگانی");
+
         btnOk=dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(c,pos);
+                ZanguleModel model=new ZanguleModel();
+                model.id=c.id;
+                model.title=edtTitle.getText().toString();
+                model.Body=edtBody.getText().toString();
+                WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(model,pos);
                webServiceADD.execute();
             }
         });
@@ -276,6 +281,7 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
                 if (result.equals("OK")||result.equals("Ok")) {
 
                     list.remove(pos);
+
                     list.add(pos, model);
                     notifyDataSetChanged();
 

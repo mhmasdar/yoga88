@@ -33,6 +33,7 @@ public class workTimeFragment extends Fragment {
     boolean calledFromPanel;
     private CircularProgressButton btnOk;
     private int idGym;
+    Dialog dialog;
     public workTimeFragment() {
         // Required empty public constructor
     }
@@ -64,7 +65,7 @@ public class workTimeFragment extends Fragment {
     }
 
     private void showDialog() {
-        final Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_gym_worktime);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
@@ -144,8 +145,11 @@ public class workTimeFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(result.equals("OK")||result.equals("Ok"))
-            txtWork.setText(work);
+            dialog.dismiss();
+            if(result.equals("OK")||result.equals("Ok")) {
+                txtWork.setText(work);
+
+            }
         }
 
     }

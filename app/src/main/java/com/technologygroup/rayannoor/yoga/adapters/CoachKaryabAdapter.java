@@ -116,7 +116,11 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(c,pos);
+                    ZanguleModel model=new ZanguleModel();
+                    model.id=c.id;
+                    model.title=txtNotifTitle.getText().toString();
+                    model.Body=txtNotifBody.getText().toString();
+                    WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(model,pos);
                     webServiceADD.execute();
                 }
             });
@@ -214,7 +218,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
 
                 if (result != null) {
 
-                    if (result.equals("OK")||result.equals("OK")) {
+                    if (result.equals("OK")||result.equals("Ok")) {
                         Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
                         list.remove(position);
                         notifyDataSetChanged();
@@ -252,6 +256,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             @Override
             protected Void doInBackground(Object... params) {
                 result = webService.EditElanat(App.isInternetOn(), model.id,model.title,model.Body);
+
                 return null;
             }
 
@@ -261,7 +266,6 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
 
                 if (result != null) {
                     if (result.equals("OK")||result.equals("Ok")) {
-
                         list.remove(pos);
                         list.add(pos, model);
                         notifyDataSetChanged();

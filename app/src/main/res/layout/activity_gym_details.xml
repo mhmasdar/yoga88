@@ -78,6 +78,7 @@
                     android:text="سطح سه ستاره"
                     android:id="@+id/txtCoachLevel"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     android:layout_marginTop="15dp"
                     style="@style/AudioFileInfoOverlayText2"
                     android:textColor="@color/white"

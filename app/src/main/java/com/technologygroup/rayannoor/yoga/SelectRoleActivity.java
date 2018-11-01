@@ -123,7 +123,7 @@ public class SelectRoleActivity extends AppCompatActivity {
         if(selectedRole.equals("کاربر"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, UserprofileActivity.class);
-            intent.putExtra("idgym",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
+            intent.putExtra("idUser",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();

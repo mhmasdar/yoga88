@@ -1,5 +1,6 @@
 package com.technologygroup.rayannoor.yoga;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +10,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,6 +34,9 @@ import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class UserprofileActivity extends AppCompatActivity {
@@ -49,6 +55,7 @@ public class UserprofileActivity extends AppCompatActivity {
     public boolean flagPermission = false;
     private static final int PICK_FILE_REQUEST = 4;
     private String selectedFilePath, selectedImgName = "";
+    private int idimage;
 
 
     SharedPreferences prefs;
@@ -61,16 +68,24 @@ public class UserprofileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+            } else {
+                flagPermission = true;
+            }
+        } else {
+            flagPermission = true;
+        }
         initView();
 
         prefs = getSharedPreferences("User", 0);
-        idUser = prefs.getInt("idUser", -1);
-
+        idUser = getIntent().getIntExtra("idUser", -1);
         edtFName.setText(prefs.getString("Name", ""));
         edtLName.setText(prefs.getString("lName", ""));
         edtMobile.setText(prefs.getString("Mobile", ""));
-        edtEmail.setText(prefs.getString("Email", ""));
+        getInfo getp=new getInfo();
+        getp.execute();
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,6 +311,7 @@ public class UserprofileActivity extends AppCompatActivity {
                     editor.putString("Password", userModel.Password);
                     editor.apply();
                     Toast.makeText(UserprofileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
+                    dialogForget.dismiss();
 
                 } else {
                     Toast.makeText(UserprofileActivity.this, "ناموفق", Toast.LENGTH_LONG).show();
@@ -432,7 +448,7 @@ public class UserprofileActivity extends AppCompatActivity {
                     String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
                     ClassDate classDate = new ClassDate();
                     selectedImgName = classDate.getDateTime() + "_" + "c_" + idUser + "." + extension;
-                    sendFileDetails fileDetails = new sendFileDetails(idUser);
+                    deleteImage fileDetails = new deleteImage();
                     fileDetails.execute();
                 }
             } else {
@@ -450,6 +466,46 @@ public class UserprofileActivity extends AppCompatActivity {
             flagPermission = true;
         } else
             flagPermission = false;
+    }
+    private class deleteImage extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String fileResult;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            try {
+                fileResult = webService.deleteImage(App.isInternetOn(), idimage);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+
+            if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
+            {
+                sendFileDetails fileDetails = new sendFileDetails(idUser);
+                fileDetails.execute();
+            }
+
+            else
+            {
+
+                Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
     private class sendFileDetails extends AsyncTask<Object, Void, Void> {
 
@@ -481,7 +537,7 @@ public class UserprofileActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-            if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
+            if (fileResult != null && (fileResult.equals("ok")||fileResult.equals("OK"))) //file uploaded successfully
             {
                 CallBackFile callBackFile = new CallBackFile();
                 callBackFile.execute();
@@ -534,6 +590,45 @@ public class UserprofileActivity extends AppCompatActivity {
                 Toast.makeText(UserprofileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
 //                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
 //                callBackFileDelete.execute();
+            }
+        }
+    }
+    private class getInfo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String Result;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            Result = webService.getPanelInfo(App.isInternetOn(), idUser);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject panelj=new JSONObject(Result);
+                edtEmail.setText(panelj.getString("Email"));
+                JSONObject imagej=panelj.getJSONObject("ProfileImage");
+                String imageName=imagej.getString("Name");
+                idimage=imagej.getInt("ID");
+
+                if (imageName != null)
+                    if (!imageName.equals("") && !imageName.equals("null"))
+                        Glide.with(UserprofileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

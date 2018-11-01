@@ -74,9 +74,9 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
         this.mInflater = LayoutInflater.from(context);
         this.idCoach = idCoach;
         this.calledFromPanel = calledFromPanel;
-       // activity = (CoachServicesActivity) context;
+       activity = (CoachServicesActivity) context;
     }
-    public CoachEducationAdapter(Context context){
+    public CoachEducationAdapter(Context context,CoachEduModel c){
         this.context = context;
         txtWindowTitle = dialogEdit.findViewById(R.id.txtWindowTitle);
         edtTitle = dialogEdit.findViewById(R.id.edtTitle);
@@ -299,21 +299,14 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
 
                 if (!edtTitle.getText().toString().equals("") && !edtUniversity.getText().toString().equals("") && !edtDate.getText().toString().equals("")) {
 
-
-//
-//                        if (!current.Img.equals(selectedImgName))
-//                            flagImgChanged = true;
-//                        else
-//                            flagImgChanged = false;
-
                         CoachEduModel tmpModel = new CoachEduModel();
 
                         tmpModel.id = current.id;
                         tmpModel.idCoach = current.idCoach;
-//                        tmpModel.Img = selectedImgName;
-//                        tmpModel.Name = edtTitle.getText().toString();
+
                         tmpModel.Date = edtDate.getText().toString();
-//                        tmpModel.gettingPlace = edtUniversity.getText().toString();
+                        tmpModel.Title = edtTitle.getText().toString();
+
                         WebServiceCallBackEdit callBackFileDetails = new WebServiceCallBackEdit(tmpModel, position);
                         callBackFileDetails.execute();
                     }
@@ -323,11 +316,6 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
             }
         });
     }
-
-
-
-
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         // Note: monthOfYear is 0-indexed
@@ -441,9 +429,6 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
 
             if (result != null) {
                 if (result.equals("OK")) {
-
-
-
                     list.remove(pos);
                     list.add(pos, model);
                     notifyDataSetChanged();

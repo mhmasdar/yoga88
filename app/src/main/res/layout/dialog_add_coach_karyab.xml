@@ -65,7 +65,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:background="@color/actionBarBack"
-                android:id="@+id/edtUniversity"
+                android:id="@+id/edtBody"
                 android:textColorHint="@color/lightBlack"
                 android:textColor="@color/lightBlack"
                 android:hint="توضیحات"
@@ -82,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:gravity="right|center_vertical"
                 android:layout_marginRight="15dp"
+                android:id="@+id/lytImage"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">

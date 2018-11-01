@@ -493,6 +493,22 @@ public class WebService {
         } else
             return null;
     }
+    public String getPanelInfo(boolean isInternetAvailable, int id) {
+
+        if (isInternetAvailable) {
+
+            String response = connectToServer(App.apiAddr + "user/getuserrolebyid/"+id, "GET");
+            Log.i("LOG", response + "");
+
+            if (response != null) {
+
+                return response;
+            }
+            return null;
+
+        } else
+            return null;
+    }
 
     public List<CoachResumeModel> getCoachResume(boolean isInternetAvailable, int id) {
 
@@ -592,7 +608,18 @@ public class WebService {
         } else
             return null;
     }
+    public String deleteImage(boolean isInternetAvailable, int id) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("ID",id);
+        if (isInternetAvailable) {
 
+            String response = connectToServerByJson(App.apiAddr + "upload/DeleteFile" , "POST",jsonObject.toString());
+            Log.i("LOG", response + "");
+
+            return response;
+        } else
+            return null;
+    }
     public String editCoachBio(boolean isInternetAvailable, String bio, int id,String type) {
 
         if (isInternetAvailable) {
@@ -657,27 +684,9 @@ public class WebService {
                         JSONObject Object = ArreyBodies.getJSONObject(i);
                         TeachTextImage model = new TeachTextImage();
                         model.Text = Object.getString("Body");
-                        JSONArray Images=Object.getJSONArray("Images");
-
-                        try {
-                            JSONObject image = Images.getJSONObject(0);
-                            model.Image = image.getString("Name");
-                            model.Title=Arrey.getString("Title");
-                            try {
-                                JSONObject User=Arrey.getJSONObject("User");
-                                model.ID=User.getInt("ID");
-                                model.Name= User.getString("FirstName")+" "+User.getString("LastName");
-                            }
-                            catch (JSONException e)
-                            {
-
-                            }
-
-                        }
-                        catch (JSONException e)
-                        {
-
-                        }
+                        JSONArray imagej=Object.getJSONArray("Images");
+                        JSONObject im=imagej.getJSONObject(0);
+                        model.Image=im.getString("Name");
                         list.add(model);
 
                     }
@@ -1105,11 +1114,10 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-            //  String req = "{\"id\":" + model.id + ",\"idCoach\":" + model.idCoach + ",\"Name\":\"" + model.Name + "\",\"image\":\"" + model.Img + "\",\"gettingPlace\":\"" + model.gettingPlace + "\",\"lastUpdate\":0,\"date\":" + model.Date.substring(0, 4) + "}";
-            //String response = connectToServerByJson(App.apiAddr + "EducationalRecord/update", "POST", req);
-            //Log.i("LOG", response + "");
-
-            return "";
+            String mytitle;
+            mytitle=model.Title.replace(" ", "%20");
+            String response = connectToServer(App.apiAddr + "Evidence/Edit?eid="+model.id+"&title="+mytitle,"GET");
+            return response;
         } else
             return null;
     }
@@ -1991,7 +1999,7 @@ public class WebService {
 
 
             String response = connectToServer(App.apiAddr + "user/DeleteGymCoach?gid="+ idgym +"&cid="+idcoach, "GET");
-            return result;
+            return response;
         } else
             return null;
     }
@@ -2432,7 +2440,7 @@ public class WebService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String response = connectToServerByJson(App.apiAddr + "user/ForgetPassword", "POST",j.toString());
+            String response = connectToServerByJson(App.apiAddr + "user/EditPassword", "POST",j.toString());
             if (response != null) {
                 return response;
             }

@@ -591,6 +591,8 @@ public class educationFragment extends Fragment implements
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+                WebServiceList webServiceList=new WebServiceList();
+                webServiceList.execute();
             }
 
             else
