@@ -26,6 +26,9 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CoachProfileActivity extends AppCompatActivity {
 
     private RoundedImageView imgCoach;
@@ -384,6 +387,56 @@ public class CoachProfileActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfo getinfo=new getInfo();
+        getinfo.execute();
+
+    }
+    private class getInfo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String Result;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            Result = webService.getPanelInfo(App.isInternetOn(), idCoach);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject panelj=new JSONObject(Result);
+
+
+                JSONObject imagej=panelj.getJSONObject("ProfileImage");
+                String imageName=imagej.getString("Name");
+                if (imageName != null)
+                    if (!imageName.equals("") && !imageName.equals("null")) {
+                        Glide.with(CoachProfileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+                        SharedPreferences prefs = getSharedPreferences("User", 0);
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("image",imageName);
+                        editor.apply();
+                    }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     public void onStop() {
         super.onStop();

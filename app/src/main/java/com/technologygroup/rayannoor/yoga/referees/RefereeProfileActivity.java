@@ -3,6 +3,7 @@ package com.technologygroup.rayannoor.yoga.referees;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,9 @@ import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.RoundedImageView;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RefereeProfileActivity extends AppCompatActivity {
 
@@ -276,6 +280,50 @@ public class RefereeProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getInfo();
+        getInfo getinfo=new getInfo();
+        getinfo.execute();
+
     }
+    private class getInfo extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String Result;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            Result = webService.getPanelInfo(App.isInternetOn(), idsend);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject panelj=new JSONObject(Result);
+                JSONObject imagej=panelj.getJSONObject("ProfileImage");
+                String imageName=imagej.getString("Name");
+                if (imageName != null)
+                    if (!imageName.equals("") && !imageName.equals("null")) {
+                        Glide.with(RefereeProfileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgReferee);
+                        SharedPreferences prefs = getSharedPreferences("User", 0);
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString("image",imageName);
+                        editor.apply();
+                    }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
 
         prefs = getSharedPreferences("User", 0);
-        userType = prefs.getString("userType","no");
+        userType = prefs.getString("userType", "no");
         idUser = prefs.getInt("idUser", -1);
         idField = prefs.getInt("idField", 0);
 
@@ -128,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
         slider.execute();
 
         try {
-            usertypes=new JSONArray(userType);
+            usertypes = new JSONArray(userType);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         if (idUser > 0) {
             txtUserName.setText(prefs.getString("Name", "") + " " + prefs.getString("lName", ""));
-            String image = prefs.getString("ProfileImageName","null");
+            String image = prefs.getString("ProfileImageName", "null");
             if (!image.equals("") && !image.equals("null"))
                 Glide.with(MainActivity.this).load(App.imgAddr + image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgUser);
         }
@@ -176,9 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             txtLogin.setText("ورود/ثبت نام");
         }
 
@@ -186,8 +184,6 @@ public class MainActivity extends AppCompatActivity {
         //set image darker
         drawerHeaderImage.setColorFilter(Color.rgb(150, 150, 150), PorterDuff.Mode.MULTIPLY);
         Glide.with(this).load(R.drawable.pattern).into(drawerHeaderImage);
-
-
 
 
         hamegani.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         lytBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext() , "این قسمت بزودی فعال خواهد شد" ,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "این قسمت بزودی فعال خواهد شد", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -228,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, teachsActivity.class);
-                intent.putExtra("teachsCount" , newTeachsCount);
+                intent.putExtra("teachsCount", newTeachsCount);
                 startActivity(intent);
             }
         });
@@ -278,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (Role.equals("Gym") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, GymDetailsActivity.class);
-                        int id= 0;
+                        int id = 0;
                         try {
                             id = usertypes.getJSONObject(0).getInt("ID");
                         } catch (JSONException e) {
@@ -289,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if (Role.equals("Coach") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, CoachProfileActivity.class);
-                        int id= 0;
+                        int id = 0;
                         try {
                             id = usertypes.getJSONObject(0).getInt("ID");
                         } catch (JSONException e) {
@@ -300,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if (Role.equals("Referee") && idUser > 0) {
                         Intent intent = new Intent(MainActivity.this, RefereeProfileActivity.class);
-                        int id= 0;
+                        int id = 0;
                         try {
                             id = usertypes.getJSONObject(0).getInt("ID");
                         } catch (JSONException e) {
@@ -324,9 +320,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
-                }
-                catch(NullPointerException e)
-                {
+                } catch (NullPointerException e) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
@@ -343,7 +337,6 @@ public class MainActivity extends AppCompatActivity {
                 drawer_layout.closeDrawer(GravityCompat.END);
             }
         });
-
 
 
         lytAboutUs.setOnClickListener(new View.OnClickListener() {
@@ -416,7 +409,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         lytShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -424,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, "ورزش کار، تنها سامانه یکپارچه هیات ورزش های همگانی استان آذربایجان شرقی" + "\n" + "ورزش کار را در بازار ببین" + "\n" +"");
+                share.putExtra(Intent.EXTRA_TEXT, "ورزش کار، تنها سامانه یکپارچه هیات ورزش های همگانی استان آذربایجان شرقی" + "\n" + "ورزش کار را در بازار ببین" + "\n" + "");
                 startActivity(Intent.createChooser(share, "به اشتراک گذاري از طريق..."));
 
             }
@@ -482,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
     private void initSlider(String thirdImage) {
 
 
-        pager.setAdapter(new SlidingImage_Adapter(MainActivity.this , thirdImage));
+        pager.setAdapter(new SlidingImage_Adapter(MainActivity.this, thirdImage));
 
         // Auto start of viewpager
         final Handler handler = new Handler();
@@ -604,17 +596,15 @@ public class MainActivity extends AppCompatActivity {
             {
                 totalNotifsCount = model.notifsCount;
                 newNotifsCount = String.valueOf(Integer.valueOf(model.notifsCount) - Integer.valueOf(storedNotifsCount));
-                if (!model.notifsCount.equals("") && !model.notifsCount.equals("0") && Integer.valueOf(newNotifsCount)>0)
-                {
+                if (!model.notifsCount.equals("") && !model.notifsCount.equals("0") && Integer.valueOf(newNotifsCount) > 0) {
 
                     txtNewMessageCount.setText(newNotifsCount);
                     txtNewMessageCount.setVisibility(View.VISIBLE);
-                }
-                else
+                } else
                     txtNewMessageCount.setVisibility(View.INVISIBLE);
 
                 newTeachsCount = String.valueOf(Integer.valueOf(model.teachsCount) - Integer.valueOf(storedTeachsCount));
-                if (!model.teachsCount.equals("") && Integer.valueOf(newTeachsCount)>0)
+                if (!model.teachsCount.equals("") && Integer.valueOf(newTeachsCount) > 0)
                     imgNewTeach.setVisibility(View.VISIBLE);
                 else
                     imgNewTeach.setVisibility(View.GONE);
@@ -640,4 +630,15 @@ public class MainActivity extends AppCompatActivity {
                 committeeName.cancel(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String imageName;
+        SharedPreferences prefs = getSharedPreferences("User", 0);
+        imageName = prefs.getString("image", null);
+        if (imageName != null)
+            if (!imageName.equals("") && !imageName.equals("null")) {
+                Glide.with(MainActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgUser);
+            }
+    }
 }
