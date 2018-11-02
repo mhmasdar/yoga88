@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,6 +33,10 @@ import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +52,7 @@ public class addTeachActivity extends AppCompatActivity {
     private ImageView[] imgTeach = new ImageView[10];
     private ImageView[] imgSelectPicture = new ImageView[10];
     private EditText[] edtBody = new EditText[10];
+    private String[] boolimage = new String[10];
     private TextView lytAddLesson, lytDeleteLesson;
     private RelativeLayout lytSend;
     private TextView txtSend;
@@ -59,12 +65,12 @@ public class addTeachActivity extends AppCompatActivity {
     private List<String> selectedImgName = new ArrayList<>();
     private List<String> bodyList = new ArrayList<>();
     private String resultAdd, resultEdit;
+    private String selectedFilePathTemp,selectedImgNameTemp;
     Dialog dialog;
     private boolean calledToAdd;
     private int id;
     private String Title, Images, Body;
-    WebServiceEdit webServiceEdit;
-    WebServiceAdd webServiceAdd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class addTeachActivity extends AppCompatActivity {
             selectedImgName.add(j, "");
             selectedFilePath.add(j, "");
             bodyList.add(j, "");
+            boolimage[j]="0";
 
         }
 
@@ -187,31 +194,6 @@ public class addTeachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                numberOfDes = 0;
-//                numberOfImages = 0;
-//                numberOfFilledLyts = 0;
-//
-//                for (int j = 1; j < visibleLyts + 1; j++) {
-//
-//                    if (!edtBody[j].getText().toString().equals("") || !selectedImgName[j].equals("")) {
-//                        numberOfFilledLyts++;
-//                    }
-//                    if (!selectedImgName[j].equals("")) {
-//                        numberOfImages++;
-//                    }
-//                }
-//
-//                if (!edtTitle.getText().toString().equals("")) {
-//
-//                    if (numberOfFilledLyts == 0) {
-//                        Toast.makeText(addTeachActivity.this, "حرکتی اضافه نشده است", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        WebServiceAdd webServiceAdd = new WebServiceAdd();
-//                        webServiceAdd.execute();
-//                    }
-//                } else {
-//                    Toast.makeText(addTeachActivity.this, "عنوان وارد نشده است", Toast.LENGTH_LONG).show();
-//                }
 
 
                 if (!edtTitle.getText().toString().equals("")) {
@@ -222,13 +204,13 @@ public class addTeachActivity extends AppCompatActivity {
 
                     if (!calledToAdd){
 
-                        webServiceEdit = new WebServiceEdit();
-                        webServiceEdit.execute();
+//                        webServiceEdit = new WebServiceEdit();
+//                        webServiceEdit.execute();
 
                     } else {
 
-                        webServiceAdd = new WebServiceAdd();
-                        webServiceAdd.execute();
+                        AddTrain addTrain = new AddTrain();
+                        addTrain.execute();
 
                     }
 
@@ -341,8 +323,6 @@ public class addTeachActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PICK_FILE_REQUEST) {
                 if (data == null) {
@@ -368,6 +348,10 @@ public class addTeachActivity extends AppCompatActivity {
                     String extension = selectedFilePath.get(requestCode).substring(selectedFilePath.get(requestCode).lastIndexOf(".") + 1, selectedFilePath.get(requestCode).length());
                     ClassDate classDate = new ClassDate();
                     selectedImgName.set(requestCode, classDate.getDateTime() + "_" + "t_" + idCoach + "." + extension);
+                    selectedFilePathTemp=selectedFilePath.get(requestCode);
+                    selectedImgNameTemp=selectedImgName.get(requestCode);
+                    CallBackFile callBackFile=new CallBackFile();
+                    callBackFile.execute();
                 }
             } else {
                 Toast.makeText(this, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
@@ -386,69 +370,60 @@ public class addTeachActivity extends AppCompatActivity {
         } else
             flagPermission = false;
     }
-
-    private class WebServiceAdd extends AsyncTask<Object, Void, Void> {
+    private class AddTrain extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
-        TeachesModel model;
-
+        JSONObject jsonObject;
+        JSONObject jsonObjectBody;
+        JSONObject jsonObjectImage;
+        JSONArray jsonArrayImage;
+        JSONArray JSONArray;
+        String lastUpdate;
+        String result;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            dialog = new Dialog(addTeachActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_wait);
-            ImageView logo = dialog.findViewById(R.id.logo);
-
-            //logo 360 rotate
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
-            rotation.setDuration(3000);
-            rotation.setRepeatCount(Animation.INFINITE);
-            rotation.start();
-
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-
-
             webService = new WebService();
-            model = new TeachesModel();
-            ClassDate classDate = new ClassDate();
+            SharedPreferences prefs = getSharedPreferences("User", 0);
+            int fieldNumber = prefs.getInt("idField", 0);
+            jsonObject=new JSONObject();
+            jsonObjectBody=new JSONObject();
+            jsonObjectImage=new JSONObject();
+            jsonArrayImage=new JSONArray();
+            JSONArray=new JSONArray();
 
-            model.id = -1;
-          //  model.idRow = idCoach;
-            model.Title = edtTitle.getText().toString();
-            model.Date = classDate.getDate();
-          //  model.isGym = false;
-            model.Body = "";
-            model.Images = "";
-
-            for (int j = 0; j < 10; j++) {
-
-                if (!bodyList.get(j).equals("") || !selectedImgName.get(j).equals("")) {
-
-
-                    model.Body += bodyList.get(j);
-                    if (j != 9)
-                        model.Body += "~";
-
-                    model.Images += selectedImgName.get(j);
-                    if (j != 9)
-                        model.Images += "~";
+            try {
+                jsonObject.put("id","");
+                jsonObject.put("Title",edtTitle.getText().toString());
+                jsonObject.put("UserRoleID",idCoach);
+                jsonObject.put("FieldID",fieldNumber);
+                for(int i=0;i<visibleLyts;i++)
+                {
+                    jsonObjectImage.put("ID","");
+                    jsonObjectImage.put("Name",selectedImgName.get(i));
+                    jsonArrayImage.put(jsonObjectImage);
+                    jsonObjectBody.put("Images",jsonArrayImage);
+                    jsonObjectBody.put("Body",edtBody[i].getText().toString());
 
                 }
-
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            Dialog dialog2 = new Dialog(getApplicationContext());
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_wait);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
 
+            ClassDate classDate = new ClassDate();
+            lastUpdate = classDate.getDateTime();
         }
 
         @Override
         protected Void doInBackground(Object... params) {
-
-            resultAdd = webService.AddTeaches(App.isInternetOn(), model);
-
+            result = webService.AddTeaches(App.isInternetOn(), jsonObject);
             return null;
         }
 
@@ -456,129 +431,22 @@ public class addTeachActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-
-            if (resultAdd != null) {
-
-                if (Integer.parseInt(resultAdd) > 0) {
-
-                    CallBackFile callBackFile = new CallBackFile();
-                    callBackFile.execute();
-
-                    //model.id = Integer.parseInt(resultAdd);
-
-                } else if (Integer.parseInt(resultAdd) == 0) {
-
-                    Toast.makeText(addTeachActivity.this, "ارسال آموزش ناموفق است", Toast.LENGTH_LONG).show();
+            dialog.dismiss();
+            if(result!=null) {
+                if (result.equals("OK")) {
+                    Toast.makeText(addTeachActivity.this, "با موفقیت اضافه شد", Toast.LENGTH_SHORT).show();
+                    finish();
 
                 } else {
-
-                    Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(addTeachActivity.this, "نا موفق", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-
-                Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
+            }
+            else
+            {
+                Toast.makeText(addTeachActivity.this, "نا موفق", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-    private class WebServiceEdit extends AsyncTask<Object, Void, Void> {
-
-        private WebService webService;
-        TeachesModel model;
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            dialog = new Dialog(addTeachActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_wait);
-            ImageView logo = dialog.findViewById(R.id.logo);
-
-            //logo 360 rotate
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
-            rotation.setDuration(3000);
-            rotation.setRepeatCount(Animation.INFINITE);
-            rotation.start();
-
-            dialog.setCancelable(true);
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-
-
-            webService = new WebService();
-            model = new TeachesModel();
-            ClassDate classDate = new ClassDate();
-
-            model.id = id;
-           // model.idRow = idCoach;
-            model.Title = edtTitle.getText().toString();
-            model.Date = classDate.getDate();
-          //  model.isGym = false;
-            model.Body = "";
-            model.Images = "";
-
-            for (int j = 0; j < 10; j++) {
-
-                if (!bodyList.get(j).equals("") || !selectedImgName.get(j).equals("")) {
-
-
-                    model.Body += bodyList.get(j);
-                    if (j != 9)
-                        model.Body += "~";
-
-                    model.Images += selectedImgName.get(j);
-                    if (j != 9)
-                        model.Images += "~";
-
-                }
-
-            }
-
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            resultEdit = webService.editTeaches(App.isInternetOn(), model);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-
-            if (resultEdit != null) {
-
-                if (resultEdit.equals("true")) {
-
-                    CallBackFile callBackFile = new CallBackFile();
-                    callBackFile.execute();
-
-                    //model.id = Integer.parseInt(resultAdd);
-
-                } else if (resultEdit.equals("false")) {
-
-                    Toast.makeText(addTeachActivity.this, "ویرایش آموزش ناموفق است", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
-                }
-            } else {
-
-                Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
-            }
-        }
-    }
-
     private class CallBackFile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -590,12 +458,12 @@ public class addTeachActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
-//            dialog2 = new Dialog(getContext());
-//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog2.setContentView(R.layout.dialog_waiting);
-//            dialog2.setCancelable(true);
-//            dialog2.setCanceledOnTouchOutside(true);
-//            dialog2.show();
+            Dialog dialog2 = new Dialog(getApplicationContext());
+            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog2.setContentView(R.layout.dialog_wait);
+            dialog2.setCancelable(true);
+            dialog2.setCanceledOnTouchOutside(true);
+            dialog2.show();
 
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
@@ -603,14 +471,7 @@ public class addTeachActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Object... params) {
-
-            for (int j = 0; j < selectedImgName.size(); j++) {
-
-                if (!selectedImgName.get(j).equals(""))
-                    fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePath.get(j), selectedImgName.get(j));
-
-            }
-
+            fileResult = webService.uploadFile(App.isInternetOn(), selectedFilePathTemp, selectedImgNameTemp);
             return null;
         }
 
@@ -619,59 +480,13 @@ public class addTeachActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             dialog.dismiss();
-
-
-            if (resultAdd != null) {
-
-                if (Integer.parseInt(resultAdd) > 0) {
-
-                    Toast.makeText(addTeachActivity.this, "آموزش با موفقیت ارسال شد", Toast.LENGTH_LONG).show();
-                    finish();
-
-                } else if (Integer.parseInt(resultAdd) == 0) {
-
-                    Toast.makeText(addTeachActivity.this, "ارسال آموزش ناموفق است", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
-                }
-            } else if (resultEdit != null){
-                if (resultEdit.equals("true")) {
-
-                    Toast.makeText(addTeachActivity.this, "آموزش با موفقیت ویرایش شد", Toast.LENGTH_LONG).show();
-                    finish();
-
-                } else if (resultEdit.equals("false")) {
-
-                    Toast.makeText(addTeachActivity.this, "ویرایش آموزش ناموفق است", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            else {
-
-                Toast.makeText(addTeachActivity.this, "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
-
-            }
-
-
             if (fileResult == 200) {
-//                Toast.makeText(addTeachActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+
 
             } else if (fileResult == 0) {
-//                Toast.makeText(addTeachActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
             } else {
-//                Toast.makeText(addTeachActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
             }
         }
     }
@@ -680,11 +495,7 @@ public class addTeachActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
-        if (webServiceAdd != null)
-            if (webServiceAdd.getStatus() == AsyncTask.Status.RUNNING)
-                webServiceAdd.cancel(true);
-        if (webServiceEdit != null)
-            if (webServiceEdit.getStatus() == AsyncTask.Status.RUNNING)
-                webServiceEdit.cancel(true);
+
     }
+
 }

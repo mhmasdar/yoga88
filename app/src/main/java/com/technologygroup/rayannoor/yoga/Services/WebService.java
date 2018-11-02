@@ -685,8 +685,15 @@ public class WebService {
                         TeachTextImage model = new TeachTextImage();
                         model.Text = Object.getString("Body");
                         JSONArray imagej=Object.getJSONArray("Images");
-                        JSONObject im=imagej.getJSONObject(0);
-                        model.Image=im.getString("Name");
+                        try {
+                            JSONObject im=imagej.getJSONObject(0);
+                            model.Image=im.getString("Name");
+                        }
+                        catch (JSONException e)
+                        {
+                            model.Image="";
+                        }
+
                         list.add(model);
 
                     }
@@ -1096,12 +1103,12 @@ public class WebService {
             return null;
     }
 
-    public String AddTeaches(boolean isInternetAvailable, TeachesModel model) {
+    public String AddTeaches(boolean isInternetAvailable, JSONObject j) {
 
         if (isInternetAvailable) {
 
-            String req = "{\"idRow\":" + ",\"Title\":\"" + model.Title + "\",\"Body\":\"" + model.Body + "\",\"Images\":\"" + model.Images + "\",\"Date\":" + model.Date + ",\"isVisible\":true,\"isGym\":" + ",\"lastUpdate\":1}";
-            String response = connectToServerByJson(App.apiAddr + "Training/add", "POST", req);
+
+            String response = connectToServerByJson(App.apiAddr + "Training/addTraining", "POST", j.toString());
             Log.i("LOG", response + "");
 
             return response;
