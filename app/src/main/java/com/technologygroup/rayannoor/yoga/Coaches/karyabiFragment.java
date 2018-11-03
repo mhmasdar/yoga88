@@ -63,7 +63,7 @@ public class karyabiFragment extends Fragment {
     private TextView txtWindowTitle;
     private ImageView imgClose;
     private EditText edtTitle;
-    private EditText edtUniversity;
+    private EditText edtBody;
     private TextView txtNoImage;
     private ImageView imgCertificate;
     private ImageView imgSelectPicture;
@@ -135,7 +135,7 @@ public class karyabiFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_add_coach_karyab);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtTitle = (EditText) dialog.findViewById(R.id.edtTitle);
-        edtUniversity = (EditText) dialog.findViewById(R.id.edtUniversity);
+        edtBody = (EditText) dialog.findViewById(R.id.edtBody);
         txtNoImage = (TextView) dialog.findViewById(R.id.txtNoImage);
         imgSelectPicture = (ImageView) dialog.findViewById(R.id.imgSelectPicture);
         imgCertificate = (ImageView) dialog.findViewById(R.id.imgCertificate);
@@ -144,7 +144,7 @@ public class karyabiFragment extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebServiceAdd webServiceADD=new WebServiceAdd(edtTitle.getText().toString(),edtUniversity.getText().toString());
+                WebServiceAdd webServiceADD=new WebServiceAdd(edtTitle.getText().toString(),edtBody.getText().toString());
                 webServiceADD.execute();
             }
         });
@@ -390,12 +390,6 @@ public class karyabiFragment extends Fragment {
         private WebService webService;
         int fileResult;
         String lastUpdate;
-
-
-        CallBackFile()
-        {
-
-        }
 
         @Override
         protected void onPreExecute() {

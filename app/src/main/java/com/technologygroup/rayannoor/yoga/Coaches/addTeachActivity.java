@@ -366,7 +366,7 @@ public class addTeachActivity extends AppCompatActivity {
             jsonObjectBody=new JSONObject();
             jsonObjectImage=new JSONObject();
             jsonArrayImage=new JSONArray();
-            JSONArray=new JSONArray();
+
 
             try {
                 jsonObject.put("id","");
@@ -375,6 +375,7 @@ public class addTeachActivity extends AppCompatActivity {
                 jsonObject.put("FieldID",fieldNumber);
                 for(int i=0;i<visibleLyts+1;i++)
                 {
+                    JSONArray=new JSONArray();
                     jsonObjectImage.put("ID","");
                     jsonObjectImage.put("Name",selectedImgName.get(i));
                     jsonArrayImage.put(jsonObjectImage);
@@ -382,6 +383,7 @@ public class addTeachActivity extends AppCompatActivity {
                     jsonObjectBody.put("Body",edtBody[i].getText().toString());
                     jsonObjectBody.put("ID","");
                     JSONArray.put(jsonObjectBody);
+
                 }
                 jsonObject.put("Bodies",JSONArray);
             } catch (JSONException e) {

@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -59,6 +61,9 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
         holder.txtNotifDate.setText(list.get(position).Date);
         holder.txtNotifTitle.setText(list.get(position).title);
         holder.txtNotifBody.setText(list.get(position).Body);
+        if (list.get(position).image != null)
+            if (!list.get(position).image.equals("") && !list.get(position).image.equals("null"))
+                Glide.with(context).load(App.imgAddr + list.get(position).image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.img);
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +90,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
         private TextView txtNotifDate;
         private TextView txtNotifTitle;
         private TextView txtNotifBody;
-
+        private ImageView img;
         private ImageView imgDelete;
         private ImageView imgEdit;
         private LinearLayout lytImage;
@@ -98,6 +103,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             txtNotifTitle = (TextView) itemView.findViewById(R.id.txtNotifTitle);
             txtNotifBody = (TextView) itemView.findViewById(R.id.txtNotifBody);
             imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
+            img = (ImageView) itemView.findViewById(R.id.img);
 
 
             imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);

@@ -1377,12 +1377,15 @@ public class WebService {
                     for (int i = 0; i < Array.length(); i++) {
 
                         JSONObject Object = Array.getJSONObject(i);
+                        JSONObject imagej;
                         ZanguleModel model = new ZanguleModel();
                         model.id=Object.getInt("ID");
                         model.title=Object.getString("Title");
                         model.Date=Object.getString("PublishedDate");
                         model.IsVerified=Object.getBoolean("IsVerified");
                         model.Body=Object.getString("Body");
+                        imagej=Object.getJSONObject("Image");
+                        model.image=imagej.getString("Name");
                         list.add(model);
                     }
 
