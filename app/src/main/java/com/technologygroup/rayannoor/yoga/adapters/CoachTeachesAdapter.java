@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
@@ -26,6 +28,7 @@ import com.technologygroup.rayannoor.yoga.Coaches.addTeachActivity;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.Teaches.TeachDetailsActivity;
 
 import java.util.List;
 
@@ -74,13 +77,13 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
             public void onClick(View v) {
 
                 CoachServicesActivity activity = (CoachServicesActivity) context;
-                Intent intent = new Intent(activity, addTeachActivity.class);
-                intent.putExtra("calledToAdd", false);
-                intent.putExtra("id", currentObj.id);
 
-                intent.putExtra("Title", currentObj.Title);
-                intent.putExtra("Body", currentObj.Body);
-                intent.putExtra("Images", currentObj.Images);
+                Intent intent = new Intent(activity , TeachDetailsActivity.class);
+
+
+                intent.putExtra("ID", currentObj.id);
+
+
                 context.startActivity(intent);
 
             }
@@ -104,6 +107,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
         private TextView txtDate;
         private ImageView imgDelete;
         private ImageView imgEdit;
+   //     private ImageView imgTeach;
 //        private ImageView imgCertificate;
 //        private TextView txtCertificateDate;
 
@@ -117,6 +121,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
             imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
             imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);
+ //           imgTeach = (ImageView) itemView.findViewById(R.id.imgTeach);
 //            imgCertificate = (ImageView) itemView.findViewById(R.id.imgCertificate);
 //            txtCertificateDate = (TextView) itemView.findViewById(R.id.txtCertificateDate);
 
@@ -131,9 +136,9 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
                 imgDelete.setVisibility(View.INVISIBLE);
             }
 
-//            if (current.Img != null)
-//                if (!current.Img.equals("") && !current.Img.equals("null"))
-//                    Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
+//            if (current.Images != null)
+//                if (!current.Images.equals("") && !current.Images.equals("null"))
+//                    Glide.with(context).load(App.imgAddr + current.Images).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTeach);
 
             txtitle.setText(current.Title);
             txtDate.setText(current.Date);
@@ -237,7 +242,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.deleteTeaches(App.isInternetOn(), id);
+            result = webService.DeletePost(App.isInternetOn(), id);
 
             return null;
         }

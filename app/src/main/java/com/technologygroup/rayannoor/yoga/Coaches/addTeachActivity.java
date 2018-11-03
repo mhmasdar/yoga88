@@ -102,38 +102,13 @@ public class addTeachActivity extends AppCompatActivity {
             edtTitle.setText(Title);
 
 
-            String[] tmp = new String[10];
-            String[] tmp2 = new String[10];
 
-            tmp = Body.split("~");
-            tmp2 = Images.split("~");
-
-            if (tmp.length > tmp2.length)
-                visibleLyts = tmp.length;
-            else
-                visibleLyts = tmp2.length;
 
             for (int j = 0; j < visibleLyts; j++) {
 
                 lytTeach[j].setVisibility(View.VISIBLE);
 
             }
-
-            for (int j = 0; j < tmp.length; j++){
-                bodyList.set(j, tmp[j]);
-                edtBody[j].setText(bodyList.get(j));
-            }
-            for (int j = 0; j < tmp2.length; j++){
-
-                selectedImgName.set(j, tmp2[j]);
-                if (!selectedImgName.get(j).equals("")) {
-                    Glide.with(this).load(App.imgAddr + selectedImgName.get(j)).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTeach[j]);
-                    txtNoImage[j].setVisibility(View.GONE);
-                    imgTeach[j].setVisibility(View.VISIBLE);
-                }
-
-            }
-
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -398,24 +373,26 @@ public class addTeachActivity extends AppCompatActivity {
                 jsonObject.put("Title",edtTitle.getText().toString());
                 jsonObject.put("UserRoleID",idCoach);
                 jsonObject.put("FieldID",fieldNumber);
-                for(int i=0;i<visibleLyts;i++)
+                for(int i=0;i<visibleLyts+1;i++)
                 {
                     jsonObjectImage.put("ID","");
                     jsonObjectImage.put("Name",selectedImgName.get(i));
                     jsonArrayImage.put(jsonObjectImage);
                     jsonObjectBody.put("Images",jsonArrayImage);
                     jsonObjectBody.put("Body",edtBody[i].getText().toString());
-
+                    jsonObjectBody.put("ID","");
+                    JSONArray.put(jsonObjectBody);
                 }
+                jsonObject.put("Bodies",JSONArray);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Dialog dialog2 = new Dialog(getApplicationContext());
-            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog2.setContentView(R.layout.dialog_wait);
-            dialog2.setCancelable(true);
-            dialog2.setCanceledOnTouchOutside(true);
-            dialog2.show();
+//            Dialog dialog2 = new Dialog(getApplicationContext());
+//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog2.setContentView(R.layout.dialog_wait);
+//            dialog2.setCancelable(true);
+//            dialog2.setCanceledOnTouchOutside(true);
+//            dialog2.show();
 
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
@@ -431,7 +408,7 @@ public class addTeachActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            dialog.dismiss();
+//            dialog.dismiss();
             if(result!=null) {
                 if (result.equals("OK")) {
                     Toast.makeText(addTeachActivity.this, "با موفقیت اضافه شد", Toast.LENGTH_SHORT).show();
@@ -458,12 +435,12 @@ public class addTeachActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
-            Dialog dialog2 = new Dialog(getApplicationContext());
-            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog2.setContentView(R.layout.dialog_wait);
-            dialog2.setCancelable(true);
-            dialog2.setCanceledOnTouchOutside(true);
-            dialog2.show();
+//            Dialog dialog2 = new Dialog(getApplicationContext());
+//            dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog2.setContentView(R.layout.dialog_wait);
+//            dialog2.setCancelable(true);
+//            dialog2.setCanceledOnTouchOutside(true);
+//            dialog2.show();
 
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
@@ -479,7 +456,7 @@ public class addTeachActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            dialog.dismiss();
+//            dialog.dismiss();
             if (fileResult == 200) {
 
 

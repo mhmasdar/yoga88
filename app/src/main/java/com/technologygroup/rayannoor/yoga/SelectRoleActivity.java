@@ -103,15 +103,16 @@ public class SelectRoleActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        if(selectedRole.equals("باشگاه"))
+        else if(selectedRole.equals("باشگاه"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, GymDetailsActivity.class);
-            intent.putExtra("idgym",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
+            int a=rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition());
+            intent.putExtra("idgym",a);
             intent.putExtra("calledFromPanel",true);
             startActivity(intent);
             finish();
         }
-        if(selectedRole.equals("مربی"))
+        else if(selectedRole.equals("مربی"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, CoachProfileActivity.class);
             intent.putExtra("idUser",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));
@@ -120,7 +121,7 @@ public class SelectRoleActivity extends AppCompatActivity {
             finish();
 
         }
-        if(selectedRole.equals("کاربر"))
+        else if(selectedRole.equals("کاربر"))
         {
             Intent intent = new Intent(SelectRoleActivity.this, UserprofileActivity.class);
             intent.putExtra("idUser",rolej.getInt("ID"+RoleSpinner.getSelectedItemPosition()));

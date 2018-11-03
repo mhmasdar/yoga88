@@ -34,14 +34,27 @@ public class UserModel {
             this.lName = Object.getString("LastName");
             this.id = Object.getInt("ID");
  //           this.Mobile = Object.getString("Mobile");
-            this.IsVerified = Object.getBoolean("IsVerified");
+            try {
+                this.IsVerified = Object.getBoolean("IsVerified");
+            }
+            catch (JSONException e)
+            {
+                
+            }
+
 //            JSONObject rolej = Object.getJSONObject("Role");
 //            this.Roleid = rolej.getInt("ID");
 //            this.RoleName = rolej.getString("Name");
-            JSONObject Cityj = Object.getJSONObject("City");
-            this.cityid = Cityj.getInt("ID");
-            this.cityName = Cityj.getString("Name");
-            this.state = Cityj.getString("State");
+            try {
+                JSONObject Cityj = Object.getJSONObject("City");
+                this.cityid = Cityj.getInt("ID");
+                this.cityName = Cityj.getString("Name");
+                this.state = Cityj.getString("State");
+            }
+            catch (JSONException e)
+            {
+
+            }
          // this.SessionKey = Object.getInt("SessionKey");
             JSONObject ProfileImagej = Object.getJSONObject("ProfileImage");
             this.ProfileImageName = ProfileImagej.getString("Name");

@@ -39,6 +39,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
     private JSONObject IDs;
     private List<Integer> IDList;
     private List<TeachTextImage> list;
+    int idsend;
 
     int position;
 
@@ -51,34 +52,11 @@ public class TeachDetailsActivity extends AppCompatActivity {
         img=new ImageView[10];
         IDList=new ArrayList<>();
         initView();
-        myjsonid = getIntent().getStringExtra("IDs");
-        position = getIntent().getIntExtra("ID",-1);
-        try {
-            IDs=new JSONObject(myjsonid);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try
-        {
-            for(int i=0;i<IDs.length();i++)
-            {
-                try {
-                    IDList.add(IDs.getInt("ID" + i));
-                }
-                catch (NullPointerException e)
-                {
-                    break;
-                }
-            }
-        }
+        idsend = getIntent().getIntExtra("ID",-1);
 
-        catch (JSONException e)
-        {
-
-        }
-        Toast.makeText(this,""+ IDList.size(), Toast.LENGTH_SHORT).show();
         list = new ArrayList<>();
+
         WebServiceList webServiceList=new WebServiceList();
         webServiceList.execute();
 
@@ -166,7 +144,7 @@ public class TeachDetailsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getMoves(App.isInternetOn(), IDList.get(position));
+            list = webService.getMoves(App.isInternetOn(), idsend);
             return null;
         }
 

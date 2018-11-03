@@ -417,7 +417,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            Result = webService.getPanelInfo(App.isInternetOn(), idGym);
+            Result = webService.getPanelInfo(App.isInternetOn(), idsend);
 
             return null;
         }

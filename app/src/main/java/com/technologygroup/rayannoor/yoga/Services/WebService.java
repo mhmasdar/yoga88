@@ -948,11 +948,11 @@ public class WebService {
         } else
             return null;
     }
-    public List<TeachesModel> getTeachesOfown(boolean isInternetAvailable,int id,String type) {
+    public List<TeachesModel> getTeachesOfown(boolean isInternetAvailable,int fid,int id,String type) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr+"training/getbyuserid?urid="+id+"&type="+type, "GET");
+            String response = connectToServer(App.apiAddr+"training/GetByUserRoleId?fid="+fid+"&urid="+id+"&type="+type, "GET");
             Log.i("LOG", response + "");
 
             if (response != null) {
@@ -1107,7 +1107,7 @@ public class WebService {
 
         if (isInternetAvailable) {
 
-
+            Log.i("LOG", j.toString() + "");
             String response = connectToServerByJson(App.apiAddr + "Training/addTraining", "POST", j.toString());
             Log.i("LOG", response + "");
 
@@ -1218,11 +1218,16 @@ public class WebService {
             return null;
     }
 
-    public String deleteTeaches(boolean isInternetAvailable, int id) {
+    public String deleteTeaches(boolean isInternetAvailable, int id)  {
 
         if (isInternetAvailable) {
-
-            String response = connectToServerByJson(App.apiAddr + "Training/delete", "POST", id + "");
+            JSONObject jsonObject=new JSONObject();
+            try {
+                jsonObject.put("ID",id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Training/delete", "POST", jsonObject.toString());
             Log.i("LOG", response + "");
 
             return response;

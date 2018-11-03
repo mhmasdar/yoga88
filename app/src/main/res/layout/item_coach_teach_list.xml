@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:id="@+id/lytClick"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -39,6 +40,7 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:gravity="right"
                     android:id="@+id/txtitle"
                     android:textSize="13sp"
                     android:layout_marginRight="8dp"
@@ -83,12 +85,12 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:src="@drawable/ic_gym_list"
-            android:scaleType="fitXY"
-            android:id="@+id/imgTeach"
-            android:layout_height="80dp" />
+        <!--<ImageView-->
+            <!--android:layout_width="80dp"-->
+            <!--android:src="@drawable/ic_gym_list"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:id="@+id/imgTeach"-->
+            <!--android:layout_height="80dp" />-->
 
     </LinearLayout>
 

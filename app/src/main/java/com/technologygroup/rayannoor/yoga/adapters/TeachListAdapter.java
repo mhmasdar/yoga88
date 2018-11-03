@@ -67,8 +67,8 @@ public class TeachListAdapter extends RecyclerView.Adapter<TeachListAdapter.myVi
             public void onClick(View view) {
                 teachsListActivity activity = (teachsListActivity)context;
                 Intent intent = new Intent(activity , TeachDetailsActivity.class);
-                intent.putExtra("IDs",id.toString());
-                intent.putExtra("ID",position);
+
+                intent.putExtra("ID",list.get(position).id);
                 context.startActivity(intent);
             }
         });

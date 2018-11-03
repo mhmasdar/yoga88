@@ -21,6 +21,7 @@ import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.adapters.CoachTeachesAdapter;
+import com.technologygroup.rayannoor.yoga.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class teachesFragment extends Fragment {
     private SharedPreferences prefs;
     private List<TeachesModel> list;
     WebServiceList webService;
+    View view;
 
     public teachesFragment() {
         // Required empty public constructor
@@ -54,7 +56,7 @@ public class teachesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_teaches, container, false);
+        view = inflater.inflate(R.layout.fragment_teaches, container, false);
 
         calledFromPanel = getArguments().getBoolean("calledFromPanel", false);
         idCoach = getArguments().getInt("idCoach", -1);
@@ -118,6 +120,7 @@ public class teachesFragment extends Fragment {
     private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
+        int fieldNumber;
 
 
         @Override
@@ -125,13 +128,15 @@ public class teachesFragment extends Fragment {
             super.onPreExecute();
             webService = new WebService();
             list = new ArrayList<>();
+            SharedPreferences prefs = view.getContext().getSharedPreferences("User", 0);
+            fieldNumber = prefs.getInt("idField", 0);
             Recycler.showShimmerAdapter();
         }
 
         @Override
         protected Void doInBackground(Object... params) {
 
-            list = webService.getTeachesOfown(App.isInternetOn(), 1,"ersali");
+            list = webService.getTeachesOfown(App.isInternetOn(), fieldNumber,idCoach,"ersali");
 
             return null;
         }
@@ -183,4 +188,11 @@ public class teachesFragment extends Fragment {
                 webService.cancel(true);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        WebServiceList webServiceList=new WebServiceList();
+        webServiceList.execute();
+    }
 }
