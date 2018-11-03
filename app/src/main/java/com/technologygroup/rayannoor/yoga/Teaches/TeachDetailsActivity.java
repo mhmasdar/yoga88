@@ -123,8 +123,10 @@ public class TeachDetailsActivity extends AppCompatActivity {
         {
             txt[i].setText(list.get(i).Text);
             if (list.get(i).Image != null)
-                if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null"))
-                    Glide.with(this).load(App.imgAddr + list.get(i).Image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
+                if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null")) {
+                    String s=list.get(i).Image;
+                    Glide.with(this).load(App.imgAddr +s).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
+                }
             lyt[i].setVisibility(View.VISIBLE);
 
         }
