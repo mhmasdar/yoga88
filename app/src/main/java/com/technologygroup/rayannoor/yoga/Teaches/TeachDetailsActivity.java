@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
-import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -123,8 +122,9 @@ public class TeachDetailsActivity extends AppCompatActivity {
         for(int i=0;i<list.size();i++)
         {
             txt[i].setText(list.get(i).Text);
-           callGlide k=new callGlide(i);
-           k.execute();
+            if (list.get(i).Image != null)
+                if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null"))
+                    Glide.with(this).load(App.imgAddr + list.get(i).Image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
             lyt[i].setVisibility(View.VISIBLE);
 
         }
@@ -162,33 +162,5 @@ public class TeachDetailsActivity extends AppCompatActivity {
 //        intent.putExtra("idUser",list.get(0).ID);
 //        startActivity(intent);
 //    }
-private class callGlide extends AsyncTask<Object, Void, Void> {
 
-    private WebService webService;
-    int i;
-    callGlide(int j)
-    {
-        i=j;
-    }
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-
-    }
-
-    @Override
-    protected Void doInBackground(Object... params) {
-        if (list.get(i).Image != null)
-            if (!list.get(i).Image.equals("") && !list.get(i).Image.equals("null")) {
-                String s=list.get(i).Image;
-                Glide.with(TeachDetailsActivity.this).load(App.imgAddr +s).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img[i]);
-            }
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-    }
-}
 }
