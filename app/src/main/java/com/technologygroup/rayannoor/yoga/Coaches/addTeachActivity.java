@@ -363,10 +363,8 @@ public class addTeachActivity extends AppCompatActivity {
             SharedPreferences prefs = getSharedPreferences("User", 0);
             int fieldNumber = prefs.getInt("idField", 0);
             jsonObject=new JSONObject();
-            jsonObjectBody=new JSONObject();
-            jsonObjectImage=new JSONObject();
-            jsonArrayImage=new JSONArray();
 
+            JSONArray=new JSONArray();
 
             try {
                 jsonObject.put("id","");
@@ -375,7 +373,10 @@ public class addTeachActivity extends AppCompatActivity {
                 jsonObject.put("FieldID",fieldNumber);
                 for(int i=0;i<visibleLyts+1;i++)
                 {
-                    JSONArray=new JSONArray();
+
+                    jsonObjectBody=new JSONObject();
+                    jsonObjectImage=new JSONObject();
+                    jsonArrayImage=new JSONArray();
                     jsonObjectImage.put("ID","");
                     jsonObjectImage.put("Name",selectedImgName.get(i));
                     jsonArrayImage.put(jsonObjectImage);
