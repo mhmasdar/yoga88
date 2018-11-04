@@ -242,7 +242,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.DeletePost(App.isInternetOn(), id);
+            result = webService.DeleteTrain(App.isInternetOn(), id);
 
             return null;
         }
