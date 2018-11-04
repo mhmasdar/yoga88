@@ -49,33 +49,28 @@ public class GymServicesPager extends FragmentStatePagerAdapter {
                     about.setArguments(bundle);
                     return about;
 
+
             case 2:
-
-                clipFragment gal = new clipFragment();
-                gal.setArguments(bundle);
-                return gal;
-
-            case 3:
                 galleryFragment gym = new galleryFragment();
                 gym.setArguments(bundle);
                 return gym;
 
-            case 4:
+            case 3:
                 coachsFragment coa = new coachsFragment();
                 coa.setArguments(bundle);
                 return coa;
 
-            case 5:
+            case 4:
                 coursesFragment cer = new coursesFragment();
                 cer.setArguments(bundle);
                 return cer;
 
-            case 6:
+            case 5:
                 workTimeFragment info = new workTimeFragment();
                 info.setArguments(bundle);
                 return info;
 
-            case 7:
+            case 6:
                 notifFragment notif = new notifFragment();
                 notif.setArguments(bundle);
                 return notif;
@@ -88,7 +83,7 @@ public class GymServicesPager extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 8;
+        return 7;
     }
 
 }

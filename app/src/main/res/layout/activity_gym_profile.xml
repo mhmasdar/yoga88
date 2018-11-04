@@ -345,49 +345,6 @@
 
                         <ImageView
                             android:layout_width="20dp"
-                            android:id="@+id/imgLockClip"
-                            android:src="@drawable/ic_lock"
-                            android:layout_margin="5dp"
-                            android:visibility="visible"
-                            android:layout_gravity="right"
-                            android:layout_height="20dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:id="@+id/lytClip"
-                            android:orientation="vertical"
-                            android:alpha="0.3"
-                            android:gravity="center"
-                            android:padding="20dp"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:src="@drawable/ic_clip"
-                                android:layout_height="30dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:text="کلیپ و ویدئو"
-                                android:gravity="center"
-                                android:textSize="12sp"
-                                android:layout_marginTop="15dp"
-                                android:textColor="@color/black"
-                                android:layout_height="wrap_content" />
-
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="5dp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="20dp"
                             android:id="@+id/imgLockPhotos"
                             android:src="@drawable/ic_lock"
                             android:layout_margin="5dp"
@@ -422,14 +379,6 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -473,6 +422,13 @@
 
                     </android.support.v7.widget.CardView>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_weight="1"
@@ -514,13 +470,6 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
@@ -564,6 +513,15 @@
 
                     </android.support.v7.widget.CardView>
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_weight="1"
@@ -605,6 +563,16 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 

@@ -67,8 +67,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:id="@+id/txtNewsBody"
+                android:gravity="right"
                 android:text="@string/test_notif"
                 android:lineSpacingMultiplier="1.3"
                 android:layout_margin="10dp"

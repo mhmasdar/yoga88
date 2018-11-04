@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private ArcNavigationView navView;
     private JSONArray usertypes;
     private String Role, SliderImage;
-    private int idField;
+    private int idField, idState;
     private getSlider slider;
     private getCounts counts;
     private getCommitteeName committeeName;
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         userType = prefs.getString("userType", "no");
         idUser = prefs.getInt("idUser", -1);
         idField = prefs.getInt("idField", 0);
+        idState = prefs.getInt("idState", 0);
 
         CountPrefs = getSharedPreferences("Counts", 0);
         storedNotifsCount = CountPrefs.getString("notifsCount", "0");
@@ -582,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            model = webService.getMainPageCounts(App.isInternetOn());
+            model = webService.getMainPageCounts(App.isInternetOn(), idState, idField);
 
             return null;
         }

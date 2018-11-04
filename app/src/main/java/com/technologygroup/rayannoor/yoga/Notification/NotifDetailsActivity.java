@@ -128,7 +128,7 @@ public class NotifDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            // dialog.dismiss();
+             dialog.dismiss();
             others();
 
         }

@@ -353,21 +353,14 @@ public class galleryFragment extends Fragment {
             if (resultAdd >0) {
                     sendFileDetails fileDetails = new sendFileDetails(resultAdd);
                     fileDetails.execute();
-                    // بعد از اتمام عملیات کدهای زیر اجرا شوند
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.ic_ok);
-                    btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
-
-                    // بستن دیالوگ حتما با تاخیر انجام شود
-                    Handler handler1 = new Handler();
-                    handler1.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                        }
-                    }, 1000);
 
                 }
+
+                else
+            {
+                btnOk.revertAnimation();
+                Toast.makeText(getContext() , "خطا در ارسال اطلاعات...لطفا دوباره سعی کنید" , Toast.LENGTH_LONG).show();
+            }
             }
 
         }

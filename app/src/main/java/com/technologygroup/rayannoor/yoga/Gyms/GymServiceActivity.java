@@ -45,7 +45,6 @@ public class GymServiceActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("افتخارات"));
         tabLayout.addTab(tabLayout.newTab().setText("درباره"));
-        tabLayout.addTab(tabLayout.newTab().setText("ویدئو"));
         tabLayout.addTab(tabLayout.newTab().setText("گالری"));
         tabLayout.addTab(tabLayout.newTab().setText("مربیان"));
         tabLayout.addTab(tabLayout.newTab().setText("دوره ها"));

@@ -141,7 +141,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img2"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -170,7 +169,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img3"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -199,7 +197,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img4"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -228,7 +225,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img5"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -257,7 +253,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img6"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -286,7 +281,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img7"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -315,7 +309,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img8"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -344,7 +337,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img9"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"
@@ -373,7 +365,6 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:visibility="gone"
                             android:id="@+id/img10"
                             android:scaleType="fitXY"
                             android:layout_marginTop="10dp"

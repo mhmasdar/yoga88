@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,11 +100,13 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
         private TextView txtBody;
         private int position;
         private GalleryModel current;
+        private LinearLayout lytDelete;
 
         myViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
             txtBody = (TextView) itemView.findViewById(R.id.txtBody);
+            lytDelete = (LinearLayout) itemView.findViewById(R.id.lytDelete);
         }
         private void setData(GalleryModel current, int position) {
 

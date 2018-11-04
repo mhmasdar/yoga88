@@ -315,14 +315,14 @@ public class addTeachActivity extends AppCompatActivity {
                     if (!selectedFileUri.equals("") && !selectedFileUri.equals("null"))
                         Glide.with(this).loadFromMediaStore(selectedFileUri).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgTeach[requestCode]);
 
-                selectedFilePath.set(requestCode, FilePath.getPath(this, selectedFileUri));
+                selectedFilePath.add(requestCode, FilePath.getPath(this, selectedFileUri));
                 Log.i(TAG, "Selected File Path:" + selectedFilePath);
 
                 if (selectedFilePath.get(requestCode) != null && !selectedFilePath.get(requestCode).equals("")) {
 
                     String extension = selectedFilePath.get(requestCode).substring(selectedFilePath.get(requestCode).lastIndexOf(".") + 1, selectedFilePath.get(requestCode).length());
                     ClassDate classDate = new ClassDate();
-                    selectedImgName.set(requestCode, classDate.getDateTime() + "_" + "t_" + idCoach + "." + extension);
+                    selectedImgName.add(requestCode, classDate.getDateTime() + "_" + "t_" + idCoach + "." + extension);
                     selectedFilePathTemp=selectedFilePath.get(requestCode);
                     selectedImgNameTemp=selectedImgName.get(requestCode);
                     CallBackFile callBackFile=new CallBackFile();
@@ -387,6 +387,7 @@ public class addTeachActivity extends AppCompatActivity {
 
                 }
                 jsonObject.put("Bodies",JSONArray);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

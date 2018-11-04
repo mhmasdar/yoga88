@@ -50,8 +50,8 @@ public class GymDetailsActivity extends AppCompatActivity {
     private LinearLayout lytGymHonours;
     private ImageView imgLockAbout;
     private LinearLayout lytAbout;
-    private ImageView imgLockClip;
-    private LinearLayout lytClip;
+//    private ImageView imgLockClip;
+//    private LinearLayout lytClip;
     private ImageView imgLockPhotos;
     private LinearLayout lytPhotos;
     private ImageView imgLockCoaches;
@@ -151,7 +151,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("SelectedTabIndex", 2);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -168,7 +168,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 4);
+                    intent.putExtra("SelectedTabIndex", 3);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -185,7 +185,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 5);
+                    intent.putExtra("SelectedTabIndex", 4);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -219,7 +219,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 7);
+                    intent.putExtra("SelectedTabIndex", 6);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -229,29 +229,29 @@ public class GymDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-        lytClip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gymModel.IsVerified) {
-                    Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
-                    intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 2);
-                    intent.putExtra("idGym", idsend);
-                    intent.putExtra("work", gymModel.workTime);
-                    intent.putExtra("about", gymModel.About);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+//        lytClip.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (gymModel.IsVerified) {
+//                    Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
+//                    intent.putExtra("calledFromPanel", true);
+//                    intent.putExtra("SelectedTabIndex", 2);
+//                    intent.putExtra("idGym", idsend);
+//                    intent.putExtra("work", gymModel.workTime);
+//                    intent.putExtra("about", gymModel.About);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(GymDetailsActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
         lytWorkTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymDetailsActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("SelectedTabIndex", 6);
+                    intent.putExtra("SelectedTabIndex", 5);
                     intent.putExtra("idGym", idsend);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("about", gymModel.About);
@@ -277,8 +277,8 @@ public class GymDetailsActivity extends AppCompatActivity {
         lytGymHonours = (LinearLayout) findViewById(R.id.lytGymHonours);
         imgLockAbout = (ImageView) findViewById(R.id.imgLockAbout);
         lytAbout = (LinearLayout) findViewById(R.id.lytAbout);
-        imgLockClip = (ImageView) findViewById(R.id.imgLockClip);
-        lytClip = (LinearLayout) findViewById(R.id.lytClip);
+//        imgLockClip = (ImageView) findViewById(R.id.imgLockClip);
+//        lytClip = (LinearLayout) findViewById(R.id.lytClip);
         imgLockPhotos = (ImageView) findViewById(R.id.imgLockPhotos);
         lytPhotos = (LinearLayout) findViewById(R.id.lytPhotos);
         imgLockCoaches = (ImageView) findViewById(R.id.imgLockCoaches);
@@ -365,11 +365,11 @@ public class GymDetailsActivity extends AppCompatActivity {
                     lytAbout.setAlpha(1);
                     imgLockAbout.setVisibility(View.GONE);
                     lytNotifs.setAlpha(1);
-                    lytClip.setAlpha(1);
+//                    lytClip.setAlpha(1);
                     lytWorkTime.setAlpha(1);
                     imgLockNotifs.setVisibility(View.GONE);
                     imgLockWorkTime.setVisibility(View.GONE);
-                    imgLockClip.setVisibility(View.GONE);
+//                    imgLockClip.setVisibility(View.GONE);
                     setbuttons();
 
                 }

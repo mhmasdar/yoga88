@@ -93,7 +93,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
         private ImageView img;
         private ImageView imgDelete;
         private ImageView imgEdit;
-        private LinearLayout lytImage;
+//        private LinearLayout lytImage;
         private TextView title;
 
         myViewHolder(View itemView) {
@@ -114,10 +114,10 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             dialog.setContentView(R.layout.dialog_add_coach_karyab);
             txtNotifBody=dialog.findViewById(R.id.edtBody);
             txtNotifTitle=dialog.findViewById(R.id.edtTitle);
-            lytImage=dialog.findViewById(R.id.lytImage);
+//            lytImage=dialog.findViewById(R.id.lytImage);
             title=dialog.findViewById(R.id.txtWindowTitle);
             title.setText("ویرایش کاریابی");
-            lytImage.setVisibility(View.GONE);
+//            lytImage.setVisibility(View.GONE);
             btnOk=dialog.findViewById(R.id.btnOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override

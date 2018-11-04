@@ -2262,11 +2262,11 @@ public class WebService {
         return null;
     }
 
-    public MainPageModel getMainPageCounts(boolean isInternetAvailable) {
+    public MainPageModel getMainPageCounts(boolean isInternetAvailable, int idState, int idField) {
 
         if (isInternetAvailable) {
 
-            String response = connectToServer(App.apiAddr + "Main/Get", "GET");
+            String response = connectToServer(App.apiAddr + "Main/Get?fid="+idField+"&sid="+idState, "GET");
 
 
             if (response != null) {

@@ -96,8 +96,8 @@ public class GymProfileActivity extends AppCompatActivity {
     private ImageView imgSorush;
     private ImageView imgLockAbout;
     private LinearLayout lytAbout;
-    private ImageView imgLockClip;
-    private LinearLayout lytClip;
+//    private ImageView imgLockClip;
+//    private LinearLayout lytClip;
     private int idsend;
     private SharedPreferences likes;
     String reqtoprefer;
@@ -262,8 +262,8 @@ public class GymProfileActivity extends AppCompatActivity {
         imgSorush = (ImageView) findViewById(R.id.imgSorush);
         imgLockAbout = (ImageView) findViewById(R.id.imgLockAbout);
         lytAbout = (LinearLayout) findViewById(R.id.lytAbout);
-        imgLockClip = (ImageView) findViewById(R.id.imgLockClip);
-        lytClip = (LinearLayout) findViewById(R.id.lytClip);
+//        imgLockClip = (ImageView) findViewById(R.id.imgLockClip);
+//        lytClip = (LinearLayout) findViewById(R.id.lytClip);
     }
 
     public void getWorkTime() {
@@ -325,8 +325,8 @@ public class GymProfileActivity extends AppCompatActivity {
             imgLockNotifs.setVisibility(View.GONE);
             lytAbout.setAlpha(1);
             imgLockAbout.setVisibility(View.GONE);
-            lytClip.setAlpha(1);
-            imgLockClip.setVisibility(View.GONE);
+//            lytClip.setAlpha(1);
+//            imgLockClip.setVisibility(View.GONE);
             btnLike.setEnabled(true);
 //            lytCoachRating.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -693,7 +693,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 3);
+                    intent.putExtra("SelectedTabIndex", 2);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
                 }
@@ -707,7 +707,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 4);
+                    intent.putExtra("SelectedTabIndex", 3);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
                 }
@@ -721,7 +721,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 5);
+                    intent.putExtra("SelectedTabIndex", 4);
 
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
@@ -736,7 +736,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 6);
+                    intent.putExtra("SelectedTabIndex", 5);
 
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);
@@ -750,7 +750,7 @@ public class GymProfileActivity extends AppCompatActivity {
                 if (gymModel.IsVerified) {
                     Intent intent = new Intent(GymProfileActivity.this, GymServiceActivity.class);
                     intent.putExtra("calledFromPanel", false);
-                    intent.putExtra("SelectedTabIndex", 7);
+                    intent.putExtra("SelectedTabIndex", 6);
                     intent.putExtra("work", gymModel.workTime);
                     intent.putExtra("idGym", idsend);
                     startActivity(intent);

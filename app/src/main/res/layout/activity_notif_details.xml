@@ -131,8 +131,9 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:id="@+id/txtNotifBody"
+                    android:gravity="right"
                     android:layout_gravity="right"
                     android:text="@string/test_karyabi"
                     android:lineSpacingMultiplier="1.3"

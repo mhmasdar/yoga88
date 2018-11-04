@@ -191,18 +191,6 @@ public class karyabiFragment extends Fragment {
             Recycler.clearAnimation();
 
             if (result > 0) {
-                Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                        R.drawable.ic_ok);
-                btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
-
-                // بستن دیالوگ حتما با تاخیر انجام شود
-                Handler handler1 = new Handler();
-                handler1.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                }, 1000);
                 sendFileDetails fileDetails = new sendFileDetails(result);
                 fileDetails.execute();
             }
