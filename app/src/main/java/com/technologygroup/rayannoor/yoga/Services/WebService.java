@@ -2435,7 +2435,7 @@ public class WebService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String response = connectToServerByJson(App.apiAddr + "Post/DeleteTraining", "POST",j.toString());
+            String response = connectToServerByJson(App.apiAddr + "Training/DeleteTraining", "POST",j.toString());
             if (response != null) {
                 return response;
             }
