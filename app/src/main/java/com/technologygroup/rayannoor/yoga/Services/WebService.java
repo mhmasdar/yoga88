@@ -684,6 +684,7 @@ public class WebService {
                         JSONObject Object = ArreyBodies.getJSONObject(i);
                         TeachTextImage model = new TeachTextImage();
                         model.Text = Object.getString("Body");
+                        model.Title = Arrey.getString("Title");
                         JSONArray imagej=Object.getJSONArray("Images");
                         try {
                             JSONObject im=imagej.getJSONObject(0);
