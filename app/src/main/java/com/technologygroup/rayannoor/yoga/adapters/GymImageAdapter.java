@@ -1,11 +1,19 @@
 package com.technologygroup.rayannoor.yoga.adapters;
 
+import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +24,7 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
 import com.technologygroup.rayannoor.yoga.Models.GalleryModel;
 import com.technologygroup.rayannoor.yoga.R;
+import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.List;
@@ -107,5 +116,108 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
             this.txtBody.setText(current.Description);
 
         }
+    }
+    public void removeItem(final int position, final GalleryModel current) {
+
+
+        //alert dialog
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("حذف");
+        alert.setMessage("آیا می خواهید حذف شود؟");
+        alert.setCancelable(false);
+        alert.setIcon(R.drawable.ic_delete);
+        alert.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK &&
+                        event.getAction() == KeyEvent.ACTION_UP &&
+                        !event.isCanceled()) {
+                    dialog.cancel();
+                    return true;
+                }
+                return false;
+            }
+        });
+        alert.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                WebServiceCallBackDelete callBack = new WebServiceCallBackDelete(current.id, position);
+                callBack.execute();
+            }
+        });
+        alert.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        alert.create().show();
+
+    }
+
+    private class WebServiceCallBackDelete extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        private int id, position;
+        String result;
+        Dialog dialog;
+
+        public WebServiceCallBackDelete(int id, int position) {
+            this.id = id;
+            this.position = position;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+
+            dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            result = webService.DeletePost(App.isInternetOn(), id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            dialog.dismiss();
+
+            if (result != null) {
+
+                if (result.equals("true")) {
+                    Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
+                    list.remove(position);
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(context, "عملیات نا موفق", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(context, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+
     }
 }
