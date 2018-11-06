@@ -83,7 +83,8 @@
         <activity android:name=".NavigationMenu.hameganiActivity" />
         <activity android:name=".referees.RefereeServicesActivity" />
         <activity android:name=".referees.RefereeProfileActivity" />
-        <activity android:name=".SelectRoleActivity"></activity>
+        <activity android:name=".SelectRoleActivity" />
+        <activity android:name=".Coaches.editTeachActivity"></activity>
     </application>
 
 </manifest>
