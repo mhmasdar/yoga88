@@ -34,7 +34,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="8dp"
-            android:id="@+id/lytDelete"
+            android:id="@+id/imgDelete"
             android:layout_height="wrap_content">
 
             <TextView
@@ -43,6 +43,7 @@
                 android:layout_marginRight="5dp"
                 android:textColor="@color/red"
                 android:textSize="12sp"
+
                 android:layout_height="wrap_content" />
 
             <ImageView

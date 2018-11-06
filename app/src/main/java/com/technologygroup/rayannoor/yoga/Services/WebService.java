@@ -2445,6 +2445,25 @@ public class WebService {
         }
         return null;
     }
+    public String DeleteGallery(boolean isInternetAvailable ,int idpost) {
+
+        if (isInternetAvailable) {
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID",idpost);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "Gallery/DeleteGallery", "POST",j.toString());
+            if (response != null) {
+                return response;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
     public String ForgetPass(boolean isInternetAvailable ,String phone) {
 
         if (isInternetAvailable) {

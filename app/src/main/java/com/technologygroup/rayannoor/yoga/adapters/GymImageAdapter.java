@@ -96,19 +96,21 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
+
         private ImageView img;
         private TextView txtBody;
         private int position;
         private GalleryModel current;
-        private LinearLayout lytDelete;
+        private LinearLayout imgDelete;
 
         myViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
+            imgDelete = itemView.findViewById(R.id.imgDelete);
             txtBody = (TextView) itemView.findViewById(R.id.txtBody);
-            lytDelete = (LinearLayout) itemView.findViewById(R.id.lytDelete);
+            imgDelete = (LinearLayout) itemView.findViewById(R.id.imgDelete);
         }
-        private void setData(GalleryModel current, int position) {
+        private void setData(final GalleryModel current, final int position) {
 
             if (current.img != null)
                 if (!current.img.equals("") && !current.img.equals("null"))
@@ -117,6 +119,18 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
             this.position = position;
             this.current = current;
             this.txtBody.setText(current.Description);
+            if(calledFromPanel) {
+                imgDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeItem(position, current);
+                    }
+                });
+            }
+            else
+            {
+                imgDelete.setVisibility(View.GONE);
+            }
 
         }
     }
@@ -194,7 +208,7 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.DeletePost(App.isInternetOn(), id);
+            result = webService.DeleteGallery(App.isInternetOn(), id);
 
             return null;
         }
