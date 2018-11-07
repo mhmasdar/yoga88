@@ -214,14 +214,13 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
 
         Intent intent = new Intent(activity , editTeachActivity.class);
 
-
+        intent.putExtra("idRow", idCoach);
         intent.putExtra("idteach", current.id);
 
 
         context.startActivity(intent);
 
     }
-
     private class WebServiceCallBackDelete extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
