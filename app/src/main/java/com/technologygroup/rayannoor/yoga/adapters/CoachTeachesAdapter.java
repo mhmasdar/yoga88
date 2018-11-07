@@ -25,6 +25,7 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
 import com.technologygroup.rayannoor.yoga.Coaches.addTeachActivity;
+import com.technologygroup.rayannoor.yoga.Coaches.editTeachActivity;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -163,7 +164,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
                     removeItem(position, current);
                     break;
                 case R.id.imgEdit:
-                    //editItem(position, current);
+                    editItem(position, current);
                     break;
             }
         }
@@ -204,6 +205,20 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
             }
         });
         alert.create().show();
+
+    }
+    public void editItem(final int position, final TeachesModel current) {
+
+
+        CoachServicesActivity activity = (CoachServicesActivity) context;
+
+        Intent intent = new Intent(activity , editTeachActivity.class);
+
+
+        intent.putExtra("idteach", current.id);
+
+
+        context.startActivity(intent);
 
     }
 
