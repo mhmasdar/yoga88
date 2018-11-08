@@ -82,7 +82,10 @@ public class refCourseFragment extends Fragment {
                 showDialog();
             }
         });
-
+        if(!calledFromPanel)
+        {
+            floactAction.setVisibility(View.GONE);
+        }
 
         return view;
     }

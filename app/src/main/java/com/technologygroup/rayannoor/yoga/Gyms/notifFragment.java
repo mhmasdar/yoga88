@@ -123,7 +123,7 @@ public class notifFragment extends Fragment {
 
 
     private void setUpRecyclerView() {
-        GymNotifAdapter adapter = new GymNotifAdapter(getActivity(),list,idGym);
+        GymNotifAdapter adapter = new GymNotifAdapter(getActivity(),list,idGym,calledFromPanel);
         Recycler.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(getContext());

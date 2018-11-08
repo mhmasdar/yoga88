@@ -44,12 +44,14 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
     private EditText edtTitle;
     private EditText edtBody;
     CircularProgressButton btnOk;
+    boolean calledFromPanel;
 
-    public GymNotifAdapter(Context context,List<ZanguleModel> l,int i) {
+    public GymNotifAdapter(Context context,List<ZanguleModel> l,int i,boolean b) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         list=l;
         idgym=i;
+        calledFromPanel=b;
     }
 
     @Override
@@ -111,6 +113,11 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
                     showDialog(current,position);
                 }
             });
+            if(!calledFromPanel)
+            {
+                imgDelete.setVisibility(View.GONE);
+                imgEdit.setVisibility(View.GONE);
+            }
         }
     }
     private void showDialog(final ZanguleModel c, final int pos) {

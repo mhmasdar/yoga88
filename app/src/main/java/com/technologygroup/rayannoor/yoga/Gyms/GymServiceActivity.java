@@ -38,7 +38,7 @@ public class GymServiceActivity extends AppCompatActivity {
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         selectedTabIndex = getIntent().getIntExtra("SelectedTabIndex", 0);
         idGym = getIntent().getIntExtra("idGym", -1);
-        Toast.makeText(this, ""+idGym, Toast.LENGTH_SHORT).show();
+
         about = getIntent().getStringExtra("about");
         work = getIntent().getStringExtra("work");
 
