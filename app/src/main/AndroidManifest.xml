@@ -84,7 +84,7 @@
         <activity android:name=".referees.RefereeServicesActivity" />
         <activity android:name=".referees.RefereeProfileActivity" />
         <activity android:name=".SelectRoleActivity" />
-        <activity android:name=".Coaches.editTeachActivity"></activity>
+        <activity android:name=".Coaches.editTeach_Activity"></activity>
     </application>
 
 </manifest>

@@ -19,13 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachServicesActivity;
-import com.technologygroup.rayannoor.yoga.Coaches.addTeachActivity;
-import com.technologygroup.rayannoor.yoga.Coaches.editTeachActivity;
+import com.technologygroup.rayannoor.yoga.Coaches.editTeach_Activity;
 import com.technologygroup.rayannoor.yoga.Models.TeachesModel;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -212,7 +209,7 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
 
         CoachServicesActivity activity = (CoachServicesActivity) context;
 
-        Intent intent = new Intent(activity , editTeachActivity.class);
+        Intent intent = new Intent(activity , editTeach_Activity.class);
 
         intent.putExtra("idRow", idCoach);
         intent.putExtra("idteach", current.id);
