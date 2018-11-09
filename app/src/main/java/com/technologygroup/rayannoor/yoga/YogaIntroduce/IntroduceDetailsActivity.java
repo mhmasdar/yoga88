@@ -82,7 +82,7 @@ public class IntroduceDetailsActivity extends AppCompatActivity {
         {
 
         }
-        Toast.makeText(this,""+ IDList.size(), Toast.LENGTH_SHORT).show();
+
         list = new ArrayList<>();
         WebServiceList webServiceList=new WebServiceList();
         webServiceList.execute();
