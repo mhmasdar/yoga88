@@ -91,6 +91,11 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
             holder.txtStatus.setText("فعال");
             holder.txtStatus.setTextColor(context.getResources().getColor(R.color.green));
         }
+        else
+        {
+            holder.txtStatus.setText("غیر فعال");
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.red));
+        }
 //        holder.Address = models.get(position).Address;
        // holder.Telegram = models.get(position).Telegram;
 //        holder.City = models.get(position).City;

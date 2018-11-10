@@ -52,6 +52,11 @@ public class RefereeListAdapter extends RecyclerView.Adapter<RefereeListAdapter.
             holder.txtStatus.setText("فعال");
             holder.txtStatus.setTextColor(context.getResources().getColor(R.color.green));
         }
+        else
+        {
+            holder.txtStatus.setText("غیر فعال");
+            holder.txtStatus.setTextColor(context.getResources().getColor(R.color.red));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
