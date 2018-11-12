@@ -31,7 +31,7 @@ public class CoachTeachsActivity extends AppCompatActivity {
     private int stateNumber;
     private int cityNumber;
     private int fieldNumber;
-    private SharedPreferences prefs;
+    private SharedPreferences prefs, prefsUser;
 
     WebServiceList webService;
     Button btnTryAgain;
@@ -51,9 +51,10 @@ public class CoachTeachsActivity extends AppCompatActivity {
         editor.putString("teachsCount", teachsCount);
         editor.apply();
 
-        stateNumber = prefs.getInt("idState", 0);
-        cityNumber = prefs.getInt("idCity", 0);
-        fieldNumber = prefs.getInt("idField", 0);
+        prefsUser = getSharedPreferences("User", 0);
+        stateNumber = prefsUser.getInt("idState", 0);
+        cityNumber = prefsUser.getInt("idCity", 0);
+        fieldNumber = prefsUser.getInt("idField", 0);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -89,7 +89,10 @@ public class CoachServicesPager extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 8;
+        if (calledFromPanel)
+            return 8;
+        else
+            return 6;
     }
 
 }

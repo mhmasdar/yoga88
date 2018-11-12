@@ -51,6 +51,8 @@ public class courseFragment extends Fragment {
     Dialog dialog;
     private int idCoach;
     boolean calledFromPanel;
+    WebServiceList webServiceList;
+    WebServiceADD callBack;
 
 
     public courseFragment() {
@@ -82,7 +84,7 @@ public class courseFragment extends Fragment {
         {
             floactAction.setVisibility(View.GONE);
         }
-        WebServiceList webServiceList=new WebServiceList();
+        webServiceList=new WebServiceList();
         webServiceList.execute();
         return view;
     }
@@ -111,7 +113,7 @@ public class courseFragment extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebServiceADD callBack = new WebServiceADD(edtCourse.getText().toString());
+                callBack = new WebServiceADD(edtCourse.getText().toString());
                  callBack.execute();
             }
         });
@@ -173,6 +175,7 @@ public class courseFragment extends Fragment {
         }
 
     }
+
     private class WebServiceADD extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -233,6 +236,19 @@ public class courseFragment extends Fragment {
             WebServiceList webServiceList=new WebServiceList();
             webServiceList.execute();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceList != null)
+            if (webServiceList.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceList.cancel(true);
+
+        if (callBack != null)
+            if (callBack.getStatus() == AsyncTask.Status.RUNNING)
+                callBack.cancel(true);
     }
 
 }

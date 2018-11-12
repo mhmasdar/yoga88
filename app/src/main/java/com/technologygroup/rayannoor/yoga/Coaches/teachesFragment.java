@@ -192,7 +192,7 @@ public class teachesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        WebServiceList webServiceList=new WebServiceList();
-        webServiceList.execute();
+        webService=new WebServiceList();
+        webService.execute();
     }
 }

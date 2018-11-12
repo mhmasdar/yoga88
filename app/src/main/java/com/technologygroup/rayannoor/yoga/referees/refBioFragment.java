@@ -72,6 +72,7 @@ public class refBioFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_add_coach_bio);
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtBio = (EditText) dialog.findViewById(R.id.edtBio);
+        edtBio.setText(txtBio.getText());
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
 
         dialog.setCancelable(true);
@@ -158,6 +159,7 @@ public class refBioFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             txtBio.setText(result);
+
         }
 
     }

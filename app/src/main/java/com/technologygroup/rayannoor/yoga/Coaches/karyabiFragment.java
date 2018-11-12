@@ -74,9 +74,8 @@ public class karyabiFragment extends Fragment {
     public boolean flagPermission = false;
     private static final int PICK_FILE_REQUEST = 1;
     private String selectedFilePath, selectedImgName = "";
-    public karyabiFragment() {
-        // Required empty public constructor
-    }
+    sendFileDetails fileDetails;
+    WebServiceList webServiceList;
 
 
     @Override
@@ -106,7 +105,7 @@ public class karyabiFragment extends Fragment {
             flagPermission = true;
         }
 
-        WebServiceList webServiceList=new WebServiceList();
+        webServiceList=new WebServiceList();
         webServiceList.execute();
 
 
@@ -191,67 +190,14 @@ public class karyabiFragment extends Fragment {
             Recycler.clearAnimation();
 
             if (result > 0) {
-                sendFileDetails fileDetails = new sendFileDetails(result);
+                fileDetails = new sendFileDetails(result);
                 fileDetails.execute();
             }
 
         }
 
     }
-    private class WebServiceList extends AsyncTask<Object, Void, Void> {
 
-        private WebService webService;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            webService = new WebService();
-            list = new ArrayList<>();
-            Recycler.showShimmerAdapter();
-        }
-
-        @Override
-        protected Void doInBackground(Object... params) {
-
-            list = webService.getCoachKaryabi(App.isInternetOn(), idCoach);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            Recycler.clearAnimation();
-
-            if (list != null) {
-
-                if (list.size() > 0) {
-
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.GONE);
-                    lytMain.setVisibility(View.VISIBLE);
-                    setUpRecyclerView();
-
-                } else {
-
-                    lytDisconnect.setVisibility(View.GONE);
-                    lytMain.setVisibility(View.GONE);
-                    lytEmpty.setVisibility(View.VISIBLE);
-
-
-                }
-
-            } else {
-
-                lytMain.setVisibility(View.GONE);
-                lytEmpty.setVisibility(View.GONE);
-                lytDisconnect.setVisibility(View.VISIBLE);
-
-            }
-
-        }
-
-    }
     View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -373,6 +319,7 @@ public class karyabiFragment extends Fragment {
             }
         }
     }
+
     private class CallBackFile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -432,4 +379,74 @@ public class karyabiFragment extends Fragment {
             }
         }
     }
+
+    private class WebServiceList extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+            list = new ArrayList<>();
+            Recycler.showShimmerAdapter();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            list = webService.getCoachKaryabi(App.isInternetOn(), idCoach);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Recycler.clearAnimation();
+
+            if (list != null) {
+
+                if (list.size() > 0) {
+
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.VISIBLE);
+                    setUpRecyclerView();
+
+                } else {
+
+                    lytDisconnect.setVisibility(View.GONE);
+                    lytMain.setVisibility(View.GONE);
+                    lytEmpty.setVisibility(View.VISIBLE);
+
+
+                }
+
+            } else {
+
+                lytMain.setVisibility(View.GONE);
+                lytEmpty.setVisibility(View.GONE);
+                lytDisconnect.setVisibility(View.VISIBLE);
+
+            }
+
+        }
+
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
+
+        if (webServiceList != null)
+            if (webServiceList.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceList.cancel(true);
+    }
+
 }

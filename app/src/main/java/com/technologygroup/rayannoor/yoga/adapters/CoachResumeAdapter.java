@@ -129,7 +129,7 @@ public class CoachResumeAdapter extends RecyclerView.Adapter<CoachResumeAdapter.
 
                txtResumeTitle.setText(current.Title);
            txtStartDate.setText("تاریخ شروع: " + current.startDate);
-            if (current.endDate.equals("") || current.endDate.equals("0")||current.endDate==null)
+            if (current.endDate.equals("") || current.endDate.equals("0")||current.endDate==null || current.endDate.equals("null"))
                 txtEndDate.setText("تاریخ پایان: تاکنون");
             else
                 txtEndDate.setText("تاریخ پایان: " + current.endDate);
