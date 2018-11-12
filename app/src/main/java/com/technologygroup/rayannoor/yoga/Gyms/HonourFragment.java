@@ -80,6 +80,7 @@ public class HonourFragment extends Fragment implements
     List<CoachHonorModel> list;
     GymHonourAdapter adapter;
     WebServiceList webServiceCoachInfo;
+    sendFileDetails fileDetails;
     private String selectedFilePath, selectedImgName = "";
     private static final String TIMEPICKER = "TimePickerDialog",
             DATEPICKER = "DatePickerDialog", MULTIDATEPICKER = "MultiDatePickerDialog";
@@ -376,7 +377,7 @@ public class HonourFragment extends Fragment implements
 
                 if (y > 0) {
                     model.id=y;
-                    sendFileDetails fileDetails = new sendFileDetails(model, y);
+                    fileDetails = new sendFileDetails(model, y);
                     fileDetails.execute();
 
                     model.id = y;

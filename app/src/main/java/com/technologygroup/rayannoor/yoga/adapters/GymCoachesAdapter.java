@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Coaches.CoachDetailsActivity;
 import com.technologygroup.rayannoor.yoga.Gyms.GymServiceActivity;
@@ -119,6 +121,11 @@ public class GymCoachesAdapter extends RecyclerView.Adapter<GymCoachesAdapter.my
                     removeItem(position,current);
                 }
             });
+
+            if (current.Img != null)
+                if (!current.Img.equals("") && !current.Img.equals("null"))
+                    Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+//
 
             this.position = position;
             this.current = current;

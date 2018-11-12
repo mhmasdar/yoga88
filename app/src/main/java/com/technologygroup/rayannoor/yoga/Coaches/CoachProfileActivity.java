@@ -395,6 +395,7 @@ public class CoachProfileActivity extends AppCompatActivity {
         getinfo.execute();
 
     }
+
     private class getInfo extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
