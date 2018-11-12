@@ -332,6 +332,7 @@ public class HonourFragment extends Fragment implements
         }
 
     }
+
     private class WebServiceAdd extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -512,6 +513,8 @@ public class HonourFragment extends Fragment implements
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+                webServiceCoachInfo = new WebServiceList();
+                webServiceCoachInfo.execute();
 
             }
 
