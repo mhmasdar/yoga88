@@ -71,6 +71,10 @@ public class notifFragment extends Fragment {
     private String selectedFilePath, selectedImgName = "";
     private TextView txtNoImage;
     private ImageView imgSelectPicture;
+    WebServiceList webServiceCoachInfo;
+    sendFileDetails fileDetails;
+    WebServiceAdd webServiceADD;
+    CallBackFile callBackFile;
     public notifFragment() {
         // Required empty public constructor
     }
@@ -109,7 +113,7 @@ public class notifFragment extends Fragment {
         }
 
         if(idGym>0) {
-            WebServiceList webServiceCoachInfo = new WebServiceList();
+            webServiceCoachInfo = new WebServiceList();
             webServiceCoachInfo.execute();
         }
         floactAction.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +233,7 @@ public class notifFragment extends Fragment {
                         dialog.dismiss();
                     }
                 }, 1000);
-                sendFileDetails fileDetails = new sendFileDetails(result);
+                fileDetails = new sendFileDetails(result);
                 fileDetails.execute();
             }
 
@@ -250,7 +254,7 @@ public class notifFragment extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebServiceAdd webServiceADD=new WebServiceAdd(edtTitle.getText().toString(),edtBody.getText().toString());
+                webServiceADD=new WebServiceAdd(edtTitle.getText().toString(),edtBody.getText().toString());
                 webServiceADD.execute();
             }
         });
@@ -374,7 +378,7 @@ public class notifFragment extends Fragment {
 
             if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
             {
-                CallBackFile callBackFile = new CallBackFile();
+                callBackFile = new CallBackFile();
                 callBackFile.execute();
             }
 
@@ -448,5 +452,19 @@ public class notifFragment extends Fragment {
                 Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceCoachInfo != null)
+            if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCoachInfo.cancel(true);
+        if (webServiceADD != null)
+            if (webServiceADD.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceADD.cancel(true);
+
+        if (callBackFile != null)
+            if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFile.cancel(true);
     }
 }

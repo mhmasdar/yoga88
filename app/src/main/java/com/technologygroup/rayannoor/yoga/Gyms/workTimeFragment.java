@@ -34,6 +34,7 @@ public class workTimeFragment extends Fragment {
     private CircularProgressButton btnOk;
     private int idGym;
     Dialog dialog;
+    WebgetTime webgetTime;
     public workTimeFragment() {
         // Required empty public constructor
     }
@@ -49,7 +50,7 @@ public class workTimeFragment extends Fragment {
         idGym = getArguments().getInt("idGym", -1);
         String work = getArguments().getString("work", "");
         txtWork.setText(work);
-        WebgetTime webgetTime=new WebgetTime();
+        webgetTime=new WebgetTime();
         webgetTime.execute();
         floactAction = (FloatingActionButton) view.findViewById(R.id.floactAction);
         floactAction.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +153,14 @@ public class workTimeFragment extends Fragment {
             }
         }
 
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webgetTime != null)
+            if (webgetTime.getStatus() == AsyncTask.Status.RUNNING)
+                webgetTime.cancel(true);
     }
 
 }

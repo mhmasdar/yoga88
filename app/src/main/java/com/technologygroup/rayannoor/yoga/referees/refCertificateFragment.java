@@ -603,6 +603,9 @@ public class refCertificateFragment extends Fragment implements
         if (callBackFile != null)
             if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
                 callBackFile.cancel(true);
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
     }
 
 }

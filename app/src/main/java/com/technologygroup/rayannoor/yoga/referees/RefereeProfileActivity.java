@@ -54,6 +54,9 @@ public class RefereeProfileActivity extends AppCompatActivity {
     int idsend;
     private Dialog dialog;
     Boolean calledFromPanel;
+
+    getInfo getinfo;
+    WebServiceCallgetDetail callCity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +108,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idReffre", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
 
-        WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
+        callCity = new WebServiceCallgetDetail();
         callCity.execute();
 
 
@@ -280,7 +283,7 @@ public class RefereeProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getInfo getinfo=new getInfo();
+        getinfo=new getInfo();
         getinfo.execute();
 
     }
@@ -324,6 +327,17 @@ public class RefereeProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (getinfo != null)
+            if (getinfo.getStatus() == AsyncTask.Status.RUNNING)
+                getinfo.cancel(true);
+        if (callCity != null)
+            if (callCity.getStatus() == AsyncTask.Status.RUNNING)
+                callCity.cancel(true);
     }
 
 }

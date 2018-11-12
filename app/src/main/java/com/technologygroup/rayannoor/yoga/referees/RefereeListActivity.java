@@ -34,7 +34,7 @@ public class RefereeListActivity extends AppCompatActivity {
     private int fieldNumber;
     private SharedPreferences prefs;
 
-    WebServiceCall call;;
+    WebServiceCall call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,5 +125,13 @@ public class RefereeListActivity extends AppCompatActivity {
     public void finishme(View v)
     {
         finish();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (call != null)
+            if (call.getStatus() == AsyncTask.Status.RUNNING)
+                call.cancel(true);
     }
 }

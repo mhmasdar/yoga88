@@ -82,6 +82,7 @@ public class refEducationFragment extends Fragment implements
     ImageView imgCertificate, imgSelectPicture, imgClose;
     CircularProgressButton btnOk;
     CallBackFile callBackFile;
+    sendFileDetails fileDetails;
 
 
     //relates to date and time picker
@@ -468,7 +469,7 @@ public class refEducationFragment extends Fragment implements
                 if (idm > 0)
                 {
                     model.id = idm;
-                    sendFileDetails fileDetails = new sendFileDetails(model, idm);
+                    fileDetails = new sendFileDetails(model, idm);
                     fileDetails.execute();
                 }
 
@@ -648,6 +649,9 @@ public class refEducationFragment extends Fragment implements
         if (callBackFileDetails != null)
             if (callBackFileDetails.getStatus() == AsyncTask.Status.RUNNING)
                 callBackFileDetails.cancel(true);
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
     }
 
 }

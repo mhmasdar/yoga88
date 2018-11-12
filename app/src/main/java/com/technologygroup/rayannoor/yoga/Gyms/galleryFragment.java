@@ -465,7 +465,6 @@ public class galleryFragment extends Fragment {
             }
         }
     }
-
 }
 
 

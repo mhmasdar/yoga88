@@ -81,6 +81,11 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
    //WebServiceCallBackEdit callBackFileDetails;
+   sendFileDetails fileDetails;
+    deleteImage deleteimage;
+    CallBackFile callBackFile;
+    WebServiceChangePass webServiceChangePass;
+    WebServiceEditProfile webServiceEditProfile;
 
     GymModel current;
 
@@ -177,7 +182,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         btnPassSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebServiceChangePass webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
                 webServiceChangePass.execute();
             }
         });
@@ -241,7 +246,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 tmp.Telegram=edtTelegram.getText().toString();
                 tmp.Instagram=edtInstagram.getText().toString();
                 tmp.Email=edtEmail.getText().toString();
-                WebServiceEditProfile webServiceEditProfile=new WebServiceEditProfile(tmp);
+                webServiceEditProfile=new WebServiceEditProfile(tmp);
                 webServiceEditProfile.execute();
 
             }
@@ -306,8 +311,8 @@ public class GymEditProfileActivity extends AppCompatActivity {
                     String extension = selectedFilePath.substring(selectedFilePath.lastIndexOf(".") + 1, selectedFilePath.length());
                     ClassDate classDate = new ClassDate();
                     selectedImgName = classDate.getDateTime() + "_" + "c_" + idCoach + "." + extension;
-                    deleteImage fileDetails = new deleteImage();
-                    fileDetails.execute();
+                    deleteimage = new deleteImage();
+                    deleteimage.execute();
                 }
             } else {
                 Toast.makeText(this, "خطا در انتخاب فایل", Toast.LENGTH_SHORT).show();
@@ -357,7 +362,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
             if (fileResult != null &&( fileResult.equals("ok")||fileResult.equals("OK"))) //file uploaded successfully
             {
-                CallBackFile callBackFile = new CallBackFile();
+                callBackFile = new CallBackFile();
                 callBackFile.execute();
             }
 
@@ -634,12 +639,12 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
             if(fileResult.equals("-2"))
             {
-               sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                fileDetails = new sendFileDetails(idCoach);
                 fileDetails.execute();
             }
             if (fileResult != null && fileResult.equals("OK")||fileResult.equals("ok")) //file uploaded successfully
             {
-               sendFileDetails fileDetails = new sendFileDetails(idCoach);
+               fileDetails = new sendFileDetails(idCoach);
                 fileDetails.execute();
             }
 
@@ -693,5 +698,22 @@ public class GymEditProfileActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onStop() {
+        super.onStop();
 
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
+
+        if (callBackFile != null)
+            if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFile.cancel(true);
+        if (webServiceChangePass != null)
+            if (webServiceChangePass.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceChangePass.cancel(true);
+        if (webServiceEditProfile != null)
+            if (webServiceEditProfile.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceEditProfile.cancel(true);
+    }
 }

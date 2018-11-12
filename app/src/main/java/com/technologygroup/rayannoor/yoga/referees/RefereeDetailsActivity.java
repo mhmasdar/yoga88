@@ -89,6 +89,9 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     RatingBar rating_dialog;
     CircularProgressButton btnOk;
     ImageView imgClose;
+    WebServiceCallLike webServiceCallLike;
+    WebServiceCallgetDetail webServiceCallgetDetail;
+    WebServiceCallِDisLike dislike;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -337,7 +340,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             CanLike = false;
                             coachModel.like++;
                             txtLikeCount.setText(coachModel.like + "");
-                            WebServiceCallLike webServiceCallLike = new WebServiceCallLike(true);
+                            webServiceCallLike = new WebServiceCallLike(true);
                             webServiceCallLike.execute();
 
                         } else {
@@ -373,7 +376,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             CanLike = false;
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
-                            WebServiceCallِDisLike dislike = new WebServiceCallِDisLike(false);
+                            dislike = new WebServiceCallِDisLike(false);
                             dislike.execute();
 
                         } else {
@@ -661,7 +664,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             dialogRating.dismiss();
                         }
                     }, 1000);
-                    WebServiceCallgetDetail webServiceCallgetDetail=new WebServiceCallgetDetail();
+                    webServiceCallgetDetail=new WebServiceCallgetDetail();
                     webServiceCallgetDetail.execute();
 
                 } else {
@@ -720,5 +723,19 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         }
 
     }
+    @Override
+    public void onStop() {
+        super.onStop();
 
+        if (webServiceCallLike != null)
+            if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCallLike.cancel(true);
+
+        if (webServiceCallgetDetail != null)
+            if (webServiceCallgetDetail.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCallgetDetail.cancel(true);
+        if (dislike != null)
+            if (dislike.getStatus() == AsyncTask.Status.RUNNING)
+                dislike.cancel(true);
+    }
 }

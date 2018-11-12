@@ -65,6 +65,7 @@ public class CoachProfileActivity extends AppCompatActivity {
     private LinearLayout lytTeach;
     private ImageView imgLockJob;
     private LinearLayout lytJob;
+    getInfo getinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -390,7 +391,7 @@ public class CoachProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getInfo getinfo=new getInfo();
+        getinfo=new getInfo();
         getinfo.execute();
 
     }
@@ -442,6 +443,9 @@ public class CoachProfileActivity extends AppCompatActivity {
         if (webServiceCoachInfo != null)
             if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCoachInfo.cancel(true);
+        if (getinfo != null)
+            if (getinfo.getStatus() == AsyncTask.Status.RUNNING)
+                getinfo.cancel(true);
     }
 
 }

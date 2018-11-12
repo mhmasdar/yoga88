@@ -35,6 +35,8 @@ public class aboutFragment extends Fragment {
     Dialog dialog;
     int idGym;
     boolean calledFromPanel;
+    WebgetBio webgetBio;
+    WebServiceBio webServiceBio;
     public aboutFragment() {
         // Required empty public constructor
     }
@@ -60,7 +62,7 @@ public class aboutFragment extends Fragment {
         {
             floactAction.setVisibility(View.GONE);
         }
-        WebgetBio webgetBio=new WebgetBio();
+        webgetBio=new WebgetBio();
         webgetBio.execute();
         return view;
     }
@@ -78,7 +80,7 @@ public class aboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Biotemp=edtAbout.getText().toString();
-                WebServiceBio webServiceBio=new WebServiceBio();
+                webServiceBio=new WebServiceBio();
                 webServiceBio.execute();
                 dialog.dismiss();
             }
@@ -127,10 +129,6 @@ public class aboutFragment extends Fragment {
 
         private WebService webService;
         String result;
-
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -151,5 +149,17 @@ public class aboutFragment extends Fragment {
             txtAbout.setText(result);
         }
 
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webgetBio != null)
+            if (webgetBio.getStatus() == AsyncTask.Status.RUNNING)
+                webgetBio.cancel(true);
+
+        if (webServiceBio != null)
+            if (webServiceBio.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceBio.cancel(true);
     }
 }

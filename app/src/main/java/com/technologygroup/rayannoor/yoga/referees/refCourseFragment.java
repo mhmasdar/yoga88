@@ -52,6 +52,9 @@ public class refCourseFragment extends Fragment {
     boolean calledFromPanel;
     List<CoachCourseModel> list;
     Dialog dialog;
+
+    WebServiceList webServiceList;
+    WebServiceADD webServiceADD;
     public refCourseFragment() {
         // Required empty public constructor
     }
@@ -114,8 +117,8 @@ public class refCourseFragment extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WebServiceADD callBack = new WebServiceADD(edtCourse.getText().toString());
-                callBack.execute();
+                webServiceADD = new WebServiceADD(edtCourse.getText().toString());
+                webServiceADD.execute();
             }
         });
         dialog.setCancelable(true);
@@ -233,9 +236,23 @@ public class refCourseFragment extends Fragment {
                 btnOk.revertAnimation();
                 Toast.makeText(getContext(), "خطا در برقراری ارتباط", Toast.LENGTH_LONG).show();
             }
-            WebServiceList webServiceList=new WebServiceList();
+            webServiceList=new WebServiceList();
             webServiceList.execute();
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceList != null)
+            if (webServiceList.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceList.cancel(true);
+
+        if (webServiceADD != null)
+            if (webServiceADD.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceADD.cancel(true);
+
+
     }
 
 }
