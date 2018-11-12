@@ -564,7 +564,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-
+            model.id=idCoach;
             dialog = new Dialog(GymEditProfileActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
