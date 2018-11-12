@@ -122,6 +122,7 @@ public class GymCoachesAdapter extends RecyclerView.Adapter<GymCoachesAdapter.my
                 }
             });
 
+
             if (current.Img != null)
                 if (!current.Img.equals("") && !current.Img.equals("null"))
                     Glide.with(context).load(App.imgAddr + current.Img).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
