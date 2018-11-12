@@ -221,7 +221,7 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
 
             if (result != null) {
 
-                if (result.equals("true")) {
+                if (result.equals("OK")||result.equals("ok")||result.equals("Ok")) {
                     Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
                     list.remove(position);
                     notifyDataSetChanged();

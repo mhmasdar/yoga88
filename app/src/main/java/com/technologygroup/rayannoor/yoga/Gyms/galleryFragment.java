@@ -75,6 +75,7 @@ public class galleryFragment extends Fragment {
     private static final int PICK_FILE_REQUEST = 1;
     private String selectedFilePath, selectedImgName = "";
     sendFileDetails fileDetails;
+    CallBackFile callBackFile;
     public galleryFragment() {
         // Required empty public constructor
     }
@@ -396,7 +397,7 @@ public class galleryFragment extends Fragment {
 
             if (fileResult != null && fileResult.equals("ok")) //file uploaded successfully
             {
-                CallBackFile callBackFile = new CallBackFile();
+                callBackFile = new CallBackFile();
                 callBackFile.execute();
             }
 
@@ -476,6 +477,9 @@ public class galleryFragment extends Fragment {
         if (fileDetails != null)
             if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
                 fileDetails.cancel(true);
+        if (callBackFile != null)
+            if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFile.cancel(true);
     }
 }
 
