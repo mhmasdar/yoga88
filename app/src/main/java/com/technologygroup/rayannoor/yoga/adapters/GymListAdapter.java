@@ -130,6 +130,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
                 intent.putExtra("Rate", holder.Rate);
                 intent.putExtra("State", holder.State);
                 intent.putExtra("Img", holder.Img);
+                intent.putExtra("IsVerified", holder.IsVerified);
 
                 context.startActivity(intent);
             }
@@ -168,6 +169,7 @@ public class GymListAdapter extends RecyclerView.Adapter<GymListAdapter.myViewHo
         public String City;
         public String State;
         public String Img;
+        public boolean IsVerified;
 
 
         private TextView txtGymName;

@@ -104,6 +104,8 @@ public class GymProfileActivity extends AppCompatActivity {
     String reqtopreferRate;
     boolean liked;
     float Rated;
+    boolean IsVerified;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,7 @@ public class GymProfileActivity extends AppCompatActivity {
         gymModel = new GymModel();
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
         idsend = getIntent().getIntExtra("idgym", -1);
+        IsVerified = getIntent().getBooleanExtra("IsVerified", false);
 
         WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
@@ -291,6 +294,7 @@ public class GymProfileActivity extends AppCompatActivity {
         gymModel.Address = getIntent().getStringExtra("Address");
         gymModel.Lat = getIntent().getDoubleExtra("Lat", 0);
         gymModel.Lon = getIntent().getDoubleExtra("Lon", 0);
+        gymModel.IsVerified = getIntent().getBooleanExtra("IsVerified", false);
 
 
     }
@@ -654,20 +658,7 @@ public class GymProfileActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onStop() {
-        super.onStop();
 
-        if (webServiceCallRateAdd != null)
-            if (webServiceCallRateAdd.getStatus() == AsyncTask.Status.RUNNING)
-                webServiceCallRateAdd.cancel(true);
-        if (like != null)
-            if (like.getStatus() == AsyncTask.Status.RUNNING)
-                like.cancel(true);
-        if (webServiceCallLike != null)
-            if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
-                webServiceCallLike.cancel(true);
-    }
     public void setbuttons()
     {
         lytGymHonours.setOnClickListener(new View.OnClickListener() {
@@ -874,6 +865,22 @@ public class GymProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceCallRateAdd != null)
+            if (webServiceCallRateAdd.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCallRateAdd.cancel(true);
+        if (like != null)
+            if (like.getStatus() == AsyncTask.Status.RUNNING)
+                like.cancel(true);
+        if (webServiceCallLike != null)
+            if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCallLike.cancel(true);
     }
 
 }
