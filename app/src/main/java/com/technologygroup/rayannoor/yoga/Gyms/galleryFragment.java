@@ -74,7 +74,7 @@ public class galleryFragment extends Fragment {
     public boolean flagPermission = false;
     private static final int PICK_FILE_REQUEST = 1;
     private String selectedFilePath, selectedImgName = "";
-
+    sendFileDetails fileDetails;
     public galleryFragment() {
         // Required empty public constructor
     }
@@ -212,14 +212,7 @@ public class galleryFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
 
-        if (webServiceCoachInfo != null)
-            if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
-                webServiceCoachInfo.cancel(true);
-    }
 
 
     private void showDialog() {
@@ -238,6 +231,12 @@ public class galleryFragment extends Fragment {
             public void onClick(View v) {
                 WebServiceAdd webServiceAdd=new WebServiceAdd();
                 webServiceAdd.execute();
+            }
+        });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             dialog.dismiss();
             }
         });
 
@@ -351,7 +350,7 @@ public class galleryFragment extends Fragment {
 
 
             if (resultAdd >0) {
-                    sendFileDetails fileDetails = new sendFileDetails(resultAdd);
+                    fileDetails = new sendFileDetails(resultAdd);
                     fileDetails.execute();
 
                 }
@@ -456,6 +455,8 @@ public class galleryFragment extends Fragment {
                 }, 1000);
 
                 Toast.makeText(getContext(), "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
+                webServiceCoachInfo=new WebServiceList();
+                webServiceCoachInfo.execute();
             }
 
             else
@@ -464,6 +465,17 @@ public class galleryFragment extends Fragment {
                 Toast.makeText(getContext(), "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webServiceCoachInfo != null)
+            if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCoachInfo.cancel(true);
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
     }
 }
 
