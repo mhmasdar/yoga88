@@ -86,7 +86,8 @@ public class GymEditProfileActivity extends AppCompatActivity {
     CallBackFile callBackFile;
     WebServiceChangePass webServiceChangePass;
     WebServiceEditProfile webServiceEditProfile;
-
+    String fname;
+    String lname;
     GymModel current;
 
     @Override
@@ -199,7 +200,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         edtFName = (EditText) findViewById(R.id.edtFName);
         lytMobile = (LinearLayout) findViewById(R.id.lytMobile);
         edtMobile = (EditText) findViewById(R.id.edtMobile);
-        edtLName = (EditText) findViewById(R.id.edtLName);
+        //edtLName = (EditText) findViewById(R.id.edtLName);
         lytTelegram = (LinearLayout) findViewById(R.id.lytTelegram);
         edtTelegram = (EditText) findViewById(R.id.edtTelegram);
         lytInstagram = (LinearLayout) findViewById(R.id.lytInstagram);
@@ -241,11 +242,13 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 tmp=new GymModel();
                 tmp.id=current.id;
                 tmp.Name=edtFName.getText().toString();
-                tmp.lName=edtLName.getText().toString();
+                //tmp.lName=edtLName.getText().toString();
                 tmp.Mobile=edtMobile.getText().toString();
                 tmp.Telegram=edtTelegram.getText().toString();
                 tmp.Instagram=edtInstagram.getText().toString();
                 tmp.Email=edtEmail.getText().toString();
+                tmp.lName=lname;
+                tmp.fname=fname;
                 webServiceEditProfile=new WebServiceEditProfile(tmp);
                 webServiceEditProfile.execute();
 
@@ -685,6 +688,8 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 edtInstagram.setText(panelj.getString("Instagram"));
                 edtTelegram.setText(panelj.getString("Telegram"));
                 edtLName.setText(panelj.getString("Address"));
+                fname=panelj.getString("FirstName");
+                lname=panelj.getString("LastName");
 
                 JSONObject imagej=panelj.getJSONObject("ProfileImage");
                 String imageName=imagej.getString("Name");
