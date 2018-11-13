@@ -18,6 +18,8 @@ import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 
+import org.json.JSONException;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 /**
@@ -118,7 +120,11 @@ public class refBioFragment extends Fragment {
         protected Void doInBackground(Object... params) {
 
             // id is for place
-            result = webService.editCoachBio(App.isInternetOn(), edtBio.getText().toString().trim() ,idCoach,"coach");
+            try {
+                result = webService.editCoachBio(App.isInternetOn(), edtBio.getText().toString().trim() ,idCoach,"coach");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 //0914 258 3265 12345

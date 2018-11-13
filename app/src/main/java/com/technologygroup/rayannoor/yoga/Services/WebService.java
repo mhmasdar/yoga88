@@ -620,12 +620,13 @@ public class WebService {
         } else
             return null;
     }
-    public String editCoachBio(boolean isInternetAvailable, String bio, int id,String type) {
+    public String editCoachBio(boolean isInternetAvailable, String bio, int id,String type) throws JSONException {
 
         if (isInternetAvailable) {
-            String mytitle;
-            //mytitle=bio.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "user/editbio?urid=" + id + "&bio=" +bio, "GET");
+           JSONObject bioj=new JSONObject();
+           bioj.put("ID",id);
+           bioj.put("Bio",bio);
+            String response = connectToServerByJson(App.apiAddr + "user/editbio", "POST",bioj.toString());
             Log.i("LOG", response + "");
             return response;
         } else
