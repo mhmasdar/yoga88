@@ -1,6 +1,7 @@
 package com.technologygroup.rayannoor.yoga.Coaches;
 
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.R;
@@ -139,14 +142,26 @@ public class bioFragment extends Fragment {
 
         private WebService webService;
         String result;
-
-
-
-
+        Dialog dialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+
+            dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
         }
 
         @Override
@@ -160,10 +175,17 @@ public class bioFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            result=result.replace("\"","");
-            result=result.replace("\\n","\n");
-            txtBio.setText(result);
-            Bio=result;
+            dialog.dismiss();
+            if(result!=null && !result.equals("null")) {
+                result = result.replace("\"", "");
+                result = result.replace("\\n", "\n");
+                txtBio.setText(result);
+                Bio = result;
+            }
+            else
+            {
+                Toast.makeText(getContext(), "اتصال به اینترنت خود را چک کنید", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
