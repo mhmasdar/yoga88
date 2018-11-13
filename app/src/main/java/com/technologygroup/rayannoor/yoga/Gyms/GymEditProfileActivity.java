@@ -200,7 +200,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         edtFName = (EditText) findViewById(R.id.edtFName);
         lytMobile = (LinearLayout) findViewById(R.id.lytMobile);
         edtMobile = (EditText) findViewById(R.id.edtMobile);
-        //edtLName = (EditText) findViewById(R.id.edtLName);
+        edtLName = (EditText) findViewById(R.id.edtLName);
         lytTelegram = (LinearLayout) findViewById(R.id.lytTelegram);
         edtTelegram = (EditText) findViewById(R.id.edtTelegram);
         lytInstagram = (LinearLayout) findViewById(R.id.lytInstagram);
@@ -231,7 +231,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         current.Instagram = getIntent().getStringExtra("CoachIdInstagram");
         current.Email = getIntent().getStringExtra("CoachEmail");
         edtFName.setText(getIntent().getStringExtra("CoachName"));
-        edtLName.setText(getIntent().getStringExtra("GymAddress"));
+      //  edtLName.setText(getIntent().getStringExtra("GymAddress"));
         edtMobile.setText(getIntent().getStringExtra("CoachMobile"));
         getInfo getinfo=new getInfo();
         getinfo.execute();
@@ -247,6 +247,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 tmp.Telegram=edtTelegram.getText().toString();
                 tmp.Instagram=edtInstagram.getText().toString();
                 tmp.Email=edtEmail.getText().toString();
+                tmp.Address=edtLName.getText().toString();
                 tmp.lName=lname;
                 tmp.fname=fname;
                 webServiceEditProfile=new WebServiceEditProfile(tmp);

@@ -394,13 +394,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                 webServiceCoachInfo.cancel(true);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getInfo getinfo=new getInfo();
-        getinfo.execute();
 
-    }
     private class getInfo extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -438,5 +432,13 @@ public class GymDetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfo getinfo=new getInfo();
+        getinfo.execute();
+
     }
 }
