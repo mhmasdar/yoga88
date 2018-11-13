@@ -166,6 +166,8 @@ public class refBioFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            result=result.replace("\"","");
+            result=result.replace("\\n","\n");
             txtBio.setText(result);
 
         }

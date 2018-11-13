@@ -149,9 +149,13 @@ public class aboutFragment extends Fragment {
             return null;
         }
 
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            result=result.replace("\"","");
+            result=result.replace("\\n","\n");
+
             txtAbout.setText(result);
         }
 
