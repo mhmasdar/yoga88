@@ -118,7 +118,7 @@ public class GymImageAdapter extends RecyclerView.Adapter<GymImageAdapter.myView
 
             this.position = position;
             this.current = current;
-            this.txtBody.setText(current.Description);
+            this.txtBody.setText(current.Title);
             if(calledFromPanel) {
                 imgDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
