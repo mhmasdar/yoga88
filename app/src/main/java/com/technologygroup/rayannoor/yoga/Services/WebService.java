@@ -1009,7 +1009,7 @@ public class WebService {
                         CoachGymsModel model = new CoachGymsModel();
                         model.id = Object.getInt("ID");
                         model.Img = Object.getJSONObject("ProfileImage").getString("Name");
-                        model.Name = Object.getString("FirstName")+" "+Object.getString("LastName");
+                        model.Name = Object.getString("Name");
                         model.like=Object.getInt("Likes");
                         list.add(model);
 
