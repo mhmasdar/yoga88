@@ -253,7 +253,7 @@ public class RefereeEducationAdapter extends RecyclerView.Adapter<RefereeEducati
         lytimage = dialogEdit.findViewById(R.id.lytimage);
         lytimage.setVisibility(View.GONE);
         txtWindowTitle.setText("ویرایش سوابق تحصیلی");
-//        edtTitle.setText(current.Name);
+        edtTitle.setText(current.Title);
 //        edtUniversity.setText(current.gettingPlace);
         edtDate.setText(current.Date);
 //        if (current.Img != null) {

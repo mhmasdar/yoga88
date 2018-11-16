@@ -163,11 +163,11 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
                 imgEdit.setVisibility(View.INVISIBLE);
                 imgDelete.setVisibility(View.INVISIBLE);
             }
-//
+
             if (current.ImgName != null)
                 if (!current.ImgName.equals("") && !current.ImgName.equals("null"))
                     Glide.with(context).load(App.imgAddr + current.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgEducation);
-//
+
             txtEducationTitle.setText(current.Title);
 
             this.position = position;
@@ -247,15 +247,14 @@ public class CoachEducationAdapter extends RecyclerView.Adapter<CoachEducationAd
         edtUniversity = dialogEdit.findViewById(R.id.edtUniversity);
         edtDate = dialogEdit.findViewById(R.id.edtDate);
         txtNoImage = dialogEdit.findViewById(R.id.txtNoImage);
-
         btnOk = dialogEdit.findViewById(R.id.btnOk);
         imgClose = dialogEdit.findViewById(R.id.imgClose);
         txtWindowTitle.setText("ویرایش سوابق تحصیلی");
         LinearLayout lytimage=dialogEdit.findViewById(R.id.lytimage);
         lytimage.setVisibility(View.GONE);
-//        edtTitle.setText(current.Name);
-//        edtUniversity.setText(current.gettingPlace);
-        edtDate.setText(current.Date);
+        edtTitle.setText(current.Title);
+//        edtUniversity.setText(current.Date);
+//        edtDate.setText(current.Date);
 //        if (current.Img != null) {
 //            if (!current.Img.equals("") && !current.Img.equals("null")) {
 //                imgCertificate.setVisibility(View.VISIBLE);

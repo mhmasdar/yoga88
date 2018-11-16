@@ -190,13 +190,13 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             title=dialog.findViewById(R.id.Title);
             imgClose=dialog.findViewById(R.id.imgClose);
             selectCoach=dialog.findViewById(R.id.CoachesSpinner);
-            title.setText("تغییر نام دوره");
+            title.setText("ویرایش دوره");
             btnOk=dialog.findViewById(R.id.btnOk);
             edtDateStart.setText(courseModel.startDate);
             edtDateEnd.setText(courseModel.endDate);
             edtTitle.setText(courseModel.Title);
             edtTime.setText(courseModel.Days);
-            WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
+            WebServiceListCoach webServiceListCoach=new WebServiceListCoach(courseModel.idcoach);
             webServiceListCoach.execute();
             edtDateStart.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -317,7 +317,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             @Override
             protected Void doInBackground(Object... params) {
 
-                result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,model.idcoach,edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateStart.getText().toString());
+                result = webService.EditGymTerm(App.isInternetOn(), model.idTerm,idGym,model.idcoach,edtTitle.getText().toString(),edtTime.getText().toString(),edtDateStart.getText().toString(),edtDateEnd.getText().toString());
 
                 return null;
             }
@@ -405,6 +405,11 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
 private class WebServiceListCoach extends AsyncTask<Object, Void, Void> {
 
     private WebService webService;
+    int idCouch;
+
+    public WebServiceListCoach(int idCouch){
+        this.idCouch = idCouch;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -433,18 +438,24 @@ private class WebServiceListCoach extends AsyncTask<Object, Void, Void> {
             for (int i = 0; i < listcoaches.size(); i++) {
                 coaches.add(listcoaches.get(i).fName + " " + listcoaches.get(i).lName);
                 coachesId.add(listcoaches.get(i).idUser);
-                setSpinner();
+                setSpinner(idCouch);
             }
 
         }
     }
 
     }
-        public void setSpinner()
+        public void setSpinner(int idCouch)
         {
+
             ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,coaches);
             dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             selectCoach.setAdapter(dataAdapterCourse);
+            for (int i = 0; i < coachesId.size(); i++){
+                if (coachesId.get(i) == idCouch){
+                    selectCoach.setSelection(i);
+                }
+            }
             selectCoach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

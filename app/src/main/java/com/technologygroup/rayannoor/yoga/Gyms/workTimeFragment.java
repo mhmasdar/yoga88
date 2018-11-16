@@ -72,6 +72,9 @@ public class workTimeFragment extends Fragment {
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         edtWorktime = (EditText) dialog.findViewById(R.id.edtWorktime);
         btnOk = (CircularProgressButton) dialog.findViewById(R.id.btnOk);
+        if (!txtWork.getText().toString().equals("")){
+            edtWorktime.setText(txtWork.getText().toString());
+        }
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -86,6 +86,13 @@ public class AddCoachActivity extends AppCompatActivity {
             }
         }, 200);
 
+
+        lytBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initView() {

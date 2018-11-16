@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -104,8 +105,6 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             txtNotifBody = (TextView) itemView.findViewById(R.id.txtNotifBody);
             imgDelete = (ImageView) itemView.findViewById(R.id.imgDelete);
             img = (ImageView) itemView.findViewById(R.id.img);
-
-
             imgEdit = (ImageView) itemView.findViewById(R.id.imgEdit);
         }
         private void showDialog(final ZanguleModel c, final int pos) {
@@ -114,10 +113,32 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             dialog.setContentView(R.layout.dialog_add_coach_karyab);
             txtNotifBody=dialog.findViewById(R.id.edtBody);
             txtNotifTitle=dialog.findViewById(R.id.edtTitle);
+            ImageView imgClose=dialog.findViewById(R.id.imgClose);
+            EditText edtTitle=dialog.findViewById(R.id.edtTitle);
+            EditText edtBody=dialog.findViewById(R.id.edtBody);
+            TextView txtNoImage = dialog.findViewById(R.id.txtNoImage);
+            ImageView imgCertificate = dialog.findViewById(R.id.imgCertificate);
+            ImageView imgSelectPicture = dialog.findViewById(R.id.imgSelectPicture);
 //            lytImage=dialog.findViewById(R.id.lytImage);
             title=dialog.findViewById(R.id.txtWindowTitle);
             title.setText("ویرایش کاریابی");
+            edtTitle.setText(c.title);
+            edtBody.setText(c.Body);
 //            lytImage.setVisibility(View.GONE);
+            if (c.image != null) {
+            if (!c.image .equals("") && !c.image .equals("null")) {
+                imgCertificate.setVisibility(View.VISIBLE);
+                txtNoImage.setVisibility(View.GONE);
+                //imgSelectPicture.setVisibility(View.GONE);
+                String selectedImgName = c.image ;
+                Glide.with(context).load(App.imgAddr + c.image ).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCertificate);
+            } else {
+
+            }
+        }else{
+            imgCertificate.setVisibility(View.GONE);
+            txtNoImage.setVisibility(View.VISIBLE);
+        }
             btnOk=dialog.findViewById(R.id.btnOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,6 +149,12 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
                     model.Body=txtNotifBody.getText().toString();
                     WebServiceCallBackEdit webServiceADD=new WebServiceCallBackEdit(model,pos);
                     webServiceADD.execute();
+                }
+            });
+            imgClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
                 }
             });
             dialog.setCancelable(true);
@@ -240,6 +267,7 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
             }
 
         }
+
         private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
 
             private WebService webService;
@@ -272,9 +300,6 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
 
                 if (result != null) {
                     if (result.equals("OK")||result.equals("Ok")) {
-                        list.remove(pos);
-                        list.add(pos, model);
-                        notifyDataSetChanged();
 
                         // بعد از اتمام عملیات کدهای زیر اجرا شوند
                         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
@@ -287,8 +312,12 @@ public class CoachKaryabAdapter extends RecyclerView.Adapter<CoachKaryabAdapter.
                             @Override
                             public void run() {
                                 dialog.dismiss();
+                                list.remove(pos);
+                                list.add(pos, model);
+                                notifyDataSetChanged();
                             }
                         }, 1000);
+
 
 
                         //Toast.makeText(context, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();

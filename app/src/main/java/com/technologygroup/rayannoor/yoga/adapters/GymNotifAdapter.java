@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Models.ZanguleModel;
 import com.technologygroup.rayannoor.yoga.R;
@@ -118,6 +120,11 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
                 imgDelete.setVisibility(View.GONE);
                 imgEdit.setVisibility(View.GONE);
             }
+
+            if (current.image != null)
+                if (!current.image.equals("") && !current.image.equals("null"))
+                    Glide.with(context).load(App.imgAddr + current.image).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgNotif);
+
         }
     }
     private void showDialog(final ZanguleModel c, final int pos) {
@@ -129,10 +136,19 @@ public class GymNotifAdapter extends RecyclerView.Adapter<GymNotifAdapter.myView
         edtBody=dialog.findViewById(R.id.edtBody);
         edtTitle=dialog.findViewById(R.id.edtTitle);
         lytImage=dialog.findViewById(R.id.lytImage);
+        ImageView imgClose = dialog.findViewById(R.id.imgClose);
         lytImage.setVisibility(View.GONE);
         title=dialog.findViewById(R.id.title);
         title.setText("ویرایش اعلان همگانی");
+        edtBody.setText(c.Body);
+        edtTitle.setText(c.title);
 
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         btnOk=dialog.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

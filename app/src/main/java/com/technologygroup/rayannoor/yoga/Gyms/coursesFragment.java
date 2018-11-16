@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -145,8 +146,16 @@ public class coursesFragment extends Fragment implements
         edtTime=dialog.findViewById(R.id.edtTime);
         selectCoach=dialog.findViewById(R.id.CoachesSpinner);
         btnOk=dialog.findViewById(R.id.btnOk);
+        ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
         WebServiceListCoach webServiceListCoach=new WebServiceListCoach();
         webServiceListCoach.execute();
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         edtDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
