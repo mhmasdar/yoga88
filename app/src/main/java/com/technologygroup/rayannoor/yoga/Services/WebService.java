@@ -2034,6 +2034,8 @@ public class WebService {
         if (isInternetAvailable) {
 
             String response = connectToServer(App.apiAddr + "user/GetgymTime?urid="+id, "GET");
+            response=response.replace("\"","");
+            response=response.replace("\\n","\n");
             return response;
         } else
             return null;
@@ -2320,12 +2322,21 @@ public class WebService {
         return null;
     }
     //////////////////////////////////////////////jsons function
-    public String editGymWorkTime(boolean isInternetAvailable, String bio, int id) {
+    public String editGymWorkTime(boolean isInternetAvailable, String Time, int id) {
 
         if (isInternetAvailable) {
-            String mytitle;
-            mytitle=bio.replace(" ", "%20");
-            String response = connectToServer(App.apiAddr + "user/editgymtime?urid=" + id + "&gymtime=" +mytitle, "GET");
+//            String mytitle;
+//            mytitle=bio.replace(" ", "%20");
+            JSONObject j=new JSONObject();
+            try {
+                j.put("ID", "" + id + "");
+                j.put("WorkingTime", Time);
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            String response = connectToServerByJson(App.apiAddr + "user/editgymtime", "POST",j.toString());
             Log.i("LOG", response + "");
             return response;
         } else
