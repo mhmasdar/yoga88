@@ -76,7 +76,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     WebServiceCallRateAdd webServiceCallRateAdd;
     WebServiceCallLike like;
-    WebServiceCallِDisLike dislike;
+    webServiceCallDislike dislike;
     WebServiceCallLike webServiceCallLike;
     private ImageView imgLockBio;
     private LinearLayout lytBio;
@@ -345,7 +345,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                             CanLike = false;
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
-                            dislike = new WebServiceCallِDisLike(false);
+                            dislike = new webServiceCallDislike(false);
                             dislike.execute();
 
                         } else {
@@ -609,13 +609,13 @@ public class CoachDetailsActivity extends AppCompatActivity {
         }
 
     }
-    private class WebServiceCallِDisLike extends AsyncTask<Object, Void, Void> {
+    private class webServiceCallDislike extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
         String result;
         boolean isLiked;
 
-        public WebServiceCallِDisLike(boolean isLiked) {
+        public webServiceCallDislike(boolean isLiked) {
             this.isLiked = isLiked;
         }
 

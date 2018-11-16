@@ -128,12 +128,12 @@ public class bioFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(result.equals("Ok"))
-            {
-            txtBio.setText(Biotemp);
+            if (result != null) {
+                if (result.equals("Ok")) {
+                    txtBio.setText(Biotemp);
+                }
+
             }
-
-
         }
 
     }
