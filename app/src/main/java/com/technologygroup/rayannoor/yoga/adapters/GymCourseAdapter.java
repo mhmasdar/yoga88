@@ -73,6 +73,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
     EditText t;
 
 
+
     public GymCourseAdapter(Context context, List<CourseModel> list, int idGym, boolean calledFromPanel) {
         this.context = context;
         this.list = list;
@@ -196,6 +197,7 @@ public class GymCourseAdapter extends RecyclerView.Adapter<GymCourseAdapter.myVi
             edtDateEnd.setText(courseModel.endDate);
             edtTitle.setText(courseModel.Title);
             edtTime.setText(courseModel.Days);
+
             WebServiceListCoach webServiceListCoach=new WebServiceListCoach(courseModel.idcoach);
             webServiceListCoach.execute();
             edtDateStart.setOnClickListener(new View.OnClickListener() {

@@ -1791,6 +1791,7 @@ public class WebService {
                         model.Title = Object.getString("Title");
                         // model.Times = Object.getString("Times");
                         model.Days = Object.getString("Days");
+                        model.idcoach=Object.getJSONObject("Coach").getInt("ID");
 
                         list.add(model);
 
