@@ -232,7 +232,6 @@
                             android:textSize="13sp"
                             android:gravity="right"
                             android:textColor="@color/lightBlack"
-
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
