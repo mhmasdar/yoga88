@@ -232,7 +232,7 @@
                             android:textSize="13sp"
                             android:gravity="right"
                             android:textColor="@color/lightBlack"
-                            android:text="تبریز - شهرک زعفرانیه - کوی شبنم - 10 متری 49 غربی - پلاک 11 - طبقه سوم"
+
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>

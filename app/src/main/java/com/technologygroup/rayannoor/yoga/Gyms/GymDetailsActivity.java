@@ -339,6 +339,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                     if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
                         Glide.with(GymDetailsActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
                 txtGymName.setText(gymModel.Name);
+
                 if(gymModel.IsVerified) {
                     txtCoachLevel.setText("فعال");
                 }
@@ -346,11 +347,10 @@ public class GymDetailsActivity extends AppCompatActivity {
                 {
                     txtCoachLevel.setText("غیر فعال");
                 }
-                String strRate = String.valueOf(gymModel.Rate);
-                if (strRate.length() > 3)
-                    strRate = strRate.substring(0, 3);
-                txtCoachRate.setText(strRate);
+                String strRate;
                 txtLikeCount.setText(gymModel.like + "");
+                strRate = String.valueOf(gymModel.Rate);
+                txtCoachRate.setText(strRate);
                 rating.setRating((float) gymModel.Rate);
                 if (gymModel.IsVerified) {
 

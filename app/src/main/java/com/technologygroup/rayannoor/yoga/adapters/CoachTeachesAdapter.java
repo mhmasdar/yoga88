@@ -130,9 +130,10 @@ public class CoachTeachesAdapter extends RecyclerView.Adapter<CoachTeachesAdapte
         private void setData(TeachesModel current, int position) {
 
             if (!calledFromPanel) {
-                imgEdit.setVisibility(View.INVISIBLE);
+
                 imgDelete.setVisibility(View.INVISIBLE);
             }
+            imgEdit.setVisibility(View.INVISIBLE);
 
 //            if (current.Images != null)
 //                if (!current.Images.equals("") && !current.Images.equals("null"))

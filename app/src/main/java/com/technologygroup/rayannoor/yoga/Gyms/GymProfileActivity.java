@@ -305,13 +305,7 @@ public class GymProfileActivity extends AppCompatActivity {
             if (gymModel.ImgName != null)
                 if (!gymModel.ImgName.equals("") && !gymModel.ImgName.equals("null"))
                     Glide.with(GymProfileActivity.this).load(App.imgAddr + gymModel.ImgName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(gymImage);
-        txtGymName.setText(gymModel.Name);
-        txtLikeCount.setText(gymModel.like + "");
-        txtAddress.setText(gymModel.Address);
-//        txtCoachCity.setText(coachModel.State + "\n" + coachModel.City);
-        String strRate = String.valueOf(gymModel.Rate);
-        txtGymRate.setText(strRate);
-        RatingBarGym.setRating((float) gymModel.Rate);
+
         if (gymModel.IsVerified) {
 //            ic_lock.setVisibility(View.GONE);
 //            imgLockGyms.setVisibility(View.GONE);
@@ -619,13 +613,17 @@ public class GymProfileActivity extends AppCompatActivity {
                 txtGymName.setText(gymModel.Name);
                 ClassLevels classLevels = new ClassLevels();
                 //txtCoachLevel.setText(classLevels.getCoachLevelName(gymModel.idCurrentPlan));
-                String strRate = String.valueOf(gymModel.Rate);
-                if (strRate.length() > 3)
-                    strRate = strRate.substring(0, 3);
-//                txtCoachRate.setText(strRate);
+                String strRate;
+
                 txtLikeCount.setText(gymModel.like + "");
                // rating.setRating((float) gymModel.Rate);
-
+                txtGymName.setText(gymModel.Name);
+                txtLikeCount.setText(gymModel.like + "");
+                txtAddress.setText(gymModel.Address);
+//        txtCoachCity.setText(coachModel.State + "\n" + coachModel.City);
+                strRate = String.valueOf(gymModel.Rate);
+                txtGymRate.setText(strRate);
+                RatingBarGym.setRating((float) gymModel.Rate);
                 if (gymModel.IsVerified) {
 
                     lytGymHonours.setAlpha(1);
@@ -642,6 +640,7 @@ public class GymProfileActivity extends AppCompatActivity {
                     imgLockAbout.setVisibility(View.GONE);
                     lytNotifs.setAlpha(1);
                     imgLockNotifs.setVisibility(View.GONE);
+
                     setbuttons();
                     setViews();
 
