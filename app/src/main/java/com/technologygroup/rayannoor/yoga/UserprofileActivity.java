@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.technologygroup.rayannoor.yoga.Classes.App;
 import com.technologygroup.rayannoor.yoga.Classes.ClassDate;
+import com.technologygroup.rayannoor.yoga.Coaches.CoachEditDetialsActivity;
 import com.technologygroup.rayannoor.yoga.Models.UserModel;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
@@ -61,8 +62,11 @@ public class UserprofileActivity extends AppCompatActivity {
     SharedPreferences prefs;
     UserModel userModel;
     private int idUser;
+    Dialog dialog;
 
     WebServiceCallBackEdit callBackEdit;
+    sendFileDetails fileDetails;
+    CallBackFile callBackFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -476,6 +480,18 @@ public class UserprofileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+            dialog = new Dialog(UserprofileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
 
         }
         @Override
@@ -496,13 +512,13 @@ public class UserprofileActivity extends AppCompatActivity {
 
             if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
             {
-                sendFileDetails fileDetails = new sendFileDetails(idUser);
+                fileDetails = new sendFileDetails(idUser);
                 fileDetails.execute();
             }
 
             else
             {
-
+                dialog.dismiss();
                 Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
@@ -539,13 +555,13 @@ public class UserprofileActivity extends AppCompatActivity {
 
             if (fileResult != null && (fileResult.equals("ok")||fileResult.equals("OK"))) //file uploaded successfully
             {
-                CallBackFile callBackFile = new CallBackFile();
+                callBackFile = new CallBackFile();
                 callBackFile.execute();
             }
 
             else
             {
-
+                dialog.dismiss();
                 Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
@@ -591,6 +607,7 @@ public class UserprofileActivity extends AppCompatActivity {
 //                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
 //                callBackFileDelete.execute();
             }
+            dialog.dismiss();
         }
     }
     private class getInfo extends AsyncTask<Object, Void, Void> {

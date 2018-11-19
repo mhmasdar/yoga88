@@ -83,6 +83,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
     CallBackFile callBackFile;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -472,7 +473,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 if (result.equals("Ok")) {
 
                     if (flagImgChanged) {
-                        CallBackFile callBackFile = new CallBackFile();
+                        callBackFile = new CallBackFile();
                         callBackFile.execute();
                     }
 
