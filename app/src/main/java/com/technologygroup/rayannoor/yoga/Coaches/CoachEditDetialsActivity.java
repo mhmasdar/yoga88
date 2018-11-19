@@ -614,6 +614,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
             }
             dialog.dismiss();
+            finish();
         }
     }
 

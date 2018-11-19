@@ -424,7 +424,6 @@ public class GymEditProfileActivity extends AppCompatActivity {
             if (fileResult == 200) {
 
                 Toast.makeText(GymEditProfileActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
-
             } else if (fileResult == 0) {
                 Toast.makeText(GymEditProfileActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
 //                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
@@ -435,6 +434,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 //                callBackFileDelete.execute();
             }
             dialog.dismiss();
+            finish();
         }
     }
 
