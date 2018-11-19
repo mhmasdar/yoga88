@@ -83,6 +83,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
     CallBackFile callBackFile;
 
 
+    boolean flagCanChange = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getInfo getinfo=new getInfo();
+        getInfo getinfo = new getInfo();
         getinfo.execute();
         lytChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +154,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                         editor.apply();
 
                         Intent intent = new Intent(CoachEditDetialsActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
 
@@ -174,11 +176,11 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
                     if (!edtFName.getText().toString().equals("") && !edtLName.getText().toString().equals("")) {
 
-                      //  if (edtNatCode.getText().toString().length() == 10) {
+                        //  if (edtNatCode.getText().toString().length() == 10) {
 
-                            CoachModel tmpModel = new CoachModel();
+                        CoachModel tmpModel = new CoachModel();
 
-                            if (!selectedImgName.equals("")) {
+                        if (!selectedImgName.equals("")) {
 
 //                                if (!current.Img.equals(selectedImgName)) {
 //                                    flagImgChanged = true;
@@ -190,21 +192,21 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 //                            } else {
 //                                flagImgChanged = false;
 //                                tmpModel.Img = current.Img;
-                            }
+                        }
 
 
-                            tmpModel.id = idCoach;
-                            tmpModel.fName = edtFName.getText().toString();
-                            tmpModel.lName = edtLName.getText().toString();
-                          //  tmpModel.natCode = edtNatCode.getText().toString();
-                            tmpModel.Mobile = edtMobile.getText().toString();
-                            tmpModel.Telegram = edtTelegram.getText().toString();
-                            tmpModel.Instagram = edtInstagram.getText().toString();
-                            tmpModel.Email = edtEmail.getText().toString();
+                        tmpModel.id = idCoach;
+                        tmpModel.fName = edtFName.getText().toString();
+                        tmpModel.lName = edtLName.getText().toString();
+                        //  tmpModel.natCode = edtNatCode.getText().toString();
+                        tmpModel.Mobile = edtMobile.getText().toString();
+                        tmpModel.Telegram = edtTelegram.getText().toString();
+                        tmpModel.Instagram = edtInstagram.getText().toString();
+                        tmpModel.Email = edtEmail.getText().toString();
 
 
-                            WebServiceEditProfile webServiceEditProfile = new WebServiceEditProfile(tmpModel);
-                            webServiceEditProfile.execute();
+                        WebServiceEditProfile webServiceEditProfile = new WebServiceEditProfile(tmpModel);
+                        webServiceEditProfile.execute();
 
 
 //                        } else {
@@ -233,7 +235,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         lytLogOut = (LinearLayout) findViewById(R.id.lytLogOut);
         edtFName = (EditText) findViewById(R.id.edtFName);
         edtLName = (EditText) findViewById(R.id.edtLName);
-      //  edtNatCode = (EditText) findViewById(R.id.edtNatCode);
+        //  edtNatCode = (EditText) findViewById(R.id.edtNatCode);
         lytMobile = (LinearLayout) findViewById(R.id.lytMobile);
         edtMobile = (EditText) findViewById(R.id.edtMobile);
         lytTelegram = (LinearLayout) findViewById(R.id.lytTelegram);
@@ -267,11 +269,23 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         current.Email = getIntent().getStringExtra("CoachEmail");
         edtFName.setText(getIntent().getStringExtra("CoachFName"));
         edtLName.setText(getIntent().getStringExtra("CoachLName"));
-       // edtNatCode.setText(getIntent().getStringExtra("CoachNatCode"));
-        edtMobile.setText(getIntent().getStringExtra("CoachMobile"));
-        edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
-        edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
-        edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
+        // edtNatCode.setText(getIntent().getStringExtra("CoachNatCode"));
+        if (getIntent().getStringExtra("CoachMobile").equals("") || getIntent().getStringExtra("CoachMobile").equals("null"))
+            edtMobile.setText("ندارد");
+        else
+            edtMobile.setText(getIntent().getStringExtra("CoachMobile"));
+        if (getIntent().getStringExtra("CoachIdTelegram").equals("") || getIntent().getStringExtra("CoachIdTelegram").equals("null"))
+            edtTelegram.setText("ندارد");
+        else
+            edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
+        if (getIntent().getStringExtra("CoachIdInstagram").equals("") || getIntent().getStringExtra("CoachIdInstagram").equals("null"))
+            edtInstagram.setText("ندارد");
+        else
+            edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
+        if (getIntent().getStringExtra("CoachEmail").equals("") || getIntent().getStringExtra("CoachEmail").equals("null"))
+            edtEmail.setText("ندارد");
+        else
+            edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
 
     }
 
@@ -292,7 +306,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         btnPassSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebServiceChangePass webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                WebServiceChangePass webServiceChangePass = new WebServiceChangePass(edtLastPass.getText().toString(), edtNewPass.getText().toString());
                 webServiceChangePass.execute();
             }
         });
@@ -312,7 +326,11 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
                     if (idCoach > 0) {
 
-                        showFileChooser();
+                        if (flagCanChange)
+                            showFileChooser();
+                        else
+                            Toast.makeText(CoachEditDetialsActivity.this, "در حال آپلود تصویر. کمی بعد امتحان کنید", Toast.LENGTH_LONG).show();
+
 
                     }
                 } else {
@@ -380,6 +398,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         } else
             flagPermission = false;
     }
+
     private class sendFileDetails extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -387,8 +406,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
         int ObjectID;
 
-        sendFileDetails( int ObjectID)
-        {
+        sendFileDetails(int ObjectID) {
             this.ObjectID = ObjectID;
         }
 
@@ -398,6 +416,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             webService = new WebService();
 
         }
+
         @Override
         protected Void doInBackground(Object... params) {
 
@@ -410,19 +429,17 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-            if (fileResult != null && fileResult.equals("OK")||fileResult.equals("ok")) //file uploaded successfully
+            if (fileResult != null && fileResult.equals("OK") || fileResult.equals("ok")) //file uploaded successfully
             {
                 callBackFile = new CallBackFile();
                 callBackFile.execute();
-            }
-
-            else
-            {
+            } else {
 
                 Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -490,6 +507,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceEditProfile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -564,6 +582,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
+            flagCanChange = false;
+
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
         }
@@ -580,6 +600,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            flagCanChange = true;
 
             if (fileResult == 200) {
 
@@ -595,6 +616,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     }
+
     private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -603,9 +625,9 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         String result;
         Dialog dialog;
 
-        public WebServiceChangePass(String o,String n) {
-            oldpass=o;
-            newpass=n;
+        public WebServiceChangePass(String o, String n) {
+            oldpass = o;
+            newpass = n;
         }
 
         @Override
@@ -633,7 +655,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.ChangePass(App.isInternetOn(),idCoach,oldpass,newpass);
+            result = webService.ChangePass(App.isInternetOn(), idCoach, oldpass, newpass);
             return null;
         }
 
@@ -644,7 +666,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (result != null) {
-                if (result.equals("OK")||result.equals("Ok")) {
+                if (result.equals("OK") || result.equals("Ok")) {
 
                     Toast.makeText(CoachEditDetialsActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
                     dialogForget.dismiss();
@@ -661,6 +683,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         }
 
     }
+
     private class deleteImage extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -684,6 +707,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             dialog.show();
 
         }
+
         @Override
         protected Void doInBackground(Object... params) {
 
@@ -698,26 +722,27 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (fileResult != null) {
+                if (fileResult.equals("-2")) {
+                    sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
+                }
+                else if (fileResult.equals("OK")) //file uploaded successfully
+                {
+                    sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
+                } else {
 
-            if(fileResult.equals("-2"))
-            {
-                sendFileDetails fileDetails = new sendFileDetails(idCoach);
-                fileDetails.execute();
-            }
-            if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
-            {
-                fileDetails = new sendFileDetails(idCoach);
-                fileDetails.execute();
-            }
+                    Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }else {
 
-            else
-            {
-
-                Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                Toast.makeText(CoachEditDetialsActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private class getInfo extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -743,14 +768,28 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             try {
-                JSONObject panelj=new JSONObject(Result);
-                edtEmail.setText(panelj.getString("Email"));
-                edtInstagram.setText(panelj.getString("Instagram"));
-                edtTelegram.setText(panelj.getString("Telegram"));
+                JSONObject panelj = new JSONObject(Result);
+                //edtEmail.setText(panelj.getString("Email"));
+                if (panelj.getString("Email").equals("") || panelj.getString("Email").equals("null"))
+                    edtEmail.setText("ندارد");
+                else
+                    edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
 
-                JSONObject imagej=panelj.getJSONObject("ProfileImage");
-                String imageName=imagej.getString("Name");
-                idimage=imagej.getInt("ID");
+                //edtInstagram.setText(panelj.getString("Instagram"));
+                if (panelj.getString("Instagram").equals("") || panelj.getString("Instagram").equals("null"))
+                    edtInstagram.setText("ندارد");
+                else
+                    edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
+
+                //edtTelegram.setText(panelj.getString("Telegram"));
+                if (panelj.getString("Telegram").equals("") || panelj.getString("Telegram").equals("null"))
+                    edtTelegram.setText("ندارد");
+                else
+                    edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
+
+                JSONObject imagej = panelj.getJSONObject("ProfileImage");
+                String imageName = imagej.getString("Name");
+                idimage = imagej.getInt("ID");
 
                 if (imageName != null)
                     if (!imageName.equals("") && !imageName.equals("null"))
@@ -760,6 +799,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();

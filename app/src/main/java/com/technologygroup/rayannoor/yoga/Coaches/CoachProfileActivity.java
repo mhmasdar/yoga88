@@ -420,20 +420,22 @@ public class CoachProfileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            try {
-                JSONObject panelj=new JSONObject(Result);
-                JSONObject imagej=panelj.getJSONObject("ProfileImage");
-                String imageName=imagej.getString("Name");
-                if (imageName != null)
-                    if (!imageName.equals("") && !imageName.equals("null")) {
-                        Glide.with(CoachProfileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
-                        SharedPreferences prefs = getSharedPreferences("User", 0);
-                        SharedPreferences.Editor editor=prefs.edit();
-                        editor.putString("image",imageName);
-                        editor.apply();
-                    }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (Result != null) {
+                try {
+                    JSONObject panelj = new JSONObject(Result);
+                    JSONObject imagej = panelj.getJSONObject("ProfileImage");
+                    String imageName = imagej.getString("Name");
+                    if (imageName != null)
+                        if (!imageName.equals("") && !imageName.equals("null")) {
+                            Glide.with(CoachProfileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgCoach);
+                            SharedPreferences prefs = getSharedPreferences("User", 0);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("image", imageName);
+                            editor.apply();
+                        }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

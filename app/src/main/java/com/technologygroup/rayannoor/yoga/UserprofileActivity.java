@@ -634,18 +634,20 @@ public class UserprofileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            try {
-                JSONObject panelj=new JSONObject(Result);
-                edtEmail.setText(panelj.getString("Email"));
-                JSONObject imagej=panelj.getJSONObject("ProfileImage");
-                String imageName=imagej.getString("Name");
-                idimage=imagej.getInt("ID");
+            if (Result != null) {
+                try {
+                    JSONObject panelj = new JSONObject(Result);
+                    edtEmail.setText(panelj.getString("Email"));
+                    JSONObject imagej = panelj.getJSONObject("ProfileImage");
+                    String imageName = imagej.getString("Name");
+                    idimage = imagej.getInt("ID");
 
-                if (imageName != null)
-                    if (!imageName.equals("") && !imageName.equals("null"))
-                        Glide.with(UserprofileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
-            } catch (JSONException e) {
-                e.printStackTrace();
+                    if (imageName != null)
+                        if (!imageName.equals("") && !imageName.equals("null"))
+                            Glide.with(UserprofileActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgProfile);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -419,17 +419,19 @@ public class GymDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            try {
-                JSONObject panelj=new JSONObject(Result);
-                JSONObject imagej=panelj.getJSONObject("ProfileImage");
-                String imageName=imagej.getString("Name");
-                if (imageName != null)
-                    if (!imageName.equals("") && !imageName.equals("null")) {
-                        Glide.with(GymDetailsActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
+            if (Result != null) {
+                try {
+                    JSONObject panelj = new JSONObject(Result);
+                    JSONObject imagej = panelj.getJSONObject("ProfileImage");
+                    String imageName = imagej.getString("Name");
+                    if (imageName != null)
+                        if (!imageName.equals("") && !imageName.equals("null")) {
+                            Glide.with(GymDetailsActivity.this).load(App.imgAddr + imageName).asBitmap().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgGym);
 
-                    }
-            } catch (JSONException e) {
-                e.printStackTrace();
+                        }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

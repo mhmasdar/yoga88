@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (Role.equals("User") && idUser > 0) {
 
                         Intent intent = new Intent(MainActivity.this, UserprofileActivity.class);
-                        intent.putExtra("idgym", idUser);
+                        intent.putExtra("idUser", idUser);
                         intent.putExtra("calledFromPanel", true);
                         startActivity(intent);
                     } else if (Role.equals("others") && idUser > 0) {

@@ -90,6 +90,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
     String fname;
     String lname;
     GymModel current;
+    boolean flagCanChange = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -268,7 +269,11 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
                     if (idCoach > 0) {
 
-                        showFileChooser();
+                        if (flagCanChange)
+                            showFileChooser();
+                        else
+                            Toast.makeText(GymEditProfileActivity.this, "در حال آپلود تصویر. کمی بعد امتحان کنید", Toast.LENGTH_LONG).show();
+
 
                     }
                 } else {
@@ -389,6 +394,8 @@ public class GymEditProfileActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
+            flagCanChange = false;
+
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
         }
@@ -405,6 +412,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            flagCanChange = true;
 
             if (fileResult == 200) {
 
@@ -655,21 +663,22 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            if(fileResult.equals("-2"))
-            {
-                fileDetails = new sendFileDetails(idCoach);
-                fileDetails.execute();
-            }
-            if (fileResult != null && fileResult.equals("OK")||fileResult.equals("ok")) //file uploaded successfully
-            {
-               fileDetails = new sendFileDetails(idCoach);
-                fileDetails.execute();
-            }
+            if (fileResult != null) {
+                if (fileResult.equals("-2")) {
+                    fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
+                }
+                else if (fileResult.equals("OK") || fileResult.equals("ok")) //file uploaded successfully
+                {
+                    fileDetails = new sendFileDetails(idCoach);
+                    fileDetails.execute();
+                } else {
+                    dialog.dismiss();
+                    Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                }
+            }else {
 
-            else
-            {
-                dialog.dismiss();
-                Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GymEditProfileActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }
     }
