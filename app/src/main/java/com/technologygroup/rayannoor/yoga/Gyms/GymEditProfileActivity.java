@@ -69,6 +69,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
     private RoundedImageView imgProfile;
     private LinearLayout lytEditInformation;
     private Dialog dialogForget;
+    private Dialog dialog;
 
     private int idCoach;
     private int idimage;
@@ -406,7 +407,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
 
             if (fileResult == 200) {
-//                dialog2.dismiss();
+
                 Toast.makeText(GymEditProfileActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
             } else if (fileResult == 0) {
@@ -418,6 +419,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 //                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
 //                callBackFileDelete.execute();
             }
+            dialog.dismiss();
         }
     }
     private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
@@ -624,6 +626,18 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+            dialog = new Dialog(GymEditProfileActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
 
         }
         @Override
@@ -654,7 +668,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
             else
             {
-
+                dialog.dismiss();
                 Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }

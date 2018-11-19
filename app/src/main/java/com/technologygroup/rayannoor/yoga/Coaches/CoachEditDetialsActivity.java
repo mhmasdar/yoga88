@@ -38,6 +38,7 @@ import com.technologygroup.rayannoor.yoga.RoundedImageView;
 import com.technologygroup.rayannoor.yoga.Services.FilePath;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
 import com.technologygroup.rayannoor.yoga.UserprofileActivity;
+import com.technologygroup.rayannoor.yoga.referees.RefereeDetailsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,6 +66,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
     private RoundedImageView imgProfile;
     private LinearLayout lytEditInformation;
     private Dialog dialogForget;
+    private Dialog dialog;
 
     private int idCoach;
     private int idimage;
@@ -77,6 +79,8 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     WebServiceCallBackEdit callBackFileDetails;
+    sendFileDetails fileDetails;
+    CallBackFile callBackFile;
 
 
     @Override
@@ -407,7 +411,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
             if (fileResult != null && fileResult.equals("OK")||fileResult.equals("ok")) //file uploaded successfully
             {
-                CallBackFile callBackFile = new CallBackFile();
+                callBackFile = new CallBackFile();
                 callBackFile.execute();
             }
 
@@ -577,18 +581,17 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
 
 
             if (fileResult == 200) {
-//                dialog2.dismiss();
+
                 Toast.makeText(CoachEditDetialsActivity.this, "تصویر با موفقیت آپلود شد", Toast.LENGTH_SHORT).show();
 
             } else if (fileResult == 0) {
                 Toast.makeText(CoachEditDetialsActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
             } else {
                 Toast.makeText(CoachEditDetialsActivity.this, "متاسفانه تصویر آپلود نشد", Toast.LENGTH_SHORT).show();
-//                CallBackFileDelete callBackFileDelete = new CallBackFileDelete();
-//                callBackFileDelete.execute();
+
             }
+            dialog.dismiss();
         }
     }
     private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
@@ -666,6 +669,18 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
+            dialog = new Dialog(CoachEditDetialsActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_wait);
+            ImageView logo = dialog.findViewById(R.id.logo);
+            //logo 360 rotate
+            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
+            rotation.setDuration(3000);
+            rotation.setRepeatCount(Animation.INFINITE);
+            rotation.start();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
 
         }
         @Override
@@ -690,7 +705,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             }
             if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
             {
-                sendFileDetails fileDetails = new sendFileDetails(idCoach);
+                fileDetails = new sendFileDetails(idCoach);
                 fileDetails.execute();
             }
 
@@ -698,6 +713,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
             {
 
                 Toast.makeText(CoachEditDetialsActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         }
     }
@@ -750,6 +766,12 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
         if (callBackFileDetails != null)
             if (callBackFileDetails.getStatus() == AsyncTask.Status.RUNNING)
                 callBackFileDetails.cancel(true);
+        if (fileDetails != null)
+            if (fileDetails.getStatus() == AsyncTask.Status.RUNNING)
+                fileDetails.cancel(true);
+        if (callBackFile != null)
+            if (callBackFile.getStatus() == AsyncTask.Status.RUNNING)
+                callBackFile.cancel(true);
     }
 
 }
