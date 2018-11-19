@@ -74,15 +74,15 @@ public class GymEditProfileActivity extends AppCompatActivity {
     private int idCoach;
     private int idimage;
     private boolean flagImgChanged = false;
-   
+
 
     public boolean flagPermission = false;
     private static final int PICK_FILE_REQUEST = 4;
     private String selectedFilePath, selectedImgName = "";
 
     private SharedPreferences prefs;
-   //WebServiceCallBackEdit callBackFileDetails;
-   sendFileDetails fileDetails;
+    //WebServiceCallBackEdit callBackFileDetails;
+    sendFileDetails fileDetails;
     deleteImage deleteimage;
     CallBackFile callBackFile;
     WebServiceChangePass webServiceChangePass;
@@ -143,7 +143,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                         editor.putBoolean("isFirstRun", false);
                         editor.apply();
                         Intent intent = new Intent(GymEditProfileActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
 
@@ -168,6 +168,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         });
 
     }
+
     private void showDialog() {
         dialogForget = new Dialog(GymEditProfileActivity.this);
         dialogForget.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -185,7 +186,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         btnPassSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webServiceChangePass=new WebServiceChangePass(edtLastPass.getText().toString(),edtNewPass.getText().toString());
+                webServiceChangePass = new WebServiceChangePass(edtLastPass.getText().toString(), edtNewPass.getText().toString());
                 webServiceChangePass.execute();
             }
         });
@@ -193,6 +194,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         dialogForget.setCanceledOnTouchOutside(true);
         dialogForget.show();
     }
+
     private void initView() {
         header = (LinearLayout) findViewById(R.id.header);
         relativeBack = (RelativeLayout) findViewById(R.id.relative_back);
@@ -215,6 +217,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         lytEditInformation = (LinearLayout) findViewById(R.id.lytEditInformation);
         lytok = (LinearLayout) findViewById(R.id.lytok);
     }
+
     private void setView() {
         current = new GymModel();
 
@@ -231,34 +234,38 @@ public class GymEditProfileActivity extends AppCompatActivity {
         current.Mobile = getIntent().getStringExtra("CoachMobile");
         current.Telegram = getIntent().getStringExtra("CoachIdTelegram");
         current.Instagram = getIntent().getStringExtra("CoachIdInstagram");
-        current.Email = getIntent().getStringExtra("CoachEmail");
+        if (getIntent().getStringExtra("CoachEmail").equals("") || getIntent().getStringExtra("CoachEmail").equals("null"))
+            edtEmail.setText("ندارد");
+        else
+            current.Email = getIntent().getStringExtra("CoachEmail");
         edtFName.setText(getIntent().getStringExtra("CoachName"));
-      //  edtLName.setText(getIntent().getStringExtra("GymAddress"));
+        //  edtLName.setText(getIntent().getStringExtra("GymAddress"));
         edtMobile.setText(getIntent().getStringExtra("CoachMobile"));
-        getInfo getinfo=new getInfo();
+        getInfo getinfo = new getInfo();
         getinfo.execute();
         lytok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GymModel tmp;
-                tmp=new GymModel();
-                tmp.id=current.id;
-                tmp.Name=edtFName.getText().toString();
+                tmp = new GymModel();
+                tmp.id = current.id;
+                tmp.Name = edtFName.getText().toString();
                 //tmp.lName=edtLName.getText().toString();
-                tmp.Mobile=edtMobile.getText().toString();
-                tmp.Telegram=edtTelegram.getText().toString();
-                tmp.Instagram=edtInstagram.getText().toString();
-                tmp.Email=edtEmail.getText().toString();
-                tmp.Address=edtLName.getText().toString();
-                tmp.lName=lname;
-                tmp.fname=fname;
-                webServiceEditProfile=new WebServiceEditProfile(tmp);
+                tmp.Mobile = edtMobile.getText().toString();
+                tmp.Telegram = edtTelegram.getText().toString();
+                tmp.Instagram = edtInstagram.getText().toString();
+                tmp.Email = edtEmail.getText().toString();
+                tmp.Address = edtLName.getText().toString();
+                tmp.lName = lname;
+                tmp.fname = fname;
+                webServiceEditProfile = new WebServiceEditProfile(tmp);
                 webServiceEditProfile.execute();
 
             }
         });
 
     }
+
     View.OnClickListener imgSelectPicture_click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -283,6 +290,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
         }
     };
+
     private void showFileChooser() {
         Intent intent = new Intent();
         //sets the select file to all types of files
@@ -340,6 +348,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         } else
             flagPermission = false;
     }
+
     private class sendFileDetails extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -347,8 +356,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
 
         int ObjectID;
 
-        sendFileDetails( int ObjectID)
-        {
+        sendFileDetails(int ObjectID) {
             this.ObjectID = ObjectID;
         }
 
@@ -358,6 +366,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             webService = new WebService();
 
         }
+
         @Override
         protected Void doInBackground(Object... params) {
 
@@ -370,19 +379,17 @@ public class GymEditProfileActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
 
-            if (fileResult != null &&( fileResult.equals("ok")||fileResult.equals("OK"))) //file uploaded successfully
+            if (fileResult != null && (fileResult.equals("ok") || fileResult.equals("OK"))) //file uploaded successfully
             {
                 callBackFile = new CallBackFile();
                 callBackFile.execute();
-            }
-
-            else
-            {
+            } else {
 
                 Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private class CallBackFile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -430,6 +437,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     }
+
     private class WebServiceCallBackEdit extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -498,6 +506,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceChangePass extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -506,9 +515,9 @@ public class GymEditProfileActivity extends AppCompatActivity {
         String result;
         Dialog dialog;
 
-        public WebServiceChangePass(String o,String n) {
-            oldpass=o;
-            newpass=n;
+        public WebServiceChangePass(String o, String n) {
+            oldpass = o;
+            newpass = n;
         }
 
         @Override
@@ -536,7 +545,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Object... params) {
 
-            result = webService.ChangePass(App.isInternetOn(),idCoach,oldpass,newpass);
+            result = webService.ChangePass(App.isInternetOn(), idCoach, oldpass, newpass);
             return null;
         }
 
@@ -547,7 +556,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (result != null) {
-                if (result.equals("OK")||result.equals("Ok")) {
+                if (result.equals("OK") || result.equals("Ok")) {
                     dialogForget.dismiss();
                     Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 
@@ -563,6 +572,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceEditProfile extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -578,7 +588,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-            model.id=idCoach;
+            model.id = idCoach;
             dialog = new Dialog(GymEditProfileActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_wait);
@@ -609,7 +619,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (result != null) {
-                if (result.equals("Ok")||result.equals("OK")) {
+                if (result.equals("Ok") || result.equals("OK")) {
 
                     Toast.makeText(GymEditProfileActivity.this, "با موفقیت به روز رسانی شد", Toast.LENGTH_LONG).show();
 
@@ -625,6 +635,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private class deleteImage extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -648,6 +659,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             dialog.show();
 
         }
+
         @Override
         protected Void doInBackground(Object... params) {
 
@@ -667,8 +679,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                 if (fileResult.equals("-2")) {
                     fileDetails = new sendFileDetails(idCoach);
                     fileDetails.execute();
-                }
-                else if (fileResult.equals("OK") || fileResult.equals("ok")) //file uploaded successfully
+                } else if (fileResult.equals("OK") || fileResult.equals("ok")) //file uploaded successfully
                 {
                     fileDetails = new sendFileDetails(idCoach);
                     fileDetails.execute();
@@ -676,12 +687,13 @@ public class GymEditProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                     Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
                 }
-            }else {
+            } else {
 
                 Toast.makeText(GymEditProfileActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private class getInfo extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -707,17 +719,28 @@ public class GymEditProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             try {
-                JSONObject panelj=new JSONObject(Result);
-                edtEmail.setText(panelj.getString("Email"));
-                edtInstagram.setText(panelj.getString("Instagram"));
-                edtTelegram.setText(panelj.getString("Telegram"));
-                edtLName.setText(panelj.getString("Address"));
-                fname=panelj.getString("FirstName");
-                lname=panelj.getString("LastName");
+                JSONObject panelj = new JSONObject(Result);
+                if (panelj.getString("Email").equals("") || panelj.getString("Email").equals("null"))
+                    edtEmail.setText("ندارد");
+                else
+                    edtEmail.setText(panelj.getString("Email"));
 
-                JSONObject imagej=panelj.getJSONObject("ProfileImage");
-                String imageName=imagej.getString("Name");
-                idimage=imagej.getInt("ID");
+                if (panelj.getString("Instagram").equals("") || panelj.getString("Instagram").equals("null"))
+                    edtInstagram.setText("ندارد");
+                else
+                    edtInstagram.setText(panelj.getString("Instagram"));
+
+                if (panelj.getString("Telegram").equals("") || panelj.getString("Telegram").equals("null"))
+                    edtTelegram.setText("ندارد");
+                else
+                    edtTelegram.setText(panelj.getString("Telegram"));
+                edtLName.setText(panelj.getString("Address"));
+                fname = panelj.getString("FirstName");
+                lname = panelj.getString("LastName");
+
+                JSONObject imagej = panelj.getJSONObject("ProfileImage");
+                String imageName = imagej.getString("Name");
+                idimage = imagej.getInt("ID");
 
                 if (imageName != null)
                     if (!imageName.equals("") && !imageName.equals("null"))
@@ -727,6 +750,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();

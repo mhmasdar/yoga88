@@ -773,19 +773,19 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                 if (panelj.getString("Email").equals("") || panelj.getString("Email").equals("null"))
                     edtEmail.setText("ندارد");
                 else
-                    edtEmail.setText(getIntent().getStringExtra("CoachEmail"));
+                    edtEmail.setText(panelj.getString("Email"));
 
                 //edtInstagram.setText(panelj.getString("Instagram"));
                 if (panelj.getString("Instagram").equals("") || panelj.getString("Instagram").equals("null"))
                     edtInstagram.setText("ندارد");
                 else
-                    edtInstagram.setText(getIntent().getStringExtra("CoachIdInstagram"));
+                    edtInstagram.setText(panelj.getString("Instagram"));
 
                 //edtTelegram.setText(panelj.getString("Telegram"));
                 if (panelj.getString("Telegram").equals("") || panelj.getString("Telegram").equals("null"))
                     edtTelegram.setText("ندارد");
                 else
-                    edtTelegram.setText(getIntent().getStringExtra("CoachIdTelegram"));
+                    edtTelegram.setText(panelj.getString("Telegram"));
 
                 JSONObject imagej = panelj.getJSONObject("ProfileImage");
                 String imageName = imagej.getString("Name");
