@@ -738,7 +738,7 @@ public class CoachEditDetialsActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             }else {
-
+                dialog.dismiss();
                 Toast.makeText(CoachEditDetialsActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }

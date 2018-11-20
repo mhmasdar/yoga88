@@ -68,6 +68,8 @@ public class UserprofileActivity extends AppCompatActivity {
     sendFileDetails fileDetails;
     CallBackFile callBackFile;
 
+    boolean flagCanChange = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -403,7 +405,11 @@ public class UserprofileActivity extends AppCompatActivity {
 
                     if (idUser > 0) {
 
-                        showFileChooser();
+                        if (flagCanChange)
+                            showFileChooser();
+                        else
+                            Toast.makeText(UserprofileActivity.this, "در حال آپلود تصویر. کمی بعد امتحان کنید", Toast.LENGTH_LONG).show();
+
 
                     }
                 } else {
@@ -508,18 +514,36 @@ public class UserprofileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+//
+//
+//            if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
+//            {
+//                fileDetails = new sendFileDetails(idUser);
+//                fileDetails.execute();
+//            }
+//
+//            else
+//            {
+//                dialog.dismiss();
+//                Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+//            }
+            if (fileResult != null) {
+                if (fileResult.equals("-2")) {
+                    fileDetails = new sendFileDetails(idUser);
+                    fileDetails.execute();
+                }
+                else if (fileResult.equals("OK")) //file uploaded successfully
+                {
+                    fileDetails = new sendFileDetails(idUser);
+                    fileDetails.execute();
+                } else {
 
-
-            if (fileResult != null && fileResult.equals("OK")) //file uploaded successfully
-            {
-                fileDetails = new sendFileDetails(idUser);
-                fileDetails.execute();
-            }
-
-            else
-            {
+                    Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }else {
                 dialog.dismiss();
-                Toast.makeText(UserprofileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserprofileActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -577,6 +601,7 @@ public class UserprofileActivity extends AppCompatActivity {
             super.onPreExecute();
             webService = new WebService();
 
+            flagCanChange = false;
             ClassDate classDate = new ClassDate();
             lastUpdate = classDate.getDateTime();
         }
@@ -593,6 +618,7 @@ public class UserprofileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            flagCanChange = true;
 
             if (fileResult == 200) {
 //                dialog2.dismiss();
@@ -608,6 +634,7 @@ public class UserprofileActivity extends AppCompatActivity {
 //                callBackFileDelete.execute();
             }
             dialog.dismiss();
+            finish();
         }
     }
     private class getInfo extends AsyncTask<Object, Void, Void> {

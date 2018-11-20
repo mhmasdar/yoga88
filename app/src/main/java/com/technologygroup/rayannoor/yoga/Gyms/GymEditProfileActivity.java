@@ -688,7 +688,7 @@ public class GymEditProfileActivity extends AppCompatActivity {
                     Toast.makeText(GymEditProfileActivity.this, "خطا در ارسال اطلاعات...لطفا مجددا سعی کنید", Toast.LENGTH_SHORT).show();
                 }
             } else {
-
+                dialog.dismiss();
                 Toast.makeText(GymEditProfileActivity.this, "ارتباط با سرور بر قرار نشد", Toast.LENGTH_SHORT).show();
             }
         }

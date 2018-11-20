@@ -281,6 +281,7 @@ public class WebService {
                 if (response.equals("-1")) {
 
                     model.id = -1;
+                    return model;
 
                 } else {
 
