@@ -65,6 +65,7 @@ public class GymDetailsActivity extends AppCompatActivity {
     private LinearLayout lytNotifs;
     private RelativeLayout lytGymProfileUpgrade;
     int idsend;
+    getInfo getinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -392,6 +393,9 @@ public class GymDetailsActivity extends AppCompatActivity {
         if (webServiceCoachInfo != null)
             if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCoachInfo.cancel(true);
+        if (getinfo != null)
+            if (getinfo.getStatus() == AsyncTask.Status.RUNNING)
+                getinfo.cancel(true);
     }
 
 
@@ -439,7 +443,7 @@ public class GymDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getInfo getinfo=new getInfo();
+        getinfo=new getInfo();
         getinfo.execute();
 
     }

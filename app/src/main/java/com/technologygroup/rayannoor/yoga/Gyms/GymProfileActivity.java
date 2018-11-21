@@ -91,7 +91,6 @@ public class GymProfileActivity extends AppCompatActivity {
     private int idUser;
     private SharedPreferences prefs;
     WebServiceCallRateAdd webServiceCallRateAdd;
-    WebServiceCallLike like;
     WebServiceCallLike webServiceCallLike;
     private ImageView imgSorush;
     private ImageView imgLockAbout;
@@ -106,6 +105,9 @@ public class GymProfileActivity extends AppCompatActivity {
     float Rated;
     boolean IsVerified;
 
+    webServiceCallDislike dislike;
+    WebServiceCoachInfo webServiceCoachInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +118,7 @@ public class GymProfileActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idgym", -1);
         IsVerified = getIntent().getBooleanExtra("IsVerified", false);
 
-        WebServiceCoachInfo webServiceCoachInfo = new WebServiceCoachInfo();
+        webServiceCoachInfo = new WebServiceCoachInfo();
         webServiceCoachInfo.execute();
 
         getWorkTime();
@@ -183,8 +185,8 @@ public class GymProfileActivity extends AppCompatActivity {
 
                             gymModel.like--;
                             txtLikeCount.setText(gymModel.like + "");
-                            like = new WebServiceCallLike(false);
-                            like.execute();
+                            dislike = new webServiceCallDislike(false);
+                            dislike.execute();
 
                         } else {
 
@@ -412,19 +414,6 @@ public class GymProfileActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             webService = new WebService();
-            dialog = new Dialog(GymProfileActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_wait);
-            ImageView logo = dialog.findViewById(R.id.logo);
-
-            //logo 360 rotate
-            ObjectAnimator rotation = ObjectAnimator.ofFloat(logo, "rotationY", 0, 360);
-            rotation.setDuration(3000);
-            rotation.setRepeatCount(Animation.INFINITE);
-            rotation.start();
-            dialog.setCancelable(false);
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
         }
 
         @Override
@@ -440,8 +429,7 @@ public class GymProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            SharedPreferences.Editor editor = prefs.edit();
-            dialog.dismiss();
+            SharedPreferences.Editor editor = likes.edit();
 
             if (isLiked) {
 
@@ -457,6 +445,8 @@ public class GymProfileActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         gymModel.like--;
                         txtLikeCount.setText(gymModel.like + "");
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
                     }
 
                 } else {
@@ -464,14 +454,104 @@ public class GymProfileActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     gymModel.like--;
                     txtLikeCount.setText(gymModel.like + "");
+                    editor.putBoolean(reqtoprefer, false);
+                    editor.apply();
                 }
 
             } else {
                 if (result != null) {
 
-                    if (Integer.parseInt(result) == 1) {
+                    //if (Integer.parseInt(result) == 1) {
+                    if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(GymProfileActivity.this, "ثبت نپسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(true);
+                        gymModel.like++;
+                        txtLikeCount.setText(gymModel.like + "");
+                    }
+
+                } else {
+                    Toast.makeText(GymProfileActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(true);
+                    gymModel.like++;
+                    txtLikeCount.setText(gymModel.like + "");
+                }
+
+            }
+
+            CanLike = true;
+
+        }
+
+    }
+
+    private class webServiceCallDislike extends AsyncTask<Object, Void, Void> {
+
+        private WebService webService;
+        String result;
+        boolean isLiked;
+
+        public webServiceCallDislike(boolean isLiked) {
+            this.isLiked = isLiked;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            webService = new WebService();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            // id is for place
+            result = webService.postdisLike(App.isInternetOn(), idsend);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SharedPreferences.Editor editor = likes.edit();
+
+            if (isLiked) {
+
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
+
+                    } else {
+                        Toast.makeText(GymProfileActivity.this, "ثبت پسندیدن نا موفق", Toast.LENGTH_LONG).show();
+                        btnLike.setLiked(false);
+                        gymModel.like++;
+                        txtLikeCount.setText(gymModel.like + "");
+                        editor.putBoolean(reqtoprefer, false);
+                        editor.apply();
+                    }
+
+                } else {
+                    Toast.makeText(GymProfileActivity.this, "اتصال با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+                    btnLike.setLiked(false);
+                    gymModel.like++;
+                    txtLikeCount.setText(gymModel.like + "");
+                    editor.putBoolean(reqtoprefer, false);
+                    editor.apply();
+                }
+
+            } else {
+                if (result != null) {
+
+                    if (result.equals("Ok")) {
+
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
 
                     } else {
@@ -523,7 +603,8 @@ public class GymProfileActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (result.equals("Ok")) {
+                //if (result.equals("Ok")) {
+                if (!result.equals("") && !result.equals("null")) {
 
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
@@ -560,6 +641,7 @@ public class GymProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceCoachInfo extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -874,12 +956,15 @@ public class GymProfileActivity extends AppCompatActivity {
         if (webServiceCallRateAdd != null)
             if (webServiceCallRateAdd.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallRateAdd.cancel(true);
-        if (like != null)
-            if (like.getStatus() == AsyncTask.Status.RUNNING)
-                like.cancel(true);
+        if (webServiceCoachInfo != null)
+            if (webServiceCoachInfo.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCoachInfo.cancel(true);
         if (webServiceCallLike != null)
             if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallLike.cancel(true);
+        if (dislike != null)
+            if (dislike.getStatus() == AsyncTask.Status.RUNNING)
+                dislike.cancel(true);
     }
 
 }

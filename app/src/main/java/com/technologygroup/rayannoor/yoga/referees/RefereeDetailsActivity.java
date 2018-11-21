@@ -91,15 +91,18 @@ public class RefereeDetailsActivity extends AppCompatActivity {
     ImageView imgClose;
     WebServiceCallLike webServiceCallLike;
     WebServiceCallgetDetail webServiceCallgetDetail;
-    WebServiceCallِDisLike dislike;
+    WebServiceCallDisLike dislike;
+    WebServiceCallgetDetail callCity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referee_details);
 
         coachModel=new CoachModel();
-        getInfo();
         initView();
+        getInfo();
         mypref = getSharedPreferences("User", 0);
         idUser = mypref.getInt("idUser", -1);
         reqtoprefer=""+idUser+":"+idsend;
@@ -123,7 +126,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         idsend = getIntent().getIntExtra("idReffre", -1);
         calledFromPanel = getIntent().getBooleanExtra("calledFromPanel", false);
 
-        WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
+        callCity = new WebServiceCallgetDetail();
         callCity.execute();
 
 
@@ -161,6 +164,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         imgLockBio = (ImageView) findViewById(R.id.imgLockBio);
 
     }
+
     public void setDetail()
     {
         Intent iin= getIntent();
@@ -191,6 +195,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
             return;
         }
     }
+
     protected void sendEmail() {
         Log.i("Send email", "");
 
@@ -212,6 +217,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void setViews() {
 
         if (coachModel.ImgName != null)
@@ -254,6 +260,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
 
     }
+
     private void others() {
         setViews();
         lytResume.setOnClickListener(new View.OnClickListener() {
@@ -376,7 +383,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             CanLike = false;
                             coachModel.like--;
                             txtLikeCount.setText(coachModel.like + "");
-                            dislike = new WebServiceCallِDisLike(false);
+                            dislike = new WebServiceCallDisLike(false);
                             dislike.execute();
 
                         } else {
@@ -398,6 +405,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         });
 
     }
+
     private class WebServiceCallLike extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -442,7 +450,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like--;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
                     }
 
@@ -451,7 +459,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like--;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + idsend, false);
+                    editor.putBoolean(reqtoprefer, false);
                     editor.apply();
                 }
 
@@ -459,7 +467,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                 if (result != null) {
 
                     if (result.equals("Ok")) {
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
 
                     } else {
@@ -483,13 +491,14 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         }
 
     }
-    private class WebServiceCallِDisLike extends AsyncTask<Object, Void, Void> {
+
+    private class WebServiceCallDisLike extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
         String result;
         boolean isLiked;
 
-        public WebServiceCallِDisLike(boolean isLiked) {
+        public WebServiceCallDisLike(boolean isLiked) {
             this.isLiked = isLiked;
         }
 
@@ -527,7 +536,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like++;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
                     }
 
@@ -536,7 +545,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like++;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + idsend, false);
+                    editor.putBoolean(reqtoprefer, false);
                     editor.apply();
                 }
 
@@ -545,7 +554,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
 
                     } else {
@@ -569,6 +578,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         }
 
     }
+
     private void showRatingDialog() {
         dialogRating = new Dialog(this);
         dialogRating.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -617,6 +627,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         dialogRating.setCanceledOnTouchOutside(true);
         dialogRating.show();
     }
+
     private class WebServiceCallRateAdd extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -645,7 +656,8 @@ public class RefereeDetailsActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (result.equals("Ok")) {
+                //if (result.equals("Ok")) {
+                if (!result.equals("") && !result.equals("null")) {
 
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
@@ -682,6 +694,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceCallgetDetail extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -723,6 +736,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -737,5 +751,8 @@ public class RefereeDetailsActivity extends AppCompatActivity {
         if (dislike != null)
             if (dislike.getStatus() == AsyncTask.Status.RUNNING)
                 dislike.cancel(true);
+        if (callCity != null)
+            if (callCity.getStatus() == AsyncTask.Status.RUNNING)
+                callCity.cancel(true);
     }
 }

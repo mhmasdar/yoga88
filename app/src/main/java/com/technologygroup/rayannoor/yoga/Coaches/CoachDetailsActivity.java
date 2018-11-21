@@ -75,7 +75,6 @@ public class CoachDetailsActivity extends AppCompatActivity {
     private int idUser;
     private SharedPreferences prefs;
     WebServiceCallRateAdd webServiceCallRateAdd;
-    WebServiceCallLike like;
     webServiceCallDislike dislike;
     WebServiceCallLike webServiceCallLike;
     private ImageView imgLockBio;
@@ -92,6 +91,9 @@ public class CoachDetailsActivity extends AppCompatActivity {
     String reqtopreferRate;
     boolean liked;
     float Rated;
+    WebServiceCallgetDetail callCity;
+    WebServiceCallgetDetail webServiceCallgetDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +113,8 @@ public class CoachDetailsActivity extends AppCompatActivity {
         //btnOk.doneLoadingAnimation
         getInfo();
     }
-    private void others()
-    {
+
+    private void others() {
         setViews();
         lytResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -420,7 +422,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
         coachModel = new CoachModel();
         idsend = getIntent().getIntExtra("idUser", -1);
-        WebServiceCallgetDetail callCity = new WebServiceCallgetDetail();
+        callCity = new WebServiceCallgetDetail();
         callCity.execute();
     }
 
@@ -567,7 +569,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like--;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
                     }
 
@@ -576,7 +578,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like--;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + idsend, false);
+                    editor.putBoolean(reqtoprefer, false);
                     editor.apply();
                 }
 
@@ -585,7 +587,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
 
                     } else {
@@ -609,6 +611,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         }
 
     }
+
     private class webServiceCallDislike extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -653,7 +656,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         btnLike.setLiked(false);
                         coachModel.like++;
                         txtLikeCount.setText(coachModel.like + "");
-                        editor.putBoolean(reqtoprefer + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
                     }
 
@@ -662,7 +665,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                     btnLike.setLiked(false);
                     coachModel.like++;
                     txtLikeCount.setText(coachModel.like + "");
-                    editor.putBoolean(reqtoprefer + idsend, false);
+                    editor.putBoolean(reqtoprefer, false);
                     editor.apply();
                 }
 
@@ -671,7 +674,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
                     if (result.equals("Ok")) {
 
-                        editor.putBoolean("isLiked_idCoachOrGym:" + idsend, false);
+                        editor.putBoolean(reqtoprefer, false);
                         editor.apply();
 
                     } else {
@@ -695,6 +698,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
         }
 
     }
+
     private class WebServiceCallRateAdd extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -723,7 +727,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
 
             if (result != null) {
 
-                if (result.equals("Ok")) {
+                if (!result.equals("") && !result.equals("null")) {
                     SharedPreferences.Editor editor = likes.edit();
                     editor.putFloat(reqtopreferRate,rating_dialog.getRating());
                     editor.apply();
@@ -742,7 +746,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
                         }
                     }, 1000);
 
-                    WebServiceCallgetDetail webServiceCallgetDetail=new WebServiceCallgetDetail();
+                    webServiceCallgetDetail=new WebServiceCallgetDetail();
                     webServiceCallgetDetail.execute();
                 } else {
                     btnOk.revertAnimation();
@@ -754,6 +758,7 @@ public class CoachDetailsActivity extends AppCompatActivity {
             }
         }
     }
+
     private class WebServiceCallgetDetail extends AsyncTask<Object, Void, Void> {
 
         private WebService webService;
@@ -802,12 +807,18 @@ public class CoachDetailsActivity extends AppCompatActivity {
         if (webServiceCallRateAdd != null)
             if (webServiceCallRateAdd.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallRateAdd.cancel(true);
-        if (like != null)
-            if (like.getStatus() == AsyncTask.Status.RUNNING)
-                like.cancel(true);
+        if (dislike != null)
+            if (dislike.getStatus() == AsyncTask.Status.RUNNING)
+                dislike.cancel(true);
         if (webServiceCallLike != null)
             if (webServiceCallLike.getStatus() == AsyncTask.Status.RUNNING)
                 webServiceCallLike.cancel(true);
+        if (callCity != null)
+            if (callCity.getStatus() == AsyncTask.Status.RUNNING)
+                callCity.cancel(true);
+      if (webServiceCallgetDetail != null)
+            if (webServiceCallgetDetail.getStatus() == AsyncTask.Status.RUNNING)
+                webServiceCallgetDetail.cancel(true);
     }
 
 

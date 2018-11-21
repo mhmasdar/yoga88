@@ -59,7 +59,7 @@ public class UserprofileActivity extends AppCompatActivity {
     private int idimage;
 
 
-    SharedPreferences prefs;
+    SharedPreferences prefs, likes;
     UserModel userModel;
     private int idUser;
     Dialog dialog;
@@ -124,6 +124,8 @@ public class UserprofileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         prefs = getSharedPreferences("User", 0);
+                        likes = getSharedPreferences("Likes", 0);
+                        likes.edit().clear().apply();
                         prefs.edit().clear().apply();
 
                         SharedPreferences.Editor editor = prefs.edit();
