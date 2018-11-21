@@ -668,6 +668,7 @@ public class RefereeDetailsActivity extends AppCompatActivity {
                             R.drawable.ic_ok);
                     btnOk.doneLoadingAnimation(R.color.green, icon); // finish loading
 
+
                     // بستن دیالوگ حتما با تاخیر انجام شود
                     Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
