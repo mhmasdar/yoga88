@@ -24,6 +24,7 @@ import com.technologygroup.rayannoor.yoga.Models.CoachModel;
 import com.technologygroup.rayannoor.yoga.Models.TeachTextImage;
 import com.technologygroup.rayannoor.yoga.R;
 import com.technologygroup.rayannoor.yoga.Services.WebService;
+import com.technologygroup.rayannoor.yoga.imageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,140 @@ public class CoachTeachDetailsActivity extends AppCompatActivity {
 //            }
 //        });
 
+        img[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(0).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+        img[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(1).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(2).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(3).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(4).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(5).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[6].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(6).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[7].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(7).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[8].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(8).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        img[9].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String img = list.get(9).Image;
+                if (img != null && !img.equals("null") && !img.equals(""))
+                {
+                    Intent intent = new Intent(CoachTeachDetailsActivity.this, imageActivity.class);
+                    intent.putExtra("ImgName", img);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
     }
+
 
     private void initView() {
         btnBack = (RelativeLayout) findViewById(R.id.btnBack);

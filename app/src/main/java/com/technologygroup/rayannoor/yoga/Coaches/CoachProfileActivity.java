@@ -227,16 +227,19 @@ public class CoachProfileActivity extends AppCompatActivity {
         lytTeachs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (coachModel.IsVerified) {
-                    Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
-                    intent.putExtra("calledFromPanel", true);
-                    intent.putExtra("idBio", coachModel.Bio);
-                    intent.putExtra("SelectedTabIndex", 6);
-                    intent.putExtra("idCoach", idCoach);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
-                }
+//                if (coachModel.IsVerified) {
+//                    Intent intent = new Intent(CoachProfileActivity.this, CoachServicesActivity.class);
+//                    intent.putExtra("calledFromPanel", true);
+//                    intent.putExtra("idBio", coachModel.Bio);
+//                    intent.putExtra("SelectedTabIndex", 6);
+//                    intent.putExtra("idCoach", idCoach);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(CoachProfileActivity.this, "برای دسترسی به این بخش باید پروفایل خود را فعال کنید", Toast.LENGTH_LONG).show();
+//                }
+
+                Toast.makeText(getApplicationContext(), "این بخش بزودی فعال خواهد شد..." , Toast.LENGTH_LONG).show();
+
             }
         });
         lytCourse.setOnClickListener(new View.OnClickListener() {

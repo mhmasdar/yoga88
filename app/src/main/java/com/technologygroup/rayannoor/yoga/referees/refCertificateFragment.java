@@ -78,7 +78,7 @@ public class refCertificateFragment extends Fragment implements
     String resultAdd;
 
     // dialog add content
-    EditText edtTitle, edtDate;
+    EditText edtTitle;
     TextView txtNoImage;
     ImageView imgCertificate, imgSelectPicture, imgClose;
     CircularProgressButton btnOk;
@@ -182,28 +182,28 @@ public class refCertificateFragment extends Fragment implements
         dialog.show();
 
         edtTitle = dialog.findViewById(R.id.edtTitle);
-        edtDate = dialog.findViewById(R.id.edtDate);
+//        edtDate = dialog.findViewById(R.id.edtDate);
         txtNoImage = dialog.findViewById(R.id.txtNoImage);
         imgCertificate = dialog.findViewById(R.id.imgCertificate);
         imgSelectPicture = dialog.findViewById(R.id.imgSelectPicture);
         btnOk = dialog.findViewById(R.id.btnOk);
         imgClose = dialog.findViewById(R.id.imgClose);
-        edtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                RefereeServicesActivity activity = (RefereeServicesActivity) getContext();
-                PersianCalendar now = new PersianCalendar();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(refCertificateFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
-                dpd.show(activity.getFragmentManager(), DATEPICKER);
-                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-            }
-        });
+//        edtDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                RefereeServicesActivity activity = (RefereeServicesActivity) getContext();
+//                PersianCalendar now = new PersianCalendar();
+//                DatePickerDialog dpd = DatePickerDialog.newInstance(refCertificateFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
+//                dpd.show(activity.getFragmentManager(), DATEPICKER);
+//                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialogInterface) {
+//                        Log.d("TimePicker", "Dialog was cancelled");
+//                    }
+//                });
+//            }
+//        });
 
         imgSelectPicture.setOnClickListener(imgSelectPicture_click);
 
@@ -218,7 +218,7 @@ public class refCertificateFragment extends Fragment implements
             @Override
             public void onClick(View v) {
 
-                if (!edtTitle.getText().toString().equals("") && !edtDate.getText().toString().equals("")) {
+                if (!edtTitle.getText().toString().equals("")) {
 
                     if (!selectedImgName.equals("")) {
 
@@ -260,7 +260,7 @@ public class refCertificateFragment extends Fragment implements
             date += "/" + dayOfMonth;
 
 
-        edtDate.setText(date);
+//        edtDate.setText(date);
 //        startDateInt = date.replace("/", "");
 
 
@@ -421,7 +421,7 @@ public class refCertificateFragment extends Fragment implements
             model.id = -1;
             model.idRow = idCoach;
             model.Title = edtTitle.getText().toString();
-            model.Date = edtDate.getText().toString();
+//            model.Date = edtDate.getText().toString();
 
         }
 

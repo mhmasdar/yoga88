@@ -942,7 +942,7 @@ public class GymProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String address = "http://maps.google.com/maps?daddr=" + gymModel.Lat + "," + gymModel.Lon;
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
                 startActivity(intent);
             }
         });

@@ -67,7 +67,7 @@
                 android:id="@+id/edtTime"
                 android:textColorHint="@color/lightBlack"
                 android:textColor="@color/lightBlack"
-                android:hint="زمان برگزاری کلاس "
+                android:hint="روز و ساعت برگزاری کلاس "
                 android:layout_marginTop="15dp"
                 android:textCursorDrawable="@color/colorPrimary"
                 android:layout_marginRight="10dp"

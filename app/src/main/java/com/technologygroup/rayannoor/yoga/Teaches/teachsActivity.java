@@ -68,9 +68,11 @@ public class teachsActivity extends AppCompatActivity {
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(teachsActivity.this, CoachTeachsActivity.class);
-                intent.putExtra("teachsCount" , teachsCount);
-                startActivity(intent);
+//                Intent intent = new Intent(teachsActivity.this, CoachTeachsActivity.class);
+//                intent.putExtra("teachsCount" , teachsCount);
+//                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "این بخش بزودی فعال خواهد شد..." , Toast.LENGTH_LONG).show();
             }
         });
 

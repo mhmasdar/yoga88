@@ -283,7 +283,7 @@ public class CoachCertificateAdapter extends RecyclerView.Adapter<CoachCertifica
         imgClose = dialogEdit.findViewById(R.id.imgClose);
 
 
-        txtWindowTitle.setText("ویرایش سوابق تحصیلی");
+        txtWindowTitle.setText("ویرایش مدرک");
         edtTitle.setText(current.Title);
 //        edtBody.setText(current.Des);
         edtDate.setText(current.Date);

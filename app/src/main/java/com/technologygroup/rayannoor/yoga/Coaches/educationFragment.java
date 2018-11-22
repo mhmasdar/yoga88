@@ -77,7 +77,7 @@ public class educationFragment extends Fragment implements
     String resultAdd;
 
     // dialog add content
-    EditText edtTitle, edtUniversity, edtDate;
+    EditText edtTitle, edtUniversity;
     TextView txtNoImage;
     ImageView imgCertificate, imgSelectPicture, imgClose;
     CircularProgressButton btnOk;
@@ -185,7 +185,7 @@ public class educationFragment extends Fragment implements
 
         edtTitle = dialog.findViewById(R.id.edtTitle);
         edtUniversity = dialog.findViewById(R.id.edtUniversity);
-        edtDate = dialog.findViewById(R.id.edtDate);
+//        edtDate = dialog.findViewById(R.id.edtDate);
         txtNoImage = dialog.findViewById(R.id.txtNoImage);
         imgCertificate = dialog.findViewById(R.id.imgCertificate);
         imgSelectPicture = dialog.findViewById(R.id.imgSelectPicture);
@@ -193,24 +193,24 @@ public class educationFragment extends Fragment implements
         imgClose = dialog.findViewById(R.id.imgClose);
 
 
-        edtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                CoachServicesActivity activity = (CoachServicesActivity) getContext();
-
-                PersianCalendar now = new PersianCalendar();
-
-                DatePickerDialog dpd = DatePickerDialog.newInstance(educationFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
-                dpd.show(activity.getFragmentManager(), DATEPICKER);
-                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-            }
-        });
+//        edtDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                CoachServicesActivity activity = (CoachServicesActivity) getContext();
+//
+//                PersianCalendar now = new PersianCalendar();
+//
+//                DatePickerDialog dpd = DatePickerDialog.newInstance(educationFragment.this, now.getPersianYear(), now.getPersianMonth(), now.getPersianDay());
+//                dpd.show(activity.getFragmentManager(), DATEPICKER);
+//                dpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialogInterface) {
+//                        Log.d("TimePicker", "Dialog was cancelled");
+//                    }
+//                });
+//            }
+//        });
 
         imgSelectPicture.setOnClickListener(imgSelectPicture_click);
 
@@ -225,7 +225,7 @@ public class educationFragment extends Fragment implements
             @Override
             public void onClick(View v) {
 
-                if (!edtTitle.getText().toString().equals("") && !edtUniversity.getText().toString().equals("")&& !edtDate.getText().toString().equals("")) {
+                if (!edtTitle.getText().toString().equals("") && !edtUniversity.getText().toString().equals("")) {
 
                     if (!selectedImgName.equals("")) {
                         callBackFileDetails = new WebServiceAdd();
@@ -266,7 +266,7 @@ public class educationFragment extends Fragment implements
             date += "/" + dayOfMonth;
 
 
-        edtDate.setText(date);
+//        edtDate.setText(date);
 //        startDateInt = date.replace("/", "");
 
 
@@ -429,7 +429,7 @@ public class educationFragment extends Fragment implements
             model.Title=edtTitle.getText().toString();
 //            model.Name = edtTitle.getText().toString();
 //            model.gettingPlace = edtUniversity.getText().toString();
-            model.Date = edtDate.getText().toString();
+//            model.Date = edtDate.getText().toString();
 //            model.Img = selectedImgName;
         }
 
