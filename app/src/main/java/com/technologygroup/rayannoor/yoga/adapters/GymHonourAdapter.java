@@ -265,7 +265,7 @@ public class GymHonourAdapter extends RecyclerView.Adapter<GymHonourAdapter.myVi
             @Override
             public void onClick(View v) {
 
-                dialog.dismiss();
+                dialogedit.dismiss();
             }
         });
         dialogedit.setCancelable(true);
